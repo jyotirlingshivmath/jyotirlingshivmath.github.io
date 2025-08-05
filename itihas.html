@@ -1,78 +1,57 @@
 ﻿<!DOCTYPE html>
 <html lang="hi">
 <head>
-    <meta charset="UTF-8">
-    <title>ज्योतिर्लिंग शिवमठ - इतिहास</title>
-    <style>
-        body {
-            font-family: "Mangal", sans-serif;
-            background-image: url('background.jpg');
-            background-size: cover;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
-            background-position: center;
-            margin: 0;
-            padding: 0;
-            color: white;
-        }
-        .overlay {
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 30px;
-            margin: 0;
-            min-height: 100vh;
-        }
-        .content {
-            max-width: 900px;
-            margin: auto;
-            text-align: justify;
-            font-size: 20px;
-            line-height: 1.8;
-        }
-        h1 {
-            text-align: center;
-            font-size: 36px;
-            margin-bottom: 30px;
-        }
-        .nav {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        .nav a {
-            text-decoration: none;
-            color: white;
-            font-weight: bold;
-            padding: 12px 25px;
-            border-radius: 30px;
-            font-size: 20px;
-            transition: 0.3s ease;
-        }
-        .nav a:nth-child(1) {
-            background: linear-gradient(45deg, #ff6666, #cc0000);
-        }
-        .nav a:nth-child(2) {
-            background: linear-gradient(45deg, #66cc66, #009933);
-        }
-        .nav a:nth-child(3) {
-            background: linear-gradient(45deg, #6699ff, #0033cc);
-        }
-        .nav a:hover {
-            opacity: 0.8;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>इतिहास - श्री ज्योतिर्लिंग शिवमठ</title>
+  <style>
+    body {
+      font-family: 'Mangal', sans-serif;
+      background-color: #fffbea;
+      margin: 0;
+      padding: 0;
+    }
+
+    .content-container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #ffffff;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
+      border-radius: 10px;
+      line-height: 1.8;
+      font-size: 1.2rem;
+      color: #4a148c;
+    }
+
+    h1 {
+      text-align: center;
+      color: darkred;
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+  </style>
 </head>
 <body>
-    <div class="overlay">
-        <div class="nav">
-            <a href="index.html">मुख्य पृष्ठ</a>
-            <a href="itihas.html">इतिहास</a>
-            <a href="shivtandavak.html">शिवताण्डवक</a>
-<a href="videos.html" style="background-color: #FFFAF0; color: red; text-decoration: none; padding: 10px 20px; margin: 0 10px; border-radius: 10px; font-size: 18px;">वीडियोज</a>
-        </div>
- <div class="content">
-            <h1>ज्योतिर्लिंग शिवमठ लखनऊ का इतिहास</h1>
+
+<!-- 🔱 Header Placeholder -->
+<div id="header-placeholder"></div>
+
+<!-- 🔁 Load header.html dynamically -->
+<script>
+  fetch('header.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('header-placeholder').innerHTML = data;
+    });
+</script>
+
+<!-- 📜 Itihas Content Start -->
+<div class="content-container">
+  <h1>🔱 ज्योतिर्लिंग शिवमठ का इतिहास 🔱</h1>
+  <p>
+    <!-- यहां पर आप पूरा इतिहास डाल सकते हैं -->
+    श्री ज्योतिर्लिंग शिवमठ का इतिहास अत्यंत प्राचीन एवं दिव्य है.  <h1>ज्योतिर्लिंग शिवमठ लखनऊ का इतिहास</h1>
             <p>
             शिवमठ ज्योतिर्लिंग आज जिस स्थान पर स्थित है, उसके बारे में कहा जाता है कि सैकड़ों वर्षों से वहां एक नाग आता था। आज भी वहाँ के बुजुर्ग बताते हैं कि उन्होंने उस नाग को कई बार देखा है। लगभग 300 वर्ष पूर्व यह स्थान एक श्मशान घाट था। लोग यहाँ अपने प्रियजनों का अंतिम संस्कार करते थे और पास के कुएं से जल ग्रहण करते थे।
             </p><p>
@@ -87,10 +66,18 @@
             इस चमत्कार को समाचार पत्रों और टीवी चैनलों ने खूब प्रकाशित किया। इसके बाद दूर-दूर से लोग दर्शन हेतु आने लगे। अब यह स्थान एक विश्व प्रसिद्ध ज्योतिर्लिंग स्थल के रूप में प्रतिष्ठित हो चुका है।
             </p>
         </div>
-        <div class="nav">
-            <a href="index.html">🏠 मुख्य पृष्ठ</a>
-            <a href="javascript:history.back()">🔙 वापस</a>
-        </div>
-    </div>
+     ..
+    <!-- ⬅️ अपने अनुसार यहां पूरा content डालें -->
+  </p>
+</div>
+<!-- 📜 Itihas Content End -->
+
 </body>
 </html>
+
+
+
+
+
+
+
