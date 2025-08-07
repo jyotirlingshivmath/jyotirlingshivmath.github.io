@@ -1,91 +1,141 @@
-<!DOCTYPE html>
-<html lang="hi">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    /* Sticky Header */
-    #main-header {
-      position: sticky;
-      top: 0;
-      z-index: 9999;
-      background-color: #fff3b0; /* आपकी पसंद का रंग */
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    }
 
-    .header-container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 8px 16px;
-    }
+﻿<!-- 🔷 header.html -->
+<style>
+  .navbar-wrapper {
+    position: sticky;
+    top: 0;
+    background: linear-gradient(to right, #fff8e1, #ffe0b2);
+    z-index: 700;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
 
-    .logo-img {
-      height: 60px;
-      width: auto;
-    }
+  .navbar-flex-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    flex-wrap: wrap;
+  }
 
-    .title {
-      font-size: 24px;
-      font-weight: bold;
-      color: #a52a2a;
-      text-align: center;
-      flex: 1;
-    }
+  .nav-side-image img {
+    margin: 0;
+    padding: 0;
+    height: 150px;
+    width: 450px;
+    object-fit: contain;
+  }
 
-    nav {
-      margin-top: 8px;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      background-color: #ffea94;
-    }
+  .nav-center {
+    text-align: center;
+    flex: 1 1 auto;
+  }
 
-    nav a {
-      text-decoration: none;
-      color: #000;
-      padding: 8px 12px;
-      margin: 4px;
-      background-color: #ffe066;
-      border-radius: 6px;
-      font-weight: bold;
-      transition: background-color 0.3s;
-    }
+  .nav-title {
+    font-size: 3rem;
+    color: #4a148c;
+    font-family: 'Mukta', sans-serif;
+    margin-bottom: 0px;
+  }
 
-    nav a:hover {
-      background-color: #f2c94c;
-    }
+  .navbar {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1px;
+    height: 50px;
+  }
 
-    @media (max-width: 600px) {
-      .header-container {
-        flex-direction: column;
-      }
+  .navbar a {
+    text-decoration: none;
+    font-size: 17px;
+    color: darkred;
+    font-weight: bold;
+    padding: 6px 10px;
+    background-color: yellow;
+    border: 2px solid #e1bee7;
+    border-radius: 8px;
+    box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.15);
+    transition: 0.3s ease;
+  }
 
-      .title {
-        font-size: 20px;
-      }
+  .navbar a:hover {
+    background-color: #f3e5f5;
+    color: #6a1b9a;
+  }
 
-      nav {
-        flex-direction: column;
-      }
-    }
-  </style>
-</head>
-<body>
-  <div id="main-header">
-    <div class="header-container">
-      <img src="images/shankh.png" alt="Shankh" class="logo-img">
-      <div class="title">🔱 श्री ज्योतिर्लिंग शिवमठ 🔱</div>
-      <img src="images/shankh.png" alt="Shankh" class="logo-img">
+  .moving-strip {
+    width: 100%;
+    height: 0.5in;
+    background-color: #fff0f0;
+    overflow: hidden;
+    position: relative;
+    border-top: 2px solid darkred;
+    border-bottom: 2px solid darkred;
+    box-sizing: border-box;
+  }
+
+  .scrolling-text {
+    display: inline-block;
+    white-space: nowrap;
+    position: absolute;
+    will-change: transform;
+    font-size: 0.3in;
+    font-weight: bold;
+    color: darkred;
+    padding-left: 20px;
+    animation: scrollText 5s linear infinite;
+  }
+</style>
+
+<div class="navbar-wrapper">
+  <div class="navbar-flex-container">
+
+    <!-- Left Image -->
+    <div class="nav-side-image">
+      <img src="adiyogi.jpg" alt="Left Image">
     </div>
-    <nav>
-      <a href="index.html">मुख्यपृष्ठ</a>
-      <a href="itihas.html">इतिहास</a>
-      <a href="mahant.html">महंत</a>
-      <a href="shivtandavak.html">शिवतांडवक</a>
-      <a href="gallery.html">गैलरी</a>
-      <a href="contact.html">संपर्क करें</a>
-    </nav>
+
+    <!-- Center Title & Buttons -->
+    <div class="nav-center">
+      <h2 class="nav-title">श्री ज्योतिर्लिंग शिवमठ </h2>
+      <nav class="navbar">
+        <a href="index.html">मुख्य पृष्ठ</a>
+        <a href="itihas.html">इतिहास</a>
+        <a href="shivtandavak.html">शिवतांडवक</a>
+        <a href="vedios.html">गैलरी</a>
+        <a href="contact.html">संपर्क करें</a>
+      </nav>
+    </div>
+
+    <!-- Right Image -->
+    <div class="nav-side-image">
+      <img src="adiyogi.jpg" alt="Right Image">
+    </div>
   </div>
-</body>
-</html>
+
+  <!-- 🔁 Moving Strip -->
+  <div class="moving-strip">
+    <div class="scrolling-text" id="scrollingText">
+      🔊 जय शिव शंकर 🔱 हर हर महादेव 🔱 ॐ नमः शिवाय 🔊 | 
+      ज्योतिर्लिंग शिवमठ एक अत्यंत प्राचीन और चमत्कारी आध्यात्मिक स्थल है, 
+      जहाँ भगवान शिव के दो शिवलिंग विद्यमान हैं — एक प्राचीन और दूसरा नवस्थापित... 🔱
+    </div>
+  </div>
+</div>
+
+<script>
+  const scrollingText = document.getElementById('scrollingText');
+  let position = window.innerWidth;
+  function moveText() {
+    position -= 1;
+    if (position < -scrollingText.offsetWidth) {
+      position = window.innerWidth;
+    }
+    scrollingText.style.transform = `translateX(${position}px)`;
+    requestAnimationFrame(moveText);
+  }
+  requestAnimationFrame(moveText);
+</script>
+
+
+
