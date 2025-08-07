@@ -45,22 +45,44 @@
     a.home-link:hover {
       background-color: #cce0ff;
     }
+
+    /* ✅ Moving Strip CSS */
+    .moving-strip {
+      width: 100%;
+      background-color: #ffeecc;
+      overflow: hidden;
+      white-space: nowrap;
+      box-sizing: border-box;
+      border-top: 2px solid #ff9933;
+      border-bottom: 2px solid #ff9933;
+      padding: 8px 0;
+    }
+
+    .moving-strip span {
+      display: inline-block;
+      padding-left: 100%;
+      animation: scroll-left 20s linear infinite;
+      color: darkred;
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+
+    @keyframes scroll-left {
+      0% {
+        transform: translateX(0%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
   </style>
 </head>
 <body>
 
-  <!-- ✅ Load header (which includes the moving strip) -->
-  <div id="header-placeholder"></div>
-  <script>
-    fetch('header.html')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('header-placeholder').innerHTML = data;
-      })
-      .catch(error => {
-        console.error('Header loading failed:', error);
-      });
-  </script>
+  <!-- ✅ Moving Strip -->
+  <div class="moving-strip">
+    <span>🔱 ॐ नमः शिवाय 🔱 हर हर महादेव 🔱 जय श्री ज्योतिर्लिंग शिवमठ 🔱</span>
+  </div>
 
   <h1>🎥 वीडियो दर्शन</h1>
 
