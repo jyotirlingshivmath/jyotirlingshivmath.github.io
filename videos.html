@@ -87,6 +87,19 @@
 </head>
 <body>
 
+  <!-- ✅ Fetch header.html at the top -->
+  <div id="header-placeholder"></div>
+  <script>
+    fetch('header.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('header-placeholder').innerHTML = data;
+      })
+      .catch(error => {
+        console.error('Header loading failed:', error);
+      });
+  </script>
+
   <!-- Moving Strip -->
   <div class="strip">
     <div class="strip-text">🔱 ॐ नमः शिवाय 🔱 श्री ज्योतिर्लिंग शिवमठ में आपका स्वागत है 🔱 हर हर महादेव 🔱</div>
