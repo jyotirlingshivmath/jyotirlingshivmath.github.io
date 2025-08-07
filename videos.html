@@ -1,65 +1,82 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
   <title>वीडियो गैलरी - श्री ज्योतिर्लिंग शिवमठ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
+      margin: 0;
       font-family: 'Mangal', sans-serif;
       background-color: #fffbea;
-      margin: 0;
-      padding: 0;
     }
 
-    .main-content {
-      padding: 20px;
-      text-align: center;
+    /* Moving strip */
+    .scrolling-strip {
+      background-color: #ffffcc;
+      color: darkred;
+      font-size: 24px;
+      font-weight: bold;
+      white-space: nowrap;
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      padding: 10px 0;
     }
 
-    h1 {
-      color: darkblue;
+    .scrolling-strip span {
+      display: inline-block;
+      padding-left: 100%;
+      animation: scroll-left 20s linear infinite;
     }
 
+    @keyframes scroll-left {
+      0% {
+        transform: translateX(0%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+
+    /* Video section styling */
     .video-container {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 20px;
+      padding: 20px;
+    }
+
+    .video-container iframe {
+      width: 100%;
+      max-width: 480px;
+      height: 270px;
+      border: 3px solid darkred;
+      border-radius: 12px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.3);
+    }
+
+    h2 {
+      text-align: center;
+      color: darkblue;
       margin-top: 30px;
     }
 
-    .video-item {
-      flex: 1 1 300px;
-      max-width: 400px;
-    }
+    @media (max-width: 600px) {
+      .scrolling-strip {
+        font-size: 18px;
+      }
 
-    iframe {
-      width: 100%;
-      height: 225px;
-      border: 2px solid #990000;
-      border-radius: 10px;
-    }
-
-    .back-link {
-      text-align: center;
-      margin-top: 40px;
-    }
-
-    .back-link a {
-      color: #0000cc;
-      font-size: 18px;
-      text-decoration: none;
-    }
-
-    .back-link a:hover {
-      text-decoration: underline;
+      .video-container iframe {
+        max-width: 100%;
+        height: auto;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- ✅ Header from external file -->
+  <!-- ✅ Header fetch -->
   <div id="header-placeholder"></div>
   <script>
     fetch('header.html')
@@ -68,32 +85,23 @@
         document.getElementById('header-placeholder').innerHTML = data;
       })
       .catch(error => {
-        console.error('Header loading failed:', error);
+        console.error('Header load failed:', error);
       });
   </script>
 
-  <!-- Main Content -->
-  <div class="main-content">
-    <h1>🎥 श्री ज्योतिर्लिंग शिवमठ - वीडियो गैलरी 🎥</h1>
+  <!-- 🔁 Moving mantra strip -->
+  <div class="scrolling-strip">
+    <span>🔱 ॐ नमः शिवाय 🔱 हर हर महादेव 🔱 श्री ज्योतिर्लिंग शिवमठ में आपका स्वागत है 🔱 ॐ नमः शिवाय 🔱 हर हर महादेव 🔱</span>
+  </div>
 
-    <div class="video-container">
-      <div class="video-item">
-        <iframe src="https://www.youtube.com/embed/IFcIu1NBe5M" allowfullscreen></iframe>
-      </div>
-      <div class="video-item">
-        <iframe src="https://www.youtube.com/embed/EhcTRzRBvA8" allowfullscreen></iframe>
-      </div>
-      <div class="video-item">
-        <iframe src="https://www.youtube.com/embed/NUvLRcsTPlY" allowfullscreen></iframe>
-      </div>
-      <div class="video-item">
-        <iframe src="https://www.youtube.com/embed/h4_jUfbxVmU" allowfullscreen></iframe>
-      </div>
-    </div>
+  <h2>🎥 श्री ज्योतिर्लिंग शिवमठ की वीडियो गैलरी 🎥</h2>
 
-    <div class="back-link">
-      <p><a href="index.html">🔙 मुख्य पृष्ठ पर लौटें</a></p>
-    </div>
+  <div class="video-container">
+    <iframe src="https://www.youtube.com/embed/VIDEO_ID1" allowfullscreen></iframe>
+    <iframe src="https://www.youtube.com/embed/VIDEO_ID2" allowfullscreen></iframe>
+    <iframe src="https://www.youtube.com/embed/VIDEO_ID3" allowfullscreen></iframe>
+    <iframe src="https://www.youtube.com/embed/VIDEO_ID4" allowfullscreen></iframe>
+    <!-- 📝 Add more iframe as needed -->
   </div>
 
 </body>
