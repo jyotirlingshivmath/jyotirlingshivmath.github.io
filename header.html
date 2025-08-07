@@ -1,17 +1,91 @@
-<!-- header.html -->
-<div id="navbar" style="position: sticky; top: 0; z-index: 9999; background-color: #f5f5dc; border-bottom: 2px solid #a52a2a;">
-  <div style="display: flex; align-items: center; justify-content: center; padding: 10px;">
-    <img src="images/shankh.png" alt="शंख" style="height: 40px; margin-right: 10px;">
-    <h1 style="margin: 0; font-size: 24px; font-family: 'Mangal', sans-serif; color: #800000;">
-      🔱 श्री ज्योतिर्लिंग शिवमठ 🔱
-    </h1>
-    <img src="images/trishul.png" alt="त्रिशूल" style="height: 40px; margin-left: 10px;">
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Sticky Header */
+    #main-header {
+      position: sticky;
+      top: 0;
+      z-index: 9999;
+      background-color: #fff3b0; /* आपकी पसंद का रंग */
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .header-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 16px;
+    }
+
+    .logo-img {
+      height: 60px;
+      width: auto;
+    }
+
+    .title {
+      font-size: 24px;
+      font-weight: bold;
+      color: #a52a2a;
+      text-align: center;
+      flex: 1;
+    }
+
+    nav {
+      margin-top: 8px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      background-color: #ffea94;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #000;
+      padding: 8px 12px;
+      margin: 4px;
+      background-color: #ffe066;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    nav a:hover {
+      background-color: #f2c94c;
+    }
+
+    @media (max-width: 600px) {
+      .header-container {
+        flex-direction: column;
+      }
+
+      .title {
+        font-size: 20px;
+      }
+
+      nav {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="main-header">
+    <div class="header-container">
+      <img src="images/shankh.png" alt="Shankh" class="logo-img">
+      <div class="title">🔱 श्री ज्योतिर्लिंग शिवमठ 🔱</div>
+      <img src="images/shankh.png" alt="Shankh" class="logo-img">
+    </div>
+    <nav>
+      <a href="index.html">मुख्यपृष्ठ</a>
+      <a href="itihas.html">इतिहास</a>
+      <a href="mahant.html">महंत</a>
+      <a href="shivtandavak.html">शिवतांडवक</a>
+      <a href="gallery.html">गैलरी</a>
+      <a href="contact.html">संपर्क करें</a>
+    </nav>
   </div>
-  <nav style="display: flex; justify-content: center; flex-wrap: wrap; padding: 10px 0; background-color: #ffffcc;">
-    <a href="index.html" style="margin: 5px 10px; background-color: #ffd700; padding: 8px 16px; border-radius: 8px; text-decoration: none; color: black; font-weight: bold;">मुखपृष्ठ</a>
-    <a href="itihas.html" style="margin: 5px 10px; background-color: #ffcccb; padding: 8px 16px; border-radius: 8px; text-decoration: none; color: black; font-weight: bold;">इतिहास</a>
-    <a href="shivtandavak.html" style="margin: 5px 10px; background-color: #add8e6; padding: 8px 16px; border-radius: 8px; text-decoration: none; color: black; font-weight: bold;">शिवतांडव</a>
-    <a href="gallery.html" style="margin: 5px 10px; background-color: #90ee90; padding: 8px 16px; border-radius: 8px; text-decoration: none; color: black; font-weight: bold;">गैलरी</a>
-    <a href="contact.html" style="margin: 5px 10px; background-color: #dda0dd; padding: 8px 16px; border-radius: 8px; text-decoration: none; color: black; font-weight: bold;">संपर्क करें</a>
-  </nav>
-</div>
+</body>
+</html>
