@@ -40,6 +40,28 @@
 <!-- 🔁 Load header.html dynamically -->
 <script>
   fetch('header.html')
+
+
+    <script>
+  fetch('header.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('header-placeholder').innerHTML = data;
+
+      // 🔁 All <script> tags को दोबारा execute करो
+      const scripts = document.querySelectorAll('#header-placeholder script');
+      scripts.forEach(oldScript => {
+        const newScript = document.createElement('script');
+        if (oldScript.src) {
+          newScript.src = oldScript.src;
+        } else {
+          newScript.textContent = oldScript.textContent;
+        }
+        oldScript.replaceWith(newScript);
+      });
+    });
+</script>
+
     .then(response => response.text())
     .then(data => {
       document.getElementById('header-placeholder').innerHTML = data;
@@ -74,6 +96,7 @@
 
 </body>
 </html>
+
 
 
 
