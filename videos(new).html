@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <title>वीडियो गैलरी - श्री ज्योतिर्लिंग शिवमठ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Mangal', sans-serif;
+      background-color: #fffbea;
+    }
+
+    .scrolling-strip {
+      background-color: #ffebcc;
+      color: darkred;
+      white-space: nowrap;
+      overflow: hidden;
+      font-size: 22px;
+      padding: 10px 0;
+      border-top: 2px solid darkred;
+      border-bottom: 2px solid darkred;
+    }
+
+    .scrolling-strip span {
+      display: inline-block;
+      padding-left: 100%;
+      animation: scroll-left 20s linear infinite;
+    }
+
+    @keyframes scroll-left {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-100%); }
+    }
+
+    .video-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .video-container iframe {
+      width: 100%;
+      max-width: 480px;
+      height: 270px;
+      border: 3px solid darkred;
+      border-radius: 12px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.3);
+    }
+
+    h2 {
+      text-align: center;
+      color: darkblue;
+      margin-top: 30px;
+    }
+
+    @media (max-width: 600px) {
+      .scrolling-strip {
+        font-size: 18px;
+      }
+
+      .video-container iframe {
+        max-width: 100%;
+        height: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 🔱 Header Placeholder -->
+  <div id="header-placeholder">🔄 हेडर लोड हो रहा है...</div>
+
+  <!-- 🔁 Load header.html dynamically -->
+  <script>
+    fetch('header.html')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Header file not found.");
+        }
+        return response.text();
+      })
+      .then(data => {
+        const container = document.getElementById('header-placeholder');
+        container.innerHTML = data;
+
+        // 🌀 Re-execute scripts
+        const scripts = container.querySelectorAll("script");
+        scripts.forEach(oldScript => {
+          const newScript = document.createElement("script");
+          if (oldScript.src) {
+            newScript.src = oldScript.src;
+          } else {
+            newScript.textContent = oldScript.textContent;
+          }
+          document.head.appendChild(newScript);
+        });
+      })
+      .catch(error => {
+        console.error("Header loading failed:", error);
+        document.getElementById('header-placeholder').innerText = "❌ हेडर लोड नहीं हो पाया।";
+      });
+  </script>
+
+  <!-- 🌀 Moving Mantra Strip -->
+  <div class="scrolling-strip">
+    <span>🔱 ॐ नमः शिवाय 🔱 हर हर महादेव 🔱 श्री ज्योतिर्लिंग शिवमठ में आपका स्वागत है 🔱 ॐ नमः शिवाय 🔱 हर हर महादेव 🔱</span>
+  </div>
+
+  <h2>🎥 श्री ज्योतिर्लिंग शिवमठ की वीडियो गैलरी 🎥</h2>
+
+  <div class="video-container">
+    <iframe src="https://www.youtube.com/embed/VIDEO_ID1" allowfullscreen></iframe>
+    <iframe src="https://www.youtube.com/embed/VIDEO_ID2" allowfullscreen></iframe>
+    <iframe src="https://www.youtube.com/embed/VIDEO_ID3" allowfullscreen></iframe>
+    <iframe src="https://www.youtube.com/embed/VIDEO_ID4" allowfullscreen></iframe>
+  </div>
+
+</body>
+</html>
