@@ -11,7 +11,7 @@
       background-color: #fffbea;
     }
 
-    /* ✅ Moving strip CSS moved here so it works even after fetch */
+    /* ✅ Moving strip CSS so it works even after fetch */
     .scrolling-strip {
       background-color: #ffffcc;
       color: darkred;
@@ -69,7 +69,7 @@
 </head>
 <body>
 
-  <!-- ✅ Header fetch -->
+  <!-- ✅ Header comes first so strip starts immediately -->
   <div id="header-placeholder"></div>
   <script>
     fetch('header.html')
