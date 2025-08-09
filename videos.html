@@ -11,7 +11,7 @@
       background-color: #fffbea;
     }
 
-    /* ✅ Moving strip CSS (duplicate here so it works without relying on header.html CSS) */
+    /* ✅ Moving strip CSS */
     .scrolling-strip {
       background-color: #ffffcc;
       color: darkred;
@@ -75,10 +75,9 @@
     fetch('header.html')
       .then(response => response.text())
       .then(data => {
-        // Inject HTML
         document.getElementById('header-placeholder').innerHTML = data;
 
-        // ✅ Extract and append any <style> tags from header.html into <head>
+        // ✅ Move any <style> or <link> tags to <head>
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = data;
         tempDiv.querySelectorAll('style').forEach(styleTag => {
@@ -86,6 +85,14 @@
         });
         tempDiv.querySelectorAll('link[rel="stylesheet"]').forEach(linkTag => {
           document.head.appendChild(linkTag);
+        });
+
+        // ✅ Ensure scrolling-strip has a <span> for animation
+        document.querySelectorAll('.scrolling-strip').forEach(strip => {
+          if (!strip.querySelector('span')) {
+            const text = strip.innerHTML.trim();
+            strip.innerHTML = `<span>${text}</span>`;
+          }
         });
       })
       .catch(error => {
