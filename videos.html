@@ -10,8 +10,6 @@
       font-family: 'Mangal', sans-serif;
       background-color: #fffbea;
     }
-
-    /* visual style for the strip (keeps look similar) */
     .scrolling-strip {
       background-color: #ffffcc;
       color: darkred;
@@ -23,8 +21,6 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       position: relative;
     }
-
-    /* container that will be moved by JS */
     .marquee-inner {
       display: inline-block;
       white-space: nowrap;
@@ -34,10 +30,8 @@
     }
     .marquee-item {
       display: inline-block;
-      padding-right: 3rem; /* gap between repeats */
+      padding-right: 3rem;
     }
-
-    /* Video section styling */
     .video-container {
       display: flex;
       flex-wrap: wrap;
@@ -45,7 +39,6 @@
       gap: 20px;
       padding: 20px;
     }
-
     .video-container iframe {
       width: 100%;
       max-width: 480px;
@@ -54,27 +47,19 @@
       border-radius: 12px;
       box-shadow: 0 0 8px rgba(0,0,0,0.3);
     }
-
     h2 {
       text-align: center;
       color: darkblue;
       margin-top: 30px;
     }
-
     @media (max-width: 600px) {
-      .scrolling-strip {
-        font-size: 18px;
-      }
-      .video-container iframe {
-        max-width: 100%;
-        height: auto;
-      }
+      .scrolling-strip { font-size: 18px; }
+      .video-container iframe { max-width: 100%; height: auto; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Header placeholder (keep at top) -->
   <div id="header-placeholder"></div>
 
   <h2>🎥 श्री ज्योतिर्लिंग शिवमठ की वीडियो गैलरी 🎥</h2>
@@ -87,7 +72,6 @@
   </div>
 
   <script>
-    // fetch header, insert and then initialize marquee
     (function(){
       const placeholder = document.getElementById('header-placeholder');
 
@@ -97,54 +81,38 @@
           return r.text();
         })
         .then(html => {
-          // insert header html
           placeholder.innerHTML = html;
 
-          // move any <style> or <link rel="stylesheet"> from header into head (optional)
+          // Move header styles to head
           const tmp = document.createElement('div');
           tmp.innerHTML = html;
           tmp.querySelectorAll('style, link[rel="stylesheet"]').forEach(node => {
-            // avoid duplicates: only append if not already present
-            // simple check by comparing textContent or href
             if (node.tagName.toLowerCase() === 'style') {
-              const same = Array.from(document.head.querySelectorAll('style'))
-                .some(s => s.textContent.trim() === node.textContent.trim());
-              if (!same) document.head.appendChild(node.cloneNode(true));
+              if (![...document.head.querySelectorAll('style')].some(s => s.textContent.trim() === node.textContent.trim())) {
+                document.head.appendChild(node.cloneNode(true));
+              }
             } else {
               const href = node.getAttribute('href');
-              if (href && !Array.from(document.head.querySelectorAll('link[rel="stylesheet"]'))
-                  .some(l => l.getAttribute('href') === href)) {
+              if (href && ![...document.head.querySelectorAll('link[rel="stylesheet"]')].some(l => l.getAttribute('href') === href)) {
                 document.head.appendChild(node.cloneNode(true));
               }
             }
           });
 
-          // initialize guaranteed marquee(s)
-          initMarquees();
+          // Delay to ensure rendering before measuring widths
+          setTimeout(initMarquees, 100);
         })
         .catch(err => {
           console.error('Header load failed:', err);
-          // still try to init in case header is already present
-          initMarquees();
         });
 
-      // JS marquee implementation - robust fallback for CSS animation
       function initMarquees() {
         document.querySelectorAll('.scrolling-strip').forEach(strip => {
-          if (strip.dataset.jsMarquee === '1') return; // already initialized
+          if (strip.dataset.jsMarquee === '1') return;
           strip.dataset.jsMarquee = '1';
 
-          // obtain content (prefer inner <span> if present)
-          let content = '';
-          const existingSpan = strip.querySelector('span');
-          if (existingSpan) content = existingSpan.innerHTML;
-          else content = strip.innerHTML.trim();
-
-          // if content empty, do nothing
-          if (!content) return;
-
-          // build marquee structure: inner with two repeated items
-          strip.innerHTML = ''; // clear
+          let content = strip.innerHTML.trim();
+          strip.innerHTML = '';
           const inner = document.createElement('div');
           inner.className = 'marquee-inner';
           const item1 = document.createElement('div');
@@ -155,45 +123,21 @@
           inner.appendChild(item2);
           strip.appendChild(inner);
 
-          // ensure the strip height remains consistent (avoid layout shift)
-          strip.style.height = Math.max(strip.clientHeight, item1.getBoundingClientRect().height) + 'px';
+          const w1 = item1.offsetWidth;
+          const speedPxPerMs = Math.max(60, Math.min(180, Math.round(w1 / 1.5))) / 1000;
+          let position = 0, lastTs = null;
 
-          // start animation after widths are measurable
-          let retries = 0;
-          function startIfReady(){
-            const w1 = item1.getBoundingClientRect().width;
-            const sw = strip.getBoundingClientRect().width;
-            if (w1 <= 0 && retries < 10) { retries++; return setTimeout(startIfReady, 80); }
-
-            // speed in pixels per second (adjust for readable speed)
-            // bigger text -> slightly faster, but keep reasonable limits
-            const baseSpeed = Math.max(60, Math.min(180, Math.round(w1 / 1.5))); // px/sec
-            const speedPxPerMs = baseSpeed / 1000;
-
-            let position = 0; // translateX position (px)
-            let lastTs = null;
-
-            function frame(ts) {
-              if (!lastTs) lastTs = ts;
-              const delta = ts - lastTs;
-              lastTs = ts;
-              position -= speedPxPerMs * delta;
-              // when first item fully left, jump forward
-              if (Math.abs(position) >= w1) position += w1;
-              inner.style.transform = 'translateX(' + position + 'px)';
-              requestAnimationFrame(frame);
-            }
+          function frame(ts) {
+            if (!lastTs) lastTs = ts;
+            const delta = ts - lastTs;
+            lastTs = ts;
+            position -= speedPxPerMs * delta;
+            if (Math.abs(position) >= w1) position += w1;
+            inner.style.transform = `translateX(${position}px)`;
             requestAnimationFrame(frame);
           }
-          startIfReady();
+          requestAnimationFrame(frame);
         });
-      }
-
-      // in case header was statically present (rare), try to init once DOM ready
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initMarquees);
-      } else {
-        initMarquees();
       }
     })();
   </script>
