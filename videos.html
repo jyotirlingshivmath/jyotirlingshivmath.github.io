@@ -11,7 +11,7 @@
       background-color: #fffbea;
     }
 
-    /* ✅ Moving strip CSS so it works even after fetch */
+    /* ✅ Moving strip CSS (duplicate here so it works without relying on header.html CSS) */
     .scrolling-strip {
       background-color: #ffffcc;
       color: darkred;
@@ -69,13 +69,24 @@
 </head>
 <body>
 
-  <!-- ✅ Header comes first so strip starts immediately -->
+  <!-- ✅ Header placeholder -->
   <div id="header-placeholder"></div>
   <script>
     fetch('header.html')
       .then(response => response.text())
       .then(data => {
+        // Inject HTML
         document.getElementById('header-placeholder').innerHTML = data;
+
+        // ✅ Extract and append any <style> tags from header.html into <head>
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = data;
+        tempDiv.querySelectorAll('style').forEach(styleTag => {
+          document.head.appendChild(styleTag);
+        });
+        tempDiv.querySelectorAll('link[rel="stylesheet"]').forEach(linkTag => {
+          document.head.appendChild(linkTag);
+        });
       })
       .catch(error => {
         console.error('Header load failed:', error);
