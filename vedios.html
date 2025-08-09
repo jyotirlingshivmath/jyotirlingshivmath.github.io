@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <title>वीडियो गैलरी - श्री ज्योतिर्लिंग शिवमठ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Mangal', sans-serif;
+      background-color: #fffbea;
+    }
+
+    /* Video section styling */
+    .video-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .video-container iframe {
+      width: 100%;
+      max-width: 480px;
+      height: 270px;
+      border: 3px solid darkred;
+      border-radius: 12px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.3);
+    }
+
+    h2 {
+      text-align: center;
+      color: darkblue;
+      margin-top: 30px;
+    }
+
+    @media (max-width: 600px) {
+      .video-container iframe {
+        max-width: 100%;
+        height: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ✅ Header placeholder -->
+  <div id="header-placeholder"></div>
+  <script>
+    fetch('header.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('header-placeholder').innerHTML = data;
+
+        // 🔁 Re-run all scripts inside header.html
+        const scripts = document.querySelectorAll('#header-placeholder script');
+        scripts.forEach(oldScript => {
+          const newScript = document.createElement('script');
+          if (oldScript.src) {
+            newScript.src = oldScript.src;
+          } else {
+            newScript.textContent = oldScript.textContent;
+          }
+          oldScript.replaceWith(newScript);
+        });
+      })
+      .catch(error => {
+        console.error('Header load failed:', error);
+      });
+  </script>
+
+  <h2>🎥 श्री ज्योतिर्लिंग शिवमठ की वीडियो गैलरी 🎥</h2>
+
+  <div class="video-container">
+    <iframe src="https://www.youtube.com/embed/VIDEO_ID1" allowfullscreen></iframe>
+    <iframe src="https://www.youtube.com/embed/VIDEO_ID2" allowfullscreen></iframe>
+    <iframe src="https://www.youtube.com/embed/VIDEO_ID3" allowfullscreen></iframe>
+    <iframe src="https://www.youtube.com/embed/VIDEO_ID4" allowfullscreen></iframe>
+  </div>
+
+</body>
+</html>
