@@ -108,11 +108,25 @@
   </div>
 
   <script>
-    // Fetch header.html
+    // Fetch header.html and also run its scripts
     fetch('header.html')
       .then(response => response.text())
       .then(data => {
         document.getElementById('header-container').innerHTML = data;
+
+        // Run all scripts from header.html
+        const scripts = document
+          .getElementById('header-container')
+          .querySelectorAll('script');
+        scripts.forEach(script => {
+          const newScript = document.createElement('script');
+          if (script.src) {
+            newScript.src = script.src; // External script
+          } else {
+            newScript.textContent = script.textContent; // Inline script
+          }
+          document.body.appendChild(newScript);
+        });
       })
       .catch(error => console.error('Header load error:', error));
   </script>
