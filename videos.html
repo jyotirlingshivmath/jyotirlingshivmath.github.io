@@ -11,7 +11,7 @@
       background-color: #fffbea;
     }
 
-    /* ✅ Moving strip CSS */
+    /* visual style for the strip (keeps look similar) */
     .scrolling-strip {
       background-color: #ffffcc;
       color: darkred;
@@ -21,15 +21,20 @@
       overflow: hidden;
       padding: 10px 0;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      position: relative;
     }
-    .scrolling-strip span {
+
+    /* container that will be moved by JS */
+    .marquee-inner {
       display: inline-block;
-      padding-left: 100%;
-      animation: scroll-left 20s linear infinite;
+      white-space: nowrap;
+      will-change: transform;
+      position: relative;
+      left: 0;
     }
-    @keyframes scroll-left {
-      0% { transform: translateX(0%); }
-      100% { transform: translateX(-100%); }
+    .marquee-item {
+      display: inline-block;
+      padding-right: 3rem; /* gap between repeats */
     }
 
     /* Video section styling */
@@ -69,36 +74,8 @@
 </head>
 <body>
 
-  <!-- ✅ Header placeholder -->
+  <!-- Header placeholder (keep at top) -->
   <div id="header-placeholder"></div>
-  <script>
-    fetch('header.html')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('header-placeholder').innerHTML = data;
-
-        // ✅ Move any <style> or <link> tags to <head>
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = data;
-        tempDiv.querySelectorAll('style').forEach(styleTag => {
-          document.head.appendChild(styleTag);
-        });
-        tempDiv.querySelectorAll('link[rel="stylesheet"]').forEach(linkTag => {
-          document.head.appendChild(linkTag);
-        });
-
-        // ✅ Ensure scrolling-strip has a <span> for animation
-        document.querySelectorAll('.scrolling-strip').forEach(strip => {
-          if (!strip.querySelector('span')) {
-            const text = strip.innerHTML.trim();
-            strip.innerHTML = `<span>${text}</span>`;
-          }
-        });
-      })
-      .catch(error => {
-        console.error('Header load failed:', error);
-      });
-  </script>
 
   <h2>🎥 श्री ज्योतिर्लिंग शिवमठ की वीडियो गैलरी 🎥</h2>
 
@@ -109,5 +86,116 @@
     <iframe src="https://www.youtube.com/embed/VIDEO_ID4" allowfullscreen></iframe>
   </div>
 
+  <script>
+    // fetch header, insert and then initialize marquee
+    (function(){
+      const placeholder = document.getElementById('header-placeholder');
+
+      fetch('header.html')
+        .then(r => {
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          return r.text();
+        })
+        .then(html => {
+          // insert header html
+          placeholder.innerHTML = html;
+
+          // move any <style> or <link rel="stylesheet"> from header into head (optional)
+          const tmp = document.createElement('div');
+          tmp.innerHTML = html;
+          tmp.querySelectorAll('style, link[rel="stylesheet"]').forEach(node => {
+            // avoid duplicates: only append if not already present
+            // simple check by comparing textContent or href
+            if (node.tagName.toLowerCase() === 'style') {
+              const same = Array.from(document.head.querySelectorAll('style'))
+                .some(s => s.textContent.trim() === node.textContent.trim());
+              if (!same) document.head.appendChild(node.cloneNode(true));
+            } else {
+              const href = node.getAttribute('href');
+              if (href && !Array.from(document.head.querySelectorAll('link[rel="stylesheet"]'))
+                  .some(l => l.getAttribute('href') === href)) {
+                document.head.appendChild(node.cloneNode(true));
+              }
+            }
+          });
+
+          // initialize guaranteed marquee(s)
+          initMarquees();
+        })
+        .catch(err => {
+          console.error('Header load failed:', err);
+          // still try to init in case header is already present
+          initMarquees();
+        });
+
+      // JS marquee implementation - robust fallback for CSS animation
+      function initMarquees() {
+        document.querySelectorAll('.scrolling-strip').forEach(strip => {
+          if (strip.dataset.jsMarquee === '1') return; // already initialized
+          strip.dataset.jsMarquee = '1';
+
+          // obtain content (prefer inner <span> if present)
+          let content = '';
+          const existingSpan = strip.querySelector('span');
+          if (existingSpan) content = existingSpan.innerHTML;
+          else content = strip.innerHTML.trim();
+
+          // if content empty, do nothing
+          if (!content) return;
+
+          // build marquee structure: inner with two repeated items
+          strip.innerHTML = ''; // clear
+          const inner = document.createElement('div');
+          inner.className = 'marquee-inner';
+          const item1 = document.createElement('div');
+          item1.className = 'marquee-item';
+          item1.innerHTML = content;
+          const item2 = item1.cloneNode(true);
+          inner.appendChild(item1);
+          inner.appendChild(item2);
+          strip.appendChild(inner);
+
+          // ensure the strip height remains consistent (avoid layout shift)
+          strip.style.height = Math.max(strip.clientHeight, item1.getBoundingClientRect().height) + 'px';
+
+          // start animation after widths are measurable
+          let retries = 0;
+          function startIfReady(){
+            const w1 = item1.getBoundingClientRect().width;
+            const sw = strip.getBoundingClientRect().width;
+            if (w1 <= 0 && retries < 10) { retries++; return setTimeout(startIfReady, 80); }
+
+            // speed in pixels per second (adjust for readable speed)
+            // bigger text -> slightly faster, but keep reasonable limits
+            const baseSpeed = Math.max(60, Math.min(180, Math.round(w1 / 1.5))); // px/sec
+            const speedPxPerMs = baseSpeed / 1000;
+
+            let position = 0; // translateX position (px)
+            let lastTs = null;
+
+            function frame(ts) {
+              if (!lastTs) lastTs = ts;
+              const delta = ts - lastTs;
+              lastTs = ts;
+              position -= speedPxPerMs * delta;
+              // when first item fully left, jump forward
+              if (Math.abs(position) >= w1) position += w1;
+              inner.style.transform = 'translateX(' + position + 'px)';
+              requestAnimationFrame(frame);
+            }
+            requestAnimationFrame(frame);
+          }
+          startIfReady();
+        });
+      }
+
+      // in case header was statically present (rare), try to init once DOM ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initMarquees);
+      } else {
+        initMarquees();
+      }
+    })();
+  </script>
 </body>
 </html>
