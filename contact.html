@@ -5,67 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>संपर्क करें - श्री ज्योतिर्लिंग शिवमठ</title>
   <style>
-    body {
-      font-family: 'Mangal', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #fffbea;
-    }
-    #header-container {
-      width: 100%;
-    }
-    .contact-section {
-      max-width: 800px;
-      margin: 20px auto;
-      background: #fff3e0;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
-    }
-    h2 {
-      text-align: center;
-      color: #8B0000;
-    }
-    .address {
-      background-color: #ffe4c4;
-      padding: 15px;
-      border-radius: 8px;
-      margin-bottom: 20px;
-      font-size: 18px;
-      line-height: 1.6;
-    }
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-    label {
-      font-weight: bold;
-    }
-    input, textarea, select {
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-family: 'Mangal', sans-serif;
-      font-size: 16px;
-    }
-    button {
-      background-color: #8B0000;
-      color: white;
-      border: none;
-      padding: 12px;
-      font-size: 16px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #a52a2a;
-    }
+    body { font-family: 'Mangal', sans-serif; margin: 0; padding: 0; background-color: #fffbea; }
+    #header-container { width: 100%; }
+    .contact-section { max-width: 800px; margin: 20px auto; background: #fff3e0; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1); }
+    h2 { text-align: center; color: #8B0000; }
+    .address { background-color: #ffe4c4; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-size: 18px; line-height: 1.6; }
+    form { display: flex; flex-direction: column; gap: 15px; }
+    label { font-weight: bold; }
+    input, textarea, select { padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-family: 'Mangal', sans-serif; font-size: 16px; }
+    button { background-color: #8B0000; color: white; border: none; padding: 12px; font-size: 16px; border-radius: 5px; cursor: pointer; }
+    button:hover { background-color: #a52a2a; }
   </style>
 </head>
 <body>
 
-  <!-- Header fetch container -->
   <div id="header-container"></div>
 
   <div class="contact-section">
@@ -76,7 +29,7 @@
     </div>
 
     <h2>📩 संपर्क करें / पूजा बुकिंग</h2>
-    <form>
+    <form id="contactForm">
       <label for="name">नाम:</label>
       <input type="text" id="name" name="name" placeholder="अपना नाम लिखें" required>
 
@@ -108,28 +61,43 @@
   </div>
 
   <script>
-    // Fetch header.html and also run its scripts
+    // Header load
     fetch('header.html')
       .then(response => response.text())
       .then(data => {
         document.getElementById('header-container').innerHTML = data;
-
-        // Run all scripts from header.html
-        const scripts = document
-          .getElementById('header-container')
-          .querySelectorAll('script');
+        const scripts = document.getElementById('header-container').querySelectorAll('script');
         scripts.forEach(script => {
           const newScript = document.createElement('script');
-          if (script.src) {
-            newScript.src = script.src; // External script
-          } else {
-            newScript.textContent = script.textContent; // Inline script
-          }
+          if (script.src) newScript.src = script.src;
+          else newScript.textContent = script.textContent;
           document.body.appendChild(newScript);
         });
-      })
-      .catch(error => console.error('Header load error:', error));
-  </script>
+      });
 
+    // Form submit to Google Sheet
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formData = {
+        name: document.getElementById('name').value,
+        phone: document.getElementById('phone').value,
+        email: document.getElementById('email').value,
+        pooja: document.getElementById('pooja').value,
+        date: document.getElementById('date').value,
+        message: document.getElementById('message').value
+      };
+
+      fetch("https://script.google.com/macros/s/AKfycbyxrcZ3qO37jJ_FCZaKHs7LF7JHI6ygfUrTjA1n9drRiNtFnQLkyDZSm45WXR_VGj8Y/exec", {
+        method: "POST",
+        body: JSON.stringify(formData)
+      })
+      .then(res => res.json())
+      .then(data => {
+        alert("✅ आपका संदेश सफलतापूर्वक भेज दिया गया है!");
+        document.getElementById('contactForm').reset();
+      })
+      .catch(err => alert("❌ त्रुटि: " + err));
+    });
+  </script>
 </body>
 </html>
