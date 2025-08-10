@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>रुद्राभिषेक पूजा सामग्री</title>
+  <style>
+    body {
+      font-family: 'Mangal', Arial, sans-serif;
+      background-color: #fff8e1;
+      color: #3e2723;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #bf360c;
+      margin-bottom: 30px;
+      font-size: 2.5rem;
+      text-shadow: 1px 1px 2px #d84315;
+    }
+    ul {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 0 20px;
+      list-style-type: square;
+      font-size: 1.2rem;
+      line-height: 1.8;
+    }
+    li {
+      margin-bottom: 10px;
+    }
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.9rem;
+      color: #6d4c41;
+    }
+  </style>
+</head>
+<body>
+  <h1>रुद्राभिषेक पूजा सामग्री की सूची</h1>
+  <ul>
+    <li>1. जल (स्वच्छ जल)</li>
+    <li>2. दूध</li>
+    <li>3. दही (मट्ठा)</li>
+    <li>4. घी</li>
+    <li>5. शहद</li>
+    <li>6. गंगाजल</li>
+    <li>7. बेलपत्र (तीन पत्ते)</li>
+    <li>8. धतूरा</li>
+    <li>9. नागकेसर</li>
+    <li>10. अक्षत (अनाज - चावल)</li>
+    <li>11. फूल (सफेद और लाल)</li>
+    <li>12. कपूर</li>
+    <li>13. सुपारी</li>
+    <li>14. लौंग</li>
+    <li>15. इलायची</li>
+    <li>16. गुड़</li>
+    <li>17. त्रिफला</li>
+    <li>18. पंचामृत (दूध, दही, घी, शहद, शक्कर का मिश्रण)</li>
+    <li>19. दीपक (मधुबत्ती या घी का दिया)</li>
+    <li>20. धूप</li>
+    <li>21. शंख</li>
+    <li>22. पान के पत्ते</li>
+    <li>23. हवन सामग्री (गोबर के उपले, सामी के पत्ते, हवन कुंड आदि)</li>
+    <li>24. रुद्राक्ष माला</li>
+    <li>25. त्रिशूल (अगर हो तो)</li>
+    <li>26. शमी पत्र</li>
+    <li>27. बेलफल (बेल के फलों का उपयोग)</li>
+    <li>28. गंध (इत्र या चंदन पाउडर)</li>
+  </ul>
+  <footer>
+    © 2025 ज्योतिर्लिंग शिवमठ
+  </footer>
+</body>
+</html>
