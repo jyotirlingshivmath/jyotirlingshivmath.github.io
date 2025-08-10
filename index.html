@@ -1,371 +1,261 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="hi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ज्योतिर्लिंग शिवमठ</title>
-  <style>
-    body {
-      font-family: 'Mangal', sans-serif;
-      background-color: #fffbea;
-      margin: 0;
-      padding: 0;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ज्योतिर्लिंग शिवमठ</title>
+<style>
+  body {
+    font-family: 'Mangal', sans-serif;
+    background-color: #fffbea;
+    margin: 0;
+    padding: 0;
+  }
 
-    .navbar-wrapper {
-      position: sticky;
-      top: 0;
-      background: linear-gradient(to right, #fff8e1, #ffe0b2);
-      z-index: 700;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    }
-.nav-image-left,
-.nav-image-right {
-  height: 25px; 
-  width: 144px;
-  object-fit: contain;}
-    .nav-title-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      padding: 10px 0;
-    }
+  /* Navbar Wrapper */
+  .navbar-wrapper {
+    position: sticky;
+    top: 0;
+    background: linear-gradient(to right, #fff8e1, #ffe0b2);
+    z-index: 700;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
 
-    .nav-title {
-      font-size: 40px;
-      text-align: center;
-      margin: 0 20px;
-      color: #4a148c;
-      font-family: 'Mukta', sans-serif;
-    }
+  /* Navbar Flex */
+  .navbar-flex-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
 
-    .nav-image {
-      height: 60px;
-      width: auto;
-    }
+  .nav-side-image img {
+    max-height: 100px;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+  }
 
-    .navbar {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 5px;
-      padding: 4px 0;
-    }
+  .nav-center {
+    text-align: center;
+    flex: 1 1 auto;
+  }
 
-    .navbar a {
-      text-decoration: none;
-      font-size: 18px;
-      color: darkred;
-      font-weight: bold;
-      letter-spacing: 1px;
-      padding: 6px 14px;
-      background-color: #e3f2fd;
-      border-radius: 6px;
-      transition: background 0.3s ease, color 0.3s ease;
-    }
+  .nav-title {
+    font-size: 2rem;
+    color: #4a148c;
+    font-family: 'Mukta', sans-serif;
+    margin: 0 0 5px;
+  }
 
-    .navbar a:hover {
-      background-color: #ffe0b2;
-    }
+  .navbar {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
 
-    /* 🔁 Moving Strip Style */
-    .moving-strip {
-      width: 100%;
-      height: 0.5in;
-      background-color: #fff0f0;
-      overflow: hidden;
-      position: relative;
-      border-top: 2px solid darkred;
-      border-bottom: 2px solid darkred;
-      box-sizing: border-box;
-    }
+  .navbar a {
+    text-decoration: none;
+    font-size: 1rem;
+    color: darkred;
+    font-weight: bold;
+    padding: 6px 10px;
+    background-color: yellow;
+    border: 2px solid #e1bee7;
+    border-radius: 8px;
+    transition: 0.3s ease;
+    white-space: nowrap;
+  }
 
-    .scrolling-text {
-      display: inline-block;
-      white-space: nowrap;
-      position: absolute;
-      will-change: transform;
-      font-size: 0.3in;
-      font-weight: bold;
-      color: darkred;
-      padding-left: 20px;
-      animation: scrollText 5s linear infinite;
-    }
+  .navbar a:hover {
+    background-color: #f3e5f5;
+    color: #6a1b9a;
+  }
 
-    .intro-section {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      padding: 40px 20px;
-      gap: 20px;
-      background: linear-gradient(to bottom, #fff, #e8eaf6);
-    }
+  /* Moving Strip */
+  .moving-strip {
+    width: 100%;
+    height: auto;
+    background-color: #fff0f0;
+    overflow: hidden;
+    position: relative;
+    border-top: 2px solid darkred;
+    border-bottom: 2px solid darkred;
+  }
 
-    .shivling-circle {
-      width: 280px;
-      height: 280px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.9);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-    }
+  .scrolling-text {
+    display: inline-block;
+    white-space: nowrap;
+    position: absolute;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: darkred;
+    padding-left: 20px;
+    animation: scrollText 5s linear infinite;
+  }
 
-    .shivling-circle img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-    }
+  @keyframes scrollText {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+  }
 
-    .om-mantra-decorated {
-      text-align: center;
-      font-size: 2.4rem;
-      font-weight: bold;
-      color: darkred;
-      text-shadow: 2px 2px 6px #888;
-      margin-top: 10px;
-    }
+  /* Intro Section */
+  .intro-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 20px;
+    gap: 20px;
+    background: linear-gradient(to bottom, #fff, #e8eaf6);
+  }
 
-    .info-box {
-      flex: 1 1 30%;
-      padding: 35px;
-      border-radius: 14px;
-      background: linear-gradient(to right, #f3e5f5, #e8def8);
-      border: 4px double #4a148c;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
-      font-size: 1.35rem;
-      color: #880e4f;
-      max-width: 480px;
-      text-align: justify;
-    }
+  .shivling-circle {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    margin: auto;
+  }
 
-    .info-box h2 {
-      text-align: center;
-      font-size: 1.6rem;
-      margin-bottom: 18px;
-    }
+  .shivling-circle img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
 
-    .info-box ul {
-      list-style-type: '🕉️ ';
-      padding-left: 20px;
-    }
+  .om-mantra-decorated {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: darkred;
+    text-shadow: 2px 2px 6px #888;
+    margin-top: 10px;
+  }
 
-    .red { color: #b71c1c; }
-    .blue { color: #0d47a1; }
+  .info-box {
+    flex: 1 1 300px;
+    padding: 20px;
+    border-radius: 14px;
+    background: linear-gradient(to right, #f3e5f5, #e8def8);
+    border: 4px double #4a148c;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    font-size: 1rem;
+    color: #880e4f;
+    text-align: justify;
+  }
 
-    .mahant-photo {
-      display: flex;
-      justify-content: center;
-      margin: 30px auto 10px;
-    }
+  .info-box h2 {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
 
-    .mahant-photo img {
-      width: 240px;
-      height: auto;
-      border-radius: 20px;
-      border: 3px solid #4a148c;
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-    }
+  .info-box ul {
+    list-style-type: '🕉️ ';
+    padding-left: 20px;
+  }
 
-    .caption {
-      text-align: center;
-      font-size: 1.2rem;
-      color: #4a148c;
-      margin-bottom: 30px;
-    }
-.navbar-flex-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  flex-wrap: wrap;
-}
+  .red { color: #b71c1c; }
+  .blue { color: #0d47a1; }
 
-.nav-side-image img {
-  
-margin: 0;
-padding: 0;
-height: 150px;
-  width: 400px;
-  object-fit: centre;
-}
+  /* Mahant Photo */
+  .mahant-photo {
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+  }
 
-.nav-center {
-  text-align: center;
-  flex: 1 1 auto;
-}
+  .mahant-photo img {
+    max-width: 240px;
+    height: auto;
+    border-radius: 20px;
+    border: 3px solid #4a148c;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  }
 
-.nav-title {
-  font-size: 2.5rem;
-  color: #4a148c;
-  font-family: 'Mukta', sans-serif;
-  margin-bottom: 0px;
-}
+  .caption {
+    text-align: center;
+    font-size: 1rem;
+    color: #4a148c;
+    margin-bottom: 20px;
+  }
 
-.navbar {
-  display: flex;
-  justify-content: center;
-height: 50px;
-  flex-wrap: wrap;
-  gap: 1px;
-}
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .nav-title { font-size: 1.6rem; }
+    .navbar a { font-size: 0.9rem; padding: 5px 8px; }
+    .shivling-circle { width: 200px; height: 200px; }
+    .om-mantra-decorated { font-size: 1.4rem; }
+    .scrolling-text { font-size: 1rem; }
+  }
 
-.navbar a {
-  text-decoration: none;
-  font-size: 17px;
-  color: darkred;
-  font-weight: bold;
-  padding: 6px 10px;
-  background-color: yellow;
-  border: 2px solid #e1bee7;
-  border-radius: 8px;
-  box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.15);
-  transition: 0.3s ease;
-}
-
-.navbar a:hover {
-  background-color: #f3e5f5;
-  color: #6a1b9a;
-}
-
-  </style>
+  @media (max-width: 480px) {
+    .navbar-flex-container { flex-direction: column; text-align: center; }
+    .nav-side-image img { max-height: 80px; }
+    .intro-section { flex-direction: column; }
+    .info-box { max-width: 100%; }
+  }
+</style>
 </head>
-<body><!-- 🔷 NAVBAR SECTION START -->
-<section id="navbar-section">
-  <div class="navbar-wrapper">
-    <div class="navbar-flex-container">
-      
-      <!-- Left Image -->
-      <div class="nav-side-image">
-        <img src="adiyogi.jpg" alt="Left Image">
-      </div>
+<body>
 
-      <!-- Center Title & Buttons -->
-      <div class="nav-center">
-        <h1 class="nav-title"><div class="navbar-title">
- श्री ज्योतिर्लिंग शिवमठ 
-
+<!-- 🔷 NAVBAR -->
+<div class="navbar-wrapper">
+  <div class="navbar-flex-container">
+    <div class="nav-side-image"><img src="adiyogi.jpg" alt="Left Image"></div>
+    <div class="nav-center">
+      <h1 class="nav-title">🔱 श्री ज्योतिर्लिंग शिवमठ 🔱</h1>
+      <nav class="navbar">
+        <a href="index.html">मुख्य पृष्ठ</a>
+        <a href="itihas.html">इतिहास</a>
+        <a href="shivtandavak.html">शिवतांडवक</a>
+        <a href="gallery.html">गैलरी</a>
+        <a href="contact.html">संपर्क करें</a>
+      </nav>
+    </div>
+    <div class="nav-side-image"><img src="adiyogi.jpg" alt="Right Image"></div>
+  </div>
+  <div class="moving-strip">
+    <div class="scrolling-text">
+      🔊 जय शिव शंकर 🔱 हर हर महादेव 🔱 ॐ नमः शिवाय 🔊 | ज्योतिर्लिंग शिवमठ एक अत्यंत प्राचीन...
+    </div>
+  </div>
 </div>
-</h1>
 
-
-
-
-
-
-
-
-        <nav class="navbar">
-          <a href="index.html">मुख्य पृष्ठ</a>
-          <a href="itihas.html">इतिहास</a>
-          <a href="shivtandavak.html">शिवतांडवक</a>
-          <a href="gallery.html">गैलरी</a>
-          <a href="contact.html">संपर्क करें</a>
-        </nav>
-      </div>
-
-      <!-- Right Image -->
-      <div class="nav-side-image">
-        <img src="adiyogi.jpg" alt="Right Image">
-      </div>
-    </div>
-
-    <!-- 🔁 Moving Strip -->
-    <div class="moving-strip">
-      <div class="scrolling-text" id="scrollingText">
-        🔊 जय शिव शंकर 🔱 हर हर महादेव 🔱 ॐ नमः शिवाय 🔊 | 
-        ज्योतिर्लिंग शिवमठ एक अत्यंत प्राचीन और चमत्कारी आध्यात्मिक स्थल है, 
-        जहाँ भगवान शिव के दो शिवलिंग विद्यमान हैं — एक प्राचीन और दूसरा नवस्थापित। 🔱
-        🔱 ज्योतिर्लिंग शिवमठ का अद्भुत शिवलिंग — एक दिव्य रहस्य 🔱
-        ज्योतिर्लिंग शिवमठ में दो शिवलिंग स्थापित हैं — एक प्राचीन और दूसरा अर्वाचीन। , अर्वाचीन शिवलिंग की विशेषताएँ इतनी अद्भुत और विलक्षण हैं कि वह स्वयं में एक दिव्य अनुभूति बन गया है।
-        यह अर्वाचीन शिवलिंग आरम्भ में स्वेत (सफेद) रंग का था, जो अब भगवान भोलेनाथ के कंठ के समान नीले रंग में परिवर्तित हो चुका है।  इसमें ॐ एवं नाग की आकृति का स्वयं प्रकट होना तथा भगवान के नेत्रों एवं उनके दिव्य रूप को प्रत्यक्ष रूप से नीचे दिए गए शिवलिंग की आकृति में देखा जा सकता है।
-        इस शिवलिंग पर ॐ (ॐकार) की आकृति, नाग की भंगिमा, तथा भगवान शिव के नेत्र स्पष्ट रूप से दिखाई देते हैं। यह चिन्ह केवल ध्यान से देखने पर नहीं, बल्कि प्रत्यक्षतः स्पष्ट रूप में अनुभव किए जा सकते हैं। ऐसा प्रतीत होता है मानो स्वयं भगवान शिव का दिव्य रूप इस शिवलिंग में उकेरा गया हो।
-        इन्हीं अद्वितीय लक्षणों के कारण इस पावन स्थल को 'ज्योतिर्लिंग शिवमठ' के नाम से जाना जाता है। यह स्थान मात्र एक मंदिर नहीं है, बल्कि एक ऐसी आध्यात्मिक भूमि है जहाँ श्रद्धा और भक्ति की ऊर्जा शिवस्वरूप में प्रत्यक्ष अनुभव होती है।
-        देशभर से श्रद्धालु इस चमत्कारी शिवलिंग के दर्शन के लिए यहाँ पहुँचते हैं, और इसे केवल एक मूर्ति नहीं, बल्कि शिवस्वरूप की जीवंत उपस्थिति मानते हैं — एक ऐसा शिवलिंग जिसमें दिव्यता स्वयं प्रकट होती है।यह स्थल भक्ति, साधना और सेवा की त्रिवेणी है 🔱 हर हर महादेव 🔱 ॐ नमः शिवाय 🔱
-
-      </div>
-    </div>
+<!-- 🔱 Intro Section -->
+<div class="intro-section">
+  <div class="info-box">
+    <h2>🔱 <span class="blue">ज्योतिर्लिंग शिवमठ के नाम अनूठी उपलब्धियां</span> 🔱</h2>
+    <ul>
+      <li><span class="red">प्रति वर्ष 400 से अधिक रुद्राभिषेक पूजन।</span></li>
+      <li><span class="red">कोई मूल्य निर्धारित नहीं...</span></li>
+    </ul>
   </div>
 
-  <!-- 🔁 Navbar JavaScript -->
-  <script>
-    const scrollingText = document.getElementById('scrollingText');
-    let position = window.innerWidth;
-    function moveText() {
-      position -= 1;
-      if (position < -scrollingText.offsetWidth) {
-        position = window.innerWidth;
-      }
-      scrollingText.style.transform = `translateX(${position}px)`;
-      requestAnimationFrame(moveText);
-    }
-    requestAnimationFrame(moveText);
-  </script>
-</section>
-<!-- 🔷 NAVBAR SECTION END -->
-
-  
-
-   
-      </div>
-    </div>
+  <div>
+    <div class="shivling-circle"><img src="shivling_transparent.png" alt="Shivling"></div>
+    <h1 class="om-mantra-decorated">ॐ नमः शिवाय</h1>
   </div>
 
-  <!-- 🔱 Top Shivling Section with Info Left/Right -->
-  <div class="intro-section">
-    <div class="info-box">
-      <h2>🔱 <span class="blue">ज्योतिर्लिंग शिवमठ के नाम अनूठी उपलब्धियां</span> 🔱</h2>
-      <ul>
-        <li><span class="red">प्रति वर्ष 400 से अधिक रुद्राभिषेक पूजन।</span></li>
-        <li><span class="red">कोई मूल्य निर्धारित नहीं एवं कोई मांग/जांच नहीं।</span></li>
-        <li><span class="red">अन्यत्र पूजन पर भी कोई शुल्क निर्धारित नहीं।</span></li>
-        <li><span class="red">शिवलिंग पर उभरा हुआ ॐ आज भी प्रत्यक्ष है।</span></li>
-      </ul>
-    </div>
-
-    <div>
-      <div class="shivling-circle">
-        <img src="shivling_transparent.png" alt="Shivling">
-      </div>
-      <h1 class="om-mantra-decorated">ॐ नमः शिवाय</h1>
-    </div>
-
-    <div class="info-box">
-      <h2>🎯 <span class="blue">ज्योतिर्लिंग शिवमठ के उद्देश्य</span></h2>
-      <ul>
-        <li><span class="red">शिव उपासना की विशुद्ध एवं निष्कलंक परंपरा को जन-जन तक पहुँचाना।</span></li>
-        <li><span class="red">धार्मिक, आध्यात्मिक एवं सांस्कृतिक चेतना का प्रचार-प्रसार।</span></li>
-        <li><span class="red">गौ सेवा, निर्धनों की सेवा, पर्यावरण संरक्षण जैसे लोकहितकारी कार्यों में संलग्नता।</span></li>
-      </ul>
-    </div>
+  <div class="info-box">
+    <h2>🎯 <span class="blue">ज्योतिर्लिंग शिवमठ के उद्देश्य</span></h2>
+    <ul>
+      <li><span class="red">शिव उपासना की परंपरा...</span></li>
+    </ul>
   </div>
+</div>
 
-  <!-- 🙏 महंत जी का चित्र -->
-  <div style="margin: 0; padding: 0;">
-    <img src="photo2.jpg" alt="Photo" style="width: 100%; height: auto; display: block;" />
-  </div>
+<!-- 🙏 महंत जी का चित्र -->
+<div><img src="photo2.jpg" alt="Photo" style="width: 100%; height: auto; display: block;"></div>
 
-  <!-- 🔁 JavaScript for continuous scrolling -->
-  <script>
-    const scrollingText = document.getElementById('scrollingText');
-    let position = window.innerWidth;
-    function moveText() {
-      position -= 1;
-      if (position < -scrollingText.offsetWidth) {
-        position = window.innerWidth;
-      }
-      scrollingText.style.transform = `translateX(${position}px)`;
-      requestAnimationFrame(moveText);
-    }
-    requestAnimationFrame(moveText);
-  </script>
 </body>
 </html>
-
-
-
-
