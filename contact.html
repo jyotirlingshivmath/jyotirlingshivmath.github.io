@@ -29,7 +29,9 @@
       Mobile Number:  9794810005
     </div>
 
-    <h2>📩 संपर्क करें / पूजा बुकिंग</h2> <h2>📩 ज्योतिर्लिंग शिवमठ पर किसी भी पूजन के लिए कोई शुल्क  निर्धारित नहीं है सभी श्रद्धालु भक्तों से अनुरोध है कि वो पूजन की पवित्रता बनाये रखे </h2>
+    <h2>📩 संपर्क करें / पूजा बुकिंग</h2> 
+    <h2>📩 ज्योतिर्लिंग शिवमठ पर किसी भी पूजन के लिए कोई शुल्क निर्धारित नहीं है सभी श्रद्धालु भक्तों से अनुरोध है कि वो पूजन की पवित्रता बनाये रखे</h2>
+    
     <form id="contactForm">
       <label for="name">नाम:</label>
       <input type="text" id="name" name="name" placeholder="अपना नाम लिखें" required>
@@ -62,13 +64,22 @@
   </div>
 
   <script>
+    // 🔹 Header fetch code
+    fetch('header.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('header-container').innerHTML = data;
+      })
+      .catch(err => console.error('Header load error:', err));
+
+    // 🔹 Form submit code
     document.getElementById('contactForm').addEventListener('submit', function(e) {
       e.preventDefault();
 
       const form = e.target;
       const formData = new FormData(form);
 
-      fetch(""https://script.google.com/macros/s/AKfycbzBHHI_YA5ztL6WHiYjw82dLU9syXnYfsFbGMllzHaNo7J5SAsn7SYrHSbIz6OkxkHuSA/exec", {
+      fetch("https://script.google.com/macros/s/AKfycbzBHHI_YA5ztL6WHiYjw82dLU9syXnYfsFbGMllzHaNo7J5SAsn7SYrHSbIz6OkxkHuSA/exec", {
         method: "POST",
         body: formData,
         mode: "no-cors"
@@ -84,7 +95,3 @@
   </script>
 </body>
 </html>
-
-
-
-
