@@ -15,23 +15,25 @@
     flex-wrap: nowrap;
   }
 
+  /* Left & right image containers — width auto calculated */
   .nav-side-image {
-    flex: 0 0 calc((100% - 500px) / 2 - 10px); /* दोनों तरफ बराबर space */
+    flex: 0 0 calc((100% - 500px) / 2 - 10px);
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
+  /* Images rectangular — height fixed, width full space */
   .nav-side-image img {
-    height: 100px; /* fixed height */
-    width: 100%;   /* available space में fit */
+    height: 100px;
+    width: 100%;
     object-fit: cover;
-    transition: opacity 0.5s ease-in-out;
     border-radius: 6px;
+    transition: opacity 0.5s ease-in-out;
   }
 
   .nav-center {
-    flex: 0 0 500px; /* fixed center width */
+    flex: 0 0 500px;
     text-align: center;
   }
 
@@ -100,7 +102,7 @@
 <div class="navbar-wrapper">
   <div class="navbar-flex-container">
     <div class="nav-side-image">
-      <img id="leftImage" src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Somnath_Temple.JPG" alt="Somnath Jyotirlinga">
+      <img id="leftImage" src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Somnath_Temple.JPG" alt="Left Jyotirlinga">
     </div>
     <div class="nav-center">
       <h2 class="nav-title">श्री ज्योतिर्लिंग शिवमठ</h2>
@@ -113,47 +115,50 @@
       </nav>
     </div>
     <div class="nav-side-image">
-      <img id="rightImage" src="https://upload.wikimedia.org/wikipedia/commons/1/16/Trimbakeshwar_temple.jpg" alt="Trimbakeshwar Jyotirlinga">
+      <img id="rightImage" src="https://upload.wikimedia.org/wikipedia/commons/1/16/Trimbakeshwar_temple.jpg" alt="Right Jyotirlinga">
     </div>
   </div>
 
   <div class="moving-strip">
     <div class="scrolling-text">
-      🔊 जय शिव शंकर 🔱 हर हर महादेव 🔱 ॐ नमः शिवाय 🔊 | ज्योतिर्लिंग शिवमठ एक अत्यंत प्राचीन और चमत्कारी आध्यात्मिक स्थल है...
+      🔊 जय शिव शंकर 🔱 हर हर महादेव 🔱 ॐ नमः शिवाय 🔊 | ज्योतिर्लिंग शिवमठ — प्राचीन और चमत्कारी शिवधाम...
     </div>
   </div>
 </div>
 
 <script>
-  const leftImages = [
+  // 12 ज्योतिर्लिंग के Wikimedia Commons इमेज लिंक
+  const jyotirlingImages = [
     "https://upload.wikimedia.org/wikipedia/commons/6/6d/Somnath_Temple.JPG",
     "https://upload.wikimedia.org/wikipedia/commons/f/fb/Mahakaleshwar_Ujjain.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/3/3b/Kashi_Vishwanath_Temple.jpg"
-  ];
-
-  const rightImages = [
+    "https://upload.wikimedia.org/wikipedia/commons/3/3b/Kashi_Vishwanath_Temple.jpg",
     "https://upload.wikimedia.org/wikipedia/commons/1/16/Trimbakeshwar_temple.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/4/4b/Bhimashankar_Temple.jpg",
     "https://upload.wikimedia.org/wikipedia/commons/d/d5/Kedarnath_Temple.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/4/4b/Bhimashankar_Temple.jpg"
+    "https://upload.wikimedia.org/wikipedia/commons/1/18/Grishneshwar_temple_verul.JPG",
+    "https://upload.wikimedia.org/wikipedia/commons/9/91/Vaidyanath_Temple_Deoghar.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/a/a8/Nageshwar_Temple_Dwarka.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/7/7a/Rameswaram_temple_corridor.JPG",
+    "https://upload.wikimedia.org/wikipedia/commons/f/fc/Mallikarjuna_Temple_Srisailam.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/0/0e/Omkarehwar_temple.jpg"
   ];
 
-  let leftIndex = 0, rightIndex = 0;
+  let leftIndex = 0, rightIndex = 6; // start with 2 different images
 
   function changeImages() {
     const leftImg = document.getElementById("leftImage");
     const rightImg = document.getElementById("rightImage");
 
-    leftIndex = (leftIndex + 1) % leftImages.length;
-    leftImg.style.opacity = 0;
-    setTimeout(() => {
-      leftImg.src = leftImages[leftIndex];
-      leftImg.style.opacity = 1;
-    }, 500);
+    leftIndex = (leftIndex + 1) % jyotirlingImages.length;
+    rightIndex = (rightIndex + 1) % jyotirlingImages.length;
 
-    rightIndex = (rightIndex + 1) % rightImages.length;
+    leftImg.style.opacity = 0;
     rightImg.style.opacity = 0;
+
     setTimeout(() => {
-      rightImg.src = rightImages[rightIndex];
+      leftImg.src = jyotirlingImages[leftIndex];
+      rightImg.src = jyotirlingImages[rightIndex];
+      leftImg.style.opacity = 1;
       rightImg.style.opacity = 1;
     }, 500);
   }
