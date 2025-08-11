@@ -5,20 +5,23 @@
     z-index: 700; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
   }
   .navbar-flex-container {
-    display: flex; justify-content: center;
+    display: flex; justify-content: space-between;
     align-items: center; padding: 10px; flex-wrap: nowrap;
   }
   .nav-side-image {
-    flex: 0 0 auto; display: flex;
+    flex: 1; display: flex;
     align-items: center; justify-content: center;
-    margin: 0 0.5in;
   }
   .nav-side-image img {
-    height: 120px; width: 240px;
+    height: 120px; width: 100%;
     object-fit: cover; border-radius: 8px;
+    max-width: 100%;
     transition: opacity 0.5s;
   }
-  .nav-center { flex: 0 0 500px; text-align: center; }
+  .nav-center {
+    flex: 0 0 450px; text-align: center;
+    padding: 0 10px;
+  }
   .nav-title { font-size: 2.2rem; color: #4a148c;
     font-family: 'Mukta', sans-serif; margin: 0; }
   .navbar { display:flex; justify-content:center;
