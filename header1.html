@@ -11,8 +11,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px;
-    flex-wrap: nowrap;
+    padding: 5px 0;
   }
 
   .nav-side-image {
@@ -20,18 +19,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0 0.5in; /* आधा इंच का gap */
   }
 
   .nav-side-image img {
     height: 150px;
     width: auto;
-    max-width: 100%;
+    max-width: 400px; /* ताकि बीच में gap रहे */
     object-fit: contain;
     transition: opacity 0.5s ease-in-out;
   }
 
   .nav-center {
-    flex: 0 0 500px;
+    flex: 0 0 500px; /* Fixed width center */
     text-align: center;
   }
 
@@ -90,6 +90,11 @@
     padding-left: 20px;
     animation: scrollText 20s linear infinite;
   }
+
+  @keyframes scrollText {
+    from { transform: translateX(100%); }
+    to { transform: translateX(-100%); }
+  }
 </style>
 
 <div class="navbar-wrapper">
@@ -113,7 +118,7 @@
   </div>
 
   <div class="moving-strip">
-    <div class="scrolling-text" id="scrollingText">
+    <div class="scrolling-text">
       🔊 जय शिव शंकर 🔱 हर हर महादेव 🔱 ॐ नमः शिवाय 🔊 | 
       ज्योतिर्लिंग शिवमठ एक अत्यंत प्राचीन और चमत्कारी आध्यात्मिक स्थल है...
     </div>
