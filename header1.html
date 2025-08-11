@@ -13,39 +13,43 @@
     align-items: center;
     padding: 10px;
     flex-wrap: nowrap;
+    position: relative;
   }
 
   .nav-side-image {
+    flex: 0 0 500px;
+    height: 100px;
     position: relative;
-    flex: 0 0 250px; /* Fixed width */
-    height: 150px;
     overflow: hidden;
   }
 
+  /* Background adiyogi image */
   .nav-side-image .bg-img {
     position: absolute;
-    top: 0; left: 0;
+    top: 0; 
+    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    filter: brightness(50%) blur(3px);
     z-index: 1;
-    filter: brightness(70%);
   }
 
-  .nav-side-image .slide-img {
+  /* Foreground Jyotirling image */
+  .nav-side-image img.fg-img {
     position: relative;
     z-index: 2;
-    width: 100%;
     height: 100%;
-    object-fit: cover;
+    width: 100%;
+    object-fit: contain;
     transition: opacity 0.5s ease-in-out;
-    border: 2px solid #fff;
-    box-sizing: border-box;
+    background-color: transparent;
   }
 
   .nav-center {
-    flex: 0 0 500px;
+    flex: 0 0 auto;
     text-align: center;
+    padding: 0 20px;
   }
 
   .nav-title {
@@ -105,20 +109,18 @@
   }
 
   @keyframes scrollText {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
+    from { transform: translateX(100%); }
+    to { transform: translateX(-100%); }
   }
 </style>
 
 <div class="navbar-wrapper">
   <div class="navbar-flex-container">
-    <!-- Left -->
     <div class="nav-side-image">
-      <img class="bg-img" src="jyotirling_slider_images/adiyogi.jpg" alt="Adiyogi">
-      <img id="leftImage" class="slide-img" src="jyotirling_slider_images/somnathjyotirlinga.jpg" alt="Somnath">
+      <img class="bg-img" src="jyotirling_slider_images/adiyogi.jpg" alt="Background">
+      <img id="leftImage" class="fg-img" src="jyotirling_slider_images/somnathjyotirlinga.jpg" alt="Somnath Jyotirlinga">
     </div>
 
-    <!-- Center -->
     <div class="nav-center">
       <h2 class="nav-title">श्री ज्योतिर्लिंग शिवमठ</h2>
       <nav class="navbar">
@@ -130,16 +132,16 @@
       </nav>
     </div>
 
-    <!-- Right -->
     <div class="nav-side-image">
-      <img class="bg-img" src="jyotirling_slider_images/adiyogi.jpg" alt="Adiyogi">
-      <img id="rightImage" class="slide-img" src="jyotirling_slider_images/trimbakeshwar.jpg" alt="Trimbakeshwar">
+      <img class="bg-img" src="jyotirling_slider_images/adiyogi.jpg" alt="Background">
+      <img id="rightImage" class="fg-img" src="jyotirling_slider_images/trimbakeshwar.jpg" alt="Trimbakeshwar Jyotirlinga">
     </div>
   </div>
 
   <div class="moving-strip">
-    <div class="scrolling-text">
-      🔊 जय शिव शंकर 🔱 हर हर महादेव 🔱 ॐ नमः शिवाय 🔊 | ज्योतिर्लिंग शिवमठ एक अत्यंत प्राचीन और चमत्कारी आध्यात्मिक स्थल है...
+    <div class="scrolling-text" id="scrollingText">
+      🔊 जय शिव शंकर 🔱 हर हर महादेव 🔱 ॐ नमः शिवाय 🔊 | 
+      ज्योतिर्लिंग शिवमठ एक अत्यंत प्राचीन और चमत्कारी आध्यात्मिक स्थल है...
     </div>
   </div>
 </div>
@@ -148,20 +150,17 @@
   const leftImages = [
     "jyotirling_slider_images/somnathjyotirlinga.jpg",
     "jyotirling_slider_images/trimbakeshwar.jpg",
-    "jyotirling_slider_images/bhimashankar.jpg",
-    "jyotirling_slider_images/ghrishneshwar.jpg",
     "jyotirling_slider_images/kedarnath.jpg",
     "jyotirling_slider_images/mahakaleshwar.jpg",
-    "jyotirling_slider_images/mallikarjun.jpg"
+    "jyotirling_slider_images/omkareshwar.jpg"
   ];
+  
   const rightImages = [
     "jyotirling_slider_images/trimbakeshwar.jpg",
     "jyotirling_slider_images/somnathjyotirlinga.jpg",
-    "jyotirling_slider_images/nageshwar.jpg",
-    "jyotirling_slider_images/omkareshwar.jpg",
     "jyotirling_slider_images/rameshwaram.jpg",
-    "jyotirling_slider_images/vaidyanath.jpg",
-    "jyotirling_slider_images/vishwanath.jpg"
+    "jyotirling_slider_images/bhimashankar.jpg",
+    "jyotirling_slider_images/mallikarjun.jpg"
   ];
 
   let leftIndex = 0, rightIndex = 0;
