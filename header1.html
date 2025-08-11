@@ -1,48 +1,47 @@
 <style>
   .navbar-wrapper {
-    position: sticky;
-    top: 0;
+    position: sticky; top: 0;
     background: linear-gradient(to right, #fff8e1, #ffe0b2);
-    z-index: 700;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    z-index: 700; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    margin: 0;
   }
 
   .navbar-flex-container {
     display: flex;
-    justify-content: center;
     align-items: center;
     padding: 10px;
+    gap: 10px;
     flex-wrap: nowrap;
   }
 
   .nav-side-image {
-    flex: 0 0 auto;
+    /* Now allow flex growth to fill available space */
+    flex: 1 1 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 280px;     /* Fixed width */
-    height: 150px;    /* Fixed height */
+    max-width: none; /* Remove previous width limit */
   }
 
   .nav-side-image img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
+    height: 120px;      /* Keep height fixed */
+    width: 100%;        /* Stretch image horizontally */
+    object-fit: contain;/* Entire image shown without crop */
     background-color: white;
     border-radius: 8px;
-    transition: opacity 0.5s ease-in-out;
+    transition: opacity 0.5s;
   }
 
   .nav-center {
-    flex: 0 0 500px;
+    flex: 0 0 500px;    /* Center section remains fixed width */
     text-align: center;
   }
 
   .nav-title {
-    font-size: 3rem;
+    font-size: 2.5rem;
     color: #4a148c;
     font-family: 'Mukta', sans-serif;
-    margin-bottom: 0px;
+    margin: 0;
   }
 
   .navbar {
@@ -62,7 +61,7 @@
     background-color: yellow;
     border: 2px solid #e1bee7;
     border-radius: 8px;
-    box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.15);
+    box-shadow: 1px 2px 6px rgba(0,0,0,0.15);
     transition: 0.3s ease;
   }
 
@@ -83,10 +82,8 @@
   }
 
   .scrolling-text {
-    display: inline-block;
-    white-space: nowrap;
     position: absolute;
-    will-change: transform;
+    white-space: nowrap;
     font-size: 0.3in;
     font-weight: bold;
     color: darkred;
@@ -98,12 +95,26 @@
     0% { transform: translateX(100%); }
     100% { transform: translateX(-100%); }
   }
+
+  /* Responsive tweak for narrow screens */
+  @media (max-width: 960px) {
+    .nav-center {
+      flex: 0 0 auto;
+      max-width: 300px;
+    }
+    .nav-side-image img {
+      height: 100px;
+    }
+    .nav-title {
+      font-size: 1.8rem;
+    }
+  }
 </style>
 
 <div class="navbar-wrapper">
   <div class="navbar-flex-container">
     <div class="nav-side-image">
-      <img id="leftImage" src="jyotirling_slider_images/somnathjyotirlinga.jpg" alt="Somnath Jyotirlinga">
+      <img id="leftImage" src="jyotirling_slider_images/somnathjyotirlinga.jpg" alt="Left Jyotirlinga">
     </div>
     <div class="nav-center">
       <h2 class="nav-title">श्री ज्योतिर्लिंग शिवमठ</h2>
@@ -116,54 +127,12 @@
       </nav>
     </div>
     <div class="nav-side-image">
-      <img id="rightImage" src="jyotirling_slider_images/trimbakeshwar.jpg" alt="Trimbakeshwar Jyotirlinga">
+      <img id="rightImage" src="jyotirling_slider_images/trimbakeshwar.jpg" alt="Right Jyotirlinga">
     </div>
   </div>
-
   <div class="moving-strip">
-    <div class="scrolling-text" id="scrollingText">
-      🔊 जय शिव शंकर 🔱 हर हर महादेव 🔱 ॐ नमः शिवाय 🔊 | 
-      ज्योतिर्लिंग शिवमठ एक अत्यंत प्राचीन और चमत्कारी आध्यात्मिक स्थल है...
+    <div class="scrolling-text">
+      🔊 जय शिव शंकर 🔱 हर हर महादेव 🔱 ॐ नमः शिवाय 🔊 | ज्योतिर्लिंग शिवमठ — पवित्रता का प्रतीक...
     </div>
   </div>
 </div>
-
-<script>
-  const imageList = [
-    "bhimashankar.jpg",
-    "ghrishneshwar.jpg",
-    "kedarnath.jpg",
-    "mahakaleshwar.jpg",
-    "mallikarjun.jpg",
-    "nageshwar.jpg",
-    "omkareshwar.jpg",
-    "rameshwaram.jpg",
-    "somnathjyotirlinga.jpg",
-    "trimbakeshwar.jpg",
-    "vaidyanath.jpg",
-    "vishwanath.jpg"
-  ];
-
-  let leftIndex = 0;
-  let rightIndex = Math.floor(imageList.length / 2);
-
-  function changeImages() {
-    const leftImg = document.getElementById("leftImage");
-    const rightImg = document.getElementById("rightImage");
-
-    leftIndex = (leftIndex + 1) % imageList.length;
-    rightIndex = (rightIndex + 1) % imageList.length;
-
-    leftImg.style.opacity = 0;
-    rightImg.style.opacity = 0;
-
-    setTimeout(() => {
-      leftImg.src = "jyotirling_slider_images/" + imageList[leftIndex];
-      rightImg.src = "jyotirling_slider_images/" + imageList[rightIndex];
-      leftImg.style.opacity = 1;
-      rightImg.style.opacity = 1;
-    }, 500);
-  }
-
-  setInterval(changeImages, 3000);
-</script>
