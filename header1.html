@@ -1,78 +1,89 @@
 <style>
+  /* Navbar Wrapper */
   .navbar-wrapper {
     position: sticky;
     top: 0;
     background-color: #fff;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
   }
 
+  /* Flex Container */
   .navbar-flex-container {
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     padding: 10px;
     gap: 20px;
   }
 
+  /* Left and Right Background */
   .nav-side-bg {
-    flex: 0 0 250px;    /* Fixed width */
-    height: 150px;
+    flex: 0 0 280px;
+    height: 140px;
     background: url('adiyogi.jpg') center center / cover no-repeat;
     position: relative;
     overflow: hidden;
     border-radius: 8px;
   }
 
+  /* Sliding Images */
   .nav-side-bg .slide-img {
     position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     object-fit: contain;
     transition: opacity 0.5s ease-in-out;
   }
 
+  /* Center Content */
   .nav-center {
     flex: 0 0 500px;
     text-align: center;
   }
 
+  /* Title */
   .nav-title {
-    font-size: 2.4rem;
+    font-size: 2.5rem;
     color: #4a148c;
     font-family: 'Mukta', sans-serif;
     margin: 0;
   }
 
+  /* Navigation Bar */
   .navbar {
     display: flex;
     justify-content: center;
     gap: 6px;
-    margin-top: 5px;
+    margin-top: 8px;
     flex-wrap: wrap;
   }
 
   .navbar a {
     text-decoration: none;
-    font-size: 17px;
     color: darkred;
     font-weight: bold;
     padding: 6px 12px;
-    background-color: yellow;
+    background: yellow;
     border: 2px solid #e1bee7;
     border-radius: 8px;
-    box-shadow: 1px 2px 6px rgba(0,0,0,0.15);
-    transition: background 0.3s ease;
+    font-size: 17px;
+    box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.15);
+    transition: background 0.3s;
   }
 
   .navbar a:hover {
-    background-color: #f3e5f5;
+    background: #f3e5f5;
     color: #6a1b9a;
   }
 
+  /* Moving Strip */
   .moving-strip {
     width: 100%;
     height: 0.5in;
-    background-color: #fff0f0;
+    background: #fff0f0;
     border-top: 2px solid darkred;
     border-bottom: 2px solid darkred;
     overflow: hidden;
@@ -80,12 +91,11 @@
   }
 
   .scrolling-text {
-    display: inline-block;
+    position: absolute;
+    white-space: nowrap;
     font-size: 0.3in;
     font-weight: bold;
     color: darkred;
-    white-space: nowrap;
-    position: absolute;
     animation: scrollText 20s linear infinite;
     padding-left: 20px;
   }
@@ -99,9 +109,8 @@
 <div class="navbar-wrapper">
   <div class="navbar-flex-container">
     <div class="nav-side-bg">
-      <img id="leftImage" class="slide-img" src="jyotirling_slider_images/somnathjyotirlinga.jpg" alt="Left Jyotirlinga">
+      <img id="leftImg" class="slide-img" src="jyotirling_slider_images/somnathjyotirlinga.jpg" alt="Left Jyotirlinga">
     </div>
-
     <div class="nav-center">
       <h2 class="nav-title">श्री ज्योतिर्लिंग शिवमठ</h2>
       <nav class="navbar">
@@ -112,13 +121,14 @@
         <a href="#">संपर्क करें</a>
       </nav>
     </div>
-
     <div class="nav-side-bg">
-      <img id="rightImage" class="slide-img" src="jyotirling_slider_images/trimbakeshwar.jpg" alt="Right Jyotirlinga">
+      <img id="rightImg" class="slide-img" src="jyotirling_slider_images/trimbakeshwar.jpg" alt="Right Jyotirlinga">
     </div>
   </div>
   <div class="moving-strip">
-    <div class="scrolling-text">🔊 जय शिव शंकर 🔱 हर हर महादेव 🔱 ॐ नमः शिवाय 🔊 ...</div>
+    <div class="scrolling-text">
+      🔊 जय शिव शंकर  हर हर महादेव  ॐ नमः शिवाय  ज्योतिर्लिंग शिवमठ …
+    </div>
   </div>
 </div>
 
@@ -129,26 +139,23 @@
     'jyotirling_slider_images/vishwanath.jpg',
     'jyotirling_slider_images/trimbakeshwar.jpg',
     'jyotirling_slider_images/bhimashankar.jpg',
+    'jyotirling_slider_images/kedarnath.jpg'
   ];
+  let l = 0, r = Math.floor(slides.length / 2);
 
-  let leftIndex = 0;
-  let rightIndex = Math.floor(slides.length / 2);
-
-  function slideImages() {
-    const leftImg = document.getElementById('leftImage');
-    const rightImg = document.getElementById('rightImage');
-    leftImg.style.opacity = '0';
-    rightImg.style.opacity = '0';
-
+  function swapImgs() {
+    const LI = document.getElementById('leftImg');
+    const RI = document.getElementById('rightImg');
+    LI.style.opacity = '0';
+    RI.style.opacity = '0';
     setTimeout(() => {
-      leftIndex = (leftIndex + 1) % slides.length;
-      rightIndex = (rightIndex + 1) % slides.length;
-      leftImg.src = slides[leftIndex];
-      rightImg.src = slides[rightIndex];
-      leftImg.style.opacity = '1';
-      rightImg.style.opacity = '1';
+      l = (l + 1) % slides.length;
+      r = (r + 1) % slides.length;
+      LI.src = slides[l];
+      RI.src = slides[r];
+      LI.style.opacity = '1';
+      RI.style.opacity = '1';
     }, 500);
   }
-
-  setInterval(slideImages, 3000);
+  setInterval(swapImgs, 3000);
 </script>
