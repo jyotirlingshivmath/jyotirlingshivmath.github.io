@@ -9,9 +9,9 @@
 
   .navbar-flex-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    padding: 5px 10px;
+    padding: 10px;
     flex-wrap: nowrap;
   }
 
@@ -20,26 +20,26 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    max-width: 250px; /* Left/Right width limit */
+    width: 280px;     /* Fixed width */
+    height: 150px;    /* Fixed height */
   }
 
   .nav-side-image img {
-    max-height: 120px; /* Height limit */
-    width: 100%;
-    object-fit: contain; /* No crop */
-    background-color: white; /* Empty space look good */
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    background-color: white;
     border-radius: 8px;
     transition: opacity 0.5s ease-in-out;
   }
 
   .nav-center {
-    flex: 1 1 auto;
-    max-width: 500px;
+    flex: 0 0 500px;
     text-align: center;
   }
 
   .nav-title {
-    font-size: 2.5rem;
+    font-size: 3rem;
     color: #4a148c;
     font-family: 'Mukta', sans-serif;
     margin-bottom: 0px;
@@ -102,12 +102,9 @@
 
 <div class="navbar-wrapper">
   <div class="navbar-flex-container">
-    <!-- Left Image -->
     <div class="nav-side-image">
       <img id="leftImage" src="jyotirling_slider_images/somnathjyotirlinga.jpg" alt="Somnath Jyotirlinga">
     </div>
-
-    <!-- Center Content -->
     <div class="nav-center">
       <h2 class="nav-title">श्री ज्योतिर्लिंग शिवमठ</h2>
       <nav class="navbar">
@@ -118,14 +115,11 @@
         <a href="contact.html">संपर्क करें</a>
       </nav>
     </div>
-
-    <!-- Right Image -->
     <div class="nav-side-image">
       <img id="rightImage" src="jyotirling_slider_images/trimbakeshwar.jpg" alt="Trimbakeshwar Jyotirlinga">
     </div>
   </div>
 
-  <!-- Moving Strip -->
   <div class="moving-strip">
     <div class="scrolling-text" id="scrollingText">
       🔊 जय शिव शंकर 🔱 हर हर महादेव 🔱 ॐ नमः शिवाय 🔊 | 
@@ -135,9 +129,7 @@
 </div>
 
 <script>
-  const leftImages = [
-    "somnathjyotirlinga.jpg",
-    "trimbakeshwar.jpg",
+  const imageList = [
     "bhimashankar.jpg",
     "ghrishneshwar.jpg",
     "kedarnath.jpg",
@@ -146,29 +138,29 @@
     "nageshwar.jpg",
     "omkareshwar.jpg",
     "rameshwaram.jpg",
+    "somnathjyotirlinga.jpg",
+    "trimbakeshwar.jpg",
     "vaidyanath.jpg",
     "vishwanath.jpg"
   ];
 
-  const rightImages = [...leftImages].reverse();
-
-  let leftIndex = 0, rightIndex = 0;
+  let leftIndex = 0;
+  let rightIndex = Math.floor(imageList.length / 2);
 
   function changeImages() {
     const leftImg = document.getElementById("leftImage");
     const rightImg = document.getElementById("rightImage");
 
-    leftIndex = (leftIndex + 1) % leftImages.length;
-    leftImg.style.opacity = 0;
-    setTimeout(() => {
-      leftImg.src = "jyotirling_slider_images/" + leftImages[leftIndex];
-      leftImg.style.opacity = 1;
-    }, 500);
+    leftIndex = (leftIndex + 1) % imageList.length;
+    rightIndex = (rightIndex + 1) % imageList.length;
 
-    rightIndex = (rightIndex + 1) % rightImages.length;
+    leftImg.style.opacity = 0;
     rightImg.style.opacity = 0;
+
     setTimeout(() => {
-      rightImg.src = "jyotirling_slider_images/" + rightImages[rightIndex];
+      leftImg.src = "jyotirling_slider_images/" + imageList[leftIndex];
+      rightImg.src = "jyotirling_slider_images/" + imageList[rightIndex];
+      leftImg.style.opacity = 1;
       rightImg.style.opacity = 1;
     }, 500);
   }
