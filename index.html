@@ -1,5 +1,5 @@
 
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="hi">
 <head>
   <meta charset="UTF-8" />
@@ -13,6 +13,7 @@
       padding: 0;
     }
 
+    /* ---------- Navbar Styles ---------- */
     .navbar-wrapper {
       position: sticky;
       top: 0;
@@ -20,57 +21,54 @@
       z-index: 700;
       box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     }
-.nav-image-left,
-.nav-image-right {
-  height: 25px; 
-  width: 144px;
-  object-fit: contain;}
-    .nav-title-container {
+    .navbar-flex-container {
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
-      position: relative;
-      padding: 10px 0;
+      padding: 10px;
+      flex-wrap: wrap;
     }
-
-    .nav-title {
-      font-size: 40px;
+    .nav-side-image img {
+      margin: 0;
+      padding: 0;
+      height: 150px;
+      width: 400px;
+      object-fit: contain;
+    }
+    .nav-center {
       text-align: center;
-      margin: 0 20px;
+      flex: 1 1 auto;
+    }
+    .nav-title {
+      font-size: 2.5rem;
       color: #4a148c;
       font-family: 'Mukta', sans-serif;
+      margin-bottom: 0px;
     }
-
-    .nav-image {
-      height: 60px;
-      width: auto;
-    }
-
     .navbar {
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
       gap: 5px;
-      padding: 4px 0;
     }
-
     .navbar a {
       text-decoration: none;
-      font-size: 18px;
+      font-size: 17px;
       color: darkred;
       font-weight: bold;
-      letter-spacing: 1px;
-      padding: 6px 14px;
-      background-color: #e3f2fd;
-      border-radius: 6px;
-      transition: background 0.3s ease, color 0.3s ease;
+      padding: 6px 10px;
+      background-color: yellow;
+      border: 2px solid #e1bee7;
+      border-radius: 8px;
+      box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.15);
+      transition: 0.3s ease;
     }
-
     .navbar a:hover {
-      background-color: #ffe0b2;
+      background-color: #f3e5f5;
+      color: #6a1b9a;
     }
 
-    /* 🔁 Moving Strip Style */
+    /* Moving Strip */
     .moving-strip {
       width: 100%;
       height: 0.5in;
@@ -81,7 +79,6 @@
       border-bottom: 2px solid darkred;
       box-sizing: border-box;
     }
-
     .scrolling-text {
       display: inline-block;
       white-space: nowrap;
@@ -91,9 +88,9 @@
       font-weight: bold;
       color: darkred;
       padding-left: 20px;
-      animation: scrollText 5s linear infinite;
     }
 
+    /* ---------- Intro Section Styles ---------- */
     .intro-section {
       display: flex;
       justify-content: space-between;
@@ -103,7 +100,6 @@
       gap: 20px;
       background: linear-gradient(to bottom, #fff, #e8eaf6);
     }
-
     .shivling-circle {
       width: 280px;
       height: 280px;
@@ -115,13 +111,11 @@
       align-items: center;
       overflow: hidden;
     }
-
     .shivling-circle img {
       max-width: 100%;
       max-height: 100%;
       object-fit: contain;
     }
-
     .om-mantra-decorated {
       text-align: center;
       font-size: 2.4rem;
@@ -130,7 +124,6 @@
       text-shadow: 2px 2px 6px #888;
       margin-top: 10px;
     }
-
     .info-box {
       flex: 1 1 30%;
       padding: 35px;
@@ -143,208 +136,63 @@
       max-width: 480px;
       text-align: justify;
     }
-
     .info-box h2 {
       text-align: center;
       font-size: 1.6rem;
       margin-bottom: 18px;
     }
-
     .info-box ul {
       list-style-type: '🕉️ ';
       padding-left: 20px;
     }
-
     .red { color: #b71c1c; }
     .blue { color: #0d47a1; }
 
-    .mahant-photo {
-      display: flex;
-      justify-content: center;
-      margin: 30px auto 10px;
+    /* ---------- Mobile Adjustments ---------- */
+    @media (max-width: 768px) {
+      .nav-side-image img { height: 80px; width: auto; }
+      .nav-title { font-size: 1.6rem; }
+      .navbar { flex-direction: column; gap: 6px; }
+      .navbar a { font-size: 15px; padding: 6px 8px; }
+      .intro-section { flex-direction: column; align-items: center; padding: 20px 10px; }
+      .info-box { max-width: 100%; font-size: 1rem; padding: 20px; }
+      .shivling-circle { width: 200px; height: 200px; }
+      .om-mantra-decorated { font-size: 1.6rem; }
     }
-
-    .mahant-photo img {
-      width: 240px;
-      height: auto;
-      border-radius: 20px;
-      border: 3px solid #4a148c;
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    @media (max-width: 480px) {
+      .nav-side-image img { height: 60px; }
+      .nav-title { font-size: 1.3rem; }
+      .navbar a { font-size: 14px; padding: 5px 6px; }
+      .shivling-circle { width: 160px; height: 160px; }
+      .om-mantra-decorated { font-size: 1.4rem; }
+      .info-box h2 { font-size: 1.2rem; }
     }
-
-    .caption {
-      text-align: center;
-      font-size: 1.2rem;
-      color: #4a148c;
-      margin-bottom: 30px;
-    }
-.navbar-flex-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  flex-wrap: wrap;
-}
-
-.nav-side-image img {
-margin: 0;
-padding: 0;
-height: 150px;
-width: 400px;
-object-fit: centre;
-}
-
-.nav-center {
-  text-align: center;
-  flex: 1 1 auto;
-}
-
-.nav-title {
-  font-size: 2.5rem;
-  color: #4a148c;
-  font-family: 'Mukta', sans-serif;
-  margin-bottom: 0px;
-}
-
-.navbar {
-  display: flex;
-  justify-content: center;
-height: 50px;
-  flex-wrap: wrap;
-  gap: 1px;
-}
-
-.navbar a {
-  text-decoration: none;
-  font-size: 17px;
-  color: darkred;
-  font-weight: bold;
-  padding: 6px 10px;
-  background-color: yellow;
-  border: 2px solid #e1bee7;
-  border-radius: 8px;
-  box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.15);
-  transition: 0.3s ease;
-}
-
-.navbar a:hover {
-  background-color: #f3e5f5;
-  color: #6a1b9a;
-}
-
-/* 📱 Mobile Responsive Adjustments */
-@media (max-width: 768px) {
-  .nav-side-image img {
-    height: 80px;
-    width: auto;
-  }
-  .nav-title {
-    font-size: 1.6rem;
-  }
-  .navbar {
-    flex-direction: column;
-    height: auto;
-    gap: 6px;
-  }
-  .navbar a {
-    font-size: 15px;
-    padding: 6px 8px;
-  }
-  .intro-section {
-    flex-direction: column;
-    align-items: center;
-    padding: 20px 10px;
-  }
-  .info-box {
-    max-width: 100%;
-    font-size: 1rem;
-    padding: 20px;
-  }
-  .shivling-circle {
-    width: 200px;
-    height: 200px;
-  }
-  .om-mantra-decorated {
-    font-size: 1.6rem;
-  }
-}
-@media (max-width: 480px) {
-  .nav-side-image img {
-    height: 60px;
-  }
-  .nav-title {
-    font-size: 1.3rem;
-  }
-  .navbar a {
-    font-size: 14px;
-    padding: 5px 6px;
-  }
-  .shivling-circle {
-    width: 160px;
-    height: 160px;
-  }
-  .om-mantra-decorated {
-    font-size: 1.4rem;
-  }
-  .info-box h2 {
-    font-size: 1.2rem;
-  }
-}
   </style>
 </head>
 <body>
-<!-- 🔷 NAVBAR SECTION START -->
-<section id="navbar-section">
-  <div class="navbar-wrapper">
-    <div class="navbar-flex-container">
-      <!-- Left Image -->
-      <div class="nav-side-image">
-        <img src="adiyogi.jpg" alt="Left Image">
-      </div>
-      <!-- Center Title & Buttons -->
-      <div class="nav-center">
-        <h1 class="nav-title"><div class="navbar-title">
- श्री ज्योतिर्लिंग शिवमठ 
-</div></h1>
-        <nav class="navbar">
-          <a href="index.html">मुख्य पृष्ठ</a>
-          <a href="itihas.html">इतिहास</a>
-          <a href="shivtandavak.html">शिवतांडवक</a>
-          <a href="gallery.html">गैलरी</a>
-          <a href="contact.html">संपर्क करें</a>
-        </nav>
-      </div>
-      <!-- Right Image -->
-      <div class="nav-side-image">
-        <img src="adiyogi.jpg" alt="Right Image">
-      </div>
-    </div>
-    <!-- 🔁 Moving Strip -->
-    <div class="moving-strip">
-      <div class="scrolling-text" id="scrollingText">
-        🔊 जय शिव शंकर 🔱 हर हर महादेव 🔱 ॐ नमः शिवाय 🔊 | 
-        ज्योतिर्लिंग शिवमठ एक अत्यंत प्राचीन और चमत्कारी आध्यात्मिक स्थल है, 
-        जहाँ भगवान शिव के दो शिवलिंग विद्यमान हैं — एक प्राचीन और दूसरा नवस्थापित। 🔱
-        🔱 ज्योतिर्लिंग शिवमठ का अद्भुत शिवलिंग — एक दिव्य रहस्य 🔱
-        ...
-      </div>
-    </div>
-  </div>
-  <script>
-    const scrollingText = document.getElementById('scrollingText');
-    let position = window.innerWidth;
-    function moveText() {
-      position -= 1;
-      if (position < -scrollingText.offsetWidth) {
-        position = window.innerWidth;
+
+<!-- Load Navbar from header.html -->
+<div id="header"></div>
+<script>
+  fetch('header.html')
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById('header').innerHTML = data;
+      const scrollingText = document.getElementById('scrollingText');
+      let position = window.innerWidth;
+      function moveText() {
+        position -= 1;
+        if (position < -scrollingText.offsetWidth) {
+          position = window.innerWidth;
+        }
+        scrollingText.style.transform = `translateX(${position}px)`;
+        requestAnimationFrame(moveText);
       }
-      scrollingText.style.transform = `translateX(${position}px)`;
       requestAnimationFrame(moveText);
-    }
-    requestAnimationFrame(moveText);
-  </script>
-</section>
-<!-- 🔷 NAVBAR SECTION END -->
+    });
+</script>
+
+<!-- Intro Section -->
 <div class="intro-section">
   <div class="info-box">
     <h2>🔱 <span class="blue">ज्योतिर्लिंग शिवमठ के नाम अनूठी उपलब्धियां</span> 🔱</h2>
@@ -370,8 +218,11 @@ height: 50px;
     </ul>
   </div>
 </div>
+
+<!-- Full Width Photo -->
 <div style="margin: 0; padding: 0;">
   <img src="photo2.jpg" alt="Photo" style="width: 100%; height: auto; display: block;" />
 </div>
+
 </body>
 </html>
