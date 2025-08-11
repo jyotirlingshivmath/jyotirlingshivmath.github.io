@@ -1,63 +1,97 @@
 <style>
   .navbar-wrapper {
-    position: sticky; top: 0;
+    position: sticky;
+    top: 0;
     background: linear-gradient(to right, #fff8e1, #ffe0b2);
     z-index: 700;
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    margin: 0;
   }
   .navbar-flex-container {
-    display: flex; justify-content: center;
-    align-items: center; padding: 10px; flex-wrap: nowrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    flex-wrap: nowrap;
   }
   .nav-side-image {
-    flex: 0 0 calc((100% - 500px)/2);
-    display: flex; align-items: center; justify-content: center;
-    padding: 0 5px;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0.5in;
+    margin-right: 0.5in;
   }
   .nav-side-image img {
-    height: 100px; width: 100%;
-    object-fit: cover; transition: opacity 0.5s;
+    height: 100px;
+    width: 500px;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: opacity 0.5s ease-in-out;
   }
-  .nav-center { flex: 0 0 500px; text-align: center; }
+  .nav-center {
+    flex: 0 0 500px;
+    text-align: center;
+  }
   .nav-title {
-    font-size: 2.2rem; color: #4a148c;
-    font-family: 'Mukta', sans-serif; margin: 0;
+    font-size: 3rem;
+    color: #4a148c;
+    font-family: 'Mukta', sans-serif;
+    margin-bottom: 0px;
   }
   .navbar {
-    display: flex; justify-content: center;
-    gap: 4px; margin-top: 6px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 4px;
   }
   .navbar a {
-    text-decoration: none; font-size: 17px;
-    color: darkred; font-weight: bold;
-    padding: 6px 10px; background-color: yellow;
-    border: 2px solid #e1bee7; border-radius: 8px;
-    box-shadow: 1px 2px 6px rgba(0,0,0,0.15);
+    text-decoration: none;
+    font-size: 17px;
+    color: darkred;
+    font-weight: bold;
+    padding: 6px 10px;
+    background-color: yellow;
+    border: 2px solid #e1bee7;
+    border-radius: 8px;
+    box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.15);
     transition: 0.3s ease;
   }
-  .navbar a:hover { background-color: #f3e5f5; color: #6a1b9a; }
+  .navbar a:hover {
+    background-color: #f3e5f5;
+    color: #6a1b9a;
+  }
   .moving-strip {
-    width:100%; height:0.5in; background:#fff0f0;
-    border-top:2px solid darkred;
-    border-bottom:2px solid darkred;
-    overflow:hidden; position:relative;
+    width: 100%;
+    height: 0.5in;
+    background-color: #fff0f0;
+    overflow: hidden;
+    position: relative;
+    border-top: 2px solid darkred;
+    border-bottom: 2px solid darkred;
+    box-sizing: border-box;
   }
   .scrolling-text {
-    position:absolute; white-space:nowrap;
-    font-size:0.3in; font-weight:bold; color:darkred;
-    animation: scrollText 25s linear infinite;
+    display: inline-block;
+    white-space: nowrap;
+    position: absolute;
+    will-change: transform;
+    font-size: 0.3in;
+    font-weight: bold;
+    color: darkred;
+    padding-left: 20px;
+    animation: scrollText 20s linear infinite;
   }
   @keyframes scrollText {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
+    from { transform: translateX(100%); }
+    to { transform: translateX(-100%); }
   }
 </style>
 
 <div class="navbar-wrapper">
   <div class="navbar-flex-container">
     <div class="nav-side-image">
-      <img id="leftImage" src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Somnath_temple.JPG" alt="Jyotirlinga">
+      <img id="leftImage" src="" alt="Left Jyotirlinga">
     </div>
     <div class="nav-center">
       <h2 class="nav-title">श्री ज्योतिर्लिंग शिवमठ</h2>
@@ -70,43 +104,62 @@
       </nav>
     </div>
     <div class="nav-side-image">
-      <img id="rightImage" src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Mahakaleshwar_Temple.jpg" alt="Jyotirlinga">
+      <img id="rightImage" src="" alt="Right Jyotirlinga">
     </div>
   </div>
+
   <div class="moving-strip">
     <div class="scrolling-text">
-      🔊 जय शिव शंकर 🔱 हर हर महादेव 🔱 ॐ नमः शिवाय 🔊 | ज्योतिर्लिंग शिवमठ — पवित्रता और भक्ति का प्रतीक...
+      🔊 जय शिव शंकर 🔱 हर हर महादेव 🔱 ॐ नमः शिवाय 🔊 | 
+      ज्योतिर्लिंग शिवमठ एक अत्यंत प्राचीन और चमत्कारी आध्यात्मिक स्थल है...
     </div>
   </div>
 </div>
 
 <script>
-  const images = [
-    "https://upload.wikimedia.org/wikipedia/commons/6/6d/Somnath_temple.JPG",
-    "https://upload.wikimedia.org/wikipedia/commons/f/fb/Mahakaleshwar_Temple.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/3/3b/Kashi_Vishwanath_Temple.jpg",
+  const leftImages = [
+    "https://upload.wikimedia.org/wikipedia/commons/6/6d/Somnath_Temple.JPG",
     "https://upload.wikimedia.org/wikipedia/commons/1/16/Trimbakeshwar_temple.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/4/4b/Bhimashankar_Temple.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/d/d5/Kedarnath_Temple.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/1/18/Grishneshwar_temple_verul.JPG",
-    "https://upload.wikimedia.org/wikipedia/commons/9/91/Vaidyanath_Temple_Deoghar.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/a/a8/Nageshwar_Temple_Dwarka.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/7/7a/Ramanathaswamy_Temple_Rameswaram.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/f/fc/Mallikarjuna_Temple_Srisailam.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/0/0e/Omkarehwar_temple.jpg"
+    "https://upload.wikimedia.org/wikipedia/commons/3/3a/Mahakaleshwar_Ujjain.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/8/8d/Omkareshwar_temple.jpg"
   ];
-  let idxL = 0, idxR = 6;
-  function changeImg(){
-    idxL = (idxL + 1) % images.length;
-    idxR = (idxR + 1) % images.length;
-    const l = document.getElementById("leftImage");
-    const r = document.getElementById("rightImage");
-    l.style.opacity = 0; r.style.opacity = 0;
-    setTimeout(()=>{
-      l.src = images[idxL];
-      r.src = images[idxR];
-      l.style.opacity = 1; r.style.opacity = 1;
-    },500);
+  const rightImages = [
+    "https://upload.wikimedia.org/wikipedia/commons/1/16/Trimbakeshwar_temple.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/6/6d/Somnath_Temple.JPG",
+    "https://upload.wikimedia.org/wikipedia/commons/0/0c/Kashi_Vishwanath_Temple.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/3/38/Kedarnath_Temple.jpg"
+  ];
+
+  let leftIndex = 0, rightIndex = 0;
+
+  function preloadImages(arr) {
+    arr.forEach(src => { let img = new Image(); img.src = src; });
   }
-  setInterval(changeImg,3000);
+
+  function changeImages() {
+    const leftImg = document.getElementById("leftImage");
+    const rightImg = document.getElementById("rightImage");
+
+    leftIndex = (leftIndex + 1) % leftImages.length;
+    leftImg.style.opacity = 0;
+    setTimeout(() => {
+      leftImg.src = leftImages[leftIndex];
+      leftImg.style.opacity = 1;
+    }, 500);
+
+    rightIndex = (rightIndex + 1) % rightImages.length;
+    rightImg.style.opacity = 0;
+    setTimeout(() => {
+      rightImg.src = rightImages[rightIndex];
+      rightImg.style.opacity = 1;
+    }, 500);
+  }
+
+  // init when header.html loads
+  document.addEventListener("DOMContentLoaded", function() {
+    preloadImages(leftImages.concat(rightImages));
+    document.getElementById("leftImage").src = leftImages[0];
+    document.getElementById("rightImage").src = rightImages[0];
+    setInterval(changeImages, 3000);
+  });
 </script>
