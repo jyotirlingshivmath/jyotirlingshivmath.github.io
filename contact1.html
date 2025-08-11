@@ -1,25 +1,74 @@
-
 <!DOCTYPE html>
 <html lang="hi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=1024"> <!-- Force desktop width -->
   <title>संपर्क करें - श्री ज्योतिर्लिंग शिवमठ</title>
   <style>
-    body { font-family: 'Mangal', sans-serif; margin: 0; padding: 0; background-color: #fffbea; }
+    body {
+      font-family: 'Mangal', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fffbea;
+    }
     #header-container { width: 100%; }
-    .contact-section { max-width: 800px; margin: 20px auto; background: #fff3e0; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1); }
+    .contact-section {
+      max-width: 800px;
+      margin: 20px auto;
+      background: #fff3e0;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    }
     h2 { text-align: center; color: #8B0000; }
-    .address { background-color: #ffe4c4; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-size: 18px; line-height: 1.6; }
+    .address {
+      background-color: #ffe4c4;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 18px;
+      line-height: 1.6;
+    }
     form { display: flex; flex-direction: column; gap: 15px; }
     label { font-weight: bold; }
-    input, textarea, select { padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-family: 'Mangal', sans-serif; font-size: 16px; }
-    button { background-color: #8B0000; color: white; border: none; padding: 12px; font-size: 16px; border-radius: 5px; cursor: pointer; }
+    input, textarea, select {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-family: 'Mangal', sans-serif;
+      font-size: 16px;
+    }
+    button {
+      background-color: #8B0000;
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
     button:hover { background-color: #a52a2a; }
+
+    /* 🔹 Ensure images keep same layout but shrink proportionally */
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* 🔹 On smaller devices, just reduce font-size proportionally */
+    @media (max-width: 768px) {
+      body {
+        font-size: 14px;
+        transform: scale(0.85);
+        transform-origin: top left;
+        width: 118%;
+      }
+    }
   </style>
 </head>
 <body>
 
+  <!-- Header fetch container -->
   <div id="header-container"></div>
 
   <div class="contact-section">
@@ -30,7 +79,9 @@
       Mobile Number:  9794810005
     </div>
 
-    <h2>📩 संपर्क करें / पूजा बुकिंग</h2> <h2>📩 ज्योतिर्लिंग शिवमठ पर किसी भी पूजन के लिए कोई शुल्क  निर्धारित नहीं है सभी श्रद्धालु भक्तों से अनुरोध है कि वो पूजन की पवित्रता बनाये रखे </h2>
+    <h2>📩 संपर्क करें / पूजा बुकिंग</h2>
+    <h2>📩 ज्योतिर्लिंग शिवमठ पर किसी भी पूजन के लिए कोई शुल्क निर्धारित नहीं है सभी श्रद्धालु भक्तों से अनुरोध है कि वो पूजन की पवित्रता बनाये रखे</h2>
+    
     <form id="contactForm">
       <label for="name">नाम:</label>
       <input type="text" id="name" name="name" placeholder="अपना नाम लिखें" required>
@@ -63,13 +114,35 @@
   </div>
 
   <script>
+    // 🔹 Header fetch code with script execution
+    fetch('header.html')
+      .then(response => response.text())
+      .then(data => {
+        const container = document.getElementById('header-container');
+        container.innerHTML = data;
+
+        // InnerHTML से आए हुए सभी script टैग execute करें
+        const scripts = container.querySelectorAll('script');
+        scripts.forEach(oldScript => {
+          const newScript = document.createElement('script');
+          if (oldScript.src) {
+            newScript.src = oldScript.src;
+          } else {
+            newScript.textContent = oldScript.textContent;
+          }
+          document.body.appendChild(newScript);
+        });
+      })
+      .catch(err => console.error('Header load error:', err));
+
+    // 🔹 Form submit code
     document.getElementById('contactForm').addEventListener('submit', function(e) {
       e.preventDefault();
 
       const form = e.target;
       const formData = new FormData(form);
 
-      fetch(""https://script.google.com/macros/s/AKfycbzBHHI_YA5ztL6WHiYjw82dLU9syXnYfsFbGMllzHaNo7J5SAsn7SYrHSbIz6OkxkHuSA/exec", {
+      fetch("https://script.google.com/macros/s/AKfycbzBHHI_YA5ztL6WHiYjw82dLU9syXnYfsFbGMllzHaNo7J5SAsn7SYrHSbIz6OkxkHuSA/exec", {
         method: "POST",
         body: formData,
         mode: "no-cors"
@@ -85,7 +158,3 @@
   </script>
 </body>
 </html>
-
-
-
-
