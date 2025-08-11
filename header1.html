@@ -1,140 +1,171 @@
-<!DOCTYPE html>
-<html lang="hi">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>श्री ज्योतिर्लिंग शिवमठ</title>
 <style>
-  body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-  }
   .navbar-wrapper {
-    background-color: #fff;
-    border-bottom: 2px solid #ccc;
+    position: sticky;
+    top: 0;
+    background: linear-gradient(to right, #fff8e1, #ffe0b2);
+    z-index: 700;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
   }
+
   .navbar-flex-container {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 10px;
+    flex-wrap: nowrap;
   }
+
   .nav-side-image {
-    flex: 1 1 auto; /* available space भरने के लिए */
+    flex: 0 0 250px; /* Fixed width */
+    height: 150px;   /* Fixed height */
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 150px;
+    overflow: hidden; /* Hide overflow */
   }
+
   .nav-side-image img {
-    height: 150px; /* Fixed height */
-    width: 100%;   /* पूरे space को fill करें */
-    object-fit: cover; /* Horizontally stretch & cover */
-    background-color: white;
-    border-radius: 8px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Fill container */
     transition: opacity 0.5s ease-in-out;
   }
+
   .nav-center {
     flex: 0 0 500px;
     text-align: center;
   }
+
   .nav-title {
-    font-size: 24px;
-    margin: 0;
-    color: #333;
+    font-size: 3rem;
+    color: #4a148c;
+    font-family: 'Mukta', sans-serif;
+    margin-bottom: 0px;
   }
+
   .navbar {
-    margin-top: 5px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 4px;
   }
+
   .navbar a {
-    margin: 0 10px;
     text-decoration: none;
-    color: #444;
+    font-size: 17px;
+    color: darkred;
     font-weight: bold;
+    padding: 6px 10px;
+    background-color: yellow;
+    border: 2px solid #e1bee7;
+    border-radius: 8px;
+    box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.15);
+    transition: 0.3s ease;
   }
+
+  .navbar a:hover {
+    background-color: #f3e5f5;
+    color: #6a1b9a;
+  }
+
   .moving-strip {
-    background-color: #222;
-    color: white;
+    width: 100%;
+    height: 0.5in;
+    background-color: #fff0f0;
     overflow: hidden;
-    white-space: nowrap;
+    position: relative;
+    border-top: 2px solid darkred;
+    border-bottom: 2px solid darkred;
+    box-sizing: border-box;
   }
+
   .scrolling-text {
     display: inline-block;
-    padding-left: 100%;
-    animation: scroll-left 15s linear infinite;
+    white-space: nowrap;
+    position: absolute;
+    will-change: transform;
+    font-size: 0.3in;
+    font-weight: bold;
+    color: darkred;
+    padding-left: 20px;
+    animation: scrollText 20s linear infinite;
   }
-  @keyframes scroll-left {
-    0% { transform: translateX(0); }
+
+  @keyframes scrollText {
+    0% { transform: translateX(100%); }
     100% { transform: translateX(-100%); }
   }
 </style>
-</head>
-<body>
 
 <div class="navbar-wrapper">
   <div class="navbar-flex-container">
     <div class="nav-side-image">
-      <img id="leftImage" src="jyotirling_slider_images/somnathjyotirlinga.jpg" alt="Left Jyotirlinga">
+      <img id="leftImage" src="jyotirling_slider_images/somnathjyotirlinga.jpg" alt="Somnath Jyotirlinga">
     </div>
     <div class="nav-center">
-      <h2 class="nav-title">🔱 श्री ज्योतिर्लिंग शिवमठ 🔱</h2>
+      <h2 class="nav-title">श्री ज्योतिर्लिंग शिवमठ</h2>
       <nav class="navbar">
-        <a href="#">मुख्य पृष्ठ</a>
-        <a href="#">इतिहास</a>
-        <a href="#">शिवतांडव</a>
-        <a href="#">गैलरी</a>
-        <a href="#">संपर्क करें</a>
+        <a href="index.html">मुख्य पृष्ठ</a>
+        <a href="itihas.html">इतिहास</a>
+        <a href="shivtandavak.html">शिवतांडवक</a>
+        <a href="vedios.html">गैलरी</a>
+        <a href="contact.html">संपर्क करें</a>
       </nav>
     </div>
     <div class="nav-side-image">
-      <img id="rightImage" src="jyotirling_slider_images/trimbakeshwar.jpg" alt="Right Jyotirlinga">
+      <img id="rightImage" src="jyotirling_slider_images/trimbakeshwar.jpg" alt="Trimbakeshwar Jyotirlinga">
     </div>
   </div>
+
   <div class="moving-strip">
-    <div class="scrolling-text">🔊 जय शिव शंकर 🔱 हर हर महादेव 🔱 ॐ नमः शिवाय 🔊 | ज्योतिर्लिंग शिवमठ एक अत्यंत प्राचीन...</div>
+    <div class="scrolling-text" id="scrollingText">
+      🔊 जय शिव शंकर 🔱 हर हर महादेव 🔱 ॐ नमः शिवाय 🔊 | 
+      ज्योतिर्लिंग शिवमठ एक अत्यंत प्राचीन और चमत्कारी आध्यात्मिक स्थल है...
+    </div>
   </div>
 </div>
 
 <script>
-  const imageList = [
-    "somnathjyotirlinga.jpg",
-    "mahakaleshwar.jpg",
-    "vishwanath.jpg",
-    "trimbakeshwar.jpg",
-    "bhimashankar.jpg",
-    "kedarnath.jpg",
-    "ghrishneshwar.jpg",
-    "vaidyanath.jpg",
-    "nageshwar.jpg",
-    "rameshwaram.jpg",
-    "mallikarjun.jpg",
-    "omkareshwar.jpg"
+  const leftImages = [
+    "jyotirling_slider_images/somnathjyotirlinga.jpg",
+    "jyotirling_slider_images/trimbakeshwar.jpg",
+    "jyotirling_slider_images/bhimashankar.jpg",
+    "jyotirling_slider_images/ghrishneshwar.jpg",
+    "jyotirling_slider_images/kedarnath.jpg",
+    "jyotirling_slider_images/mahakaleshwar.jpg",
+    "jyotirling_slider_images/mallikarjun.jpg"
+  ];
+  const rightImages = [
+    "jyotirling_slider_images/trimbakeshwar.jpg",
+    "jyotirling_slider_images/somnathjyotirlinga.jpg",
+    "jyotirling_slider_images/nageshwar.jpg",
+    "jyotirling_slider_images/omkareshwar.jpg",
+    "jyotirling_slider_images/rameshwaram.jpg",
+    "jyotirling_slider_images/vaidyanath.jpg",
+    "jyotirling_slider_images/vishwanath.jpg"
   ];
 
-  let leftIndex = 0;
-  let rightIndex = Math.floor(imageList.length / 2);
+  let leftIndex = 0, rightIndex = 0;
 
   function changeImages() {
     const leftImg = document.getElementById("leftImage");
     const rightImg = document.getElementById("rightImage");
 
+    leftIndex = (leftIndex + 1) % leftImages.length;
     leftImg.style.opacity = 0;
-    rightImg.style.opacity = 0;
-
     setTimeout(() => {
-      leftIndex = (leftIndex + 1) % imageList.length;
-      rightIndex = (rightIndex + 1) % imageList.length;
-
-      leftImg.src = "jyotirling_slider_images/" + imageList[leftIndex];
-      rightImg.src = "jyotirling_slider_images/" + imageList[rightIndex];
-
+      leftImg.src = leftImages[leftIndex];
       leftImg.style.opacity = 1;
+    }, 500);
+
+    rightIndex = (rightIndex + 1) % rightImages.length;
+    rightImg.style.opacity = 0;
+    setTimeout(() => {
+      rightImg.src = rightImages[rightIndex];
       rightImg.style.opacity = 1;
     }, 500);
   }
 
   setInterval(changeImages, 3000);
 </script>
-
-</body>
-</html>
