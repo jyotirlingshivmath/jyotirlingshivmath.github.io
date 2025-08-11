@@ -16,19 +16,31 @@
   }
 
   .nav-side-image {
+    position: relative;
     flex: 0 0 250px; /* Fixed width */
-    height: 150px;   /* Fixed height */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden; /* Hide overflow */
+    height: 150px;
+    overflow: hidden;
   }
 
-  .nav-side-image img {
+  .nav-side-image .bg-img {
+    position: absolute;
+    top: 0; left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Fill container */
+    object-fit: cover;
+    z-index: 1;
+    filter: brightness(70%);
+  }
+
+  .nav-side-image .slide-img {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     transition: opacity 0.5s ease-in-out;
+    border: 2px solid #fff;
+    box-sizing: border-box;
   }
 
   .nav-center {
@@ -100,9 +112,13 @@
 
 <div class="navbar-wrapper">
   <div class="navbar-flex-container">
+    <!-- Left -->
     <div class="nav-side-image">
-      <img id="leftImage" src="jyotirling_slider_images/somnathjyotirlinga.jpg" alt="Somnath Jyotirlinga">
+      <img class="bg-img" src="jyotirling_slider_images/adiyogi.jpg" alt="Adiyogi">
+      <img id="leftImage" class="slide-img" src="jyotirling_slider_images/somnathjyotirlinga.jpg" alt="Somnath">
     </div>
+
+    <!-- Center -->
     <div class="nav-center">
       <h2 class="nav-title">श्री ज्योतिर्लिंग शिवमठ</h2>
       <nav class="navbar">
@@ -113,15 +129,17 @@
         <a href="contact.html">संपर्क करें</a>
       </nav>
     </div>
+
+    <!-- Right -->
     <div class="nav-side-image">
-      <img id="rightImage" src="jyotirling_slider_images/trimbakeshwar.jpg" alt="Trimbakeshwar Jyotirlinga">
+      <img class="bg-img" src="jyotirling_slider_images/adiyogi.jpg" alt="Adiyogi">
+      <img id="rightImage" class="slide-img" src="jyotirling_slider_images/trimbakeshwar.jpg" alt="Trimbakeshwar">
     </div>
   </div>
 
   <div class="moving-strip">
-    <div class="scrolling-text" id="scrollingText">
-      🔊 जय शिव शंकर 🔱 हर हर महादेव 🔱 ॐ नमः शिवाय 🔊 | 
-      ज्योतिर्लिंग शिवमठ एक अत्यंत प्राचीन और चमत्कारी आध्यात्मिक स्थल है...
+    <div class="scrolling-text">
+      🔊 जय शिव शंकर 🔱 हर हर महादेव 🔱 ॐ नमः शिवाय 🔊 | ज्योतिर्लिंग शिवमठ एक अत्यंत प्राचीन और चमत्कारी आध्यात्मिक स्थल है...
     </div>
   </div>
 </div>
