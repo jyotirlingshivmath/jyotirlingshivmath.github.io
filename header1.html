@@ -1,29 +1,109 @@
+<!-- header.html: Place this file and fetch it in your pages. -->
+
 <style>
-  /* हर चीज वैसी की वैसी — केवल fade effect जोड़ा गया */
-  .navbar-wrapper { /* ...existing styles... */ }
-  .navbar-flex-container { /* ... */ }
-  .nav-side-image img {
-    margin: 0; padding: 0;
-    height: 150px; width: 450px;
-    object-fit: contain;
-    transition: opacity 0.5s ease-in-out;
+  /* === Preserve original look; add fade-slideshow CSS === */
+  .navbar-wrapper {
+    position: sticky;
+    top: 0;
+    background: linear-gradient(to right, #fff8e1, #ffe0b2);
+    z-index: 700;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    margin: 0;
   }
-  .nav-center { /* ... */ }
-  .nav-title { /* ... */ }
-  .navbar { /* ... */ }
-  .navbar a { /* ... */ }
-  .navbar a:hover { /* ... */ }
-  .moving-strip { /* ... */ }
-  .scrolling-text { /* ... */ }
+  .navbar-flex-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .nav-side-image {
+    width: 450px;
+    height: 150px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .nav-side-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .nav-center {
+    text-align: center;
+    flex: 1 1 auto;
+  }
+  .nav-title {
+    font-size: 3rem;
+    color: #4a148c;
+    font-family: 'Mukta', sans-serif;
+    margin: 0;
+  }
+  .navbar {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 6px;
+  }
+  .navbar a {
+    text-decoration: none;
+    font-size: 17px;
+    color: darkred;
+    font-weight: bold;
+    padding: 6px 10px;
+    background-color: yellow;
+    border: 2px solid #e1bee7;
+    border-radius: 8px;
+    box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.15);
+    transition: 0.3s ease;
+    white-space: nowrap;
+  }
+  .navbar a:hover {
+    background-color: #f3e5f5;
+    color: #6a1b9a;
+  }
+  .moving-strip {
+    width: 100%;
+    background-color: #fff0f0;
+    overflow: hidden;
+    position: relative;
+    border-top: 2px solid darkred;
+    border-bottom: 2px solid darkred;
+    box-sizing: border-box;
+    height: 2.2em;
+    display: flex;
+    align-items: center;
+  }
+  .scrolling-text {
+    white-space: nowrap;
+    font-size: 1rem;
+    font-weight: bold;
+    color: darkred;
+    animation: scrollHoriz 18s linear infinite;
+  }
+  @keyframes scrollHoriz {
+    0%   { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+  }
 </style>
 
 <div class="navbar-wrapper">
   <div class="navbar-flex-container">
+    <!-- Left Slider -->
     <div class="nav-side-image">
-      <img id="leftImage" src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Somnath_Temple.JPG" alt="Somnath Jyotirlinga">
+      <div class="side-slider">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/Somnath_temple.JPG" alt="Somnath">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/d/da/Mahakaleshwar_Temple.jpg" alt="Mahakaleshwar">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Trimbakeshwar_temple.jpg" alt="Trimbakeshwar">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Baidyanath_Dham_Deoghar.jpg" alt="Baidyanath">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/1/17/Bhimashankar_temple.JPG" alt="Bhimashankar">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/f/f4/Kashi_Vishwanath_temple_20250519_190712.jpg" alt="Kashi Vishwanath">
+      </div>
     </div>
+
+    <!-- Center Title & Navigation -->
     <div class="nav-center">
-      <h2 class="nav-title">श्री ज्योतिर्लिंग शिवमठ</h2>
+      <h2 class="nav-title">🔱 श्री ज्योतिर्लिंग शिवमठ 🔱</h2>
       <nav class="navbar">
         <a href="index.html">मुख्य पृष्ठ</a>
         <a href="itihas.html">इतिहास</a>
@@ -32,46 +112,48 @@
         <a href="contact.html">संपर्क करें</a>
       </nav>
     </div>
+
+    <!-- Right Slider -->
     <div class="nav-side-image">
-      <img id="rightImage" src="https://upload.wikimedia.org/wikipedia/commons/1/16/Trimbakeshwar_temple.jpg" alt="Trimbakeshwar Jyotirlinga">
+      <div class="side-slider">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/f/f4/Kashi_Vishwanath_temple_20250519_190712.jpg" alt="Kashi Vishwanath">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/Somnath_temple.JPG" alt="Somnath">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/1/17/Bhimashankar_temple.JPG" alt="Bhimashankar">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/d/da/Mahakaleshwar_Temple.jpg" alt="Mahakaleshwar">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Trimbakeshwar_temple.jpg" alt="Trimbakeshwar">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Baidyanath_Dham_Deoghar.jpg" alt="Baidyanath">
+      </div>
     </div>
   </div>
+
+  <!-- Moving Strip Text -->
   <div class="moving-strip">
-    <div class="scrolling-text" id="scrollingText">
-       🔊 जय शिव शंकर ... (आपकी लंबी टेक्स्ट इधर)
+    <div class="scrolling-text">
+      🔊 जय शिव शंकर 🔱 हर हर महादेव 🔱 ॐ नमः शिवाय 🔊 |
+      ज्योतिर्लिंग शिवमठ — पुरातन और पवित्र स्थान —
+      श्रद्धा और भक्ति की ऊर्जा का केंद्र।
     </div>
   </div>
 </div>
 
-<script>
-  const leftImages = [
-    "https://upload.wikimedia.org/wikipedia/commons/6/6d/Somnath_Temple.JPG",
-    "https://upload.wikimedia.org/wikipedia/commons/1/16/Trimbakeshwar_temple.jpg"
-  ];
-  const rightImages = [
-    "https://upload.wikimedia.org/wikipedia/commons/1/16/Trimbakeshwar_temple.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/6/6d/Somnath_Temple.JPG"
-  ];
-  let leftIndex = 0, rightIndex = 0;
-
-  function changeImages() {
-    const leftImg = document.getElementById("leftImage");
-    const rightImg = document.getElementById("rightImage");
-
-    leftIndex = (leftIndex + 1) % leftImages.length;
-    leftImg.style.opacity = 0;
-    setTimeout(() => {
-      leftImg.src = leftImages[leftIndex];
-      leftImg.style.opacity = 1;
-    }, 500);
-
-    rightIndex = (rightIndex + 1) % rightImages.length;
-    rightImg.style.opacity = 0;
-    setTimeout(() => {
-      rightImg.src = rightImages[rightIndex];
-      rightImg.style.opacity = 1;
-    }, 500);
+<style>
+  /* Slider fade-animation */
+  .side-slider img {
+    position: absolute;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    animation: fadeCycle 36s linear infinite;
   }
-
-  setInterval(changeImages, 3000);
-</script>
+  @keyframes fadeCycle {
+    0%,8.333% { opacity: 1; }
+    10%,100% { opacity: 0; }
+  }
+  .side-slider img:nth-child(1)  { animation-delay: 0s; }
+  .side-slider img:nth-child(2)  { animation-delay: -3s; }
+  .side-slider img:nth-child(3)  { animation-delay: -6s; }
+  .side-slider img:nth-child(4)  { animation-delay: -9s; }
+  .side-slider img:nth-child(5)  { animation-delay: -12s; }
+  .side-slider img:nth-child(6)  { animation-delay: -15s; }
+</style>
