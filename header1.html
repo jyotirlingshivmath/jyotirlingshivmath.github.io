@@ -11,32 +11,32 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 5px 0;
+    padding: 10px;
+    flex-wrap: nowrap;
   }
 
   .nav-side-image {
-    flex: 0 0 auto;
+    flex: 0 0 calc((100% - 500px) / 2 - 10px); /* दोनों तरफ बराबर space */
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 0.5in; /* आधा इंच का gap */
   }
 
   .nav-side-image img {
-    height: 150px;
-    width: auto;
-    max-width: 400px; /* ताकि बीच में gap रहे */
-    object-fit: contain;
+    height: 100px; /* fixed height */
+    width: 100%;   /* available space में fit */
+    object-fit: cover;
     transition: opacity 0.5s ease-in-out;
+    border-radius: 6px;
   }
 
   .nav-center {
-    flex: 0 0 500px; /* Fixed width center */
+    flex: 0 0 500px; /* fixed center width */
     text-align: center;
   }
 
   .nav-title {
-    font-size: 3rem;
+    font-size: 2.2rem;
     color: #4a148c;
     font-family: 'Mukta', sans-serif;
     margin-bottom: 0px;
@@ -92,8 +92,8 @@
   }
 
   @keyframes scrollText {
-    from { transform: translateX(100%); }
-    to { transform: translateX(-100%); }
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
   }
 </style>
 
@@ -119,8 +119,7 @@
 
   <div class="moving-strip">
     <div class="scrolling-text">
-      🔊 जय शिव शंकर 🔱 हर हर महादेव 🔱 ॐ नमः शिवाय 🔊 | 
-      ज्योतिर्लिंग शिवमठ एक अत्यंत प्राचीन और चमत्कारी आध्यात्मिक स्थल है...
+      🔊 जय शिव शंकर 🔱 हर हर महादेव 🔱 ॐ नमः शिवाय 🔊 | ज्योतिर्लिंग शिवमठ एक अत्यंत प्राचीन और चमत्कारी आध्यात्मिक स्थल है...
     </div>
   </div>
 </div>
@@ -128,12 +127,16 @@
 <script>
   const leftImages = [
     "https://upload.wikimedia.org/wikipedia/commons/6/6d/Somnath_Temple.JPG",
-    "https://upload.wikimedia.org/wikipedia/commons/1/16/Trimbakeshwar_temple.jpg"
+    "https://upload.wikimedia.org/wikipedia/commons/f/fb/Mahakaleshwar_Ujjain.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/3/3b/Kashi_Vishwanath_Temple.jpg"
   ];
+
   const rightImages = [
     "https://upload.wikimedia.org/wikipedia/commons/1/16/Trimbakeshwar_temple.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/6/6d/Somnath_Temple.JPG"
+    "https://upload.wikimedia.org/wikipedia/commons/d/d5/Kedarnath_Temple.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/4/4b/Bhimashankar_Temple.jpg"
   ];
+
   let leftIndex = 0, rightIndex = 0;
 
   function changeImages() {
