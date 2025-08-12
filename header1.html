@@ -1,15 +1,5 @@
-<!DOCTYPE html>
-<html lang="hi">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>श्री ज्योतिर्लिंग शिवमठ</title>
 <style>
-  body {
-    margin: 0;
-    font-family: 'Mukta', sans-serif;
-  }
-
+  /* Navbar Wrapper */
   .navbar-wrapper {
     position: sticky;
     top: 0;
@@ -18,23 +8,25 @@
     z-index: 1000;
   }
 
+  /* Flex Container */
   .navbar-flex-container {
     display: flex;
+    justify-content: center;
     align-items: center;
-    padding: 10px 0;
-    gap: 0; /* No gap between items */
+    padding: 10px;
+    gap: 0;
   }
 
-  /* Fixed Adiyogi images */
+  /* Adiyogi Fixed Images */
   .adiyogi-side {
     flex: 0 0 356px;
     height: 120px;
     background: url('adiyogi.jpg') center center / contain no-repeat;
   }
 
-  /* Sliding images */
+  /* Sliding Images (Left & Right) */
   .nav-side-slide {
-    flex: 0 0 240px;
+    flex: 0 0 240px; /* fixed width so center doesn't move */
     height: 120px;
     display: flex;
     justify-content: center;
@@ -45,26 +37,28 @@
   }
 
   .nav-side-slide img {
-    max-width: 100%;
-    max-height: 100%;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
     transition: opacity 0.5s ease-in-out;
   }
 
-  /* Center section */
+  /* Center Content */
   .nav-center {
-    flex: 1;
+    flex: 0 0 480px; /* fixed center width */
     text-align: center;
-    padding: 0 10px; /* reduced padding to minimize white space */
+    padding: 0 10px;
   }
 
+  /* Title */
   .nav-title {
     font-size: 2.5rem;
     color: #4a148c;
+    font-family: 'Mukta', sans-serif;
     margin: 0;
   }
 
-  /* Navbar buttons */
+  /* Navigation Bar */
   .navbar {
     display: flex;
     justify-content: center;
@@ -82,6 +76,8 @@
     border: 2px solid #e1bee7;
     border-radius: 8px;
     font-size: 17px;
+    box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.15);
+    transition: background 0.3s;
     white-space: nowrap;
   }
 
@@ -90,7 +86,7 @@
     color: #6a1b9a;
   }
 
-  /* Moving strip */
+  /* Moving Strip */
   .moving-strip {
     width: 100%;
     height: 0.5in;
@@ -116,17 +112,13 @@
     100% { transform: translateX(-100%); }
   }
 </style>
-</head>
-<body>
 
 <div class="navbar-wrapper">
   <div class="navbar-flex-container">
     <div class="adiyogi-side"></div>
-
     <div class="nav-side-slide">
       <img id="leftImg" src="jyotirling_slider_images/somnathjyotirlinga.jpg" alt="Left Jyotirlinga">
     </div>
-
     <div class="nav-center">
       <h2 class="nav-title">श्री ज्योतिर्लिंग शिवमठ</h2>
       <nav class="navbar">
@@ -137,14 +129,11 @@
         <a href="#">संपर्क करें</a>
       </nav>
     </div>
-
     <div class="nav-side-slide">
       <img id="rightImg" src="jyotirling_slider_images/trimbakeshwar.jpg" alt="Right Jyotirlinga">
     </div>
-
     <div class="adiyogi-side"></div>
   </div>
-
   <div class="moving-strip">
     <div class="scrolling-text">
       🔊 जय शिव शंकर  हर हर महादेव  ॐ नमः शिवाय  ज्योतिर्लिंग शिवमठ …
@@ -179,6 +168,3 @@
   }
   setInterval(swapImgs, 3000);
 </script>
-
-</body>
-</html>
