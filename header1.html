@@ -1,66 +1,164 @@
-<style>
-  .navbar-flex-container {
-    display: flex;
-    align-items: center;
-    padding: 10px 0;
-    gap: 0;
-  }
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>श्री ज्योतिर्लिंग शिवमठ</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    .navbar-wrapper {
+      position: sticky;
+      top: 0;
+      background-color: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      z-index: 1000;
+    }
+    .navbar-flex-container {
+      display: flex;
+      align-items: center;
+      padding: 10px 0;
+      gap: 0; /* Remove extra gaps between columns */
+    }
+    /* Adiyogi fixed corners */
+    .adiyogi-side {
+      flex: 0 0 356px; /* As requested */
+      height: 120px;
+      background: url('adiyogi.jpg') center center / contain no-repeat;
+    }
+    /* Sliding images */
+    .nav-side-slide {
+      flex: 0 0 auto;
+      height: 120px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .nav-side-slide img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      transition: opacity 0.5s ease-in-out;
+    }
+    /* Center content with minimal padding */
+    .nav-center {
+      flex: 1;
+      text-align: center;
+      padding: 0 10px; /* Tight padding to reduce whitespace */
+    }
+    .nav-title {
+      font-size: 2.5rem;
+      color: #4a148c;
+      font-family: 'Mukta', sans-serif;
+      margin: 0;
+    }
+    /* Navigation */
+    .navbar {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 8px;
+      flex-wrap: nowrap;
+    }
+    .navbar a {
+      text-decoration: none;
+      color: darkred;
+      font-weight: bold;
+      padding: 6px 12px;
+      background: yellow;
+      border: 2px solid #e1bee7;
+      border-radius: 8px;
+      font-size: 17px;
+      white-space: nowrap;
+    }
+    .navbar a:hover {
+      background: #f3e5f5;
+      color: #6a1b9a;
+    }
+    /* Moving text strip */
+    .moving-strip {
+      width: 100%;
+      height: 0.5in;
+      background: #fff0f0;
+      border-top: 2px solid darkred;
+      border-bottom: 2px solid darkred;
+      overflow: hidden;
+      position: relative;
+    }
+    .scrolling-text {
+      position: absolute;
+      white-space: nowrap;
+      font-size: 0.3in;
+      font-weight: bold;
+      color: darkred;
+      animation: scrollText 20s linear infinite;
+      padding-left: 20px;
+    }
+    @keyframes scrollText {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar-wrapper">
+    <div class="navbar-flex-container">
+      <div class="adiyogi-side"></div>
+      <div class="nav-side-slide">
+        <img id="leftImg" src="jyotirling_slider_images/somnathjyotirlinga.jpg" alt="Left Jyotirlinga">
+      </div>
+      <div class="nav-center">
+        <h2 class="nav-title">श्री ज्योतिर्लिंग शिवमठ</h2>
+        <nav class="navbar">
+          <a href="#">मुख्य पृष्ठ</a>
+          <a href="#">इतिहास</a>
+          <a href="#">शिवतांडवक</a>
+          <a href="#">गैलरी</a>
+          <a href="#">संपर्क करें</a>
+        </nav>
+      </div>
+      <div class="nav-side-slide">
+        <img id="rightImg" src="jyotirling_slider_images/trimbakeshwar.jpg" alt="Right Jyotirlinga">
+      </div>
+      <div class="adiyogi-side"></div>
+    </div>
+    <div class="moving-strip">
+      <div class="scrolling-text">
+        🔊 जय शिव शंकर  हर हर महादेव  ॐ नमः शिवाय  ज्योतिर्लिंग शिवमठ …
+      </div>
+    </div>
+  </div>
 
-  /* Bigger Adiyogi Images */
-  .adiyogi-side {
-    flex: 0 0 356px; /* Width */
-    height: 120px;   /* Height */
-    background: url('adiyogi.jpg') center center / contain no-repeat;
-  }
-
-  /* Sliding Images */
-  .nav-side-slide {
-    flex: 0 0 240px; /* Slightly smaller so less gap before center */
-    height: 120px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #fff;
-    border-radius: 8px;
-    overflow: hidden;
-  }
-
-  .nav-side-slide img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-  }
-
-  /* Center section with less padding */
-  .nav-center {
-    flex: 1;
-    text-align: center;
-    padding: 0 5px; /* Reduced side padding */
-  }
-
-  .nav-title {
-    font-size: 2.5rem;
-    color: #4a148c;
-    margin: 0;
-  }
-
-  .navbar {
-    display: flex;
-    justify-content: center;
-    gap: 6px;
-    margin-top: 8px;
-    flex-wrap: nowrap;
-  }
-
-  .navbar a {
-    text-decoration: none;
-    color: darkred;
-    font-weight: bold;
-    padding: 6px 12px;
-    background: yellow;
-    border: 2px solid #e1bee7;
-    border-radius: 8px;
-    font-size: 17px;
-    white-space: nowrap;
-  }
-</style>
+  <script>
+    const slides = [
+      'jyotirling_slider_images/somnathjyotirlinga.jpg',
+      'jyotirling_slider_images/mahakaleshwar.jpg',
+      'jyotirling_slider_images/vishwanath.jpg',
+      'jyotirling_slider_images/trimbakeshwar.jpg',
+      'jyotirling_slider_images/bhimashankar.jpg',
+      'jyotirling_slider_images/kedarnath.jpg'
+    ];
+    let l = 0, r = Math.floor(slides.length / 2);
+    function swapImgs() {
+      const LI = document.getElementById('leftImg');
+      const RI = document.getElementById('rightImg');
+      LI.style.opacity = '0';
+      RI.style.opacity = '0';
+      setTimeout(() => {
+        l = (l + 1) % slides.length;
+        r = (r + 1) % slides.length;
+        LI.src = slides[l];
+        RI.src = slides[r];
+        LI.style.opacity = '1';
+        RI.style.opacity = '1';
+      }, 500);
+    }
+    setInterval(swapImgs, 3000);
+  </script>
+</body>
+</html>
