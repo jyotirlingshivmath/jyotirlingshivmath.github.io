@@ -1,15 +1,130 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>श्री ज्योतिर्लिंग शिवमठ</title>
+
+<style>
+  /* Navbar Wrapper */
+  .navbar-wrapper {
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+  }
+
+  .navbar-flex-container {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    gap: 0;
+  }
+
+  /* Fixed Adiyogi Images (Corners) */
+  .adiyogi-side {
+    flex: 0 0 100px; /* ~3.5 inch */
+    height: 140px;
+    background: url('adiyogi.jpg') center center / contain no-repeat;
+  }
+
+  /* Sliding Jyotirlinga Images */
+  .nav-side-slide {
+    flex: 0 0 280px;
+    height: 140px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .nav-side-slide img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  /* Center Content */
+  .nav-center {
+    flex: 1;
+    text-align: center;
+  }
+
+  .nav-title {
+    font-size: 2.5rem;
+    color: #4a148c;
+    font-family: 'Mukta', sans-serif;
+    margin: 0;
+  }
+
+  /* Navigation Bar */
+  .navbar {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 8px;
+    flex-wrap: nowrap;
+  }
+
+  .navbar a {
+    text-decoration: none;
+    color: darkred;
+    font-weight: bold;
+    padding: 6px 12px;
+    background: yellow;
+    border: 2px solid #e1bee7;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.15);
+    white-space: nowrap;
+  }
+
+  .navbar a:hover {
+    background: #f3e5f5;
+    color: #6a1b9a;
+  }
+
+  /* Moving Strip */
+  .moving-strip {
+    width: 100%;
+    height: 0.5in;
+    background: #fff0f0;
+    border-top: 2px solid darkred;
+    border-bottom: 2px solid darkred;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .scrolling-text {
+    position: absolute;
+    white-space: nowrap;
+    font-size: 0.3in;
+    font-weight: bold;
+    color: darkred;
+    animation: scrollText 20s linear infinite;
+    padding-left: 20px;
+  }
+
+  @keyframes scrollText {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+  }
+</style>
+</head>
+
+<body>
 <div class="navbar-wrapper">
   <div class="navbar-flex-container">
-
-    <!-- Left Adiyogi -->
     <div class="adiyogi-side"></div>
 
-    <!-- Left Slide -->
     <div class="nav-side-slide">
       <img id="leftImg" src="jyotirling_slider_images/somnathjyotirlinga.jpg" alt="Left Jyotirlinga">
     </div>
 
-    <!-- Center -->
     <div class="nav-center">
       <h2 class="nav-title">श्री ज्योतिर्लिंग शिवमठ</h2>
       <nav class="navbar">
@@ -21,19 +136,37 @@
       </nav>
     </div>
 
-    <!-- Right Slide -->
     <div class="nav-side-slide">
       <img id="rightImg" src="jyotirling_slider_images/trimbakeshwar.jpg" alt="Right Jyotirlinga">
     </div>
 
-    <!-- Right Adiyogi -->
     <div class="adiyogi-side"></div>
   </div>
 
-  <!-- Moving strip -->
   <div class="moving-strip">
     <div class="scrolling-text">
       🔊 जय शिव शंकर  हर हर महादेव  ॐ नमः शिवाय  ज्योतिर्लिंग शिवमठ …
     </div>
   </div>
 </div>
+
+<script>
+  const slides = [
+    'jyotirling_slider_images/somnathjyotirlinga.jpg',
+    'jyotirling_slider_images/mahakaleshwar.jpg',
+    'jyotirling_slider_images/vishwanath.jpg',
+    'jyotirling_slider_images/trimbakeshwar.jpg',
+    'jyotirling_slider_images/bhimashankar.jpg',
+    'jyotirling_slider_images/kedarnath.jpg'
+  ];
+  let l = 0, r = Math.floor(slides.length / 2);
+
+  function swapImgs() {
+    const LI = document.getElementById('leftImg');
+    const RI = document.getElementById('rightImg');
+    LI.style.opacity = '0';
+    RI.style.opacity = '0';
+    setTimeout(() => {
+      l = (l + 1) % slides.length;
+      r = (r + 1) % slides.length;
+      LI.src = sli
