@@ -19,55 +19,56 @@
 
   /* Left and Right Background containers */
   .nav-side-bg {
-    display: flex;
+    flex: 0 0 280px;
     height: 140px;
+    position: relative;
+    overflow: hidden;
     border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 0 8px rgba(0,0,0,0.1);
-    background: #fffbea; /* light background so adiyogi stands out */
+    background: none; /* no background image */
   }
 
-  /* Left Container: adiyogi strip on left */
-  .nav-left {
-    flex: 0 0 280px;
-  }
-
-  .nav-left .adiyogi-strip {
-    width: 80px;
-    background: url('adiyogi.jpg') center center / cover no-repeat;
-  }
-
-  .nav-left .slider-container {
-    flex-grow: 1;
-    position: relative;
-    overflow: hidden;
-  }
-
-  /* Right Container: adiyogi strip on right */
-  .nav-right {
-    flex: 0 0 280px;
-  }
-
-  .nav-right .slider-container {
-    flex-grow: 1;
-    position: relative;
-    overflow: hidden;
-  }
-
+  /* adiyogi strip absolute position */
+  .nav-left .adiyogi-strip,
   .nav-right .adiyogi-strip {
-    width: 80px;
-    background: url('adiyogi.jpg') center center / cover no-repeat;
-  }
-
-  /* Sliding Images */
-  .slide-img {
     position: absolute;
     top: 0;
+    width: 80px;
+    height: 100%;
+    background: url('adiyogi.jpg') center center / cover no-repeat;
+    z-index: 1;
+  }
+
+  /* Left container: adiyogi strip on left */
+  .nav-left .adiyogi-strip {
     left: 0;
-    width: 100%;
+  }
+
+  /* Right container: adiyogi strip on right */
+  .nav-right .adiyogi-strip {
+    right: 0;
+  }
+
+  /* sliding images */
+  .nav-side-bg .slide-img {
+    position: relative;  /* relative to container */
     height: 140px;
     object-fit: contain;
     transition: opacity 0.5s ease-in-out;
+    z-index: 2;
+    box-sizing: border-box;
+  }
+
+  /* Padding so slide-img doesn't cover adiyogi strip */
+  .nav-left .slide-img {
+    padding-left: 80px;  /* leave space for adiyogi strip */
+    padding-right: 0;
+    width: 100%;
+  }
+
+  .nav-right .slide-img {
+    padding-right: 80px;
+    padding-left: 0;
+    width: 100%;
   }
 
   /* Center Content */
@@ -143,9 +144,7 @@
     <!-- Left container -->
     <div class="nav-side-bg nav-left">
       <div class="adiyogi-strip"></div>
-      <div class="slider-container">
-        <img id="leftImg" class="slide-img" src="jyotirling_slider_images/somnathjyotirlinga.jpg" alt="Left Jyotirlinga">
-      </div>
+      <img id="leftImg" class="slide-img" src="jyotirling_slider_images/somnathjyotirlinga.jpg" alt="Left Jyotirlinga">
     </div>
 
     <!-- Center content -->
@@ -157,49 +156,4 @@
         <a href="#">शिवतांडवक</a>
         <a href="#">गैलरी</a>
         <a href="#">संपर्क करें</a>
-      </nav>
-    </div>
-
-    <!-- Right container -->
-    <div class="nav-side-bg nav-right">
-      <div class="slider-container">
-        <img id="rightImg" class="slide-img" src="jyotirling_slider_images/trimbakeshwar.jpg" alt="Right Jyotirlinga">
-      </div>
-      <div class="adiyogi-strip"></div>
-    </div>
-  </div>
-
-  <div class="moving-strip">
-    <div class="scrolling-text">
-      🔊 जय शिव शंकर  हर हर महादेव  ॐ नमः शिवाय  ज्योतिर्लिंग शिवमठ …
-    </div>
-  </div>
-</div>
-
-<script>
-  const slides = [
-    'jyotirling_slider_images/somnathjyotirlinga.jpg',
-    'jyotirling_slider_images/mahakaleshwar.jpg',
-    'jyotirling_slider_images/vishwanath.jpg',
-    'jyotirling_slider_images/trimbakeshwar.jpg',
-    'jyotirling_slider_images/bhimashankar.jpg',
-    'jyotirling_slider_images/kedarnath.jpg'
-  ];
-  let l = 0, r = Math.floor(slides.length / 2);
-
-  function swapImgs() {
-    const LI = document.getElementById('leftImg');
-    const RI = document.getElementById('rightImg');
-    LI.style.opacity = '0';
-    RI.style.opacity = '0';
-    setTimeout(() => {
-      l = (l + 1) % slides.length;
-      r = (r + 1) % slides.length;
-      LI.src = slides[l];
-      RI.src = slides[r];
-      LI.style.opacity = '1';
-      RI.style.opacity = '1';
-    }, 500);
-  }
-  setInterval(swapImgs, 3000);
-</script>
+      </n
