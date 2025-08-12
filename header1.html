@@ -8,55 +8,58 @@
   }
 
   .navbar-flex-container {
-    display: grid;
-    grid-template-columns: 336px 280px auto 280px 336px;
+    display: flex;
     align-items: center;
-    gap: 10px;
     padding: 10px;
+    gap: 0;
   }
 
+  /* Left & Right Adiyogi */
   .adiyogi-side {
-    width: 336px; /* 3.5 inch approx */
-    height: 100px;
-    background: url('adiyogi.jpg') center center / contain no-repeat;
+    flex: 0 0 100px; /* ~3.5 inch equivalent */
+    height: 140px;
+    background: url('adiyogi.jpg') center center / cover no-repeat;
   }
 
-  .slide-box {
-    width: 100%;
-    height: 100px;
+  /* Sliding Images */
+  .nav-side-slide {
+    flex: 0 0 280px;
+    height: 140px;
     position: relative;
     overflow: hidden;
     border-radius: 8px;
-    background-color: #f8f8f8;
   }
 
-  .slide-img {
-    position: absolute;
+  .nav-side-slide img {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    transition: opacity 0.5s ease-in-out;
+    position: absolute;
     top: 0;
     left: 0;
+    transition: opacity 0.5s ease-in-out;
   }
 
+  /* Center Content */
   .nav-center {
+    flex: 1;
     text-align: center;
   }
 
   .nav-title {
-    font-size: 2rem;
+    font-size: 2.5rem;
     color: #4a148c;
     font-family: 'Mukta', sans-serif;
     margin: 0;
   }
 
+  /* Navigation Bar */
   .navbar {
     display: flex;
     justify-content: center;
     gap: 6px;
     margin-top: 8px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap; /* Force single line */
   }
 
   .navbar a {
@@ -67,9 +70,10 @@
     background: yellow;
     border: 2px solid #e1bee7;
     border-radius: 8px;
-    font-size: 15px;
+    font-size: 17px;
     box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.15);
     transition: background 0.3s;
+    white-space: nowrap;
   }
 
   .navbar a:hover {
@@ -77,6 +81,7 @@
     color: #6a1b9a;
   }
 
+  /* Moving Strip */
   .moving-strip {
     width: 100%;
     height: 0.5in;
@@ -106,11 +111,9 @@
 <div class="navbar-wrapper">
   <div class="navbar-flex-container">
     <div class="adiyogi-side"></div>
-
-    <div class="slide-box">
-      <img id="leftImg" class="slide-img" src="jyotirling_slider_images/somnathjyotirlinga.jpg" alt="Left Jyotirlinga">
+    <div class="nav-side-slide">
+      <img id="leftImg" src="jyotirling_slider_images/somnathjyotirlinga.jpg" alt="Left Jyotirlinga">
     </div>
-
     <div class="nav-center">
       <h2 class="nav-title">श्री ज्योतिर्लिंग शिवमठ</h2>
       <nav class="navbar">
@@ -121,14 +124,11 @@
         <a href="#">संपर्क करें</a>
       </nav>
     </div>
-
-    <div class="slide-box">
-      <img id="rightImg" class="slide-img" src="jyotirling_slider_images/trimbakeshwar.jpg" alt="Right Jyotirlinga">
+    <div class="nav-side-slide">
+      <img id="rightImg" src="jyotirling_slider_images/trimbakeshwar.jpg" alt="Right Jyotirlinga">
     </div>
-
     <div class="adiyogi-side"></div>
   </div>
-
   <div class="moving-strip">
     <div class="scrolling-text">
       🔊 जय शिव शंकर  हर हर महादेव  ॐ नमः शिवाय  ज्योतिर्लिंग शिवमठ …
