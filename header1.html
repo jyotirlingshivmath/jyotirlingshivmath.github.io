@@ -8,58 +8,46 @@
     z-index: 1000;
   }
 
-  /* Flex Container */
+  /* 5-column layout */
   .navbar-flex-container {
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 80px 280px 500px 280px 80px; /* 5 columns */
     align-items: center;
+    gap: 10px;
     padding: 10px;
-    gap: 20px;
   }
 
-  /* Side container */
-  .nav-side-bg {
-    flex: 0 0 280px;
+  /* Static Adiyogi */
+  .adiyogi-fixed {
+    width: 100%;
+    height: 140px;
+    background: url('adiyogi.jpg') center center / cover no-repeat;
+    border-radius: 8px;
+  }
+
+  /* Slide containers */
+  .slide-container {
+    width: 100%;
     height: 140px;
     position: relative;
     overflow: hidden;
     border-radius: 8px;
-  }
-
-  /* adiyogi fixed background */
-  .nav-side-bg::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 80px; /* blank portion width */
-    background: url('adiyogi.jpg') center center / cover no-repeat;
-    z-index: 1;
-  }
-
-  /* left container adiyogi on left side */
-  .nav-left::before {
-    left: 0;
-  }
-
-  /* right container adiyogi on right side */
-  .nav-right::before {
-    right: 0;
+    background: #000; /* fallback */
   }
 
   /* Sliding Images */
-  .nav-side-bg .slide-img {
-    position: relative;
+  .slide-container .slide-img {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     object-fit: contain;
     transition: opacity 0.5s ease-in-out;
-    z-index: 2; /* above adiyogi background */
   }
 
   /* Center Content */
   .nav-center {
-    flex: 0 0 500px;
     text-align: center;
   }
 
@@ -127,9 +115,15 @@
 
 <div class="navbar-wrapper">
   <div class="navbar-flex-container">
-    <div class="nav-side-bg nav-left">
+    <!-- Left Adiyogi -->
+    <div class="adiyogi-fixed"></div>
+
+    <!-- Left Slide -->
+    <div class="slide-container">
       <img id="leftImg" class="slide-img" src="jyotirling_slider_images/somnathjyotirlinga.jpg" alt="Left Jyotirlinga">
     </div>
+
+    <!-- Center -->
     <div class="nav-center">
       <h2 class="nav-title">श्री ज्योतिर्लिंग शिवमठ</h2>
       <nav class="navbar">
@@ -140,10 +134,16 @@
         <a href="#">संपर्क करें</a>
       </nav>
     </div>
-    <div class="nav-side-bg nav-right">
+
+    <!-- Right Slide -->
+    <div class="slide-container">
       <img id="rightImg" class="slide-img" src="jyotirling_slider_images/trimbakeshwar.jpg" alt="Right Jyotirlinga">
     </div>
+
+    <!-- Right Adiyogi -->
+    <div class="adiyogi-fixed"></div>
   </div>
+
   <div class="moving-strip">
     <div class="scrolling-text">
       🔊 जय शिव शंकर  हर हर महादेव  ॐ नमः शिवाय  ज्योतिर्लिंग शिवमठ …
