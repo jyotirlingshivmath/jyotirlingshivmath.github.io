@@ -1,3 +1,4 @@
+<!-- FULL UPDATED NAVBAR (put in your page) -->
 <style>
   /* Navbar Wrapper */
   .navbar-wrapper {
@@ -17,58 +18,49 @@
     gap: 20px;
   }
 
-  /* Left and Right Background containers */
+  /* SIDE CONTAINER (fixed size) */
   .nav-side-bg {
     flex: 0 0 280px;
     height: 140px;
     position: relative;
     overflow: hidden;
     border-radius: 8px;
-    background: none; /* no background image */
+    background: #fffbea;
   }
 
-  /* adiyogi strip absolute position */
-  .nav-left .adiyogi-strip,
-  .nav-right .adiyogi-strip {
+  /* adiyogi strip - absolute overlay on corners */
+  .adiyogi-strip {
     position: absolute;
     top: 0;
-    width: 80px;
-    height: 100%;
+    bottom: 0;
+    width: 80px; /* width of the corner strip */
     background: url('adiyogi.jpg') center center / cover no-repeat;
-    z-index: 1;
+    z-index: 3; /* on top of slides */
+    pointer-events: none; /* so it won't block clicks if any */
   }
+  .nav-left .adiyogi-strip  { left: 0;  border-top-left-radius:8px; border-bottom-left-radius:8px; }
+  .nav-right .adiyogi-strip { right: 0; border-top-right-radius:8px; border-bottom-right-radius:8px; }
 
-  /* Left container: adiyogi strip on left */
-  .nav-left .adiyogi-strip {
+  /* slider full-size area (unchanged position) */
+  .slider-inner {
+    position: absolute;
+    top: 0;
     left: 0;
-  }
-
-  /* Right container: adiyogi strip on right */
-  .nav-right .adiyogi-strip {
     right: 0;
+    bottom: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  /* sliding images */
-  .nav-side-bg .slide-img {
-    position: relative;  /* relative to container */
-    height: 140px;
-    object-fit: contain;
-    transition: opacity 0.5s ease-in-out;
-    z-index: 2;
-    box-sizing: border-box;
-  }
-
-  /* Padding so slide-img doesn't cover adiyogi strip */
-  .nav-left .slide-img {
-    padding-left: 80px;  /* leave space for adiyogi strip */
-    padding-right: 0;
+  /* sliding image fills slider-inner exactly (no padding) */
+  .slide-img {
     width: 100%;
-  }
-
-  .nav-right .slide-img {
-    padding-right: 80px;
-    padding-left: 0;
-    width: 100%;
+    height: 100%;
+    object-fit: contain; /* keep original look; change to cover if you want full-bleed */
+    transition: opacity 0.45s ease-in-out;
+    display: block;
   }
 
   /* Center Content */
@@ -132,10 +124,16 @@
     animation: scrollText 20s linear infinite;
     padding-left: 20px;
   }
-
   @keyframes scrollText {
     0% { transform: translateX(100%); }
     100% { transform: translateX(-100%); }
+  }
+
+  /* small responsive tweak */
+  @media (max-width: 900px) {
+    .nav-center { flex: 1 1 auto; }
+    .nav-side-bg { flex: 0 0 90px; height: 90px; }
+    .adiyogi-strip { width: 30px; }
   }
 </style>
 
@@ -144,7 +142,9 @@
     <!-- Left container -->
     <div class="nav-side-bg nav-left">
       <div class="adiyogi-strip"></div>
-      <img id="leftImg" class="slide-img" src="jyotirling_slider_images/somnathjyotirlinga.jpg" alt="Left Jyotirlinga">
+      <div class="slider-inner">
+        <img id="leftImg" class="slide-img" src="jyotirling_slider_images/somnathjyotirlinga.jpg" alt="Left Jyotirlinga">
+      </div>
     </div>
 
     <!-- Center content -->
@@ -156,4 +156,49 @@
         <a href="#">शिवतांडवक</a>
         <a href="#">गैलरी</a>
         <a href="#">संपर्क करें</a>
-      </n
+      </nav>
+    </div>
+
+    <!-- Right container -->
+    <div class="nav-side-bg nav-right">
+      <div class="slider-inner">
+        <img id="rightImg" class="slide-img" src="jyotirling_slider_images/trimbakeshwar.jpg" alt="Right Jyotirlinga">
+      </div>
+      <div class="adiyogi-strip"></div>
+    </div>
+  </div>
+
+  <div class="moving-strip">
+    <div class="scrolling-text">
+      🔊 जय शिव शंकर  हर हर महादेव  ॐ नमः शिवाय  ज्योतिर्लिंग शिवमठ …
+    </div>
+  </div>
+</div>
+
+<script>
+  const slides = [
+    'jyotirling_slider_images/somnathjyotirlinga.jpg',
+    'jyotirling_slider_images/mahakaleshwar.jpg',
+    'jyotirling_slider_images/vishwanath.jpg',
+    'jyotirling_slider_images/trimbakeshwar.jpg',
+    'jyotirling_slider_images/bhimashankar.jpg',
+    'jyotirling_slider_images/kedarnath.jpg'
+  ];
+  let l = 0, r = Math.floor(slides.length / 2);
+
+  function swapImgs() {
+    const LI = document.getElementById('leftImg');
+    const RI = document.getElementById('rightImg');
+    LI.style.opacity = '0';
+    RI.style.opacity = '0';
+    setTimeout(() => {
+      l = (l + 1) % slides.length;
+      r = (r + 1) % slides.length;
+      LI.src = slides[l];
+      RI.src = slides[r];
+      LI.style.opacity = '1';
+      RI.style.opacity = '1';
+    }, 450);
+  }
+  setInterval(swapImgs, 3000);
+</script>
