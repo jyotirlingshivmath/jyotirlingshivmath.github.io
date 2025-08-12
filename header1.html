@@ -1,5 +1,4 @@
 <style>
-  /* Navbar Wrapper */
   .navbar-wrapper {
     position: sticky;
     top: 0;
@@ -8,50 +7,44 @@
     z-index: 1000;
   }
 
-  /* 5-column layout */
   .navbar-flex-container {
     display: grid;
-    grid-template-columns: 80px 280px 500px 280px 80px; /* 5 columns */
+    grid-template-columns: 80px 280px auto 280px 80px;
     align-items: center;
     gap: 10px;
     padding: 10px;
   }
 
-  /* Static Adiyogi */
-  .adiyogi-fixed {
+  .adiyogi-side {
     width: 100%;
     height: 140px;
     background: url('adiyogi.jpg') center center / cover no-repeat;
     border-radius: 8px;
   }
 
-  /* Slide containers */
-  .slide-container {
+  .slide-box {
     width: 100%;
     height: 140px;
     position: relative;
     overflow: hidden;
     border-radius: 8px;
-    background: #000; /* fallback */
+    background-color: #f8f8f8;
   }
 
-  /* Sliding Images */
-  .slide-container .slide-img {
+  .slide-img {
     position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
     object-fit: contain;
     transition: opacity 0.5s ease-in-out;
+    top: 0;
+    left: 0;
   }
 
-  /* Center Content */
   .nav-center {
     text-align: center;
   }
 
-  /* Title */
   .nav-title {
     font-size: 2.5rem;
     color: #4a148c;
@@ -59,7 +52,6 @@
     margin: 0;
   }
 
-  /* Navigation Bar */
   .navbar {
     display: flex;
     justify-content: center;
@@ -86,7 +78,6 @@
     color: #6a1b9a;
   }
 
-  /* Moving Strip */
   .moving-strip {
     width: 100%;
     height: 0.5in;
@@ -115,15 +106,12 @@
 
 <div class="navbar-wrapper">
   <div class="navbar-flex-container">
-    <!-- Left Adiyogi -->
-    <div class="adiyogi-fixed"></div>
+    <div class="adiyogi-side"></div>
 
-    <!-- Left Slide -->
-    <div class="slide-container">
+    <div class="slide-box">
       <img id="leftImg" class="slide-img" src="jyotirling_slider_images/somnathjyotirlinga.jpg" alt="Left Jyotirlinga">
     </div>
 
-    <!-- Center -->
     <div class="nav-center">
       <h2 class="nav-title">श्री ज्योतिर्लिंग शिवमठ</h2>
       <nav class="navbar">
@@ -135,13 +123,11 @@
       </nav>
     </div>
 
-    <!-- Right Slide -->
-    <div class="slide-container">
+    <div class="slide-box">
       <img id="rightImg" class="slide-img" src="jyotirling_slider_images/trimbakeshwar.jpg" alt="Right Jyotirlinga">
     </div>
 
-    <!-- Right Adiyogi -->
-    <div class="adiyogi-fixed"></div>
+    <div class="adiyogi-side"></div>
   </div>
 
   <div class="moving-strip">
