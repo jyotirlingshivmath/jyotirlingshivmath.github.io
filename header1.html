@@ -1,170 +1,180 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
-  /* Navbar Wrapper */
-  .navbar-wrapper {
-    position: sticky;
-    top: 0;
-    background-color: #fff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
+
+/* ================= NAVBAR WRAPPER ================= */
+.navbar-wrapper{
+  position: sticky;
+  top: 0;
+  z-index: 700;
+  background: linear-gradient(to right,#fff8e1,#ffe0b2);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+/* ================= FLEX ROW (FORCED) ================= */
+.navbar-flex-container{
+  display: flex;
+  flex-direction: row;        /* 👈 FORCE ROW */
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+/* ================= SIDE IMAGES ================= */
+.nav-side-image{
+  flex: 0 0 auto;              /* 👈 NEVER STACK */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-side-image img{
+  height: 120px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+/* ================= CENTER ================= */
+.nav-center{
+  flex: 1 1 auto;
+  text-align: center;
+}
+
+.nav-title{
+  font-size: 3rem;
+  color: #4a148c;
+  font-family: Mukta, sans-serif;
+  margin: 0;
+}
+
+/* ================= NAV MENU ================= */
+.navbar{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.navbar a{
+  text-decoration: none;
+  font-size: 17px;
+  color: darkred;
+  font-weight: bold;
+  padding: 6px 12px;
+  background: yellow;
+  border: 2px solid #e1bee7;
+  border-radius: 8px;
+  box-shadow: 1px 2px 6px rgba(0,0,0,.15);
+  transition: .3s;
+}
+
+.navbar a:hover{
+  background:#f3e5f5;
+  color:#6a1b9a;
+}
+
+/* ================= MOVING STRIP ================= */
+.moving-strip{
+  width:100%;
+  height:.5in;
+  background:#fff0f0;
+  overflow:hidden;
+  border-top:2px solid darkred;
+  border-bottom:2px solid darkred;
+}
+
+.scrolling-text{
+  white-space:nowrap;
+  font-size:.3in;
+  font-weight:bold;
+  color:darkred;
+  padding-left:20px;
+  position:relative;
+}
+
+/* ================= MOBILE FIX ================= */
+@media(max-width:768px){
+  .navbar-flex-container{
+    flex-wrap:wrap;
   }
 
-  /* Flex Container */
-  .navbar-flex-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    gap: 0;
+  .nav-center{
+    order:1;
+    width:100%;
   }
 
-  /* Adiyogi Fixed Images */
-  .adiyogi-side {
-    flex: 0 0 356px;
-    height: 120px;
-    background: url('adiyogi.jpg') center center / contain no-repeat;
+  .nav-side-image{
+    order:2;
+    width:50%;
   }
 
-  /* Sliding Images (Left & Right) */
-  .nav-side-slide {
-    flex: 0 0 240px; /* fixed width so center doesn't move */
-    height: 120px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #fff;
-    border-radius: 8px;
-    overflow: hidden;
+  .nav-side-image img{
+    height:80px;
   }
 
-  .nav-side-slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    transition: opacity 0.5s ease-in-out;
+  .nav-title{
+    font-size:2rem;
   }
+}
 
-  /* Center Content */
-  .nav-center {
-    flex: 0 0 480px; /* fixed center width */
-    text-align: center;
-    padding: 0 10px;
-  }
-
-  /* Title */
-  .nav-title {
-    font-size: 2.5rem;
-    color: #4a148c;
-    font-family: 'Mukta', sans-serif;
-    margin: 0;
-  }
-
-  /* Navigation Bar */
-  .navbar {
-    display: flex;
-    justify-content: center;
-    gap: 6px;
-    margin-top: 8px;
-    flex-wrap: nowrap;
-  }
-
-  .navbar a {
-    text-decoration: none;
-    color: darkred;
-    font-weight: bold;
-    padding: 6px 12px;
-    background: yellow;
-    border: 2px solid #e1bee7;
-    border-radius: 8px;
-    font-size: 17px;
-    box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.15);
-    transition: background 0.3s;
-    white-space: nowrap;
-  }
-
-  .navbar a:hover {
-    background: #f3e5f5;
-    color: #6a1b9a;
-  }
-
-  /* Moving Strip */
-  .moving-strip {
-    width: 100%;
-    height: 0.5in;
-    background: #fff0f0;
-    border-top: 2px solid darkred;
-    border-bottom: 2px solid darkred;
-    overflow: hidden;
-    position: relative;
-  }
-
-  .scrolling-text {
-    position: absolute;
-    white-space: nowrap;
-    font-size: 0.3in;
-    font-weight: bold;
-    color: darkred;
-    animation: scrollText 20s linear infinite;
-    padding-left: 20px;
-  }
-
-  @keyframes scrollText {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
-  }
 </style>
+</head>
+
+<body>
 
 <div class="navbar-wrapper">
+
   <div class="navbar-flex-container">
-    <div class="adiyogi-side"></div>
-    <div class="nav-side-slide">
-      <img id="leftImg" src="jyotirling_slider_images/somnathjyotirlinga.jpg" alt="Left Jyotirlinga">
+
+    <!-- LEFT IMAGE -->
+    <div class="nav-side-image">
+      <img src="adiyogi.jpg" alt="Left Shiv">
     </div>
+
+    <!-- CENTER -->
     <div class="nav-center">
-      <h2 class="nav-title">श्री ज्योतिर्लिंग शिवमठ</h2>
+      <h2 class="nav-title">🔱 श्री ज्योतिर्लिंग शिवमठ 🔱</h2>
       <nav class="navbar">
-        <a href="#">मुख्य पृष्ठ</a>
-        <a href="#">इतिहास</a>
-        <a href="#">शिवतांडवक</a>
-        <a href="#">गैलरी</a>
-        <a href="#">संपर्क करें</a>
+        <a href="index.html">मुख्य पृष्ठ</a>
+        <a href="itihas.html">इतिहास</a>
+        <a href="shivtandavak.html">शिवतांडवक</a>
+        <a href="vedios.html">गैलरी</a>
+        <a href="contact.html">संपर्क करें</a>
       </nav>
     </div>
-    <div class="nav-side-slide">
-      <img id="rightImg" src="jyotirling_slider_images/trimbakeshwar.jpg" alt="Right Jyotirlinga">
+
+    <!-- RIGHT IMAGE -->
+    <div class="nav-side-image">
+      <img src="adiyogi.jpg" alt="Right Shiv">
     </div>
-    <div class="adiyogi-side"></div>
+
   </div>
+
+  <!-- MOVING STRIP -->
   <div class="moving-strip">
-    <div class="scrolling-text">
-      🔊 जय शिव शंकर  हर हर महादेव  ॐ नमः शिवाय  ज्योतिर्लिंग शिवमठ …
+    <div class="scrolling-text" id="scrollingText">
+      🔱 जय शिव शंकर 🔱 हर हर महादेव 🔱 ॐ नमः शिवाय 🔱
     </div>
   </div>
+
 </div>
 
 <script>
-  const slides = [
-    'jyotirling_slider_images/somnathjyotirlinga.jpg',
-    'jyotirling_slider_images/mahakaleshwar.jpg',
-    'jyotirling_slider_images/vishwanath.jpg',
-    'jyotirling_slider_images/trimbakeshwar.jpg',
-    'jyotirling_slider_images/bhimashankar.jpg',
-    'jyotirling_slider_images/kedarnath.jpg'
-  ];
-  let l = 0, r = Math.floor(slides.length / 2);
-
-  function swapImgs() {
-    const LI = document.getElementById('leftImg');
-    const RI = document.getElementById('rightImg');
-    LI.style.opacity = '0';
-    RI.style.opacity = '0';
-    setTimeout(() => {
-      l = (l + 1) % slides.length;
-      r = (r + 1) % slides.length;
-      LI.src = slides[l];
-      RI.src = slides[r];
-      LI.style.opacity = '1';
-      RI.style.opacity = '1';
-    }, 500);
-  }
-  setInterval(swapImgs, 3000);
+const t=document.getElementById("scrollingText");
+let x=window.innerWidth;
+(function move(){
+  x--;
+  if(x<-t.offsetWidth) x=window.innerWidth;
+  t.style.transform=`translateX(${x}px)`;
+  requestAnimationFrame(move);
+})();
 </script>
+
+</body>
+</html>
