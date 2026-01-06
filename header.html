@@ -23,14 +23,6 @@
         <a href="contact.html">संपर्क करें</a>
       </nav>
     </div>
-
-    <!-- Right Image -->
-    <div class="nav-side-image">
-      <img src="right-image.jpg" alt="Right Image">
-    </div>
-  </div>
-</div>
-
 <style>
 /* ================= NAVBAR WRAPPER ================= */
 .navbar-wrapper {
@@ -43,44 +35,44 @@
   box-sizing: border-box;
 }
 
-/* ================= FLEX CONTAINER ================= */
+/* ================= FLEX CONTAINER (CRITICAL FIX) ================= */
 .navbar-flex-container {
   display: flex;
-  align-items: flex-start;      /* 🔑 sab upar se align */
+  flex-direction: row;          /* 🔑 hamesha ek hi row */
+  flex-wrap: nowrap;            /* 🔑 kabhi break nahi hoga */
+  align-items: flex-start;      /* 🔑 sab upar se start */
   justify-content: space-between;
-  gap: 10px;
-  flex-wrap: nowrap;
   width: 100%;
   box-sizing: border-box;
 }
 
 /* ================= SIDE IMAGES ================= */
 .nav-side-image {
-  flex: 0 0 auto;
+  flex: 0 0 auto;               /* 🔑 image apni jagah fix */
   display: flex;
-  align-items: flex-start;      /* 🔑 image upar rahe */
+  align-items: flex-start;
   justify-content: center;
 }
 
 .nav-side-image img {
   max-height: 120px;
-  max-width: 100%;
-  height: auto;
   width: auto;
+  height: auto;
   object-fit: contain;
   display: block;
 }
 
-/* ================= CENTER SECTION ================= */
+/* ================= CENTER SECTION (FIXED AREA) ================= */
 .nav-center {
-  flex: 1 1 auto;
+  flex: 1 1 auto;               /* 🔑 beech ka area fix */
+  max-width: 70%;               /* 🔑 images ko neeche dhakelne se roke */
   display: flex;
-  flex-direction: column;       /* 🔑 title upar, buttons neeche */
+  flex-direction: column;       /* title upar, buttons neeche */
   align-items: center;
   justify-content: flex-start;
-  min-width: 0;
   gap: 8px;
   text-align: center;
+  box-sizing: border-box;
 }
 
 .nav-title {
@@ -119,14 +111,6 @@
 
 /* ================= MOBILE ================= */
 @media (max-width: 768px) {
-  .navbar-flex-container {
-    align-items: flex-start;
-  }
-
-  .nav-side-image {
-    flex: 0 0 auto;
-  }
-
   .nav-side-image img {
     max-height: 80px;
   }
@@ -134,8 +118,22 @@
   .nav-title {
     font-size: 2rem;
   }
+
+  .nav-center {
+    max-width: 100%;
+  }
 }
 </style>
+
+    <!-- Right Image -->
+    <div class="nav-side-image">
+      <img src="right-image.jpg" alt="Right Image">
+    </div>
+  </div>
+</div>
+
+[ LEFT IMAGE ]   🔱 श्री ज्योतिर्लिंग शिवमठ 🔱   [ RIGHT IMAGE ]
+                  [   buttons buttons buttons   ]
 
 
 
@@ -186,6 +184,7 @@ moveText();
 
 </body>
 </html>
+
 
 
 
