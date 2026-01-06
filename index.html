@@ -6,76 +6,13 @@
 <title>ज्योतिर्लिंग शिवमठ</title>
 
 <style>
-/* ======== आपका ORIGINAL CSS – ज्यों का त्यों ======== */
+/* ======== PAGE ONLY CSS (HEADER REMOVED) ======== */
+
 body {
   font-family: 'Mangal', sans-serif;
   background-color: #fffbea;
   margin: 0;
   padding: 0;
-}
-
-/* ---------- Navbar Styles ---------- */
-.navbar-wrapper {
-  position: sticky;
-  top: 0;
-  background: linear-gradient(to right, #fff8e1, #ffe0b2);
-  z-index: 700;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-}
-.navbar-flex-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  flex-wrap: wrap;
-}
-.nav-side-image img {
-  height: 150px;
-  width: 400px;
-  object-fit: contain;
-}
-.nav-center {
-  text-align: center;
-  flex: 1;
-}
-.nav-title {
-  font-size: 2.5rem;
-  color: #4a148c;
-  margin-bottom: 0px;
-}
-.navbar {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 5px;
-}
-.navbar a {
-  text-decoration: none;
-  font-size: 17px;
-  color: darkred;
-  font-weight: bold;
-  padding: 6px 10px;
-  background-color: yellow;
-  border: 2px solid #e1bee7;
-  border-radius: 8px;
-}
-
-/* Moving Strip */
-.moving-strip {
-  width: 100%;
-  height: 0.5in;
-  background-color: #fff0f0;
-  overflow: hidden;
-  position: relative;
-  border-top: 2px solid darkred;
-  border-bottom: 2px solid darkred;
-}
-.scrolling-text {
-  position: absolute;
-  white-space: nowrap;
-  font-size: 0.3in;
-  font-weight: bold;
-  color: darkred;
 }
 
 /* ---------- Intro Section ---------- */
@@ -87,6 +24,7 @@ body {
   padding: 40px 20px;
   gap: 20px;
 }
+
 .shivling-circle {
   width: 280px;
   height: 280px;
@@ -95,55 +33,49 @@ body {
   justify-content: center;
   align-items: center;
 }
+
 .shivling-circle img {
   max-width: 100%;
 }
+
 .om-mantra-decorated {
   text-align: center;
   font-size: 2.4rem;
   color: darkred;
 }
+
 .info-box {
   flex: 1 1 30%;
   padding: 35px;
   max-width: 480px;
 }
+
 .red { color: #b71c1c; }
 .blue { color: #0d47a1; }
 
 /* Mobile */
 @media (max-width: 768px) {
-  .nav-side-image img { height: 80px; width: auto; }
-  .intro-section { flex-direction: column; }
+  .intro-section {
+    flex-direction: column;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<!-- 🔱 HEADER FETCH (यही सही जगह है) -->
+<!-- 🔱 HEADER ONLY FETCHED FROM header.html -->
 <div id="header"></div>
 
 <script>
 fetch("header.html")
-  .then(res => res.text())
+  .then(response => response.text())
   .then(data => {
     document.getElementById("header").innerHTML = data;
-
-    const text = document.getElementById("scrollingText");
-    let pos = window.innerWidth;
-
-    function move() {
-      pos -= 1;
-      if (pos < -text.offsetWidth) pos = window.innerWidth;
-      text.style.transform = `translateX(${pos}px)`;
-      requestAnimationFrame(move);
-    }
-    move();
   });
 </script>
 
-<!-- ===== PAGE CONTENT (unchanged) ===== -->
+<!-- ===== PAGE CONTENT ===== -->
 
 <div class="intro-section">
 
@@ -157,7 +89,7 @@ fetch("header.html")
 
   <div>
     <div class="shivling-circle">
-      <img src="shivling_transparent.png">
+      <img src="shivling_transparent.png" alt="Shivling">
     </div>
     <h1 class="om-mantra-decorated">ॐ नमः शिवाय</h1>
   </div>
@@ -171,8 +103,7 @@ fetch("header.html")
 
 </div>
 
-<img src="photo2.jpg" style="width:100%;display:block;">
+<img src="photo2.jpg" alt="Photo" style="width:100%;display:block;">
 
 </body>
 </html>
-
