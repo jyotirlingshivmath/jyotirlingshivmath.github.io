@@ -4,6 +4,33 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<!-- ================= HEADER ================= -->
+<div class="navbar-wrapper">
+  <div class="navbar-flex-container">
+    <!-- Left Image -->
+    <div class="nav-side-image">
+      <img src="https://via.placeholder.com/120x120?text=Left+Image" alt="Left Image">
+    </div>
+
+    <!-- Center Title + Navbar -->
+    <div class="nav-center">
+      <h2 class="nav-title">🔱 श्री ज्योतिर्लिंग शिवमठ 🔱</h2>
+      <nav class="navbar">
+        <a href="index.html">मुख्य पृष्ठ</a>
+        <a href="itihas.html">इतिहास</a>
+        <a href="shivtandavak.html">शिवतांडवक</a>
+        <a href="vedios.html">गैलरी</a>
+        <a href="contact.html">संपर्क करें</a>
+      </nav>
+    </div>
+
+    <!-- Right Image -->
+    <div class="nav-side-image">
+      <img src="https://via.placeholder.com/120x120?text=Right+Image" alt="Right Image">
+    </div>
+  </div>
+</div>
+
 <style>
 /* ================= NAVBAR WRAPPER ================= */
 .navbar-wrapper {
@@ -29,7 +56,7 @@
 
 /* ================= SIDE IMAGES ================= */
 .nav-side-image {
-  flex: 0 0 auto; /* image apne size ke hisaab se rahe */
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -38,28 +65,21 @@
 .nav-side-image img {
   width: auto;
   height: auto;
-  max-height: 120px; /* desktop */
+  max-height: 120px;
   max-width: 100%;
   object-fit: contain;
   display: block;
 }
 
-/* ================= CENTER ================= */
-.nav-center-wrapper {
+/* ================= CENTER TITLE + NAVBAR ================= */
+.nav-center {
   display: flex;
   flex-direction: column; /* title upar, buttons neeche */
   align-items: center;
   justify-content: center;
   flex: 1 1 auto;
-  min-width: 0;
-  gap: 5px; /* title aur buttons ke beech space */
-}
-
-.nav-center {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  min-width: 0; /* overflow avoid karne ke liye */
+  gap: 8px; /* title aur buttons ke beech space */
 }
 
 .nav-title {
@@ -67,18 +87,17 @@
   color: #4a148c;
   font-family: 'Mukta', sans-serif;
   margin: 0;
-  white-space: nowrap; /* ek line me rahe */
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: normal; /* allow multiple lines */
+  text-align: center; /* center me dikhe */
 }
 
 /* ================= NAV BUTTONS ================= */
 .navbar {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
+  flex-wrap: wrap; /* mobile friendly wrap */
   gap: 6px;
-  margin-top: 0; /* margin handled by gap in wrapper */
+  margin-top: 0;
 }
 
 .navbar a {
@@ -99,42 +118,16 @@
   color: #6a1b9a;
 }
 
-/* ================= MOVING STRIP ================= */
-.moving-strip {
-  width: 100%;
-  height: 0.5in;
-  background-color: #fff0f0;
-  overflow: hidden;
-  position: relative;
-  border-top: 2px solid darkred;
-  border-bottom: 2px solid darkred;
-}
-
-.scrolling-text {
-  white-space: nowrap;
-  position: absolute;
-  font-size: 0.3in;
-  font-weight: bold;
-  color: darkred;
-  padding-left: 20px;
-}
-
 /* ================= MOBILE RESPONSIVE ================= */
 @media (max-width: 768px) {
-  .navbar-flex-container {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 5px;
-  }
-
   .nav-side-image {
     flex: 1 1 30%;
-    max-height: 80px; /* mobile me chhoti images */
+    max-height: 80px;
   }
 
-  .nav-center-wrapper {
+  .nav-center {
     flex: 1 1 60%;
-    gap: 3px; /* mobile me thoda kam gap */
+    gap: 5px;
   }
 
   .nav-title {
@@ -142,7 +135,6 @@
   }
 
   .navbar {
-    flex-wrap: wrap; /* buttons ek ke bad ek */
     justify-content: center;
   }
 }
@@ -212,6 +204,7 @@ moveText();
 
 </body>
 </html>
+
 
 
 
