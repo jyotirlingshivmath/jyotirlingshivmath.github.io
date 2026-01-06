@@ -173,22 +173,20 @@
 <!-- Load Navbar from header.html -->
 <div id="header"></div>
 <script>
-  fetch('header.html')
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById('header').innerHTML = data;
-      const scrollingText = document.getElementById('scrollingText');
-      let position = window.innerWidth;
-      function moveText() {
-        position -= 1;
-        if (position < -scrollingText.offsetWidth) {
-          position = window.innerWidth;
-        }
-        scrollingText.style.transform = `translateX(${position}px)`;
-        requestAnimationFrame(moveText);
-      }
-      requestAnimationFrame(moveText);
+fetch('header.html')
+  .then(res => res.text())
+  .then(data => {
+    const container = document.getElementById('header-container');
+    container.innerHTML = data;
+
+    container.querySelectorAll('script').forEach(oldScript => {
+      const s = document.createElement('script');
+      if (oldScript.src) s.src = oldScript.src;
+      else s.textContent = oldScript.textContent;
+      document.body.appendChild(s);
     });
+  })
+  .catch(err => console.error(err));
 </script>
 
 <!-- Intro Section -->
