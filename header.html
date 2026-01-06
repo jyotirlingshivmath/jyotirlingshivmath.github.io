@@ -32,6 +32,7 @@
 </div>
 
 <style>
+/* ================= NAVBAR WRAPPER ================= */
 .navbar-wrapper {
   position: sticky;
   top: 0;
@@ -42,19 +43,22 @@
   box-sizing: border-box;
 }
 
+/* ================= FLEX CONTAINER ================= */
 .navbar-flex-container {
   display: flex;
-  align-items: center;
+  align-items: flex-start;      /* 🔑 sab upar se align */
   justify-content: space-between;
   gap: 10px;
+  flex-wrap: nowrap;
   width: 100%;
   box-sizing: border-box;
 }
 
+/* ================= SIDE IMAGES ================= */
 .nav-side-image {
   flex: 0 0 auto;
   display: flex;
-  align-items: center;
+  align-items: flex-start;      /* 🔑 image upar rahe */
   justify-content: center;
 }
 
@@ -67,14 +71,16 @@
   display: block;
 }
 
+/* ================= CENTER SECTION ================= */
 .nav-center {
-  display: flex;
-  flex-direction: column; /* Title on top, buttons below */
-  align-items: center;
-  justify-content: center;
   flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;       /* 🔑 title upar, buttons neeche */
+  align-items: center;
+  justify-content: flex-start;
   min-width: 0;
   gap: 8px;
+  text-align: center;
 }
 
 .nav-title {
@@ -82,10 +88,10 @@
   color: #4a148c;
   font-family: 'Mukta', sans-serif;
   margin: 0;
-  white-space: normal;
-  text-align: center;
+  white-space: normal;          /* 🔑 cut nahi hoga */
 }
 
+/* ================= NAV BUTTONS ================= */
 .navbar {
   display: flex;
   justify-content: center;
@@ -111,20 +117,22 @@
   color: #6a1b9a;
 }
 
+/* ================= MOBILE ================= */
 @media (max-width: 768px) {
+  .navbar-flex-container {
+    align-items: flex-start;
+  }
+
   .nav-side-image {
-    flex: 1 1 30%;
+    flex: 0 0 auto;
+  }
+
+  .nav-side-image img {
     max-height: 80px;
   }
-  .nav-center {
-    flex: 1 1 60%;
-    gap: 5px;
-  }
+
   .nav-title {
     font-size: 2rem;
-  }
-  .navbar {
-    justify-content: center;
   }
 }
 </style>
@@ -178,6 +186,7 @@ moveText();
 
 </body>
 </html>
+
 
 
 
