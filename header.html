@@ -31,56 +31,47 @@
   background: linear-gradient(to right, #fff8e1, #ffe0b2);
   z-index: 700;
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  padding: 5px 10px;
-  box-sizing: border-box;
+  padding: 6px 10px;
 }
 
-/* ================= FLEX CONTAINER (CRITICAL FIX) ================= */
+/* ================= MAIN FLEX ================= */
 .navbar-flex-container {
   display: flex;
-  flex-direction: row;          /* 🔑 hamesha ek hi row */
-  flex-wrap: nowrap;            /* 🔑 kabhi break nahi hoga */
-  align-items: flex-start;      /* 🔑 sab upar se start */
+  align-items: flex-start;
   justify-content: space-between;
   width: 100%;
-  box-sizing: border-box;
 }
 
-/* ================= SIDE IMAGES ================= */
+/* ================= LEFT & RIGHT IMAGE ================= */
 .nav-side-image {
-  flex: 0 0 auto;               /* 🔑 image apni jagah fix */
+  width: 140px;                 /* 🔑 CORNER SPACE FIX */
   display: flex;
-  align-items: flex-start;
   justify-content: center;
+  align-items: flex-start;
 }
 
 .nav-side-image img {
   max-height: 120px;
   width: auto;
-  height: auto;
-  object-fit: contain;
   display: block;
 }
 
-/* ================= CENTER SECTION (FIXED AREA) ================= */
+/* ================= CENTER ================= */
 .nav-center {
-  flex: 1 1 auto;               /* 🔑 beech ka area fix */
-  max-width: 70%;               /* 🔑 images ko neeche dhakelne se roke */
+  flex: 1;
   display: flex;
-  flex-direction: column;       /* title upar, buttons neeche */
+  flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
   gap: 8px;
   text-align: center;
-  box-sizing: border-box;
 }
 
+/* ================= TITLE ================= */
 .nav-title {
   font-size: 3rem;
   color: #4a148c;
-  font-family: 'Mukta', sans-serif;
   margin: 0;
-  white-space: normal;          /* 🔑 cut nahi hoga */
+  font-family: 'Mukta', sans-serif;
 }
 
 /* ================= NAV BUTTONS ================= */
@@ -101,29 +92,26 @@
   border: 2px solid #e1bee7;
   border-radius: 8px;
   box-shadow: 1px 2px 6px rgba(0,0,0,0.15);
-  transition: 0.3s ease;
-}
-
-.navbar a:hover {
-  background-color: #f3e5f5;
-  color: #6a1b9a;
 }
 
 /* ================= MOBILE ================= */
 @media (max-width: 768px) {
-  .nav-side-image img {
-    max-height: 80px;
+  .navbar-flex-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav-side-image {
+    width: auto;
+    margin-bottom: 6px;
   }
 
   .nav-title {
     font-size: 2rem;
   }
-
-  .nav-center {
-    max-width: 100%;
-  }
 }
 </style>
+
 
     <!-- Right Image -->
     <div class="nav-side-image">
@@ -132,8 +120,7 @@
   </div>
 </div>
 
-[ LEFT IMAGE ]   🔱 श्री ज्योतिर्लिंग शिवमठ 🔱   [ RIGHT IMAGE ]
-                  [   buttons buttons buttons   ]
+
 
 
 
@@ -184,6 +171,7 @@ moveText();
 
 </body>
 </html>
+
 
 
 
