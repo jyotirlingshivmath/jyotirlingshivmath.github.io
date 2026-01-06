@@ -4,26 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- ================= NAVBAR WRAPPER ================= -->
-.navbar
-  <div class="navbar-wrapper">
-  <div class="navbar-flex-container">
-    <!-- Left Image -->
-    <div class="nav-side-image">
-      <img src="left-image.jpg" alt="Left Image">
-    </div>
-
-    <!-- Center Section -->
-    <div class="nav-center">
-      <h2 class="nav-title">🔱 श्री ज्योतिर्लिंग शिवमठ 🔱</h2>
-      <nav class="navbar">
-        <a href="index.html">मुख्य पृष्ठ</a>
-        <a href="itihas.html">इतिहास</a>
-        <a href="shivtandavak.html">शिवतांडवक</a>
-        <a href="vedios.html">गैलरी</a>
-        <a href="contact.html">संपर्क करें</a>
-      </nav>
-    </div>
 <style>
 /* ================= NAVBAR WRAPPER ================= */
 .navbar-wrapper {
@@ -38,20 +18,22 @@
 /* ================= MAIN FLEX ================= */
 .navbar-flex-container {
   display: flex;
-  align-items: flex-start;
+  align-items: flex-start;  /* Fixed: top alignment */
   justify-content: space-between;
   width: 100%;
+  gap: 10px;  /* Added small gap between elements */
 }
 
-/* ================= LEFT & RIGHT IMAGE ================= */
-.nav-side-image {
-  width: 140px;                 /* 🔑 CORNER SPACE FIX */
+/* ================= LEFT IMAGE ================= */
+.nav-left-image {
+  width: 140px;
+  flex-shrink: 0;  /* Fixed: prevent shrinking */
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: flex-start;  /* Fixed: top align */
 }
 
-.nav-side-image img {
+.nav-left-image img {
   max-height: 120px;
   width: auto;
   display: block;
@@ -65,6 +47,7 @@
   align-items: center;
   gap: 8px;
   text-align: center;
+  min-width: 0;  /* Allow flex shrink if needed */
 }
 
 /* ================= TITLE ================= */
@@ -95,16 +78,37 @@
   box-shadow: 1px 2px 6px rgba(0,0,0,0.15);
 }
 
-/* ================= MOBILE ================= */
+/* ================= RIGHT IMAGE ================= */
+.nav-right-image {
+  width: 140px;
+  flex-shrink: 0;  /* Fixed: prevent shrinking */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;  /* Fixed: top align */
+}
+
+.nav-right-image img {
+  max-height: 120px;
+  width: auto;
+  display: block;
+}
+
+/* ================= MOBILE RESPONSIVE ================= */
 @media (max-width: 768px) {
   .navbar-flex-container {
     flex-direction: column;
     align-items: center;
+    gap: 10px;
   }
 
-  .nav-side-image {
+  .nav-left-image,
+  .nav-right-image {
     width: auto;
-    margin-bottom: 6px;
+    order: -1;  /* Left image first in mobile */
+  }
+
+  .nav-right-image {
+    order: 1;  /* Right image last in mobile */
   }
 
   .nav-title {
@@ -112,6 +116,14 @@
   }
 }
 </style>
+</head>
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<div class="navbar-wrapper">
+  <div class="navbar-flex-container">
+    <!-- Left Shiv Image - Fixed Position -->
+    <div class="nav-left-image">
 
 
     <!-- Right Image -->
@@ -172,6 +184,7 @@ moveText();
 
 </body>
 </html>
+
 
 
 
