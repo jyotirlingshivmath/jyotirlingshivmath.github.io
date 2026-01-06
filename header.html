@@ -13,15 +13,18 @@
   z-index: 700;
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
   padding: 5px 10px;
+  box-sizing: border-box;
 }
 
 /* ================= FLEX CONTAINER ================= */
 .navbar-flex-container {
   display: flex;
-  align-items: center;
+  align-items: center; /* vertical center */
   justify-content: space-between;
   gap: 10px;
-  flex-wrap: nowrap; /* hamesha ek hi row me rahe */
+  flex-wrap: nowrap; /* hamesha ek row me rahe */
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* ================= SIDE IMAGES ================= */
@@ -33,10 +36,12 @@
 }
 
 .nav-side-image img {
-  max-width: 100%;
+  width: auto;
   height: auto;
+  max-height: 120px; /* desktop */
+  max-width: 100%;
   object-fit: contain;
-  max-height: 120px; /* desktop ke liye */
+  display: block;
 }
 
 /* ================= CENTER ================= */
@@ -44,6 +49,19 @@
   flex: 1 1 auto; /* jitni space bachegi center ko milegi */
   text-align: center;
   min-width: 0; /* overflow avoid karne ke liye */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-title {
+  font-size: 3rem;
+  color: #4a148c;
+  font-family: 'Mukta', sans-serif;
+  margin: 0;
+  white-space: nowrap; /* ek line me rahe */
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* ================= NAV BUTTONS ================= */
@@ -96,22 +114,27 @@
 /* ================= MOBILE RESPONSIVE ================= */
 @media (max-width: 768px) {
   .navbar-flex-container {
-    flex-wrap: wrap; /* mobile me wrap allow */
+    flex-wrap: wrap;
     justify-content: center;
     gap: 5px;
   }
 
   .nav-side-image {
-    flex: 1 1 30%; /* dono side images equal space le */
-    max-height: 80px;
+    flex: 1 1 30%; /* images equal space le */
+    max-height: 80px; /* mobile me chhoti images */
   }
 
   .nav-center {
-    flex: 1 1 40%; /* center thoda zyada space le */
+    flex: 1 1 40%;
     text-align: center;
+  }
+
+  .nav-title {
+    font-size: 2rem; /* mobile me font shrink */
   }
 }
 </style>
+
 
 </head>
 
@@ -176,4 +199,5 @@ moveText();
 
 </body>
 </html>
+
 
