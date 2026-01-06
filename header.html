@@ -45,10 +45,18 @@
 }
 
 /* ================= CENTER ================= */
+.nav-center-wrapper {
+  display: flex;
+  flex-direction: column; /* title upar, buttons neeche */
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 auto;
+  min-width: 0;
+  gap: 5px; /* title aur buttons ke beech space */
+}
+
 .nav-center {
-  flex: 1 1 auto; /* jitni space bachegi center ko milegi */
-  text-align: center;
-  min-width: 0; /* overflow avoid karne ke liye */
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -70,7 +78,7 @@
   justify-content: center;
   flex-wrap: wrap;
   gap: 6px;
-  margin-top: 5px;
+  margin-top: 0; /* margin handled by gap in wrapper */
 }
 
 .navbar a {
@@ -120,17 +128,22 @@
   }
 
   .nav-side-image {
-    flex: 1 1 30%; /* images equal space le */
+    flex: 1 1 30%;
     max-height: 80px; /* mobile me chhoti images */
   }
 
-  .nav-center {
-    flex: 1 1 40%;
-    text-align: center;
+  .nav-center-wrapper {
+    flex: 1 1 60%;
+    gap: 3px; /* mobile me thoda kam gap */
   }
 
   .nav-title {
-    font-size: 2rem; /* mobile me font shrink */
+    font-size: 2rem;
+  }
+
+  .navbar {
+    flex-wrap: wrap; /* buttons ek ke bad ek */
+    justify-content: center;
   }
 }
 </style>
@@ -199,5 +212,6 @@ moveText();
 
 </body>
 </html>
+
 
 
