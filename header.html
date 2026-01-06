@@ -12,50 +12,43 @@
   background: linear-gradient(to right, #fff8e1, #ffe0b2);
   z-index: 700;
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  padding: 6px 10px;
 }
 
-/* ================= MAIN FLEX ================= */
+/* ================= FLEX CONTAINER ================= */
 .navbar-flex-container {
   display: flex;
-  align-items: flex-start;  /* Fixed: top alignment */
+  align-items: center;
   justify-content: space-between;
-  width: 100%;
-  gap: 10px;  /* Added small gap between elements */
+  padding: 10px;
+  gap: 10px;
 }
 
-/* ================= LEFT IMAGE ================= */
-.nav-left-image {
-  width: 140px;
-  flex-shrink: 0;  /* Fixed: prevent shrinking */
+/* ================= SIDE IMAGES ================= */
+.nav-side-image {
+  flex: 0 1 auto;
   display: flex;
+  align-items: center;
   justify-content: center;
-  align-items: flex-start;  /* Fixed: top align */
 }
 
-.nav-left-image img {
+.nav-side-image img {
+  max-width: 100%;
   max-height: 120px;
-  width: auto;
-  display: block;
+  height: auto;
+  object-fit: contain;
 }
 
 /* ================= CENTER ================= */
 .nav-center {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
+  flex: 1 1 auto;
   text-align: center;
-  min-width: 0;  /* Allow flex shrink if needed */
 }
 
-/* ================= TITLE ================= */
 .nav-title {
   font-size: 3rem;
   color: #4a148c;
-  margin: 0;
   font-family: 'Mukta', sans-serif;
+  margin: 0;
 }
 
 /* ================= NAV BUTTONS ================= */
@@ -64,6 +57,7 @@
   justify-content: center;
   flex-wrap: wrap;
   gap: 6px;
+  margin-top: 5px;
 }
 
 .navbar a {
@@ -76,67 +70,77 @@
   border: 2px solid #e1bee7;
   border-radius: 8px;
   box-shadow: 1px 2px 6px rgba(0,0,0,0.15);
+  transition: 0.3s ease;
 }
 
-/* ================= RIGHT IMAGE ================= */
-.nav-right-image {
-  width: 140px;
-  flex-shrink: 0;  /* Fixed: prevent shrinking */
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;  /* Fixed: top align */
+.navbar a:hover {
+  background-color: #f3e5f5;
+  color: #6a1b9a;
 }
 
-.nav-right-image img {
-  max-height: 120px;
-  width: auto;
-  display: block;
+/* ================= MOVING STRIP ================= */
+.moving-strip {
+  width: 100%;
+  height: 0.5in;
+  background-color: #fff0f0;
+  overflow: hidden;
+  position: relative;
+  border-top: 2px solid darkred;
+  border-bottom: 2px solid darkred;
+}
+
+.scrolling-text {
+  white-space: nowrap;
+  position: absolute;
+  font-size: 0.3in;
+  font-weight: bold;
+  color: darkred;
+  padding-left: 20px;
 }
 
 /* ================= MOBILE RESPONSIVE ================= */
 @media (max-width: 768px) {
   .navbar-flex-container {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
+    flex-wrap: wrap;
   }
 
-  .nav-left-image,
-  .nav-right-image {
-    width: auto;
-    order: -1;  /* Left image first in mobile */
+  .nav-center {
+    order: 1;
+    width: 100%;
   }
 
-  .nav-right-image {
-    order: 1;  /* Right image last in mobile */
+  .nav-side-image {
+    order: 2;
+    width: 50%;
+  }
+
+  .nav-side-image img {
+    max-height: 80px;
   }
 
   .nav-title {
     font-size: 2rem;
   }
+
+  .navbar-flex-container {
+    flex-wrap: nowrap;
+  }
+
+  .nav-side-image {
+    min-width: 120px;
+  }
+
+  .nav-center {
+    min-width: 0;
+  }
 }
 </style>
 </head>
+
 <body>
 
-<!-- ================= NAVBAR ================= -->
 <div class="navbar-wrapper">
   <div class="navbar-flex-container">
-    <!-- Left Shiv Image - Fixed Position -->
-    <div class="nav-left-image">
-
-
-    <!-- Right Image -->
-    <div class="nav-side-image">
-      <img src="right-image.jpg" alt="Right Image">
-    </div>
-  </div>
-</div>
-
-
-
-
-
 
     <!-- Left Shiv Image -->
     <div class="nav-side-image">
@@ -146,7 +150,17 @@
 
     </div>
 
-  
+    <!-- Center Title + Menu -->
+    <div class="nav-center">
+      <h2 class="nav-title">🔱 श्री ज्योतिर्लिंग शिवमठ 🔱</h2>
+      <nav class="navbar">
+        <a href="index.html">मुख्य पृष्ठ</a>
+        <a href="itihas.html">इतिहास</a>
+        <a href="shivtandavak.html">शिवतांडवक</a>
+        <a href="vedios.html">गैलरी</a>
+        <a href="contact.html">संपर्क करें</a>
+      </nav>
+    </div>
 
     <!-- Right Shiv Image -->
     <div class="nav-side-image">
@@ -184,17 +198,3 @@ moveText();
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
