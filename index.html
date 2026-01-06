@@ -105,7 +105,7 @@ body {
 
 <body>
 
-<!-- 🔱 HEADER CALLED ONLY (NO DESIGN IMPACT) -->
+<!-- 🔱 HEADER FETCH -->
 <div id="header"></div>
 
 <script>
@@ -113,6 +113,21 @@ fetch("header.html")
   .then(res => res.text())
   .then(data => {
     document.getElementById("header").innerHTML = data;
+
+    /* ✅ SCROLL INITIALIZATION (FIX) */
+    const text = document.getElementById("scrollingText");
+    if (!text) return;
+
+    let pos = window.innerWidth;
+    function scrollText() {
+      pos -= 1;
+      if (pos < -text.offsetWidth) {
+        pos = window.innerWidth;
+      }
+      text.style.transform = `translateX(${pos}px)`;
+      requestAnimationFrame(scrollText);
+    }
+    scrollText();
   });
 </script>
 
