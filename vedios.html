@@ -1,83 +1,51 @@
-<!DOCTYPE html>
-<html lang="hi">
-<head>
-  <meta charset="UTF-8">
-  <title>वीडियो गैलरी - श्री ज्योतिर्लिंग शिवमठ</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Mangal', sans-serif;
-      background-color: #fffbea;
-    }
+<style>
+.video-container{
+    max-width:1100px;
+    margin:auto;
+    padding:20px;
+}
+.video-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap:20px;
+}
+.video-box{
+    background:#fff;
+    border-radius:10px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.15);
+    overflow:hidden;
+}
+.video-box iframe{
+    width:100%;
+    height:260px;
+    border:none;
+}
+</style>
 
-    /* Video section styling */
-    .video-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      padding: 20px;
-    }
+<div class="video-container">
+  <h2 style="text-align:center;">🎥 Videos</h2>
 
-    .video-container iframe {
-      width: 100%;
-      max-width: 480px;
-      height: 270px;
-      border: 3px solid darkred;
-      border-radius: 12px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.3);
-    }
+  <div class="video-grid">
 
-    h2 {
-      text-align: center;
-      color: darkblue;
-      margin-top: 30px;
-    }
+    <div class="video-box">
+      <iframe src="https://drive.google.com/file/d/10ThmtGlBEp6W8VlCOLDhRNZCMhpOh-BK/preview" allowfullscreen></iframe>
+    </div>
 
-    @media (max-width: 600px) {
-      .video-container iframe {
-        max-width: 100%;
-        height: auto;
-      }
-    }
-  </style>
-</head>
-<body>
+    <div class="video-box">
+      <iframe src="https://drive.google.com/file/d/1AUxBy4Ooss8CBt0uubsGBDa7HjJszdrk/preview" allowfullscreen></iframe>
+    </div>
 
-  <!-- ✅ Header placeholder -->
-  <div id="header-placeholder"></div>
-  <script>
-    fetch('header.html')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('header-placeholder').innerHTML = data;
+    <div class="video-box">
+      <iframe src="https://drive.google.com/file/d/1l9WxUU7mBMz5S-7_RBpw30PzB7tjjwNP/preview" allowfullscreen></iframe>
+    </div>
 
-        // 🔁 Re-run all scripts inside header.html
-        const scripts = document.querySelectorAll('#header-placeholder script');
-        scripts.forEach(oldScript => {
-          const newScript = document.createElement('script');
-          if (oldScript.src) {
-            newScript.src = oldScript.src;
-          } else {
-            newScript.textContent = oldScript.textContent;
-          }
-          oldScript.replaceWith(newScript);
-        });
-      })
-      .catch(error => {
-        console.error('Header load failed:', error);
-      });
-  </script>
+    <div class="video-box">
+      <iframe src="https://drive.google.com/file/d/1WTqw_0nVgm4HbgqXvi6jhLvaYbEIPQoi/preview" allowfullscreen></iframe>
+    </div>
 
-  <h2>🎥 श्री ज्योतिर्लिंग शिवमठ की वीडियो गैलरी 🎥</h2>
+    <div class="video-box">
+      <iframe src="https://drive.google.com/file/d/1ekGj7DPX--KOJJsdvGs2pAYRz7sPdL6T/preview" allowfullscreen></iframe>
+    </div>
 
-  <div class="video-container">
-    <iframe src="https://www.youtube.com/embed/VIDEO_ID1" allowfullscreen></iframe>
-    <iframe src="https://www.youtube.com/embed/VIDEO_ID2" allowfullscreen></iframe>
-    <iframe src="https://www.youtube.com/embed/VIDEO_ID3" allowfullscreen></iframe>
-    <iframe src="https://www.youtube.com/embed/VIDEO_ID4" allowfullscreen></iframe>
   </div>
-
-</body>
-</html>
+</div>
