@@ -1,51 +1,36 @@
 <style>
-.video-container{
-    max-width:1100px;
-    margin:auto;
-    padding:20px;
+.video-btn {
+  cursor:pointer;
+  background:#eee;
+  padding:10px;
+  margin:10px 0;
+  border-radius:5px;
+  font-weight:bold;
 }
-.video-grid{
-    display:grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap:20px;
-}
-.video-box{
-    background:#fff;
-    border-radius:10px;
-    box-shadow:0 4px 10px rgba(0,0,0,0.15);
-    overflow:hidden;
-}
-.video-box iframe{
-    width:100%;
-    height:260px;
-    border:none;
+#video-player {
+  width:100%;
+  height:480px;
+  margin-top:20px;
 }
 </style>
 
-<div class="video-container">
-  <h2 style="text-align:center;">🎥 Videos</h2>
-
-  <div class="video-grid">
-
-    <div class="video-box">
-      <iframe src="https://drive.google.com/file/d/10ThmtGlBEp6W8VlCOLDhRNZCMhpOh-BK/preview" allowfullscreen></iframe>
-    </div>
-
-    <div class="video-box">
-      <iframe src="https://drive.google.com/file/d/1AUxBy4Ooss8CBt0uubsGBDa7HjJszdrk/preview" allowfullscreen></iframe>
-    </div>
-
-    <div class="video-box">
-      <iframe src="https://drive.google.com/file/d/1l9WxUU7mBMz5S-7_RBpw30PzB7tjjwNP/preview" allowfullscreen></iframe>
-    </div>
-
-    <div class="video-box">
-      <iframe src="https://drive.google.com/file/d/1WTqw_0nVgm4HbgqXvi6jhLvaYbEIPQoi/preview" allowfullscreen></iframe>
-    </div>
-
-    <div class="video-box">
-      <iframe src="https://drive.google.com/file/d/1ekGj7DPX--KOJJsdvGs2pAYRz7sPdL6T/preview" allowfullscreen></iframe>
-    </div>
-
-  </div>
+<div id="video-buttons">
+  <div class="video-btn" onclick="playDrive('10ThmtGlBEp6W8VlCOLDhRNZCMhpOh-BK')">Play Video 1</div>
+  <div class="video-btn" onclick="playDrive('1AUxBy4Ooss8CBt0uubsGBDa7HjJszdrk')">Play Video 2</div>
+  <div class="video-btn" onclick="playDrive('1l9WxUU7mBMz5S-7_RBpw30PzB7tjjwNP')">Play Video 3</div>
+  <div class="video-btn" onclick="playDrive('1WTqw_0nVgm4HbgqXvi6jhLvaYbEIPQoi')">Play Video 4</div>
+  <div class="video-btn" onclick="playDrive('1ekGj7DPX--KOJJsdvGs2pAYRz7sPdL6T')">Play Video 5</div>
 </div>
+
+<div id="video-player">
+  <!-- Selected video will load here -->
+</div>
+
+<script>
+function playDrive(fileId) {
+  document.getElementById('video-player').innerHTML =
+    `<iframe 
+      src="https://drive.google.com/file/d/${fileId}/preview" 
+      width="100%" height="480" allowfullscreen></iframe>`;
+}
+</script>
