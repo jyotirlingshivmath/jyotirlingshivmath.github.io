@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>शिव भजन</title>
+
+<style>
+body {
+  font-family: 'Mukta', sans-serif;
+  background-color: #fff8e1;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  color: #4a148c;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.bhajan-list {
+  list-style: none;
+  padding: 0;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+.bhajan-item {
+  background-color: #fff3e0;
+  margin: 10px 0;
+  padding: 15px 20px;
+  border-radius: 10px;
+  box-shadow: 1px 2px 8px rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bhajan-item span {
+  font-size: 1.2rem;
+  color: #4a148c;
+}
+
+audio {
+  width: 200px;
+}
+
+@media (max-width: 480px) {
+  .bhajan-item {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  audio {
+    width: 100%;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Header Include -->
+<div id="header-container"></div>
+<script>
+  // header.html fetch and include
+  fetch('header.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('header-container').innerHTML = data;
+    })
+    .catch(err => {
+      console.error('Header load error:', err);
+      document.getElementById('header-container').innerHTML = '<p>Header load failed!</p>';
+    });
+</script>
+
+<!-- Shiv Bhajan Section -->
+<h1>🔱 शिव भजन 🔱</h1>
+
+<ul class="bhajan-list">
+  <li class="bhajan-item">
+    <span>भजन 1 – ॐ नमः शिवाय</span>
+    <audio controls>
+      <source src="bhajan1.mp3" type="audio/mpeg">
+      आपका ब्राउज़र ऑडियो को सपोर्ट नहीं करता।
+    </audio>
+  </li>
+
+  <li class="bhajan-item">
+    <span>भजन 2 – महादेव की आरती</span>
+    <audio controls>
+      <source src="bhajan2.mp3" type="audio/mpeg">
+      आपका ब्राउज़र ऑडियो को सपोर्ट नहीं करता।
+    </audio>
+  </li>
+
+  <li class="bhajan-item">
+    <span>भजन 3 – शिव तांडव स्तोत्र</span>
+    <audio controls>
+      <source src="bhajan3.mp3" type="audio/mpeg">
+      आपका ब्राउज़र ऑडियो को सपोर्ट नहीं करता।
+    </audio>
+  </li>
+</ul>
+
+</body>
+</html>
