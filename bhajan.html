@@ -1,108 +1,105 @@
+<!-- bhajan.html -->
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>शिव भजन</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>शिव भजन</title>
+    <style>
+        body {
+            font-family: 'Mukta', sans-serif;
+            background: #fff8e1;
+            color: #4a148c;
+            margin: 0;
+            padding: 0;
+        }
 
-<style>
-body {
-  font-family: 'Mukta', sans-serif;
-  background-color: #fff8e1;
-  margin: 0;
-  padding: 0;
-}
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 10px;
+        }
 
-h1 {
-  color: #4a148c;
-  text-align: center;
-  margin: 20px 0;
-}
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            color: #b71c1c;
+        }
 
-.bhajan-list {
-  list-style: none;
-  padding: 0;
-  max-width: 600px;
-  margin: 20px auto;
-}
+        .bhajan-card {
+            background: #fff3e0;
+            border: 2px solid #ffe0b2;
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+        }
 
-.bhajan-item {
-  background-color: #fff3e0;
-  margin: 10px 0;
-  padding: 15px 20px;
-  border-radius: 10px;
-  box-shadow: 1px 2px 8px rgba(0,0,0,0.2);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+        .bhajan-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #4a148c;
+        }
 
-.bhajan-item span {
-  font-size: 1.2rem;
-  color: #4a148c;
-}
+        audio {
+            width: 100%;
+            margin-bottom: 10px;
+        }
 
-audio {
-  width: 200px;
-}
-
-@media (max-width: 480px) {
-  .bhajan-item {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  audio {
-    width: 100%;
-  }
-}
-</style>
+        .lyrics {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #6a1b9a;
+            white-space: pre-wrap; /* preserves line breaks */
+        }
+    </style>
 </head>
 <body>
 
-<!-- Header Include -->
-<div id="header-container"></div>
-<script>
-  // header.html fetch and include
-  fetch('header.html')
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById('header-container').innerHTML = data;
-    })
-    .catch(err => {
-      console.error('Header load error:', err);
-      document.getElementById('header-container').innerHTML = '<p>Header load failed!</p>';
-    });
-</script>
+    <!-- Header Include -->
+    <div id="header-placeholder"></div>
 
-<!-- Shiv Bhajan Section -->
-<h1>🔱 शिव भजन 🔱</h1>
+    <div class="container">
+        <h2>🔱 शिव भजन 🔱</h2>
 
-<ul class="bhajan-list">
-  <li class="bhajan-item">
-    <span>भजन 1 – ॐ नमः शिवाय</span>
-    <audio controls>
-      <source src="bhajan1.mp3" type="audio/mpeg">
-      आपका ब्राउज़र ऑडियो को सपोर्ट नहीं करता।
-    </audio>
-  </li>
+        <!-- Bhajan 1 -->
+        <div class="bhajan-card">
+            <div class="bhajan-title">शिव भजन 1</div>
+            <audio controls>
+                <source src="bhajan_audio/shiv_bhajan1.mp3" type="audio/mpeg">
+                आपका ब्राउज़र ऑडियो टैग को सपोर्ट नहीं करता।
+            </audio>
+            <div class="lyrics">
+                ॐ जय शिव ओंकारा, ॐ जय शिव ओंकारा  
+                भोलेनाथ की जय, भोलेनाथ की जय
+            </div>
+        </div>
 
-  <li class="bhajan-item">
-    <span>भजन 2 – महादेव की आरती</span>
-    <audio controls>
-      <source src="bhajan2.mp3" type="audio/mpeg">
-      आपका ब्राउज़र ऑडियो को सपोर्ट नहीं करता।
-    </audio>
-  </li>
+        <!-- Bhajan 2 -->
+        <div class="bhajan-card">
+            <div class="bhajan-title">शिव भजन 2</div>
+            <audio controls>
+                <source src="bhajan_audio/shiv_bhajan2.mp3" type="audio/mpeg">
+                आपका ब्राउज़र ऑडियो टैग को सपोर्ट नहीं करता।
+            </audio>
+            <div class="lyrics">
+                नमो नमः शिवाय, नमो नमः शिवाय  
+                महादेव की जय, महादेव की जय
+            </div>
+        </div>
 
-  <li class="bhajan-item">
-    <span>भजन 3 – शिव तांडव स्तोत्र</span>
-    <audio controls>
-      <source src="bhajan3.mp3" type="audio/mpeg">
-      आपका ब्राउज़र ऑडियो को सपोर्ट नहीं करता।
-    </audio>
-  </li>
-</ul>
+    </div>
 
+    <!-- Header HTML Load Script -->
+    <script>
+        // header.html को load करने के लिए
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-placeholder').innerHTML = data;
+            })
+            .catch(error => console.log('Header load error:', error));
+    </script>
 </body>
 </html>
