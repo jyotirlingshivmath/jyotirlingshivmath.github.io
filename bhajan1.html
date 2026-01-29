@@ -118,42 +118,4 @@ fetch('header.html')
 .catch(error => console.log('Header load error:', error));
 </script>
 
-<!-- PDF.js Library -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.9.179/pdf.min.js"></script>
-
-<script>
-window.addEventListener('load', () => {
-
-    function loadPDF(pdfPath, containerId, maxLines=4) {
-        const container = document.getElementById(containerId);
-        pdfjsLib.getDocument(pdfPath).promise.then(pdf => {
-            let pagePromises = [];
-            for(let i=1;i<=pdf.numPages;i++){
-                pagePromises.push(pdf.getPage(i).then(page => page.getTextContent()));
-            }
-            Promise.all(pagePromises).then(pages => {
-                let fullText = '';
-                pages.forEach(page => {
-                    const pageText = page.items.map(item => item.str).join(' ');
-                    fullText += pageText + '\n\n';
-                });
-                const lines = fullText.split(/[\r\n]+/).filter(Boolean);
-                container.innerHTML = lines.slice(0,maxLines).join('<br>');
-                container.dataset.allLines = lines.join('<br>');
-
-                // Scroll/hover to see rest
-                container.addEventListener('mouseenter', () => {
-                    container.innerHTML = container.dataset.allLines;
-                });
-            });
-        });
-    }
-
-    // Load PDFs for each bhajan
-    loadPDF('bhajan1.pdf','lyrics1',4);
-    loadPDF('bhajan2.pdf','lyrics2',4);
-});
-</script>
-
-</body>
-</html>
+<!-- PDF.js
