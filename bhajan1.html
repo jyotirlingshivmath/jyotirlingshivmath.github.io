@@ -30,7 +30,7 @@ h2 {
 /* Bhajan cards grid */
 .bhajan-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(3, 1fr); /* 3 columns always */
     gap: 20px;
 }
 
@@ -52,25 +52,50 @@ h2 {
     color: #4a148c;
 }
 
-/* Audio player */
-audio {
-    width: 100%;
-    margin-bottom: 5px; /* button ke liye thoda space */
+/* Player + button container */
+.player-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-/* PDF download button */
+/* Audio player */
+audio {
+    flex: 1; /* take remaining width */
+}
+
+/* PDF download button aligned with audio */
 button.pdf-btn {
-    padding: 8px 15px;
+    padding: 8px 12px;
     background: #4a148c;
     color: #fff;
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    align-self: flex-start; /* button left align, player ke niche */
 }
 
 button.pdf-btn:hover {
     background: #6a1b9a;
+}
+
+/* Responsive for smaller screens */
+@media(max-width: 900px){
+    .bhajan-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 600px){
+    .bhajan-grid {
+        grid-template-columns: 1fr;
+    }
+    .player-container {
+        flex-direction: column; /* stack audio + button on mobile */
+        align-items: stretch;
+    }
+    button.pdf-btn {
+        width: 100%;
+    }
 }
 </style>
 </head>
@@ -86,24 +111,28 @@ button.pdf-btn:hover {
         <!-- Bhajan 1 -->
         <div class="bhajan-card">
             <div class="bhajan-title">shiv_bhajan_1.mp3</div>
-            <audio id="audio1" controls>
-               <source src="../bhajan_audio/shiv_bhajan_1.mp3" type="audio/mpeg">
-               आपका ब्राउज़र ऑडियो टैग को सपोर्ट नहीं करता।
-            </audio>
-            <button class="pdf-btn" onclick="window.open('bhajan1.pdf', '_blank')">Download Full Lyrics PDF</button>
+            <div class="player-container">
+                <audio id="audio1" controls>
+                    <source src="../bhajan_audio/shiv_bhajan_1.mp3" type="audio/mpeg">
+                    आपका ब्राउज़र ऑडियो टैग को सपोर्ट नहीं करता।
+                </audio>
+                <button class="pdf-btn" onclick="window.open('bhajan1.pdf', '_blank')">Download PDF</button>
+            </div>
         </div>
 
         <!-- Bhajan 2 -->
         <div class="bhajan-card">
             <div class="bhajan-title">shiv_bhajan_2.mp3</div>
-            <audio id="audio2" controls>
-               <source src="bhajan_audio/shiv_bhajan2.mp3" type="audio/mpeg">
-               आपका ब्राउज़र ऑडियो टैग को सपोर्ट नहीं करता।
-            </audio>
-            <button class="pdf-btn" onclick="window.open('bhajan2.pdf', '_blank')">Download Full Lyrics PDF</button>
+            <div class="player-container">
+                <audio id="audio2" controls>
+                    <source src="bhajan_audio/shiv_bhajan2.mp3" type="audio/mpeg">
+                    आपका ब्राउज़र ऑडियो टैग को सपोर्ट नहीं करता।
+                </audio>
+                <button class="pdf-btn" onclick="window.open('bhajan2.pdf', '_blank')">Download PDF</button>
+            </div>
         </div>
 
-        <!-- और भजन इसी तरह add किए जा सकते हैं -->
+        <!-- Add more bhajans similarly -->
     </div>
 </div>
 
