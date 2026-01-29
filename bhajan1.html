@@ -1,162 +1,159 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>शिव भजन</title>
-    <style>
-        body {
-            font-family: 'Mukta', sans-serif;
-            background: #fff8e1;
-            color: #4a148c;
-            margin: 0;
-            padding: 0;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>शिव भजन</title>
+<style>
+body {
+    font-family: 'Mukta', sans-serif;
+    background: #fff8e1;
+    color: #4a148c;
+    margin: 0;
+    padding: 0;
+}
 
-        .container {
-            max-width: 900px;
-            margin: 20px auto;
-            padding: 10px;
-        }
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 10px;
+}
 
-        h2 {
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 2.5rem;
-            color: #b71c1c;
-        }
+h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+    color: #b71c1c;
+}
 
-        .bhajan-card {
-            background: #fff3e0;
-            border: 2px solid #ffe0b2;
-            border-radius: 12px;
-            padding: 15px 20px;
-            margin-bottom: 25px;
-            box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
-        }
+.bhajan-card {
+    background: #fff3e0;
+    border: 2px solid #ffe0b2;
+    border-radius: 12px;
+    padding: 15px 20px;
+    margin-bottom: 25px;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+}
 
-        .bhajan-title {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            color: #4a148c;
-        }
+.bhajan-title {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #4a148c;
+}
 
-        audio {
-            width: 100%;
-            margin-bottom: 10px;
-        }
+audio {
+    width: 100%;
+    margin-bottom: 10px;
+}
 
-        .lyrics {
-            max-height: 120px; /* केवल 4-5 lines दिखेंगी */
-            overflow-y: auto;
-            padding: 10px;
-            background: #f3e5f5;
-            border-radius: 8px;
-            color: #6a1b9a;
-            font-size: 1rem;
-            line-height: 1.6;
-        }
+.lyrics {
+    max-height: 120px; /* केवल 4-5 lines दिखेंगी */
+    overflow-y: auto;
+    padding: 10px;
+    background: #f3e5f5;
+    border-radius: 8px;
+    color: #6a1b9a;
+    font-size: 1rem;
+    line-height: 1.6;
+}
 
-        button.pdf-btn {
-            margin-top: 10px;
-            padding: 8px 15px;
-            background: #4a148c;
-            color: #fff;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-        }
+button.pdf-btn {
+    margin-top: 10px;
+    padding: 8px 15px;
+    background: #4a148c;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
 
-        button.pdf-btn:hover {
-            background: #6a1b9a;
-        }
-    </style>
+button.pdf-btn:hover {
+    background: #6a1b9a;
+}
+</style>
 </head>
 <body>
 
-    <!-- Header Include -->
-    <div id="header-placeholder"></div>
+<!-- Header Include -->
+<div id="header-placeholder"></div>
 
-    <div class="container">
-        <h2>🔱 शिव भजन 🔱</h2>
+<div class="container">
+    <h2>🔱 शिव भजन 🔱</h2>
 
-        <!-- Bhajan 1 -->
-        <div class="bhajan-card">
-            <div class="bhajan-title">shiv_bhajan_1.mp3</div>
-            <audio id="audio1" controls>
-               <source src="../bhajan_audio/shiv_bhajan_1.mp3" type="audio/mpeg">
-               आपका ब्राउज़र ऑडियो टैग को सपोर्ट नहीं करता।
-            </audio>
+    <!-- Bhajan 1 -->
+    <div class="bhajan-card">
+        <div class="bhajan-title">shiv_bhajan_1.mp3</div>
+        <audio id="audio1" controls>
+           <source src="../bhajan_audio/shiv_bhajan_1.mp3" type="audio/mpeg">
+           आपका ब्राउज़र ऑडियो टैग को सपोर्ट नहीं करता।
+        </audio>
 
-            <div id="lyrics1" class="lyrics">
-                Loading lyrics...
-            </div>
+        <div id="lyrics1" class="lyrics">Loading lyrics...</div>
 
-            <button class="pdf-btn" onclick="window.open('bhajan1.pdf', '_blank')">Download Full Lyrics PDF</button>
-        </div>
-
-        <!-- Bhajan 2 -->
-        <div class="bhajan-card">
-            <div class="bhajan-title">shiv_bhajan_2.mp3</div>
-            <audio id="audio2" controls>
-               <source src="bhajan_audio/shiv_bhajan2.mp3" type="audio/mpeg">
-               आपका ब्राउज़र ऑडियो टैग को सपोर्ट नहीं करता।
-            </audio>
-
-            <div id="lyrics2" class="lyrics">
-                Loading lyrics...
-            </div>
-
-            <button class="pdf-btn" onclick="window.open('bhajan2.pdf', '_blank')">Download Full Lyrics PDF</button>
-        </div>
-
+        <button class="pdf-btn" onclick="window.open('bhajan1.pdf', '_blank')">Download Full Lyrics PDF</button>
     </div>
 
-    <!-- Header HTML Load Script -->
-    <script>
-        fetch('header.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('header-placeholder').innerHTML = data;
-            })
-            .catch(error => console.log('Header load error:', error));
-    </script>
+    <!-- Bhajan 2 -->
+    <div class="bhajan-card">
+        <div class="bhajan-title">shiv_bhajan_2.mp3</div>
+        <audio id="audio2" controls>
+           <source src="bhajan_audio/shiv_bhajan2.mp3" type="audio/mpeg">
+           आपका ब्राउज़र ऑडियो टैग को सपोर्ट नहीं करता।
+        </audio>
 
-    <!-- PDF.js Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.9.179/pdf.min.js"></script>
-    <script>
-        // Function to load PDF into scrollable lyrics container
-        function loadPDF(pdfPath, containerId, maxLines=4) {
-            const container = document.getElementById(containerId);
-            pdfjsLib.getDocument(pdfPath).promise.then(pdf => {
-                let pagePromises = [];
-                for(let i=1;i<=pdf.numPages;i++){
-                    pagePromises.push(pdf.getPage(i).then(page => page.getTextContent()));
-                }
-                Promise.all(pagePromises).then(pages => {
-                    let fullText = '';
-                    pages.forEach(page => {
-                        const pageText = page.items.map(item => item.str).join(' ');
-                        fullText += pageText + '\n\n';
-                    });
-                    const lines = fullText.split(/[\r\n]+/).filter(Boolean);
-                    // Show first maxLines lines initially
-                    container.innerHTML = lines.slice(0,maxLines).join('<br>');
-                    // Allow scroll to see rest
-                    container.title = 'Scroll down to see more lyrics';
-                    // Optional: append rest hidden lines for scroll
-                    container.dataset.allLines = lines.join('<br>');
-                    container.addEventListener('mouseenter', () => {
-                        container.innerHTML = container.dataset.allLines;
-                    });
+        <div id="lyrics2" class="lyrics">Loading lyrics...</div>
+
+        <button class="pdf-btn" onclick="window.open('bhajan2.pdf', '_blank')">Download Full Lyrics PDF</button>
+    </div>
+
+</div>
+
+<!-- Header HTML Load Script -->
+<script>
+fetch('header.html')
+.then(response => response.text())
+.then(data => {
+    document.getElementById('header-placeholder').innerHTML = data;
+})
+.catch(error => console.log('Header load error:', error));
+</script>
+
+<!-- PDF.js Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.9.179/pdf.min.js"></script>
+
+<script>
+window.addEventListener('load', () => {
+
+    function loadPDF(pdfPath, containerId, maxLines=4) {
+        const container = document.getElementById(containerId);
+        pdfjsLib.getDocument(pdfPath).promise.then(pdf => {
+            let pagePromises = [];
+            for(let i=1;i<=pdf.numPages;i++){
+                pagePromises.push(pdf.getPage(i).then(page => page.getTextContent()));
+            }
+            Promise.all(pagePromises).then(pages => {
+                let fullText = '';
+                pages.forEach(page => {
+                    const pageText = page.items.map(item => item.str).join(' ');
+                    fullText += pageText + '\n\n';
+                });
+                const lines = fullText.split(/[\r\n]+/).filter(Boolean);
+                container.innerHTML = lines.slice(0,maxLines).join('<br>');
+                container.dataset.allLines = lines.join('<br>');
+
+                // Scroll/hover to see rest
+                container.addEventListener('mouseenter', () => {
+                    container.innerHTML = container.dataset.allLines;
                 });
             });
-        }
+        });
+    }
 
-        // Load PDFs for each bhajan
-        loadPDF('bhajan1.pdf','lyrics1',4);
-        loadPDF('bhajan2.pdf','lyrics2',4);
-    </script>
+    // Load PDFs for each bhajan
+    loadPDF('bhajan1.pdf','lyrics1',4);
+    loadPDF('bhajan2.pdf','lyrics2',4);
+});
+</script>
 
 </body>
 </html>
