@@ -1,84 +1,97 @@
-
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-  <meta charset="UTF-8">
-  <title>वीडियो गैलरी - श्री ज्योतिर्लिंग शिवमठ</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Mangal', sans-serif;
-      background-color: #fffbea;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>वीडियो गैलरी | श्री ज्योतिर्लिंग शिवमठ</title>
 
-    /* Video section styling */
-    .video-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      padding: 20px;
-    }
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #fff8f0;
+}
 
+/* Header placeholder */
+#header-placeholder {
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Video container */
+.video-container {
+    width: 100%;
+    height: calc(100vh - 200px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* iframe styling */
+.video-container iframe {
+    width: 100%;
+    max-width: 800px;
+    height: 450px;
+    border: none;
+}
+
+/* Loading message */
+.loading-msg {
+    text-align: center;
+    padding: 50px 20px;
+    font-size: 1.2rem;
+    color: #5a0000;
+}
+
+/* Responsive */
+@media(max-width: 768px){
     .video-container iframe {
-      width: 100%;
-      max-width: 480px;
-      height: 270px;
-      border: 3px solid darkred;
-      border-radius: 12px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.3);
-    }
-
-    h2 {
-      text-align: center;
-      color: darkblue;
-      margin-top: 30px;
-    }
-
-    @media (max-width: 600px) {
-      .video-container iframe {
         max-width: 100%;
-        height: auto;
-      }
+        height: 250px;
     }
-  </style>
+}
+</style>
 </head>
+
 <body>
 
-  <!-- ✅ Header placeholder -->
-  <div id="header-placeholder"></div>
-  <script>
-    fetch('header.html')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('header-placeholder').innerHTML = data;
+<!-- 🔱 Header Include -->
+<div id="header-placeholder"></div>
 
-        // 🔁 Re-run all scripts inside header.html
-        const scripts = document.querySelectorAll('#header-placeholder script');
-        scripts.forEach(oldScript => {
-          const newScript = document.createElement('script');
-          if (oldScript.src) {
-            newScript.src = oldScript.src;
-          } else {
-            newScript.textContent = oldScript.textContent;
-          }
-          oldScript.replaceWith(newScript);
-        });
-      })
-      .catch(error => {
-        console.error('Header load failed:', error);
-      });
-  </script>
+<script>
+fetch('header.html')
+.then(res => res.text())
+.then(data => {
+    document.getElementById('header-placeholder').innerHTML = data;
 
-  <h2>🎥 श्री ज्योतिर्लिंग शिवमठ की वीडियो गैलरी 🎥</h2>
+    // Restart moving strip if present
+    const strip = document.querySelector('.scrolling-text');
+    if(strip){
+        strip.classList.remove('start-strip');
+        void strip.offsetWidth;
+        strip.classList.add('start-strip');
+    }
+})
+.catch(err => console.log('Header load error:', err));
+</script>
 
-  <div class="video-container">
-    <iframe src="https://www.youtube.com/embed/VIDEO_ID1" allowfullscreen></iframe>
-    <iframe src="https://www.youtube.com/embed/VIDEO_ID2" allowfullscreen></iframe>
-    <iframe src="https://www.youtube.com/embed/VIDEO_ID3" allowfullscreen></iframe>
-    <iframe src="https://www.youtube.com/embed/VIDEO_ID4" allowfullscreen></iframe>
-  </div>
+<!-- 🔽 Loading Message -->
+<div class="loading-msg" id="loadingMsg">
+    🔱 कृपया प्रतीक्षा करें… वीडियो लोड हो रहे हैं
+</div>
+
+<!-- 🔽 YouTube Video Embed -->
+<div class="video-container">
+    <iframe 
+        src="https://www.youtube.com/embed/lJv0-rhzVE4" 
+        loading="lazy" 
+        allowfullscreen 
+        onload="document.getElementById('loadingMsg').style.display='none';">
+    </iframe>
+</div>
 
 </body>
 </html>
