@@ -18,13 +18,12 @@ body {
     position: sticky;   /* Sticky header */
     top: 0;
     z-index: 1000;
-    background: #fff8f0; /* header background */
 }
 
 /* Google Site iframe container */
 .video-container {
     width: 100%;
-    height: calc(100vh - 160px); /* adjust for header height */
+    height: calc(100vh - 200px); /* adjust for header height */
     overflow: hidden;
 }
 
@@ -46,7 +45,7 @@ body {
 /* Responsive adjustment */
 @media(max-width: 768px){
     .video-container {
-        height: calc(100vh - 200px);
+        height: calc(100vh - 220px);
     }
 }
 </style>
@@ -63,8 +62,8 @@ fetch('header.html')
 .then(data => {
     document.getElementById('header-placeholder').innerHTML = data;
 
-    // 🔥 Moving strip restart
-    const strip = document.getElementById('movingStrip');
+    // 🔥 Moving strip restart if present
+    const strip = document.querySelector('.scrolling-text');
     if(strip){
         strip.classList.remove('start-strip');
         void strip.offsetWidth;
