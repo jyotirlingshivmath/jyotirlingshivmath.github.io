@@ -34,7 +34,6 @@ h2 {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
-
     justify-content: center;
     max-width: 1100px;
     margin: 0 auto;
@@ -185,16 +184,27 @@ button.pdf-btn:hover {
 <script>
 fetch('header.html')
 .then(response => response.text())
-.then(data => {
-    document.getElementById('header-placeholder').innerHTML = data;
+.then(html => {
 
-    /* 🔥 MOVING STRIP FIX — bina kuch badle */
-    const strip = document.getElementById('movingStrip');
-    if (strip) {
-        strip.classList.remove('start-strip');
-        void strip.offsetWidth;   // force reflow
-        strip.classList.add('start-strip');
-    }
+    const placeholder = document.getElementById('header-placeholder');
+    placeholder.innerHTML = html;
+
+    /* ✅ ADDITION START — header.html ke scripts execute karane ke liye */
+    const scripts = placeholder.querySelectorAll("script");
+    scripts.forEach(oldScript => {
+        const newScript = document.createElement("script");
+
+        if (oldScript.src) {
+            newScript.src = oldScript.src;
+        } else {
+            newScript.textContent = oldScript.textContent;
+        }
+
+        document.body.appendChild(newScript);
+        oldScript.remove();
+    });
+    /* ✅ ADDITION END */
+
 })
 .catch(error => console.log('Header load error:', error));
 </script>
