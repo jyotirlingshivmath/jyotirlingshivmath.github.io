@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>वीडियो गैलरी | श्री ज्योतिर्लिंग शिवमठ</title>
+
+<style>
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    background: #fff8f0;
+}
+
+/* Google Site iframe container */
+.video-container{
+    width: 100%;
+    height: calc(100vh - 160px); /* Header ke liye space */
+    overflow: hidden;
+}
+
+.video-container iframe{
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🔱 Header Include -->
+<div id="header-placeholder"></div>
+
+<script>
+fetch('header.html')
+.then(res => res.text())
+.then(data => {
+    document.getElementById('header-placeholder').innerHTML = data;
+
+    // 🔥 Optional: Moving strip restart if needed
+    const strip = document.getElementById('movingStrip');
+    if(strip){
+        strip.classList.remove('start-strip');
+        void strip.offsetWidth;
+        strip.classList.add('start-strip');
+    }
+})
+.catch(err => console.log('Header load error:', err));
+</script>
+
+<!-- 🔽 Google Site Embed -->
+<div class="video-container">
+    <iframe 
+        src="https://sites.google.com/view/jyogirlingshivmathwebsite/home"
+        loading="lazy"
+        allowfullscreen>
+    </iframe>
+</div>
+
+</body>
+</html>
