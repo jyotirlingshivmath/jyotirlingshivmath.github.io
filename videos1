@@ -12,7 +12,7 @@ body {
     background: #fff8f0;
 }
 
-/* Header spacing */
+/* Header placeholder */
 #header-placeholder {
     width: 100%;
 }
@@ -37,6 +37,13 @@ body {
     padding: 50px 20px;
     font-size: 1.2rem;
     color: #5a0000;
+}
+
+/* Responsive adjustment */
+@media(max-width: 768px){
+    .video-container {
+        height: calc(100vh - 200px);
+    }
 }
 </style>
 </head>
