@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>शिव भजन</title>
+
 <style>
 body {
     font-family: 'Mukta', sans-serif;
@@ -26,11 +27,17 @@ h2 {
     color: #b71c1c;
 }
 
-/* Grid for bhajans */
+/* =========================
+   Bhajan Grid (CENTER FIX)
+   ========================= */
 .bhajan-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 column */
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
+
+    justify-content: center;   /* ⭐ center alignment fix */
+    max-width: 1100px;         /* ⭐ right shift remove */
+    margin: 0 auto;            /* ⭐ grid center */
 }
 
 .bhajan-card {
@@ -76,27 +83,33 @@ button.pdf-btn:hover {
     background: #6a1b9a;
 }
 
-/* Responsive */
-@media(max-width: 900px){
+/* =========================
+   Responsive
+   ========================= */
+@media (max-width: 900px) {
     .bhajan-grid {
         grid-template-columns: repeat(2, 1fr);
+        max-width: 100%;
     }
 }
 
-@media(max-width: 600px){
+@media (max-width: 600px) {
     .bhajan-grid {
         grid-template-columns: 1fr;
     }
+
     .player-container {
         flex-direction: column;
         align-items: stretch;
     }
+
     button.pdf-btn {
         width: 100%;
     }
 }
 </style>
 </head>
+
 <body>
 
 <!-- Header Include -->
@@ -106,72 +119,67 @@ button.pdf-btn:hover {
     <h2>🔱 शिव भजन 🔱</h2>
 
     <div class="bhajan-grid">
-        <!-- Bhajan 1 -->
+
         <div class="bhajan-card">
             <div class="bhajan-title">shiv_bhajan_1.mp3</div>
             <div class="player-container">
                 <audio controls>
                     <source src="../bhajan_audio/shiv_bhajan_1.mp3" type="audio/mpeg">
-                    आपका ब्राउज़र ऑडियो टैग को सपोर्ट नहीं करता।
                 </audio>
-                <button class="pdf-btn" onclick="window.open('bhajan1.pdf', '_blank')">Download PDF</button>
+                <button class="pdf-btn" onclick="window.open('bhajan1.pdf','_blank')">Download PDF</button>
             </div>
         </div>
 
-        <!-- Bhajan 2 -->
         <div class="bhajan-card">
             <div class="bhajan-title">shiv_bhajan_2.mp3</div>
             <div class="player-container">
                 <audio controls>
                     <source src="../bhajan_audio/shiv_bhajan_2.mp3" type="audio/mpeg">
                 </audio>
-                <button class="pdf-btn" onclick="window.open('bhajan2.pdf', '_blank')">Download PDF</button>
+                <button class="pdf-btn" onclick="window.open('bhajan2.pdf','_blank')">Download PDF</button>
             </div>
         </div>
 
-        <!-- Bhajan 3 -->
         <div class="bhajan-card">
             <div class="bhajan-title">shiv_bhajan_3.mp3</div>
             <div class="player-container">
                 <audio controls>
                     <source src="../bhajan_audio/shiv_bhajan_3.mp3" type="audio/mpeg">
                 </audio>
-                <button class="pdf-btn" onclick="window.open('bhajan3.pdf', '_blank')">Download PDF</button>
+                <button class="pdf-btn" onclick="window.open('bhajan3.pdf','_blank')">Download PDF</button>
             </div>
         </div>
 
-        <!-- Bhajan 4 -->
         <div class="bhajan-card">
             <div class="bhajan-title">shiv_bhajan_4.mp3</div>
             <div class="player-container">
                 <audio controls>
                     <source src="../bhajan_audio/shiv_bhajan_4.mp3" type="audio/mpeg">
                 </audio>
-                <button class="pdf-btn" onclick="window.open('bhajan4.pdf', '_blank')">Download PDF</button>
+                <button class="pdf-btn" onclick="window.open('bhajan4.pdf','_blank')">Download PDF</button>
             </div>
         </div>
 
-        <!-- Bhajan 5 -->
         <div class="bhajan-card">
             <div class="bhajan-title">shiv_bhajan_5.mp3</div>
             <div class="player-container">
                 <audio controls>
                     <source src="../bhajan_audio/shiv_bhajan_5.mp3" type="audio/mpeg">
                 </audio>
-                <button class="pdf-btn" onclick="window.open('bhajan5.pdf', '_blank')">Download PDF</button>
+                <button class="pdf-btn" onclick="window.open('bhajan5.pdf','_blank')">Download PDF</button>
             </div>
         </div>
 
-        <!-- Bhajan 6 -->
         <div class="bhajan-card">
             <div class="bhajan-title">shiv_bhajan_6.mp3</div>
             <div class="player-container">
                 <audio controls>
                     <source src="../bhajan_audio/shiv_bhajan_6.mp3" type="audio/mpeg">
                 </audio>
-                <button class="pdf-btn" onclick="window.open('bhajan6.pdf', '_blank')">Download PDF</button>
+                <button class="pdf-btn" onclick="window.open('bhajan6.pdf','_blank')">Download PDF</button>
             </div>
         </div>
+
     </div>
 </div>
 
