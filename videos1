@@ -6,23 +6,37 @@
 <title>वीडियो गैलरी | श्री ज्योतिर्लिंग शिवमठ</title>
 
 <style>
-body{
-    margin:0;
+body {
+    margin: 0;
     font-family: Arial, sans-serif;
     background: #fff8f0;
 }
 
+/* Header spacing */
+#header-placeholder {
+    width: 100%;
+}
+
 /* Google Site iframe container */
-.video-container{
+.video-container {
     width: 100%;
     height: calc(100vh - 160px); /* Header ke liye space */
     overflow: hidden;
 }
 
-.video-container iframe{
+/* iframe styling */
+.video-container iframe {
     width: 100%;
     height: 100%;
     border: none;
+}
+
+/* Optional: Loading message */
+.loading-msg {
+    text-align: center;
+    padding: 50px 20px;
+    font-size: 1.2rem;
+    color: #5a0000;
 }
 </style>
 </head>
@@ -38,7 +52,7 @@ fetch('header.html')
 .then(data => {
     document.getElementById('header-placeholder').innerHTML = data;
 
-    // 🔥 Optional: Moving strip restart if needed
+    // 🔥 Moving strip restart
     const strip = document.getElementById('movingStrip');
     if(strip){
         strip.classList.remove('start-strip');
@@ -49,12 +63,18 @@ fetch('header.html')
 .catch(err => console.log('Header load error:', err));
 </script>
 
+<!-- 🔽 Loading Message -->
+<div class="loading-msg" id="loadingMsg">
+    🔱 कृपया प्रतीक्षा करें… वीडियो लोड हो रहे हैं
+</div>
+
 <!-- 🔽 Google Site Embed -->
 <div class="video-container">
     <iframe 
-        src="https://sites.google.com/view/jyogirlingshivmathwebsite/home"
+        src="https://sites.google.com/view/jyogirlingshivmathwebsite/home?rm=minimal"
         loading="lazy"
-        allowfullscreen>
+        allowfullscreen
+        onload="document.getElementById('loadingMsg').style.display='none';">
     </iframe>
 </div>
 
