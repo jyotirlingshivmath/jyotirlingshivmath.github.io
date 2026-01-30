@@ -15,12 +15,16 @@ body {
 /* Header placeholder */
 #header-placeholder {
     width: 100%;
+    position: sticky;   /* Sticky header */
+    top: 0;
+    z-index: 1000;
+    background: #fff8f0; /* header background */
 }
 
 /* Google Site iframe container */
 .video-container {
     width: 100%;
-    height: calc(100vh - 160px); /* Header ke liye space */
+    height: calc(100vh - 160px); /* adjust for header height */
     overflow: hidden;
 }
 
