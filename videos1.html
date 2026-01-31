@@ -63,15 +63,21 @@ body {
 fetch('header.html')
 .then(res => res.text())
 .then(data => {
-    document.getElementById('header-placeholder').innerHTML = data;
+    const placeholder = document.getElementById('header-placeholder');
+    placeholder.innerHTML = data;
 
-    // Restart moving strip if present
-    const strip = document.querySelector('.scrolling-text');
-    if(strip){
-        strip.classList.remove('start-strip');
-        void strip.offsetWidth;
-        strip.classList.add('start-strip');
-    }
+    // ✅ Fix: header ke scripts execute karna (scrolling strip kaam kare)
+    const scripts = placeholder.querySelectorAll("script");
+    scripts.forEach(oldScript => {
+        const newScript = document.createElement("script");
+        if(oldScript.src){
+            newScript.src = oldScript.src;
+        } else {
+            newScript.textContent = oldScript.textContent;
+        }
+        document.body.appendChild(newScript);
+        oldScript.remove();
+    });
 })
 .catch(err => console.log('Header load error:', err));
 </script>
@@ -94,18 +100,23 @@ fetch('header.html')
     <div class="video-frame">
         <iframe src="https://www.youtube.com/embed/ifhfKMxR_2M" allowfullscreen></iframe>
     </div>
+
     <div class="video-frame">
         <iframe src="https://www.youtube.com/embed/xzo4tToo-8U" allowfullscreen></iframe>
     </div>
+
     <div class="video-frame">
         <iframe src="https://www.youtube.com/embed/2tV2750E_70" allowfullscreen></iframe>
     </div>
+
     <div class="video-frame">
         <iframe src="https://www.youtube.com/embed/extDCiM7v_w" allowfullscreen></iframe>
     </div>
+
     <div class="video-frame">
         <iframe src="https://www.youtube.com/embed/o1M1pyIONC8" allowfullscreen></iframe>
     </div>
+
     <div class="video-frame">
         <iframe src="https://www.youtube.com/embed/N1eAi-HXlDM" allowfullscreen></iframe>
     </div>
