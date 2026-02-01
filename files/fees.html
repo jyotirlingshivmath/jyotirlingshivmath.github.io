@@ -30,23 +30,25 @@ body {
 
 h2 {
   color: #4a148c;
+  margin-bottom: 10px;
 }
 
 form {
   background: #fff3e0;
   padding: 20px;
   border-radius: 8px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   box-shadow: 1px 2px 5px rgba(0,0,0,0.1);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
-form input, form select, form button {
+form input, form button {
   padding: 10px;
-  margin: 8px 0;
-  width: 100%;
-  max-width: 400px;
   border: 1px solid #e1bee7;
   border-radius: 6px;
+  flex: 1 1 200px;
 }
 
 form button {
@@ -63,10 +65,19 @@ form button:hover {
   color: #6a1b9a;
 }
 
+#searchInput {
+  margin-bottom: 15px;
+  padding: 10px;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 6px;
+  border: 1px solid #e1bee7;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 table, th, td {
@@ -87,10 +98,20 @@ tr:nth-child(even) {
   background-color: #fff3e0;
 }
 
+.action-btn {
+  padding: 5px 10px;
+  margin: 0 2px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.edit-btn { background-color: #4a148c; color: #fff; }
+.delete-btn { background-color: darkred; color: #fff; }
+
 @media (max-width: 768px) {
-  form input, form select, form button {
-    max-width: 100%;
-  }
+  form { flex-direction: column; }
+  form input, form button { max-width: 100%; }
 }
 </style>
 </head>
@@ -102,13 +123,17 @@ tr:nth-child(even) {
 <div class="container">
 
   <!-- Fee Form -->
-  <h2>फीस जमा करें</h2>
+  <h2>फीस जमा करें / अपडेट करें</h2>
   <form id="feeForm">
     <input type="text" id="studentName" placeholder="छात्र का नाम" required>
     <input type="number" id="amount" placeholder="राशि (₹)" required>
     <input type="date" id="date" required>
     <button type="submit">जमा करें</button>
+    <input type="hidden" id="editIndex">
   </form>
+
+  <!-- Search -->
+  <input type="text" id="searchInput" placeholder="छात्र का नाम या तारीख से खोजें...">
 
   <!-- Fee Records Table -->
   <h2>जमा की गई फीस रिकॉर्ड</h2>
@@ -119,6 +144,7 @@ tr:nth-child(even) {
         <th>छात्र का नाम</th>
         <th>राशि (₹)</th>
         <th>तारीख</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -129,25 +155,75 @@ tr:nth-child(even) {
 </div>
 
 <script>
-// JS to handle form submission
+// Data Array
+let fees = [];
 let feeForm = document.getElementById('feeForm');
 let feeTable = document.getElementById('feeTable').getElementsByTagName('tbody')[0];
-let count = 1;
+let searchInput = document.getElementById('searchInput');
+let editIndexInput = document.getElementById('editIndex');
+
+function renderTable(data) {
+  feeTable.innerHTML = '';
+  data.forEach((fee, index) => {
+    let row = feeTable.insertRow();
+    row.insertCell(0).innerText = index + 1;
+    row.insertCell(1).innerText = fee.name;
+    row.insertCell(2).innerText = fee.amount;
+    row.insertCell(3).innerText = fee.date;
+
+    // Actions
+    let actionCell = row.insertCell(4);
+    let editBtn = document.createElement('button');
+    editBtn.innerText = 'Edit';
+    editBtn.className = 'action-btn edit-btn';
+    editBtn.onclick = () => editFee(index);
+    let delBtn = document.createElement('button');
+    delBtn.innerText = 'Delete';
+    delBtn.className = 'action-btn delete-btn';
+    delBtn.onclick = () => deleteFee(index);
+    actionCell.appendChild(editBtn);
+    actionCell.appendChild(delBtn);
+  });
+}
+
+function editFee(index) {
+  document.getElementById('studentName').value = fees[index].name;
+  document.getElementById('amount').value = fees[index].amount;
+  document.getElementById('date').value = fees[index].date;
+  editIndexInput.value = index;
+}
+
+function deleteFee(index) {
+  if(confirm('क्या आप वाकई इस रिकॉर्ड को हटाना चाहते हैं?')) {
+    fees.splice(index, 1);
+    renderTable(fees);
+  }
+}
 
 feeForm.addEventListener('submit', function(e) {
   e.preventDefault();
-
   let name = document.getElementById('studentName').value;
   let amount = document.getElementById('amount').value;
   let date = document.getElementById('date').value;
 
-  let newRow = feeTable.insertRow();
-  newRow.insertCell(0).innerText = count++;
-  newRow.insertCell(1).innerText = name;
-  newRow.insertCell(2).innerText = amount;
-  newRow.insertCell(3).innerText = date;
+  if(editIndexInput.value !== '') {
+    // Update existing
+    fees[editIndexInput.value] = {name, amount, date};
+    editIndexInput.value = '';
+  } else {
+    // Add new
+    fees.push({name, amount, date});
+  }
 
   feeForm.reset();
+  renderTable(fees);
+});
+
+// Search functionality
+searchInput.addEventListener('keyup', function() {
+  let query = this.value.toLowerCase();
+  let filtered = fees.filter(fee => fee.name.toLowerCase().includes(query) || fee.date.includes(query));
+  renderTable(filtered);
 });
 </script>
 
