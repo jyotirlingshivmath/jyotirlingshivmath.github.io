@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fee Management | शिवमठ वैदिक विद्यालय</title>
+
+<style>
+body {
+  font-family: 'Mukta', sans-serif;
+  margin: 0;
+  background-color: #fff8e1;
+}
+
+.header {
+  background-color: #ffecb3;
+  padding: 15px;
+  text-align: center;
+  font-size: 1.8rem;
+  color: #4a148c;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+h2 {
+  color: #4a148c;
+}
+
+form {
+  background: #fff3e0;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  box-shadow: 1px 2px 5px rgba(0,0,0,0.1);
+}
+
+form input, form select, form button {
+  padding: 10px;
+  margin: 8px 0;
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid #e1bee7;
+  border-radius: 6px;
+}
+
+form button {
+  background-color: #ffeb3b;
+  color: darkred;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+form button:hover {
+  background-color: #f3e5f5;
+  color: #6a1b9a;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table, th, td {
+  border: 1px solid #e1bee7;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: #ffecb3;
+  color: #4a148c;
+}
+
+tr:nth-child(even) {
+  background-color: #fff3e0;
+}
+
+@media (max-width: 768px) {
+  form input, form select, form button {
+    max-width: 100%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">🔱 Fee Management - शिवमठ वैदिक विद्यालय 🔱</div>
+
+<div class="container">
+
+  <!-- Fee Form -->
+  <h2>फीस जमा करें</h2>
+  <form id="feeForm">
+    <input type="text" id="studentName" placeholder="छात्र का नाम" required>
+    <input type="number" id="amount" placeholder="राशि (₹)" required>
+    <input type="date" id="date" required>
+    <button type="submit">जमा करें</button>
+  </form>
+
+  <!-- Fee Records Table -->
+  <h2>जमा की गई फीस रिकॉर्ड</h2>
+  <table id="feeTable">
+    <thead>
+      <tr>
+        <th>क्र.सं.</th>
+        <th>छात्र का नाम</th>
+        <th>राशि (₹)</th>
+        <th>तारीख</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- records will appear here -->
+    </tbody>
+  </table>
+
+</div>
+
+<script>
+// JS to handle form submission
+let feeForm = document.getElementById('feeForm');
+let feeTable = document.getElementById('feeTable').getElementsByTagName('tbody')[0];
+let count = 1;
+
+feeForm.addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  let name = document.getElementById('studentName').value;
+  let amount = document.getElementById('amount').value;
+  let date = document.getElementById('date').value;
+
+  let newRow = feeTable.insertRow();
+  newRow.insertCell(0).innerText = count++;
+  newRow.insertCell(1).innerText = name;
+  newRow.insertCell(2).innerText = amount;
+  newRow.insertCell(3).innerText = date;
+
+  feeForm.reset();
+});
+</script>
+
+</body>
+</html>
