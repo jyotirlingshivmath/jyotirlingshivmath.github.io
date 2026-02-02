@@ -1,166 +1,185 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
 <meta charset="UTF-8">
-<title>Fee Receipt | SHIVMATH VEDIC VIDYALAYA</title>
+<title>Fee Receipt | Shivmath Vedic Vidyalaya</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-@page{size:A4;margin:15mm;}
-body{font-family:"Times New Roman";background:#eaeaea;}
-.receipt{background:#fff;border:2px solid #000;padding:15px;width:720px;margin:auto;}
-.header{text-align:center;border-bottom:2px solid #000;padding-bottom:8px;}
-.header h2{margin:0;font-size:24px;}
-.header h3{margin:2px;font-weight:normal;}
-table{width:100%;border-collapse:collapse;margin-top:10px;font-size:15px;}
-td{border:1px solid #000;padding:6px;}
-.label{font-weight:bold;}
-.amount{text-align:right;}
-.total{font-weight:bold;background:#f2f2f2;}
-.signature{height:45px;}
-input,select{width:98%;font-size:15px;}
-button{margin:10px;padding:6px 14px;font-size:14px;}
-@media print{body{background:none;}button{display:none;}}
+body{
+    font-family: Arial, sans-serif;
+    background:#f4f4f4;
+}
+.container{
+    max-width:800px;
+    margin:auto;
+    background:#fff;
+    padding:20px;
+    border:1px solid #000;
+}
+h2,h3{
+    text-align:center;
+    margin:5px 0;
+}
+.row{
+    display:flex;
+    gap:10px;
+    margin-bottom:10px;
+}
+.row label{
+    width:150px;
+    font-weight:bold;
+}
+.row input, .row select{
+    flex:1;
+    padding:5px;
+}
+.search-box{
+    margin-bottom:15px;
+    background:#eef;
+    padding:10px;
+}
+button{
+    padding:8px 15px;
+    cursor:pointer;
+}
+.total{
+    font-weight:bold;
+}
+.print-btn{
+    margin-top:20px;
+    text-align:center;
+}
+@media print{
+    .search-box, .print-btn{
+        display:none;
+    }
+}
 </style>
 </head>
 
 <body>
 
-<div class="receipt">
+<div class="container">
 
-<div class="header">
-<h2>SHIVMATH VEDIC VIDYALAYA</h2>
-<h3>FEE RECEIPT (STUDENT COPY)</h3>
+<h2>🕉️ Shivmath Vedic Vidyalaya 🕉️</h2>
+<h3>Student Fee Receipt (Student Copy)</h3>
+<hr>
+
+<!-- SEARCH SECTION -->
+<div class="search-box">
+    <b>Search Student by Name:</b><br><br>
+    <input type="text" id="searchName" placeholder="Enter Student Name">
+    <button onclick="searchStudent()">Search</button>
 </div>
 
-<table>
-<tr>
-<td class="label">Receipt No</td>
-<td><input id="rno" readonly></td>
-<td class="label">Date</td>
-<td><input type="date" id="rdate"></td>
-</tr>
+<!-- RECEIPT FORM -->
+<div class="row">
+    <label>Student Name:</label>
+    <input type="text" id="studentName" readonly>
+</div>
 
-<tr>
-<td class="label">Search Student</td>
-<td colspan="3">
-<input id="searchName" list="studentList" placeholder="Type student name">
-<datalist id="studentList"></datalist>
-</td>
-</tr>
+<div class="row">
+    <label>Father Name:</label>
+    <input type="text" id="fatherName" readonly>
+</div>
 
-<tr>
-<td class="label">Admission No</td>
-<td><input id="admno" readonly></td>
-<td class="label">Class</td>
-<td><input id="studentClass" readonly></td>
-</tr>
+<div class="row">
+    <label>Class:</label>
+    <select id="class" disabled>
+        <option>Mont</option>
+        <option>Nursery</option>
+        <option>KG</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>
+    </select>
+</div>
 
-<tr>
-<td class="label">Student Name</td>
-<td colspan="3"><input id="name" readonly></td>
-</tr>
+<div class="row">
+    <label>Fee Month:</label>
+    <select id="feeMonth">
+        <option>January</option>
+        <option>February</option>
+        <option>March</option>
+        <option>April</option>
+        <option>May</option>
+        <option>June</option>
+        <option>July</option>
+        <option>August</option>
+        <option>September</option>
+        <option>October</option>
+        <option>November</option>
+        <option>December</option>
+    </select>
+</div>
 
-<tr>
-<td class="label">Father Name</td>
-<td colspan="3"><input id="father" readonly></td>
-</tr>
+<div class="row">
+    <label>Total Fee:</label>
+    <input type="number" id="totalFee" value="0">
+</div>
 
-<tr>
-<td class="label">Fee Month</td>
-<td colspan="3">
-<select id="feeMonth">
-<option>January</option><option>February</option><option>March</option>
-<option>April</option><option>May</option><option>June</option>
-<option>July</option><option>August</option><option>September</option>
-<option>October</option><option>November</option><option>December</option>
-</select>
-</td>
-</tr>
+<div class="row">
+    <label>Paid Now:</label>
+    <input type="number" id="paidFee" value="0" oninput="calculateRemaining()">
+</div>
 
-<tr><td colspan="4" class="label">FEE DETAILS</td></tr>
+<div class="row total">
+    <label>Remaining Fee:</label>
+    <input type="number" id="remainingFee" readonly>
+</div>
 
-<tr>
-<td class="label">Total Fee</td>
-<td colspan="3"><input id="total"></td>
-</tr>
-
-<tr>
-<td class="label">Paid Fee</td>
-<td colspan="3"><input id="paid"></td>
-</tr>
-
-<tr id="remainRow">
-<td class="label">Remaining Fee</td>
-<td colspan="3"><input id="remain" readonly></td>
-</tr>
-
-<tr class="total">
-<td class="label">Amount Received</td>
-<td colspan="3" class="amount"><span id="received">0</span> ₹</td>
-</tr>
-
-<tr>
-<td colspan="2" class="signature">Accountant Signature</td>
-<td colspan="2" class="signature">Principal Signature</td>
-</tr>
-</table>
+<div class="print-btn">
+    <button onclick="window.print()">🖨️ Print Receipt</button>
+</div>
 
 </div>
 
-<center>
-<button onclick="window.print()">Print Receipt</button>
-</center>
-
+<!-- ================= JAVASCRIPT ================= -->
 <script>
-document.addEventListener("DOMContentLoaded", function(){
+function searchStudent(){
+    const name = document.getElementById("searchName").value.trim().toLowerCase();
 
-  const students = JSON.parse(localStorage.getItem("students")) || [];
-
-  // Receipt no & date
-  document.getElementById("rno").value = "SVV-" + Date.now().toString().slice(-5);
-  document.getElementById("rdate").value = new Date().toISOString().slice(0,10);
-
-  // Fill datalist
-  const list = document.getElementById("studentList");
-  students.forEach(s=>{
-    const opt = document.createElement("option");
-    opt.value = s.name;
-    list.appendChild(opt);
-  });
-
-  // Search event
-  document.getElementById("searchName").addEventListener("input", function(){
-    const key = this.value.toLowerCase();
-
-    const s = students.find(st =>
-      st.name && st.name.toLowerCase().includes(key)
-    );
-
-    if(!s){
-      admno.value = "";
-      name.value = "";
-      father.value = "";
-      studentClass.value = "";
-      return;
+    if(name === ""){
+        alert("Please enter student name");
+        return;
     }
 
-    admno.value = s.admno;
-    name.value = s.name;
-    father.value = s.father;
-    studentClass.value = s.studentClass;
-  });
+    const students = JSON.parse(localStorage.getItem("students")) || [];
 
-  // Fee calc
-  total.oninput = paid.oninput = function(){
-    const t = Number(total.value)||0;
-    const p = Number(paid.value)||0;
-    const r = t-p;
-    received.innerText = p;
-    remain.value = r;
-    remainRow.style.display = r>0 ? "" : "none";
-  };
+    if(students.length === 0){
+        alert("No admission data found.\nPlease register student first.");
+        return;
+    }
 
-});
+    const student = students.find(s =>
+        s.name && s.name.toLowerCase().includes(name)
+    );
+
+    if(!student){
+        alert("Student not found");
+        return;
+    }
+
+    document.getElementById("studentName").value = student.name;
+    document.getElementById("fatherName").value = student.fatherName || "";
+    document.getElementById("class").value = student.class || "";
+}
+
+function calculateRemaining(){
+    const total = Number(document.getElementById("totalFee").value) || 0;
+    const paid = Number(document.getElementById("paidFee").value) || 0;
+
+    let remaining = total - paid;
+    if(remaining < 0) remaining = 0;
+
+    document.getElementById("remainingFee").value = remaining;
+}
 </script>
 
 </body>
