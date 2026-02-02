@@ -11,14 +11,17 @@ body{font-family:"Times New Roman";background:#eaeaea;}
 .header{text-align:center;border-bottom:2px solid #000;padding-bottom:8px;}
 .header h2{margin:0;font-size:24px;}
 .header h3{margin:2px;font-weight:normal;}
+
 table{width:100%;border-collapse:collapse;margin-top:10px;font-size:15px;}
 td{border:1px solid #000;padding:6px;}
 .label{font-weight:bold;}
 .amount{text-align:right;}
 .total{font-weight:bold;background:#f2f2f2;}
 .signature{height:45px;}
+
 input,select{width:98%;font-size:15px;}
 button{margin:10px;padding:6px 14px;font-size:14px;}
+
 @media print{
  body{background:none;}
  button{display:none;}
@@ -28,7 +31,7 @@ button{margin:10px;padding:6px 14px;font-size:14px;}
 
 <body>
 
-<div class="receipt">
+<div class="receipt" id="printArea">
 
 <div class="header">
 <h2>SHIVMATH VEDIC VIDYALAYA</h2>
@@ -36,7 +39,6 @@ button{margin:10px;padding:6px 14px;font-size:14px;}
 </div>
 
 <table>
-
 <tr>
 <td class="label">Receipt No</td>
 <td><input id="rno" readonly></td>
@@ -45,10 +47,10 @@ button{margin:10px;padding:6px 14px;font-size:14px;}
 </tr>
 
 <tr>
-<td class="label">Search Student</td>
+<td class="label">Search Student Name</td>
 <td colspan="3">
-<input type="text" id="searchName" placeholder="Type student name">
-<button type="button" onclick="searchStudent()">Search</button>
+<input list="studentList" id="searchName" placeholder="Type student name" oninput="searchStudent()">
+<datalist id="studentList"></datalist>
 </td>
 </tr>
 
@@ -73,7 +75,7 @@ button{margin:10px;padding:6px 14px;font-size:14px;}
 <td class="label">Fee Month</td>
 <td colspan="3">
 <select id="feeMonth">
-<option value="">-- Select Month --</option>
+<option value="">--Select Month--</option>
 <option>January</option><option>February</option><option>March</option>
 <option>April</option><option>May</option><option>June</option>
 <option>July</option><option>August</option><option>September</option>
@@ -86,32 +88,30 @@ button{margin:10px;padding:6px 14px;font-size:14px;}
 
 <tr>
 <td class="label">Total Fee</td>
-<td colspan="3"><input id="totalFee" oninput="calcFee()"></td>
+<td colspan="3"><input id="total" oninput="calcFee()"></td>
 </tr>
 
 <tr>
 <td class="label">Paid Fee</td>
-<td colspan="3"><input id="paidFee" oninput="calcFee()"></td>
+<td colspan="3"><input id="paid" oninput="calcFee()"></td>
 </tr>
 
 <tr id="remainRow">
 <td class="label">Remaining Fee</td>
-<td colspan="3"><input id="remainFee" readonly></td>
+<td colspan="3"><input id="remain" readonly></td>
 </tr>
 
 <tr class="total">
 <td class="label">Amount Received</td>
-<td colspan="3" class="amount">
-<span id="received">0</span> ₹
-</td>
+<td colspan="3" class="amount"><span id="received">0</span> ₹</td>
 </tr>
 
 <tr>
 <td colspan="2" class="signature">Accountant Signature</td>
 <td colspan="2" class="signature">Principal Signature</td>
 </tr>
-
 </table>
+
 </div>
 
 <center>
@@ -119,52 +119,59 @@ button{margin:10px;padding:6px 14px;font-size:14px;}
 </center>
 
 <script>
-// ================= INIT =================
+// ================= STUDENT DATA =================
+const students = JSON.parse(localStorage.getItem("students")) || [];
+
+// Auto receipt number & date
 document.getElementById("rno").value = "SVV-" + Date.now().toString().slice(-5);
 document.getElementById("rdate").value = new Date().toISOString().slice(0,10);
 
-// ================= SEARCH STUDENT =================
+// Fill datalist for autocomplete
+const list = document.getElementById("studentList");
+students.forEach(s => {
+    if(s.name) {
+        const opt = document.createElement("option");
+        opt.value = s.name;
+        list.appendChild(opt);
+    }
+});
+
+// Search student function
 function searchStudent(){
     const key = document.getElementById("searchName").value.trim().toLowerCase();
-    const students = JSON.parse(localStorage.getItem("students")) || [];
-
-    if(key === ""){
-        alert("Please type student name");
-        return;
-    }
+    if(key === "") return;
 
     if(students.length === 0){
-        alert("No admission data found.\nPlease save admission first.");
+        alert("No admission data found. Please add student in registration first.");
         return;
     }
 
-    const student = students.find(s =>
-        s.name && s.name.toLowerCase().includes(key)
-    );
+    const student = students.find(s => s.name && s.name.toLowerCase().includes(key));
 
     if(!student){
         alert("Student not found");
+        document.getElementById("admno").value = "";
+        document.getElementById("studentName").value = "";
+        document.getElementById("fatherName").value = "";
+        document.getElementById("className").value = "";
         return;
     }
 
-    // ===== AUTO FILL =====
+    // Fill fields
     document.getElementById("admno").value = student.admno || "";
     document.getElementById("studentName").value = student.name || "";
     document.getElementById("fatherName").value = student.father || "";
     document.getElementById("className").value = student.studentClass || "";
 }
 
-// ================= FEE CALCULATION =================
+// Fee calculation
 function calcFee(){
-    const total = Number(document.getElementById("totalFee").value) || 0;
-    const paid = Number(document.getElementById("paidFee").value) || 0;
-    const remain = total - paid;
-
-    document.getElementById("received").innerText = paid;
-    document.getElementById("remainFee").value = remain;
-
-    document.getElementById("remainRow").style.display =
-        remain > 0 ? "" : "none";
+    const t = Number(document.getElementById("total").value) || 0;
+    const p = Number(document.getElementById("paid").value) || 0;
+    const r = t - p;
+    document.getElementById("received").innerText = p;
+    document.getElementById("remain").value = r;
+    document.getElementById("remainRow").style.display = r>0 ? "" : "none";
 }
 </script>
 
