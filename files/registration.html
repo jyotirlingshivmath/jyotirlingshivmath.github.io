@@ -1,19 +1,18 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Admission Form | SHIVMATH VEDIC VIDYALAYA</title>
 
 <style>
-@page { size: A4; margin: 12mm; }
+@page { size:A4; margin:12mm; }
 
 body{
-  font-family: "Times New Roman", serif;
+  font-family:"Times New Roman",serif;
   background:#eaeaea;
 }
 
 .form{
-  width:100%;
   background:#fff;
   padding:12px;
   border:2px solid #000;
@@ -26,17 +25,8 @@ body{
   margin-bottom:8px;
 }
 
-.header h2{
-  margin:2px 0;
-  font-size:22px;
-  letter-spacing:1px;
-}
-
-.header h3{
-  margin:2px 0;
-  font-size:15px;
-  font-weight:normal;
-}
+.header h2{margin:2px;font-size:22px;letter-spacing:1px;}
+.header h3{margin:2px;font-size:14px;font-weight:normal;}
 
 table{
   width:100%;
@@ -47,10 +37,14 @@ table{
 td{
   border:1px solid #000;
   padding:6px;
+  vertical-align:top;
 }
 
 .label{font-weight:bold;}
-.center{text-align:center;}
+.section{
+  font-weight:bold;
+  background:#f2f2f2;
+}
 
 input,select,textarea{
   width:100%;
@@ -74,14 +68,7 @@ input,select,textarea{
   object-fit:cover;
 }
 
-.section{
-  font-weight:bold;
-  background:#f2f2f2;
-}
-
-.signature{
-  height:45px;
-}
+.signature{height:45px;}
 
 .instructions{
   font-size:13px;
@@ -101,20 +88,20 @@ input,select,textarea{
 
 <div class="header">
 <h2>SHIVMATH VEDIC VIDYALAYA</h2>
-<h3>(Affiliated / Recognized)</h3>
 <h3>ADMISSION / REGISTRATION FORM</h3>
 </div>
 
 <table>
+
 <tr>
 <td class="label">Admission No</td>
-<td><input id="admno" readonly></td>
-<td class="label">Admission Date</td>
-<td><input id="admdate" readonly></td>
-<td rowspan="4" class="center">
+<td><input readonly></td>
+<td class="label">Date</td>
+<td><input readonly></td>
+<td rowspan="4" align="center">
 <div class="photo">
-Passport Size Photo
-<input type="file" onchange="previewPhoto(event)">
+Paste Photo
+<input type="file" onchange="photoPreview.src=URL.createObjectURL(event.target.files[0])">
 <img id="photoPreview">
 </div>
 </td>
@@ -122,7 +109,7 @@ Passport Size Photo
 
 <tr>
 <td class="label">Student Name</td>
-<td colspan="3"><input id="name"></td>
+<td colspan="3"><input></td>
 </tr>
 
 <tr>
@@ -133,22 +120,49 @@ Passport Size Photo
 <option>Female</option>
 </select>
 </td>
-<td class="label">Class</td>
-<td><input id="class"></td>
+<td class="label">Date of Birth</td>
+<td><input type="date"></td>
 </tr>
 
 <tr>
-<td class="label">Date of Birth</td>
-<td><input type="date"></td>
 <td class="label">Category</td>
-<td><input></td>
+<td>
+<select>
+<option>GEN</option>
+<option>OBC</option>
+<option>SC</option>
+<option>ST</option>
+<option>Other</option>
+</select>
+</td>
+<td class="label">Blood Group</td>
+<td>
+<select>
+<option>A+</option><option>A-</option>
+<option>B+</option><option>B-</option>
+<option>O+</option><option>O-</option>
+<option>AB+</option><option>AB-</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<td class="label">Nationality</td>
+<td>
+<select>
+<option>Indian</option>
+<option>Other</option>
+</select>
+</td>
+<td class="label">Religion</td>
+<td colspan="2"><input></td>
 </tr>
 
 <tr><td colspan="5" class="section">PARENT / GUARDIAN DETAILS</td></tr>
 
 <tr>
 <td class="label">Father's Name</td>
-<td><input id="father"></td>
+<td><input></td>
 <td class="label">Occupation</td>
 <td colspan="2"><input></td>
 </tr>
@@ -156,26 +170,51 @@ Passport Size Photo
 <tr>
 <td class="label">Mother's Name</td>
 <td><input></td>
+<td class="label">Occupation</td>
+<td colspan="2"><input></td>
+</tr>
+
+<tr>
 <td class="label">Mobile No</td>
+<td><input></td>
+<td class="label">Email</td>
 <td colspan="2"><input></td>
 </tr>
 
 <tr><td colspan="5" class="section">ADDRESS DETAILS</td></tr>
 <tr><td colspan="5"><textarea rows="2"></textarea></td></tr>
 
-<tr><td colspan="5" class="section">PREVIOUS SCHOOL DETAILS</td></tr>
+<tr><td colspan="5" class="section">ACADEMIC DETAILS</td></tr>
+
 <tr>
-<td class="label">School Name</td>
-<td colspan="2"><input></td>
-<td class="label">Last Class</td>
+<td class="label">Class Applied For</td>
 <td><input></td>
+<td class="label">Previous School</td>
+<td colspan="2"><input></td>
+</tr>
+
+<tr>
+<td class="label">Sibling Studying</td>
+<td>
+<select>
+<option>No</option>
+<option>Yes</option>
+</select>
+</td>
+<td class="label">Transport Required</td>
+<td colspan="2">
+<select>
+<option>No</option>
+<option>Yes</option>
+</select>
+</td>
 </tr>
 
 <tr><td colspan="5" class="section">DECLARATION</td></tr>
 <tr>
 <td colspan="5" class="instructions">
-I hereby declare that the information furnished above is true and correct to the best of my knowledge.
-I agree to abide by all the rules and regulations of <b>SHIVMATH VEDIC VIDYALAYA</b>.
+I hereby declare that the information provided above is true and correct.
+I agree to abide by the rules and regulations of <b>SHIVMATH VEDIC VIDYALAYA</b>.
 </td>
 </tr>
 
@@ -186,43 +225,19 @@ I agree to abide by all the rules and regulations of <b>SHIVMATH VEDIC VIDYALAYA
 
 <tr><td colspan="5" class="section">FOR OFFICE USE ONLY</td></tr>
 <tr>
-<td class="label">Admission Confirmed</td>
+<td class="label">Admission Approved</td>
 <td>Yes / No</td>
-<td class="label">Fee Receipt No</td>
+<td class="label">Receipt No</td>
 <td colspan="2"></td>
 </tr>
+
 </table>
 
 </div>
 
 <center>
-<button onclick="save()">Save Admission</button>
-<button onclick="window.print()">Print</button>
+<button onclick="window.print()">Print Admission Form</button>
 </center>
-
-<script>
-let n = localStorage.getItem("admno") || 3000;
-n++;
-localStorage.setItem("admno", n);
-admno.value = n;
-admdate.value = new Date().toLocaleDateString();
-
-function previewPhoto(e){
- photoPreview.src = URL.createObjectURL(e.target.files[0]);
-}
-
-function save(){
- let students = JSON.parse(localStorage.getItem("students")) || [];
- students.push({
-   name: name.value,
-   father: father.value,
-   class: class.value,
-   admno: n
- });
- localStorage.setItem("students", JSON.stringify(students));
- alert("Admission Saved Successfully");
-}
-</script>
 
 </body>
 </html>
