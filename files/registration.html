@@ -75,6 +75,12 @@ input,select,textarea{
   line-height:1.5;
 }
 
+button{
+  margin-top:10px;
+  padding:6px 12px;
+  font-size:14px;
+}
+
 @media print{
   body{background:none;}
   button{display:none;}
@@ -92,12 +98,11 @@ input,select,textarea{
 </div>
 
 <table>
-
 <tr>
 <td class="label">Admission No</td>
-<td><input readonly></td>
+<td><input id="admno" readonly></td>
 <td class="label">Date</td>
-<td><input readonly></td>
+<td><input type="date" id="admdate"></td>
 <td rowspan="4" align="center">
 <div class="photo">
 Paste Photo
@@ -109,25 +114,26 @@ Paste Photo
 
 <tr>
 <td class="label">Student Name</td>
-<td colspan="3"><input></td>
+<td colspan="3"><input id="name"></td>
 </tr>
 
 <tr>
 <td class="label">Gender</td>
 <td>
-<select>
+<select id="gender">
 <option>Male</option>
 <option>Female</option>
+<option>Other</option>
 </select>
 </td>
 <td class="label">Date of Birth</td>
-<td><input type="date"></td>
+<td><input type="date" id="dob"></td>
 </tr>
 
 <tr>
 <td class="label">Category</td>
 <td>
-<select>
+<select id="category">
 <option>GEN</option>
 <option>OBC</option>
 <option>SC</option>
@@ -137,7 +143,7 @@ Paste Photo
 </td>
 <td class="label">Blood Group</td>
 <td>
-<select>
+<select id="blood">
 <option>A+</option><option>A-</option>
 <option>B+</option><option>B-</option>
 <option>O+</option><option>O-</option>
@@ -149,61 +155,61 @@ Paste Photo
 <tr>
 <td class="label">Nationality</td>
 <td>
-<select>
+<select id="nationality">
 <option>Indian</option>
 <option>Other</option>
 </select>
 </td>
 <td class="label">Religion</td>
-<td colspan="2"><input></td>
+<td colspan="2"><input id="religion"></td>
 </tr>
 
 <tr><td colspan="5" class="section">PARENT / GUARDIAN DETAILS</td></tr>
 
 <tr>
 <td class="label">Father's Name</td>
-<td><input></td>
+<td><input id="father"></td>
 <td class="label">Occupation</td>
-<td colspan="2"><input></td>
+<td colspan="2"><input id="fatherocc"></td>
 </tr>
 
 <tr>
 <td class="label">Mother's Name</td>
-<td><input></td>
+<td><input id="mother"></td>
 <td class="label">Occupation</td>
-<td colspan="2"><input></td>
+<td colspan="2"><input id="motherocc"></td>
 </tr>
 
 <tr>
 <td class="label">Mobile No</td>
-<td><input></td>
+<td><input id="contact"></td>
 <td class="label">Email</td>
-<td colspan="2"><input></td>
+<td colspan="2"><input id="email"></td>
 </tr>
 
 <tr><td colspan="5" class="section">ADDRESS DETAILS</td></tr>
-<tr><td colspan="5"><textarea rows="2"></textarea></td></tr>
+<tr><td colspan="5"><textarea id="address" rows="2"></textarea></td></tr>
 
 <tr><td colspan="5" class="section">ACADEMIC DETAILS</td></tr>
 
 <tr>
 <td class="label">Class Applied For</td>
-<td><input></td>
+<td><input id="studentClass"></td>
 <td class="label">Previous School</td>
-<td colspan="2"><input></td>
+<td colspan="2"><input id="prevSchool"></td>
 </tr>
 
 <tr>
 <td class="label">Sibling Studying</td>
 <td>
-<select>
+<select id="sibling">
 <option>No</option>
 <option>Yes</option>
 </select>
 </td>
 <td class="label">Transport Required</td>
 <td colspan="2">
-<select>
+<select id="transport">
 <option>No</option>
 <option>Yes</option>
 </select>
@@ -236,8 +242,55 @@ I agree to abide by the rules and regulations of <b>SHIVMATH VEDIC VIDYALAYA</b>
 </div>
 
 <center>
-<button onclick="window.print()">Print Admission Form</button>
+<button onclick="saveAdmission()">Save Admission</button>
+<button onclick="window.print()">Print Form</button>
 </center>
+
+<script>
+// Auto Admission Number
+let lastAdm = parseInt(localStorage.getItem("lastAdm")) || 3000;
+lastAdm++;
+admno.value = lastAdm;
+localStorage.setItem("lastAdm", lastAdm);
+
+// Auto Date
+let today = new Date().toISOString().substr(0,10);
+admdate.value = today;
+
+// Save Admission
+function saveAdmission(){
+  let students = JSON.parse(localStorage.getItem("students")) || [];
+  students.push({
+    admno: admno.value,
+    name: name.value,
+    gender: gender.value,
+    dob: dob.value,
+    category: category.value,
+    blood: blood.value,
+    nationality: nationality.value,
+    religion: religion.value,
+    father: father.value,
+    fatherocc: fatherocc.value,
+    mother: mother.value,
+    motherocc: motherocc.value,
+    contact: contact.value,
+    email: email.value,
+    address: address.value,
+    studentClass: studentClass.value,
+    prevSchool: prevSchool.value,
+    sibling: sibling.value,
+    transport: transport.value
+  });
+  localStorage.setItem("students", JSON.stringify(students));
+  alert("Admission Saved Successfully!");
+  // Increment admission number for next student
+  lastAdm++;
+  admno.value = lastAdm;
+  localStorage.setItem("lastAdm", lastAdm);
+  document.querySelector("form").reset();
+  admdate.value = today;
+}
+</script>
 
 </body>
 </html>
