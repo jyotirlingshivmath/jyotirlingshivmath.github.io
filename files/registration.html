@@ -6,120 +6,58 @@
 <title>Student Registration | शिवमठ वैदिक विद्यालय</title>
 
 <style>
-body {
-  font-family: 'Mukta', sans-serif;
-  margin: 0;
-  background-color: #fff8e1;
+body{
+  font-family:Mukta,sans-serif;
+  background:#fff8e1;
+  margin:0;
 }
-
-.header {
-  background-color: #ffecb3;
-  padding: 15px;
-  text-align: center;
-  font-size: 1.8rem;
-  color: #4a148c;
-  font-weight: bold;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+.header{
+  background:#ffecb3;
+  padding:15px;
+  text-align:center;
+  font-size:22px;
+  font-weight:bold;
+  color:#4a148c;
 }
-
-.container {
-  padding: 20px;
-  max-width: 1200px;
-  margin: auto;
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:20px;
 }
-
-h2 {
-  color: #4a148c;
-  margin-bottom: 10px;
+form{
+  background:#fff3e0;
+  padding:20px;
+  border-radius:8px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
 }
-
-form {
-  background: #fff3e0;
-  padding: 20px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  box-shadow: 1px 2px 5px rgba(0,0,0,0.1);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: flex-end;
+form input, form button{
+  padding:10px;
+  flex:1 1 200px;
 }
-
-form input, form select, form button {
-  padding: 10px;
-  border: 1px solid #e1bee7;
-  border-radius: 6px;
-  flex: 1 1 200px;
+button{
+  background:#ffeb3b;
+  border:none;
+  font-weight:bold;
+  cursor:pointer;
 }
-
-form button {
-  background-color: #ffeb3b;
-  color: darkred;
-  font-weight: bold;
-  border: none;
-  cursor: pointer;
-  transition: 0.3s ease;
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:20px;
 }
-
-form button:hover {
-  background-color: #f3e5f5;
-  color: #6a1b9a;
+th,td{
+  border:1px solid #ccc;
+  padding:8px;
 }
+th{background:#ffecb3;}
+.action-btn{padding:5px;}
+.edit-btn{background:#4a148c;color:#fff;}
+.delete-btn{background:darkred;color:#fff;}
 
-#searchInput {
-  margin-bottom: 15px;
-  padding: 10px;
-  width: 100%;
-  max-width: 400px;
-  border-radius: 6px;
-  border: 1px solid #e1bee7;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-}
-
-table, th, td {
-  border: 1px solid #e1bee7;
-}
-
-th, td {
-  padding: 10px;
-  text-align: left;
-}
-
-th {
-  background-color: #ffecb3;
-  color: #4a148c;
-}
-
-tr:nth-child(even) {
-  background-color: #fff3e0;
-}
-
-.action-btn {
-  padding: 5px 10px;
-  margin: 0 2px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.edit-btn { background-color: #4a148c; color: #fff; }
-.delete-btn { background-color: darkred; color: #fff; }
-
-#video, #canvas {
-  border: 1px solid #e1bee7;
-  border-radius: 6px;
-  max-width: 200px;
-}
-
-@media (max-width: 768px) {
-  form { flex-direction: column; }
-  form input, form select, form button { max-width: 100%; }
-  #video, #canvas { max-width: 100%; }
+@media print{
+  table, #searchInput, .action-btn {display:none;}
 }
 </style>
 </head>
@@ -130,178 +68,137 @@ tr:nth-child(even) {
 
 <div class="container">
 
-  <!-- Registration Form -->
-  <h2>छात्र रजिस्ट्रेशन फॉर्म</h2>
-  <form id="regForm">
-    <input type="text" id="studentName" placeholder="छात्र का नाम" required>
-    <input type="date" id="dob" placeholder="जन्म तिथि" required>
-    <input type="text" id="studentClass" placeholder="कक्षा / Class" required>
-    <input type="text" id="parentName" placeholder="अभिभावक का नाम" required>
-    <input type="text" id="contact" placeholder="संपर्क नंबर" required>
-    <input type="text" id="address" placeholder="पता" required>
+<h2>छात्र रजिस्ट्रेशन</h2>
 
-    <!-- Camera -->
-    <div>
-      <video id="video" width="200" height="150" autoplay></video><br>
-      <button type="button" id="snapBtn">Capture Photo</button>
-      <canvas id="canvas" width="200" height="150" style="display:none;"></canvas>
-    </div>
+<form id="regForm">
+  <input id="studentName" placeholder="छात्र का नाम" required>
+  <input type="date" id="dob" required>
+  <input id="studentClass" placeholder="कक्षा" required>
+  <input id="parentName" placeholder="अभिभावक का नाम" required>
+  <input id="contact" placeholder="संपर्क नंबर" required>
+  <input id="address" placeholder="पता" required>
 
-    <button type="submit">रजिस्टर करें</button>
-    <input type="hidden" id="editIndex">
-  </form>
+  <div>
+    <video id="video" width="160" autoplay></video><br>
+    <button type="button" id="snapBtn">Photo Capture</button>
+    <canvas id="canvas" width="160" height="120" style="display:none;"></canvas>
+  </div>
 
-  <!-- Search -->
-  <input type="text" id="searchInput" placeholder="छात्र का नाम या कक्षा से खोजें...">
+  <input type="hidden" id="editIndex">
+  <button type="submit">रजिस्टर करें</button>
+  <button type="button" onclick="window.print()">🖨️ प्रिंट</button>
+</form>
 
-  <!-- Registered Students Table -->
-  <h2>रजिस्टर्ड छात्र</h2>
-  <table id="regTable">
-    <thead>
-      <tr>
-        <th>क्र.सं.</th>
-        <th>Photo</th>
-        <th>छात्र का नाम</th>
-        <th>जन्म तिथि</th>
-        <th>कक्षा</th>
-        <th>अभिभावक</th>
-        <th>संपर्क</th>
-        <th>पता</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- records will appear here -->
-    </tbody>
-  </table>
+<input id="searchInput" placeholder="नाम / कक्षा से खोजें">
+
+<table>
+<thead>
+<tr>
+<th>#</th><th>Photo</th><th>नाम</th><th>DOB</th>
+<th>कक्षा</th><th>अभिभावक</th><th>संपर्क</th><th>पता</th><th>Action</th>
+</tr>
+</thead>
+<tbody id="regTable"></tbody>
+</table>
 
 </div>
 
 <script>
-// Camera Setup
-let video = document.getElementById('video');
-let canvas = document.getElementById('canvas');
-let snapBtn = document.getElementById('snapBtn');
-let photoData = '';
+let students = JSON.parse(localStorage.getItem("students")) || [];
 
-// Access webcam
-navigator.mediaDevices.getUserMedia({ video: true })
-  .then(stream => {
-    video.srcObject = stream;
-  })
-  .catch(err => {
-    alert('कृपया कैमरा एक्सेस अनुमति दें।');
-    console.error(err);
-  });
+const regForm = document.getElementById("regForm");
+const regTable = document.getElementById("regTable");
+const searchInput = document.getElementById("searchInput");
+const editIndex = document.getElementById("editIndex");
 
-snapBtn.addEventListener('click', () => {
-  canvas.style.display = 'block';
-  canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-  photoData = canvas.toDataURL('image/png');
-});
+let video=document.getElementById("video");
+let canvas=document.getElementById("canvas");
+let snapBtn=document.getElementById("snapBtn");
+let photoData="";
 
-// Data array
-let students = [];
-let regForm = document.getElementById('regForm');
-let regTable = document.getElementById('regTable').getElementsByTagName('tbody')[0];
-let searchInput = document.getElementById('searchInput');
-let editIndexInput = document.getElementById('editIndex');
-
-function renderTable(data) {
-  regTable.innerHTML = '';
-  data.forEach((student, index) => {
-    let row = regTable.insertRow();
-    row.insertCell(0).innerText = index + 1;
-
-    let imgCell = row.insertCell(1);
-    let img = document.createElement('img');
-    img.src = student.photo || '';
-    img.width = 50;
-    img.height = 50;
-    img.style.borderRadius = '50%';
-    imgCell.appendChild(img);
-
-    row.insertCell(2).innerText = student.name;
-    row.insertCell(3).innerText = student.dob;
-    row.insertCell(4).innerText = student.class;
-    row.insertCell(5).innerText = student.parent;
-    row.insertCell(6).innerText = student.contact;
-    row.insertCell(7).innerText = student.address;
-
-    let actionCell = row.insertCell(8);
-    let editBtn = document.createElement('button');
-    editBtn.innerText = 'Edit';
-    editBtn.className = 'action-btn edit-btn';
-    editBtn.onclick = () => editStudent(index);
-    let delBtn = document.createElement('button');
-    delBtn.innerText = 'Delete';
-    delBtn.className = 'action-btn delete-btn';
-    delBtn.onclick = () => deleteStudent(index);
-    actionCell.appendChild(editBtn);
-    actionCell.appendChild(delBtn);
-  });
+if(navigator.mediaDevices){
+ navigator.mediaDevices.getUserMedia({video:true})
+ .then(s=>video.srcObject=s)
+ .catch(()=>{});
 }
 
-function editStudent(index) {
-  let s = students[index];
-  document.getElementById('studentName').value = s.name;
-  document.getElementById('dob').value = s.dob;
-  document.getElementById('studentClass').value = s.class;
-  document.getElementById('parentName').value = s.parent;
-  document.getElementById('contact').value = s.contact;
-  document.getElementById('address').value = s.address;
-  photoData = s.photo || '';
-  if(photoData) {
-    let ctx = canvas.getContext('2d');
-    let img = new Image();
-    img.onload = function(){ ctx.drawImage(img,0,0,canvas.width,canvas.height); }
-    img.src = photoData;
-    canvas.style.display = 'block';
-  }
-  editIndexInput.value = index;
+snapBtn.onclick=()=>{
+ canvas.style.display="block";
+ canvas.getContext("2d").drawImage(video,0,0,160,120);
+ photoData=canvas.toDataURL();
+};
+
+function render(data){
+ regTable.innerHTML="";
+ data.forEach((s,i)=>{
+  regTable.innerHTML+=`
+  <tr>
+  <td>${i+1}</td>
+  <td><img src="${s.photo||''}" width="40"></td>
+  <td>${s.name}</td>
+  <td>${s.dob}</td>
+  <td>${s.class}</td>
+  <td>${s.parent}</td>
+  <td>${s.contact}</td>
+  <td>${s.address}</td>
+  <td>
+    <button class="action-btn edit-btn" onclick="editStudent(${i})">Edit</button>
+    <button class="action-btn delete-btn" onclick="deleteStudent(${i})">Del</button>
+  </td>
+  </tr>`;
+ });
+}
+render(students);
+
+regForm.onsubmit=e=>{
+ e.preventDefault();
+ let student={
+  name:studentName.value,
+  dob:dob.value,
+  class:studentClass.value,
+  parent:parentName.value,
+  contact:contact.value,
+  address:address.value,
+  photo:photoData
+ };
+ if(editIndex.value!==""){
+  students[editIndex.value]=student;
+  editIndex.value="";
+ }else{
+  students.push(student);
+ }
+ localStorage.setItem("students",JSON.stringify(students));
+ regForm.reset();
+ photoData="";
+ canvas.style.display="none";
+ searchInput.value="";
+ render(students);
+};
+
+function editStudent(i){
+ let s=students[i];
+ studentName.value=s.name;
+ dob.value=s.dob;
+ studentClass.value=s.class;
+ parentName.value=s.parent;
+ contact.value=s.contact;
+ address.value=s.address;
+ photoData=s.photo;
+ editIndex.value=i;
 }
 
-function deleteStudent(index) {
-  if(confirm('क्या आप वाकई इस रिकॉर्ड को हटाना चाहते हैं?')) {
-    students.splice(index, 1);
-    renderTable(students);
-  }
+function deleteStudent(i){
+ if(confirm("हटाएँ?")){
+  students.splice(i,1);
+  localStorage.setItem("students",JSON.stringify(students));
+  render(students);
+ }
 }
 
-regForm.addEventListener('submit', function(e) {
-  e.preventDefault();
-  let student = {
-    name: document.getElementById('studentName').value,
-    dob: document.getElementById('dob').value,
-    class: document.getElementById('studentClass').value,
-    parent: document.getElementById('parentName').value,
-    contact: document.getElementById('contact').value,
-    address: document.getElementById('address').value,
-    photo: photoData
-  };
-
-  if(editIndexInput.value !== '') {
-    students[editIndexInput.value] = student;
-    editIndexInput.value = '';
-  } else {
-    students.push(student);
-  }
-
-  regForm.reset();
-  canvas.style.display = 'none';
-  photoData = '';
-  renderTable(students);
-});
-
-// Search functionality
-searchInput.addEventListener('keyup', function() {
-  let query = this.value.toLowerCase();
-  let filtered = students.filter(s => 
-    s.name.toLowerCase().includes(query) || 
-    s.class.toLowerCase().includes(query)
-  );
-  renderTable(filtered);
-});
+searchInput.onkeyup=()=>{
+ let q=searchInput.value.toLowerCase();
+ render(students.filter(s=>s.name.toLowerCase().includes(q)||s.class.toLowerCase().includes(q)));
+};
 </script>
 
 </body>
