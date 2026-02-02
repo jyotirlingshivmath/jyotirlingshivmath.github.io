@@ -2,244 +2,160 @@
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fee Management | शिवमठ वैदिक विद्यालय</title>
+<title>Fee Collection</title>
 
 <style>
-body{
-  font-family:Mukta,sans-serif;
-  margin:0;
-  background:#fff8e1;
+body { font-family: Arial; background:#f0f0f0; }
+.box {
+  width:550px; margin:20px auto; background:#fff;
+  padding:20px; border-radius:8px;
 }
-.header{
-  background:#ffecb3;
-  padding:15px;
-  text-align:center;
-  font-size:22px;
-  font-weight:bold;
-  color:#4a148c;
+select, input, button {
+  width:100%; padding:8px; margin:8px 0;
 }
-.container{
-  max-width:1200px;
-  margin:auto;
-  padding:20px;
-}
-h2{color:#4a148c;}
-form{
-  background:#fff3e0;
-  padding:20px;
-  border-radius:8px;
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-}
-form select,form input,form button{
-  padding:10px;
-  border-radius:6px;
-  border:1px solid #e1bee7;
-  flex:1 1 200px;
-}
-button{
-  background:#ffeb3b;
-  font-weight:bold;
-  border:none;
-  cursor:pointer;
-}
-table{
-  width:100%;
-  border-collapse:collapse;
+button { background:#0066cc; color:white; border:none; }
+
+/* ===== SUMMARY ===== */
+.summary {
   margin-top:15px;
+  padding:10px;
+  background:#e8f5e9;
+  border:2px solid green;
+  font-size:18px;
+  font-weight:bold;
+  text-align:center;
 }
-th,td{
-  border:1px solid #e1bee7;
-  padding:8px;
-}
-th{background:#ffecb3;}
-.action-btn{padding:4px 8px;}
-.edit-btn{background:#4a148c;color:#fff;}
-.delete-btn{background:darkred;color:#fff;}
 
-.receipt{
+/* ===== RECEIPT STYLE ===== */
+#receipt {
   display:none;
-  background:white;
-  padding:20px;
-  border:1px solid #000;
+  width:520px;
+  margin:auto;
+  border:2px solid black;
+  padding:15px;
 }
+#receipt h2 {
+  text-align:center;
+  margin:5px 0;
+}
+.row {
+  display:flex;
+  justify-content:space-between;
+  margin:6px 0;
+}
+hr { border:1px solid black; }
 
-@media print{
-  body *{visibility:hidden;}
-  .receipt, .receipt *{visibility:visible;}
-  .receipt{position:absolute;left:0;top:0;width:100%;}
+@media print {
+  body * { visibility:hidden; }
+  #receipt, #receipt * {
+    visibility:visible;
+  }
+  #receipt {
+    position:absolute;
+    top:0; left:0;
+  }
 }
 </style>
-</head>
 
+</head>
 <body>
 
-<div class="header">🔱 Fee Management - शिवमठ वैदिक विद्यालय 🔱</div>
+<div class="box">
+<h2>Fee Collection</h2>
 
-<div class="container">
+<select id="studentSelect"></select>
 
-<h2>फीस जमा करें</h2>
+<input type="number" id="amount" placeholder="Fee Amount">
+<input type="text" id="month" placeholder="Month">
 
-<form id="feeForm">
-  <select id="studentSelect" required>
-    <option value="">— छात्र चुनें —</option>
-  </select>
+<button onclick="generateReceipt()">Generate Receipt</button>
 
-  <input type="number" id="amount" placeholder="राशि (₹)" required>
-  <input type="date" id="date" required>
-
-  <input type="hidden" id="editIndex">
-  <button type="submit">फीस सेव करें</button>
-</form>
-
-<input id="searchInput" placeholder="नाम / महीना / तारीख से खोजें">
-
-<h2>फीस रिकॉर्ड</h2>
-
-<table>
-<thead>
-<tr>
-<th>#</th>
-<th>छात्र</th>
-<th>राशि</th>
-<th>तारीख</th>
-<th>Action</th>
-</tr>
-</thead>
-<tbody id="feeTable"></tbody>
-</table>
-
-<h2>📊 छात्र-वार कुल फीस</h2>
-<table>
-<thead>
-<tr><th>छात्र</th><th>कुल राशि (₹)</th></tr>
-</thead>
-<tbody id="summaryTable"></tbody>
-</table>
-
+<div class="summary">
+Grand Total Fees Collected: ₹ <span id="grandTotal">0</span>
+</div>
 </div>
 
-<!-- RECEIPT -->
-<div class="receipt" id="receipt">
-  <h2 style="text-align:center;">शिवमठ वैदिक विद्यालय</h2>
-  <hr>
-  <p><b>छात्र का नाम:</b> <span id="rName"></span></p>
-  <p><b>राशि:</b> ₹ <span id="rAmount"></span></p>
-  <p><b>तारीख:</b> <span id="rDate"></span></p>
-  <p><b>रसीद क्रमांक:</b> <span id="rNo"></span></p>
-  <br>
-  <p>हस्ताक्षर: ____________</p>
+<!-- ===== RECEIPT ===== -->
+<div id="receipt">
+<h2>STUDENT FEE RECEIPT</h2>
+<hr>
+
+<div class="row"><b>Name:</b><span id="rName"></span></div>
+<div class="row"><b>Father Name:</b><span id="rFather"></span></div>
+<div class="row"><b>Class:</b><span id="rClass"></span></div>
+
+<hr>
+
+<div class="row"><b>Month:</b><span id="rMonth"></span></div>
+<div class="row"><b>Amount:</b><span id="rAmount"></span></div>
+<div class="row"><b>Date:</b><span id="rDate"></span></div>
+
+<hr><br>
+
+<div class="row">
+<span>Student Signature</span>
+<span>Authorized Signature</span>
+</div>
+
+<br><br>
+
+<button onclick="window.print()">Print Receipt</button>
 </div>
 
 <script>
-// LOAD DATA
 let students = JSON.parse(localStorage.getItem("students")) || [];
-let fees = JSON.parse(localStorage.getItem("fees")) || [];
+let feesData = JSON.parse(localStorage.getItem("feesData")) || [];
 
-const studentSelect=document.getElementById("studentSelect");
-const feeTable=document.getElementById("feeTable");
-const summaryTable=document.getElementById("summaryTable");
-const searchInput=document.getElementById("searchInput");
-const editIndex=document.getElementById("editIndex");
+let select = document.getElementById("studentSelect");
+select.innerHTML = "<option value=''>-- Select Student --</option>";
 
-// Populate students
-students.forEach(s=>{
- let o=document.createElement("option");
- o.value=s.name;
- o.textContent=s.name;
- studentSelect.appendChild(o);
+students.forEach((s, i) => {
+  let opt = document.createElement("option");
+  opt.value = i;
+  opt.textContent = s.name + " (" + s.class + ")";
+  select.appendChild(opt);
 });
 
-// Render fee table
-function renderTable(data){
- feeTable.innerHTML="";
- data.forEach((f,i)=>{
-  feeTable.innerHTML+=`
-  <tr>
-   <td>${i+1}</td>
-   <td>${f.name}</td>
-   <td>${f.amount}</td>
-   <td>${f.date}</td>
-   <td>
-    <button class="action-btn edit-btn" onclick="editFee(${i})">Edit</button>
-    <button class="action-btn delete-btn" onclick="deleteFee(${i})">Del</button>
-    <button class="action-btn" onclick="printReceipt(${i})">Print</button>
-   </td>
-  </tr>`;
- });
+/* ===== GRAND TOTAL CALCULATION ===== */
+function updateGrandTotal() {
+  let total = 0;
+  feesData.forEach(f => total += Number(f.amount));
+  document.getElementById("grandTotal").innerText = total;
 }
-renderTable(fees);
+updateGrandTotal();
 
-// Summary
-function renderSummary(){
- let totals={};
- fees.forEach(f=>{
-  totals[f.name]=(totals[f.name]||0)+Number(f.amount);
- });
- summaryTable.innerHTML="";
- for(let n in totals){
-  summaryTable.innerHTML+=`
-   <tr><td>${n}</td><td>${totals[n]}</td></tr>`;
- }
-}
-renderSummary();
+function generateReceipt() {
+  let idx = select.value;
+  let amt = document.getElementById("amount").value;
+  let mon = document.getElementById("month").value;
 
-// Submit
-feeForm.onsubmit=e=>{
- e.preventDefault();
- let fee={
-  name:studentSelect.value,
-  amount:amount.value,
-  date:date.value
- };
- if(editIndex.value!==""){
-  fees[editIndex.value]=fee;
-  editIndex.value="";
- }else{
-  fees.push(fee);
- }
- localStorage.setItem("fees",JSON.stringify(fees));
- feeForm.reset();
- renderTable(fees);
- renderSummary();
-};
+  if (idx === "" || amt === "" || mon === "") {
+    alert("Please fill all fields");
+    return;
+  }
 
-// Edit/Delete
-function editFee(i){
- let f=fees[i];
- studentSelect.value=f.name;
- amount.value=f.amount;
- date.value=f.date;
- editIndex.value=i;
-}
-function deleteFee(i){
- if(confirm("हटाएँ?")){
-  fees.splice(i,1);
-  localStorage.setItem("fees",JSON.stringify(fees));
-  renderTable(fees);
-  renderSummary();
- }
-}
+  let student = students[idx];
 
-// Search
-searchInput.onkeyup=()=>{
- let q=searchInput.value.toLowerCase();
- renderTable(fees.filter(f=>
-  f.name.toLowerCase().includes(q) ||
-  f.date.includes(q)
- ));
-};
+  /* SAVE FEE DATA */
+  feesData.push({
+    name: student.name,
+    amount: amt
+  });
+  localStorage.setItem("feesData", JSON.stringify(feesData));
+  updateGrandTotal();
 
-// Print receipt
-function printReceipt(i){
- let f=fees[i];
- rName.innerText=f.name;
- rAmount.innerText=f.amount;
- rDate.innerText=f.date;
- rNo.innerText="SMV-"+(i+1);
- window.print();
+  /* RECEIPT DATA */
+  document.getElementById("rName").innerText = student.name;
+  document.getElementById("rFather").innerText = student.father;
+  document.getElementById("rClass").innerText = student.class;
+  document.getElementById("rMonth").innerText = mon;
+  document.getElementById("rAmount").innerText = "₹ " + amt;
+  document.getElementById("rDate").innerText = new Date().toLocaleDateString();
+
+  document.getElementById("receipt").style.display = "block";
+
+  document.getElementById("amount").value="";
+  document.getElementById("month").value="";
 }
 </script>
 
