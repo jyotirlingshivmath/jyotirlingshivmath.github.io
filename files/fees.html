@@ -7,13 +7,7 @@
 <style>
 @page{size:A4;margin:15mm;}
 body{font-family:"Times New Roman";background:#eaeaea;}
-.receipt{
-  background:#fff;
-  border:2px solid #000;
-  padding:15px;
-  width:720px;
-  margin:auto;
-}
+.receipt{background:#fff;border:2px solid #000;padding:15px;width:720px;margin:auto;}
 .header{text-align:center;border-bottom:2px solid #000;padding-bottom:8px;}
 .header h2{margin:0;font-size:24px;}
 .header h3{margin:2px;font-weight:normal;}
@@ -26,7 +20,6 @@ td{border:1px solid #000;padding:6px;}
 .signature{height:45px;}
 
 input,select{width:98%;font-size:15px;}
-
 button{margin:10px;padding:6px 14px;font-size:14px;}
 
 @media print{
@@ -48,15 +41,15 @@ button{margin:10px;padding:6px 14px;font-size:14px;}
 <table>
 <tr>
 <td class="label">Receipt No</td>
-<td><input id="rno"></td>
+<td><input id="rno" readonly></td>
 <td class="label">Date</td>
 <td><input type="date" id="rdate"></td>
 </tr>
 
 <tr>
-<td class="label">Search Student Name</td>
+<td class="label">Search Student</td>
 <td colspan="3">
-<input list="studentList" id="searchName" oninput="searchStudent()" placeholder="Type student name">
+<input list="studentList" id="searchName" placeholder="Type student name" oninput="searchStudent()">
 <datalist id="studentList"></datalist>
 </td>
 </tr>
@@ -65,16 +58,7 @@ button{margin:10px;padding:6px 14px;font-size:14px;}
 <td class="label">Admission No</td>
 <td><input id="admno" readonly></td>
 <td class="label">Class</td>
-<td>
-<select id="class">
-<option>Mont</option>
-<option>Nursery</option>
-<option>KG</option>
-<option>1</option><option>2</option><option>3</option>
-<option>4</option><option>5</option><option>6</option>
-<option>7</option><option>8</option>
-</select>
-</td>
+<td><input id="class" readonly></td>
 </tr>
 
 <tr>
@@ -88,9 +72,10 @@ button{margin:10px;padding:6px 14px;font-size:14px;}
 </tr>
 
 <tr>
-<td class="label">Month</td>
+<td class="label">Fee Month</td>
 <td colspan="3">
 <select id="feeMonth">
+<option value="">--Select Month--</option>
 <option>January</option><option>February</option><option>March</option>
 <option>April</option><option>May</option><option>June</option>
 <option>July</option><option>August</option><option>September</option>
@@ -134,48 +119,43 @@ button{margin:10px;padding:6px 14px;font-size:14px;}
 </center>
 
 <script>
-// Fetch students from registration
+// ================= STUDENT DATA =================
 let students = JSON.parse(localStorage.getItem("students")) || [];
 
-// Auto receipt number & date
-rno.value = Math.floor(1000 + Math.random()*9000);
-rdate.value = new Date().toISOString().substr(0,10);
+// Auto receipt no + date
+document.getElementById("rno").value = "SVV-" + Date.now().toString().slice(-5);
+document.getElementById("rdate").value = new Date().toISOString().slice(0,10);
 
-// Fill datalist with student names
+// Fill datalist
 let list = document.getElementById("studentList");
 students.forEach(s=>{
  let opt = document.createElement("option");
- opt.value = s.name;
+ opt.value = s.studentName;
  list.appendChild(opt);
 });
 
-// Search student by name
+// Search student (PARTIAL MATCH)
 function searchStudent(){
- let s = students.find(x => x.name.toLowerCase() === searchName.value.toLowerCase());
+ let key = searchName.value.toLowerCase();
+ let s = students.find(x => x.studentName.toLowerCase().includes(key));
  if(s){
-   admno.value = s.admno;
-   name.value = s.name;
-   father.value = s.father;
-   document.getElementById("class").value = s.studentClass || "KG";
- } else {
-   admno.value = "";
-   name.value = "";
-   father.value = "";
+   admno.value = s.admissionNo || s.regNo || "";
+   name.value = s.studentName;
+   father.value = s.fatherName;
+   document.getElementById("class").value = s.className || s.studentClass || "";
+ }else{
+   admno.value = name.value = father.value = class.value = "";
  }
 }
 
 // Fee calculation
 function calcFee(){
- let t = parseFloat(total.value)||0;
- let p = parseFloat(paid.value)||0;
- let r = t-p;
+ let t = Number(total.value)||0;
+ let p = Number(paid.value)||0;
+ let r = t - p;
  received.innerText = p;
- if(r>0){
-   remainRow.style.display="";
-   remain.value = r;
- }else{
-   remainRow.style.display="none";
- }
+ remain.value = r;
+ remainRow.style.display = r>0 ? "" : "none";
 }
 </script>
 
