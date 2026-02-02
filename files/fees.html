@@ -6,112 +6,70 @@
 <title>Fee Management | शिवमठ वैदिक विद्यालय</title>
 
 <style>
-body {
-  font-family: 'Mukta', sans-serif;
-  margin: 0;
-  background-color: #fff8e1;
+body{
+  font-family:Mukta,sans-serif;
+  margin:0;
+  background:#fff8e1;
+}
+.header{
+  background:#ffecb3;
+  padding:15px;
+  text-align:center;
+  font-size:22px;
+  font-weight:bold;
+  color:#4a148c;
+}
+.container{
+  max-width:1200px;
+  margin:auto;
+  padding:20px;
+}
+h2{color:#4a148c;}
+form{
+  background:#fff3e0;
+  padding:20px;
+  border-radius:8px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+form select,form input,form button{
+  padding:10px;
+  border-radius:6px;
+  border:1px solid #e1bee7;
+  flex:1 1 200px;
+}
+button{
+  background:#ffeb3b;
+  font-weight:bold;
+  border:none;
+  cursor:pointer;
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:15px;
+}
+th,td{
+  border:1px solid #e1bee7;
+  padding:8px;
+}
+th{background:#ffecb3;}
+.action-btn{padding:4px 8px;}
+.edit-btn{background:#4a148c;color:#fff;}
+.delete-btn{background:darkred;color:#fff;}
+
+.receipt{
+  display:none;
+  background:white;
+  padding:20px;
+  border:1px solid #000;
 }
 
-.header {
-  background-color: #ffecb3;
-  padding: 15px;
-  text-align: center;
-  font-size: 1.8rem;
-  color: #4a148c;
-  font-weight: bold;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-.container {
-  padding: 20px;
-  max-width: 1200px;
-  margin: auto;
-}
-
-h2 {
-  color: #4a148c;
-  margin-bottom: 10px;
-}
-
-form {
-  background: #fff3e0;
-  padding: 20px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  box-shadow: 1px 2px 5px rgba(0,0,0,0.1);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-form input, form button {
-  padding: 10px;
-  border: 1px solid #e1bee7;
-  border-radius: 6px;
-  flex: 1 1 200px;
-}
-
-form button {
-  background-color: #ffeb3b;
-  color: darkred;
-  font-weight: bold;
-  border: none;
-  cursor: pointer;
-  transition: 0.3s ease;
-}
-
-form button:hover {
-  background-color: #f3e5f5;
-  color: #6a1b9a;
-}
-
-#searchInput {
-  margin-bottom: 15px;
-  padding: 10px;
-  width: 100%;
-  max-width: 400px;
-  border-radius: 6px;
-  border: 1px solid #e1bee7;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-}
-
-table, th, td {
-  border: 1px solid #e1bee7;
-}
-
-th, td {
-  padding: 10px;
-  text-align: left;
-}
-
-th {
-  background-color: #ffecb3;
-  color: #4a148c;
-}
-
-tr:nth-child(even) {
-  background-color: #fff3e0;
-}
-
-.action-btn {
-  padding: 5px 10px;
-  margin: 0 2px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.edit-btn { background-color: #4a148c; color: #fff; }
-.delete-btn { background-color: darkred; color: #fff; }
-
-@media (max-width: 768px) {
-  form { flex-direction: column; }
-  form input, form button { max-width: 100%; }
+@media print{
+  body *{visibility:hidden;}
+  .receipt, .receipt *{visibility:visible;}
+  .receipt{position:absolute;left:0;top:0;width:100%;}
 }
 </style>
 </head>
@@ -122,109 +80,167 @@ tr:nth-child(even) {
 
 <div class="container">
 
-  <!-- Fee Form -->
-  <h2>फीस जमा करें / अपडेट करें</h2>
-  <form id="feeForm">
-    <input type="text" id="studentName" placeholder="छात्र का नाम" required>
-    <input type="number" id="amount" placeholder="राशि (₹)" required>
-    <input type="date" id="date" required>
-    <button type="submit">जमा करें</button>
-    <input type="hidden" id="editIndex">
-  </form>
+<h2>फीस जमा करें</h2>
 
-  <!-- Search -->
-  <input type="text" id="searchInput" placeholder="छात्र का नाम या तारीख से खोजें...">
+<form id="feeForm">
+  <select id="studentSelect" required>
+    <option value="">— छात्र चुनें —</option>
+  </select>
 
-  <!-- Fee Records Table -->
-  <h2>जमा की गई फीस रिकॉर्ड</h2>
-  <table id="feeTable">
-    <thead>
-      <tr>
-        <th>क्र.सं.</th>
-        <th>छात्र का नाम</th>
-        <th>राशि (₹)</th>
-        <th>तारीख</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- records will appear here -->
-    </tbody>
-  </table>
+  <input type="number" id="amount" placeholder="राशि (₹)" required>
+  <input type="date" id="date" required>
+
+  <input type="hidden" id="editIndex">
+  <button type="submit">फीस सेव करें</button>
+</form>
+
+<input id="searchInput" placeholder="नाम / महीना / तारीख से खोजें">
+
+<h2>फीस रिकॉर्ड</h2>
+
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>छात्र</th>
+<th>राशि</th>
+<th>तारीख</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody id="feeTable"></tbody>
+</table>
+
+<h2>📊 छात्र-वार कुल फीस</h2>
+<table>
+<thead>
+<tr><th>छात्र</th><th>कुल राशि (₹)</th></tr>
+</thead>
+<tbody id="summaryTable"></tbody>
+</table>
 
 </div>
 
+<!-- RECEIPT -->
+<div class="receipt" id="receipt">
+  <h2 style="text-align:center;">शिवमठ वैदिक विद्यालय</h2>
+  <hr>
+  <p><b>छात्र का नाम:</b> <span id="rName"></span></p>
+  <p><b>राशि:</b> ₹ <span id="rAmount"></span></p>
+  <p><b>तारीख:</b> <span id="rDate"></span></p>
+  <p><b>रसीद क्रमांक:</b> <span id="rNo"></span></p>
+  <br>
+  <p>हस्ताक्षर: ____________</p>
+</div>
+
 <script>
-// Data Array
-let fees = [];
-let feeForm = document.getElementById('feeForm');
-let feeTable = document.getElementById('feeTable').getElementsByTagName('tbody')[0];
-let searchInput = document.getElementById('searchInput');
-let editIndexInput = document.getElementById('editIndex');
+// LOAD DATA
+let students = JSON.parse(localStorage.getItem("students")) || [];
+let fees = JSON.parse(localStorage.getItem("fees")) || [];
 
-function renderTable(data) {
-  feeTable.innerHTML = '';
-  data.forEach((fee, index) => {
-    let row = feeTable.insertRow();
-    row.insertCell(0).innerText = index + 1;
-    row.insertCell(1).innerText = fee.name;
-    row.insertCell(2).innerText = fee.amount;
-    row.insertCell(3).innerText = fee.date;
+const studentSelect=document.getElementById("studentSelect");
+const feeTable=document.getElementById("feeTable");
+const summaryTable=document.getElementById("summaryTable");
+const searchInput=document.getElementById("searchInput");
+const editIndex=document.getElementById("editIndex");
 
-    // Actions
-    let actionCell = row.insertCell(4);
-    let editBtn = document.createElement('button');
-    editBtn.innerText = 'Edit';
-    editBtn.className = 'action-btn edit-btn';
-    editBtn.onclick = () => editFee(index);
-    let delBtn = document.createElement('button');
-    delBtn.innerText = 'Delete';
-    delBtn.className = 'action-btn delete-btn';
-    delBtn.onclick = () => deleteFee(index);
-    actionCell.appendChild(editBtn);
-    actionCell.appendChild(delBtn);
-  });
+// Populate students
+students.forEach(s=>{
+ let o=document.createElement("option");
+ o.value=s.name;
+ o.textContent=s.name;
+ studentSelect.appendChild(o);
+});
+
+// Render fee table
+function renderTable(data){
+ feeTable.innerHTML="";
+ data.forEach((f,i)=>{
+  feeTable.innerHTML+=`
+  <tr>
+   <td>${i+1}</td>
+   <td>${f.name}</td>
+   <td>${f.amount}</td>
+   <td>${f.date}</td>
+   <td>
+    <button class="action-btn edit-btn" onclick="editFee(${i})">Edit</button>
+    <button class="action-btn delete-btn" onclick="deleteFee(${i})">Del</button>
+    <button class="action-btn" onclick="printReceipt(${i})">Print</button>
+   </td>
+  </tr>`;
+ });
 }
+renderTable(fees);
 
-function editFee(index) {
-  document.getElementById('studentName').value = fees[index].name;
-  document.getElementById('amount').value = fees[index].amount;
-  document.getElementById('date').value = fees[index].date;
-  editIndexInput.value = index;
+// Summary
+function renderSummary(){
+ let totals={};
+ fees.forEach(f=>{
+  totals[f.name]=(totals[f.name]||0)+Number(f.amount);
+ });
+ summaryTable.innerHTML="";
+ for(let n in totals){
+  summaryTable.innerHTML+=`
+   <tr><td>${n}</td><td>${totals[n]}</td></tr>`;
+ }
 }
+renderSummary();
 
-function deleteFee(index) {
-  if(confirm('क्या आप वाकई इस रिकॉर्ड को हटाना चाहते हैं?')) {
-    fees.splice(index, 1);
-    renderTable(fees);
-  }
+// Submit
+feeForm.onsubmit=e=>{
+ e.preventDefault();
+ let fee={
+  name:studentSelect.value,
+  amount:amount.value,
+  date:date.value
+ };
+ if(editIndex.value!==""){
+  fees[editIndex.value]=fee;
+  editIndex.value="";
+ }else{
+  fees.push(fee);
+ }
+ localStorage.setItem("fees",JSON.stringify(fees));
+ feeForm.reset();
+ renderTable(fees);
+ renderSummary();
+};
+
+// Edit/Delete
+function editFee(i){
+ let f=fees[i];
+ studentSelect.value=f.name;
+ amount.value=f.amount;
+ date.value=f.date;
+ editIndex.value=i;
 }
-
-feeForm.addEventListener('submit', function(e) {
-  e.preventDefault();
-  let name = document.getElementById('studentName').value;
-  let amount = document.getElementById('amount').value;
-  let date = document.getElementById('date').value;
-
-  if(editIndexInput.value !== '') {
-    // Update existing
-    fees[editIndexInput.value] = {name, amount, date};
-    editIndexInput.value = '';
-  } else {
-    // Add new
-    fees.push({name, amount, date});
-  }
-
-  feeForm.reset();
+function deleteFee(i){
+ if(confirm("हटाएँ?")){
+  fees.splice(i,1);
+  localStorage.setItem("fees",JSON.stringify(fees));
   renderTable(fees);
-});
+  renderSummary();
+ }
+}
 
-// Search functionality
-searchInput.addEventListener('keyup', function() {
-  let query = this.value.toLowerCase();
-  let filtered = fees.filter(fee => fee.name.toLowerCase().includes(query) || fee.date.includes(query));
-  renderTable(filtered);
-});
+// Search
+searchInput.onkeyup=()=>{
+ let q=searchInput.value.toLowerCase();
+ renderTable(fees.filter(f=>
+  f.name.toLowerCase().includes(q) ||
+  f.date.includes(q)
+ ));
+};
+
+// Print receipt
+function printReceipt(i){
+ let f=fees[i];
+ rName.innerText=f.name;
+ rAmount.innerText=f.amount;
+ rDate.innerText=f.date;
+ rNo.innerText="SMV-"+(i+1);
+ window.print();
+}
 </script>
 
 </body>
