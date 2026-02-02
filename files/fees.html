@@ -1,161 +1,163 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Fee Collection</title>
+<title>Fee Receipt | SHIVMATH VEDIC VIDYALAYA</title>
 
 <style>
-body { font-family: Arial; background:#f0f0f0; }
-.box {
-  width:550px; margin:20px auto; background:#fff;
-  padding:20px; border-radius:8px;
-}
-select, input, button {
-  width:100%; padding:8px; margin:8px 0;
-}
-button { background:#0066cc; color:white; border:none; }
-
-/* ===== SUMMARY ===== */
-.summary {
-  margin-top:15px;
-  padding:10px;
-  background:#e8f5e9;
-  border:2px solid green;
-  font-size:18px;
-  font-weight:bold;
-  text-align:center;
-}
-
-/* ===== RECEIPT STYLE ===== */
-#receipt {
-  display:none;
-  width:520px;
-  margin:auto;
-  border:2px solid black;
+@page{size:A4;margin:15mm;}
+body{font-family:"Times New Roman";background:#eaeaea;}
+.receipt{
+  background:#fff;
+  border:2px solid #000;
   padding:15px;
+  width:720px;
+  margin:auto;
 }
-#receipt h2 {
-  text-align:center;
-  margin:5px 0;
-}
-.row {
-  display:flex;
-  justify-content:space-between;
-  margin:6px 0;
-}
-hr { border:1px solid black; }
+.header{text-align:center;border-bottom:2px solid #000;padding-bottom:8px;}
+.header h2{margin:0;font-size:24px;}
+.header h3{margin:2px;font-weight:normal;}
 
-@media print {
-  body * { visibility:hidden; }
-  #receipt, #receipt * {
-    visibility:visible;
-  }
-  #receipt {
-    position:absolute;
-    top:0; left:0;
-  }
+table{width:100%;border-collapse:collapse;margin-top:10px;font-size:15px;}
+td{border:1px solid #000;padding:6px;}
+.label{font-weight:bold;}
+.amount{text-align:right;}
+.total{font-weight:bold;background:#f2f2f2;}
+.signature{height:45px;}
+
+input,select{width:98%;font-size:15px;}
+
+button{margin:10px;padding:6px 14px;font-size:14px;}
+
+@media print{
+ body{background:none;}
+ button{display:none;}
 }
 </style>
-
 </head>
+
 <body>
 
-<div class="box">
-<h2>Fee Collection</h2>
+<div class="receipt" id="printArea">
 
-<select id="studentSelect"></select>
-
-<input type="number" id="amount" placeholder="Fee Amount">
-<input type="text" id="month" placeholder="Month">
-
-<button onclick="generateReceipt()">Generate Receipt</button>
-
-<div class="summary">
-Grand Total Fees Collected: ₹ <span id="grandTotal">0</span>
-</div>
+<div class="header">
+<h2>SHIVMATH VEDIC VIDYALAYA</h2>
+<h3>FEE RECEIPT (STUDENT COPY)</h3>
 </div>
 
-<!-- ===== RECEIPT ===== -->
-<div id="receipt">
-<h2>STUDENT FEE RECEIPT</h2>
-<hr>
+<table>
+<tr>
+<td class="label">Receipt No</td>
+<td><input id="rno"></td>
+<td class="label">Date</td>
+<td><input type="date" id="rdate"></td>
+</tr>
 
-<div class="row"><b>Name:</b><span id="rName"></span></div>
-<div class="row"><b>Father Name:</b><span id="rFather"></span></div>
-<div class="row"><b>Class:</b><span id="rClass"></span></div>
+<tr>
+<td class="label">Search Student Name</td>
+<td colspan="3">
+<input list="studentList" id="searchName" oninput="searchStudent()" placeholder="Type student name">
+<datalist id="studentList"></datalist>
+</td>
+</tr>
 
-<hr>
+<tr>
+<td class="label">Admission No</td>
+<td><input id="admno" readonly></td>
+<td class="label">Class</td>
+<td>
+<select id="class">
+<option>Mont</option>
+<option>Nursery</option>
+<option>KG</option>
+<option>1</option><option>2</option><option>3</option>
+<option>4</option><option>5</option><option>6</option>
+<option>7</option><option>8</option>
+</select>
+</td>
+</tr>
 
-<div class="row"><b>Month:</b><span id="rMonth"></span></div>
-<div class="row"><b>Amount:</b><span id="rAmount"></span></div>
-<div class="row"><b>Date:</b><span id="rDate"></span></div>
+<tr>
+<td class="label">Student Name</td>
+<td colspan="3"><input id="name" readonly></td>
+</tr>
 
-<hr><br>
+<tr>
+<td class="label">Father Name</td>
+<td colspan="3"><input id="father" readonly></td>
+</tr>
 
-<div class="row">
-<span>Student Signature</span>
-<span>Authorized Signature</span>
+<tr><td colspan="4" class="label">FEE DETAILS</td></tr>
+
+<tr>
+<td class="label">Total Fee</td>
+<td colspan="3"><input id="total" oninput="calcFee()"></td>
+</tr>
+
+<tr>
+<td class="label">Paid Fee</td>
+<td colspan="3"><input id="paid" oninput="calcFee()"></td>
+</tr>
+
+<tr id="remainRow">
+<td class="label">Remaining Fee</td>
+<td colspan="3"><input id="remain" readonly></td>
+</tr>
+
+<tr class="total">
+<td class="label">Amount Received</td>
+<td colspan="3" class="amount"><span id="received">0</span> ₹</td>
+</tr>
+
+<tr>
+<td colspan="2" class="signature">Accountant Signature</td>
+<td colspan="2" class="signature">Principal Signature</td>
+</tr>
+</table>
+
 </div>
 
-<br><br>
-
+<center>
 <button onclick="window.print()">Print Receipt</button>
-</div>
+</center>
 
 <script>
 let students = JSON.parse(localStorage.getItem("students")) || [];
-let feesData = JSON.parse(localStorage.getItem("feesData")) || [];
 
-let select = document.getElementById("studentSelect");
-select.innerHTML = "<option value=''>-- Select Student --</option>";
+// auto receipt no & date
+rno.value = Math.floor(1000 + Math.random()*9000);
+rdate.value = new Date().toISOString().substr(0,10);
 
-students.forEach((s, i) => {
-  let opt = document.createElement("option");
-  opt.value = i;
-  opt.textContent = s.name + " (" + s.class + ")";
-  select.appendChild(opt);
+// fill datalist
+let list = document.getElementById("studentList");
+students.forEach(s=>{
+ let opt = document.createElement("option");
+ opt.value = s.name;
+ list.appendChild(opt);
 });
 
-/* ===== GRAND TOTAL CALCULATION ===== */
-function updateGrandTotal() {
-  let total = 0;
-  feesData.forEach(f => total += Number(f.amount));
-  document.getElementById("grandTotal").innerText = total;
+function searchStudent(){
+ let s = students.find(x => x.name === searchName.value);
+ if(s){
+   admno.value = s.admno;
+   name.value = s.name;
+   father.value = s.father;
+   document.getElementById("class").value = s.studentClass || "KG";
+ }
 }
-updateGrandTotal();
 
-function generateReceipt() {
-  let idx = select.value;
-  let amt = document.getElementById("amount").value;
-  let mon = document.getElementById("month").value;
-
-  if (idx === "" || amt === "" || mon === "") {
-    alert("Please fill all fields");
-    return;
-  }
-
-  let student = students[idx];
-
-  /* SAVE FEE DATA */
-  feesData.push({
-    name: student.name,
-    amount: amt
-  });
-  localStorage.setItem("feesData", JSON.stringify(feesData));
-  updateGrandTotal();
-
-  /* RECEIPT DATA */
-  document.getElementById("rName").innerText = student.name;
-  document.getElementById("rFather").innerText = student.father;
-  document.getElementById("rClass").innerText = student.class;
-  document.getElementById("rMonth").innerText = mon;
-  document.getElementById("rAmount").innerText = "₹ " + amt;
-  document.getElementById("rDate").innerText = new Date().toLocaleDateString();
-
-  document.getElementById("receipt").style.display = "block";
-
-  document.getElementById("amount").value="";
-  document.getElementById("month").value="";
+// fee calculation
+function calcFee(){
+ let t = parseFloat(total.value)||0;
+ let p = parseFloat(paid.value)||0;
+ let r = t-p;
+ received.innerText = p;
+ if(r>0){
+   remainRow.style.display="";
+   remain.value = r;
+ }else{
+   remainRow.style.display="none";
+ }
 }
 </script>
 
