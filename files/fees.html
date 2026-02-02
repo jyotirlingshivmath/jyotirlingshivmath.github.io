@@ -87,6 +87,18 @@ button{margin:10px;padding:6px 14px;font-size:14px;}
 <td colspan="3"><input id="father" readonly></td>
 </tr>
 
+<tr>
+<td class="label">Month</td>
+<td colspan="3">
+<select id="feeMonth">
+<option>January</option><option>February</option><option>March</option>
+<option>April</option><option>May</option><option>June</option>
+<option>July</option><option>August</option><option>September</option>
+<option>October</option><option>November</option><option>December</option>
+</select>
+</td>
+</tr>
+
 <tr><td colspan="4" class="label">FEE DETAILS</td></tr>
 
 <tr>
@@ -122,13 +134,14 @@ button{margin:10px;padding:6px 14px;font-size:14px;}
 </center>
 
 <script>
+// Fetch students from registration
 let students = JSON.parse(localStorage.getItem("students")) || [];
 
-// auto receipt no & date
+// Auto receipt number & date
 rno.value = Math.floor(1000 + Math.random()*9000);
 rdate.value = new Date().toISOString().substr(0,10);
 
-// fill datalist
+// Fill datalist with student names
 let list = document.getElementById("studentList");
 students.forEach(s=>{
  let opt = document.createElement("option");
@@ -136,17 +149,22 @@ students.forEach(s=>{
  list.appendChild(opt);
 });
 
+// Search student by name
 function searchStudent(){
- let s = students.find(x => x.name === searchName.value);
+ let s = students.find(x => x.name.toLowerCase() === searchName.value.toLowerCase());
  if(s){
    admno.value = s.admno;
    name.value = s.name;
    father.value = s.father;
    document.getElementById("class").value = s.studentClass || "KG";
+ } else {
+   admno.value = "";
+   name.value = "";
+   father.value = "";
  }
 }
 
-// fee calculation
+// Fee calculation
 function calcFee(){
  let t = parseFloat(total.value)||0;
  let p = parseFloat(paid.value)||0;
