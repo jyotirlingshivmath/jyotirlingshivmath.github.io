@@ -6,89 +6,28 @@
 
 <style>
 @page { size:A4; margin:12mm; }
-
-body{
-  font-family:"Times New Roman",serif;
-  background:#eaeaea;
-}
-
-.form{
-  background:#fff;
-  padding:12px;
-  border:2px solid #000;
-}
-
-.header{
-  text-align:center;
-  border-bottom:2px solid #000;
-  padding-bottom:6px;
-  margin-bottom:8px;
-}
-
-.header h2{margin:2px;font-size:22px;letter-spacing:1px;}
+body{font-family:"Times New Roman";background:#eaeaea;}
+.form{background:#fff;padding:12px;border:2px solid #000;}
+.header{text-align:center;border-bottom:2px solid #000;padding-bottom:6px;margin-bottom:8px;}
+.header h2{margin:2px;font-size:22px;}
 .header h3{margin:2px;font-size:14px;font-weight:normal;}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-  font-size:14px;
-}
-
-td{
-  border:1px solid #000;
-  padding:6px;
-  vertical-align:top;
-}
-
+table{width:100%;border-collapse:collapse;font-size:14px;}
+td{border:1px solid #000;padding:6px;}
 .label{font-weight:bold;}
-.section{
-  font-weight:bold;
-  background:#f2f2f2;
-}
-
-input,select,textarea{
-  width:100%;
-  border:none;
-  outline:none;
-  font-family:inherit;
-  font-size:14px;
-}
-
-.photo{
-  width:120px;
-  height:150px;
-  border:1px solid #000;
-  text-align:center;
-  font-size:11px;
-}
-
-.photo img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
+.section{font-weight:bold;background:#f2f2f2;}
+input,select,textarea{width:100%;border:none;outline:none;font-family:inherit;}
+.photo{width:110px;height:140px;border:1px solid #000;font-size:11px;}
+.photo img{width:100%;height:100%;object-fit:cover;}
 .signature{height:45px;}
-
-.instructions{
-  font-size:13px;
-  line-height:1.5;
-}
-
-button{
-  margin-top:10px;
-  padding:6px 12px;
-  font-size:14px;
-}
-
-@media print{
-  body{background:none;}
-  button{display:none;}
-}
+.instructions{font-size:13px;line-height:1.5;}
+button{margin:10px;padding:6px 14px;font-size:14px;}
+@media print{body{background:none;}button{display:none;}}
 </style>
 </head>
 
 <body>
+
+<form id="admissionForm">
 
 <div class="form" id="printArea">
 
@@ -98,6 +37,7 @@ button{
 </div>
 
 <table>
+
 <tr>
 <td class="label">Admission No</td>
 <td><input id="admno" readonly></td>
@@ -105,8 +45,8 @@ button{
 <td><input type="date" id="admdate"></td>
 <td rowspan="4" align="center">
 <div class="photo">
-Paste Photo
-<input type="file" onchange="photoPreview.src=URL.createObjectURL(event.target.files[0])">
+Photo
+<input type="file" id="photo" accept="image/*">
 <img id="photoPreview">
 </div>
 </td>
@@ -114,17 +54,13 @@ Paste Photo
 
 <tr>
 <td class="label">Student Name</td>
-<td colspan="3"><input id="name"></td>
+<td colspan="3"><input id="name" required></td>
 </tr>
 
 <tr>
 <td class="label">Gender</td>
 <td>
-<select id="gender">
-<option>Male</option>
-<option>Female</option>
-<option>Other</option>
-</select>
+<select id="gender"><option>Male</option><option>Female</option><option>Other</option></select>
 </td>
 <td class="label">Date of Birth</td>
 <td><input type="date" id="dob"></td>
@@ -133,35 +69,15 @@ Paste Photo
 <tr>
 <td class="label">Category</td>
 <td>
-<select id="category">
-<option>GEN</option>
-<option>OBC</option>
-<option>SC</option>
-<option>ST</option>
-<option>Other</option>
-</select>
+<select id="category"><option>GEN</option><option>OBC</option><option>SC</option><option>ST</option><option>Other</option></select>
 </td>
 <td class="label">Blood Group</td>
 <td>
 <select id="blood">
-<option>A+</option><option>A-</option>
-<option>B+</option><option>B-</option>
-<option>O+</option><option>O-</option>
-<option>AB+</option><option>AB-</option>
+<option>A+</option><option>A-</option><option>B+</option><option>B-</option>
+<option>O+</option><option>O-</option><option>AB+</option><option>AB-</option>
 </select>
 </td>
-</tr>
-
-<tr>
-<td class="label">Nationality</td>
-<td>
-<select id="nationality">
-<option>Indian</option>
-<option>Other</option>
-</select>
-</td>
-<td class="label">Religion</td>
-<td colspan="2"><input id="religion"></td>
 </tr>
 
 <tr><td colspan="5" class="section">PARENT / GUARDIAN DETAILS</td></tr>
@@ -181,60 +97,34 @@ Paste Photo
 </tr>
 
 <tr>
-<td class="label">Mobile No</td>
+<td class="label">Mobile</td>
 <td><input id="contact"></td>
 <td class="label">Email</td>
 <td colspan="2"><input id="email"></td>
 </tr>
 
-<tr><td colspan="5" class="section">ADDRESS DETAILS</td></tr>
+<tr><td colspan="5" class="section">ADDRESS</td></tr>
 <tr><td colspan="5"><textarea id="address" rows="2"></textarea></td></tr>
 
 <tr><td colspan="5" class="section">ACADEMIC DETAILS</td></tr>
 
 <tr>
-<td class="label">Class Applied For</td>
+<td class="label">Class</td>
 <td><input id="studentClass"></td>
 <td class="label">Previous School</td>
 <td colspan="2"><input id="prevSchool"></td>
 </tr>
 
-<tr>
-<td class="label">Sibling Studying</td>
-<td>
-<select id="sibling">
-<option>No</option>
-<option>Yes</option>
-</select>
-</td>
-<td class="label">Transport Required</td>
-<td colspan="2">
-<select id="transport">
-<option>No</option>
-<option>Yes</option>
-</select>
-</td>
-</tr>
-
 <tr><td colspan="5" class="section">DECLARATION</td></tr>
 <tr>
 <td colspan="5" class="instructions">
-I hereby declare that the information provided above is true and correct.
-I agree to abide by the rules and regulations of <b>SHIVMATH VEDIC VIDYALAYA</b>.
+I declare that the above information is true and I agree to abide by school rules.
 </td>
 </tr>
 
 <tr>
-<td colspan="2" class="signature">Parent / Guardian Signature</td>
-<td colspan="3" class="signature">Principal / Authorized Signature</td>
-</tr>
-
-<tr><td colspan="5" class="section">FOR OFFICE USE ONLY</td></tr>
-<tr>
-<td class="label">Admission Approved</td>
-<td>Yes / No</td>
-<td class="label">Receipt No</td>
-<td colspan="2"></td>
+<td colspan="2" class="signature">Parent Signature</td>
+<td colspan="3" class="signature">Principal Signature</td>
 </tr>
 
 </table>
@@ -242,54 +132,48 @@ I agree to abide by the rules and regulations of <b>SHIVMATH VEDIC VIDYALAYA</b>
 </div>
 
 <center>
-<button onclick="saveAdmission()">Save Admission</button>
-<button onclick="window.print()">Print Form</button>
+<button type="submit">Save Admission</button>
+<button type="button" onclick="window.print()">Print Form</button>
 </center>
 
+</form>
+
 <script>
-// Auto Admission Number
+// Admission No
 let lastAdm = parseInt(localStorage.getItem("lastAdm")) || 3000;
-lastAdm++;
-admno.value = lastAdm;
+admno.value = ++lastAdm;
 localStorage.setItem("lastAdm", lastAdm);
 
-// Auto Date
-let today = new Date().toISOString().substr(0,10);
-admdate.value = today;
+// Date
+admdate.value = new Date().toISOString().substr(0,10);
+
+// Photo to Base64
+let photoData="";
+photo.onchange = e=>{
+ let r=new FileReader();
+ r.onload=()=>{photoPreview.src=r.result;photoData=r.result;}
+ r.readAsDataURL(e.target.files[0]);
+};
 
 // Save Admission
-function saveAdmission(){
-  let students = JSON.parse(localStorage.getItem("students")) || [];
-  students.push({
-    admno: admno.value,
-    name: name.value,
-    gender: gender.value,
-    dob: dob.value,
-    category: category.value,
-    blood: blood.value,
-    nationality: nationality.value,
-    religion: religion.value,
-    father: father.value,
-    fatherocc: fatherocc.value,
-    mother: mother.value,
-    motherocc: motherocc.value,
-    contact: contact.value,
-    email: email.value,
-    address: address.value,
-    studentClass: studentClass.value,
-    prevSchool: prevSchool.value,
-    sibling: sibling.value,
-    transport: transport.value
-  });
-  localStorage.setItem("students", JSON.stringify(students));
-  alert("Admission Saved Successfully!");
-  // Increment admission number for next student
-  lastAdm++;
-  admno.value = lastAdm;
-  localStorage.setItem("lastAdm", lastAdm);
-  document.querySelector("form").reset();
-  admdate.value = today;
-}
+document.getElementById("admissionForm").onsubmit = function(e){
+ e.preventDefault();
+ let students = JSON.parse(localStorage.getItem("students")) || [];
+ students.push({
+  admno: admno.value,
+  name: name.value,
+  father: father.value,
+  studentClass: studentClass.value,
+  dob: dob.value,
+  contact: contact.value,
+  address: address.value,
+  photo: photoData
+ });
+ localStorage.setItem("students", JSON.stringify(students));
+ alert("Admission Saved Successfully");
+ this.reset();
+ photoPreview.src="";
+};
 </script>
 
 </body>
