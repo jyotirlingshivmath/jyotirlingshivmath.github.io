@@ -2,55 +2,142 @@
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
-<title>Student Registration</title>
+<title>Admission Form | श्री ज्योतिर्लिंग शिवमठ वैदिक विद्यालय</title>
+
 <style>
-body { font-family: Arial; background:#f5f5f5; }
-.box {
-  width:400px; margin:30px auto; background:#fff;
-  padding:20px; border-radius:8px;
+body{font-family:Arial;background:#f2f2f2;}
+.form-box{
+  width:950px;margin:20px auto;background:#fff;
+  padding:20px;border:2px solid #000;
 }
-label { font-weight:bold; }
-input, button {
-  width:100%; padding:8px; margin:8px 0;
+h2,h3{text-align:center;margin:5px;}
+table{width:100%;border-collapse:collapse;}
+td{border:1px solid #000;padding:8px;vertical-align:top;}
+input,select,textarea{width:100%;padding:6px;}
+.photo-box{
+  width:130px;height:160px;border:1px solid #000;
+  text-align:center;font-size:12px;
 }
-button { background:green; color:#fff; border:none; }
+img{max-width:100%;max-height:100%;}
+button{padding:10px 20px;font-size:16px;margin:10px;}
+@media print{
+ body *{visibility:hidden;}
+ #printArea,#printArea *{visibility:visible;}
+ #printArea{position:absolute;top:0;left:0;}
+}
 </style>
 </head>
+
 <body>
 
-<div class="box">
-<h2>Student Registration</h2>
+<div class="form-box" id="printArea">
 
-<label>Name</label>
-<input type="text" id="name">
+<h2>🔱 श्री ज्योतिर्लिंग शिवमठ वैदिक विद्यालय 🔱</h2>
+<h3>ADMISSION / REGISTRATION FORM</h3>
 
-<label>Father Name</label>
-<input type="text" id="father">
+<table>
+<tr>
+<td><b>Admission No</b><input id="admno" readonly></td>
+<td><b>Admission Date</b><input id="admdate" readonly></td>
+<td rowspan="4" class="photo-box">
+Student Photo
+<input type="file" onchange="previewPhoto(event)">
+<img id="photoPreview">
+</td>
+</tr>
 
-<label>Class</label>
-<input type="text" id="class">
+<tr>
+<td><b>Student Name</b><input id="name"></td>
+<td><b>Gender</b>
+<select id="gender"><option>Male</option><option>Female</option></select>
+</td>
+</tr>
 
-<button onclick="saveStudent()">Register</button>
+<tr>
+<td><b>Date of Birth</b><input type="date" id="dob"></td>
+<td><b>Class</b><input id="class"></td>
+</tr>
+
+<tr>
+<td><b>Category</b><input id="category"></td>
+<td><b>Religion</b><input id="religion"></td>
+</tr>
+
+<tr><td colspan="3"><b>Aadhar No</b><input></td></tr>
+
+<tr><td colspan="3"><b>Father Details</b></td></tr>
+<tr>
+<td><b>Father Name</b><input id="father"></td>
+<td><b>Occupation</b><input></td>
+<td><b>Mobile</b><input id="mobile"></td>
+</tr>
+
+<tr><td colspan="3"><b>Mother Details</b></td></tr>
+<tr>
+<td><b>Mother Name</b><input></td>
+<td><b>Occupation</b><input></td>
+<td><b>Mobile</b><input></td>
+</tr>
+
+<tr><td colspan="3"><b>Complete Address</b></td></tr>
+<tr><td colspan="3"><textarea rows="2"></textarea></td></tr>
+
+<tr><td colspan="3"><b>Previous School Details</b></td></tr>
+<tr>
+<td><b>School Name</b><input></td>
+<td><b>Last Class</b><input></td>
+<td><b>TC No</b><input></td>
+</tr>
+
+<tr><td colspan="3"><b>Documents Submitted</b></td></tr>
+<tr>
+<td>Birth Certificate ☐</td>
+<td>Aadhar ☐</td>
+<td>TC ☐ Photo ☐</td>
+</tr>
+
+<tr>
+<td colspan="2"><br>Parent Signature</td>
+<td><br>Authorized Signature</td>
+</tr>
+</table>
+
 </div>
 
+<center>
+<button onclick="saveStudent()">Save Admission</button>
+<button onclick="window.print()">Print Form</button>
+</center>
+
 <script>
-function saveStudent() {
-  let students = JSON.parse(localStorage.getItem("students")) || [];
+/* AUTO ADMISSION NO */
+let lastNo = localStorage.getItem("admno") || 1000;
+lastNo++;
+localStorage.setItem("admno", lastNo);
+document.getElementById("admno").value = lastNo;
+document.getElementById("admdate").value =
+ new Date().toLocaleDateString();
 
-  let student = {
-    name: document.getElementById("name").value,
-    father: document.getElementById("father").value,
-    class: document.getElementById("class").value
-  };
+/* PHOTO PREVIEW */
+function previewPhoto(e){
+ let img=document.getElementById("photoPreview");
+ img.src=URL.createObjectURL(e.target.files[0]);
+}
 
-  students.push(student);
-  localStorage.setItem("students", JSON.stringify(students));
+/* SAVE STUDENT */
+function saveStudent(){
+ let students=JSON.parse(localStorage.getItem("students"))||[];
 
-  alert("Student Registered Successfully");
-
-  document.getElementById("name").value="";
-  document.getElementById("father").value="";
-  document.getElementById("class").value="";
+ let s={
+  name:document.getElementById("name").value,
+  father:document.getElementById("father").value,
+  class:document.getElementById("class").value,
+  mobile:document.getElementById("mobile").value,
+  admno:lastNo
+ };
+ students.push(s);
+ localStorage.setItem("students",JSON.stringify(students));
+ alert("Admission Saved Successfully");
 }
 </script>
 
