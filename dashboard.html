@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shivmath Dashboard</title>
+    <style>
+        body { font-family: Arial; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+        .header { background: linear-gradient(45deg, #4CAF50, #45a049); color: white; padding: 20px; border-radius: 10px; margin-bottom: 30px; }
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .info-card { background: #e8f5e8; padding: 20px; border-radius: 8px; text-align: center; }
+        .records-section { background: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #4CAF50; color: white; }
+        tr:hover { background: #f5f5f5; }
+        .btn { padding: 10px 20px; margin: 5px; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; text-decoration: none; display: inline-block; }
+        .btn-primary { background: #4CAF50; color: white; }
+        .btn-success { background: #2196F3; color: white; }
+        .btn-danger { background: #f44336; color: white; }
+        .btn-warning { background: #ff9800; color: white; }
+        .no-data { text-align: center; color: #666; font-style: italic; padding: 40px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌟 JYOTIRLING SHIVMATH</h1>
+            <h2>Admin Dashboard</h2>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>Organisation</h3>
+                <h2 id="orgName">Loading...</h2>
+            </div>
+            <div class="info-card">
+                <h3>User Role</h3>
+                <h2 id="userRole">Loading...</h2>
+            </div>
+            <div class="info-card">
+                <h3>Total Records</h3>
+                <h2 id="recordCount">0</h2>
+            </div>
+            <div class="info-card">
+                <h3>Last Updated</h3>
+                <h2 id="lastUpdate">-</h2>
+            </div>
+        </div>
+
+        <div class="records-section">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h3>📊 Records Management</h3>
+                <div>
+                    <button class="btn btn-success" onclick="addRecord()">➕ नया Record</button>
+                    <button class="btn btn-warning" onclick="refreshRecords()">🔄 Refresh</button>
+                    <button class="btn btn-danger" onclick="logout()">🚪 Logout</button>
+                </div>
+            </div>
+            <div id="recordsTable">Loading records...</div>
+        </div>
+    </div>
+
+    <script>
+        // Aapka Apps Script URL
+        const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbxUU5v9eqHDbcfd33u4dLHkcY4LqD3OEELHzVzuJp2gmfUK4aaC2oiu_37_Nj2qBL1w/exec';
+        
+        // Page load par data load karo
+        window.onload = function() {
+            const token = localStorage.getItem('token');
+            const org = localStorage.getItem('org');
+            const role = localStorage.getItem('role');
+            
+            if (!token || !org) {
+                alert('Please login first!');
+                window.location.href = 'admin_login.html';
+                return;
+            }
+            
+            document.getElementById('orgName').textContent = org;
+            document.getElementById('userRole').textContent = role || 'User';
+            document.getElementById('lastUpdate').textContent = new Date().toLocaleString('hi-IN');
+            
+            refreshRecords();
+        };
+
+        function refreshRecords() {
+            const token = localStorage.getItem('token');
+            document.getElementById('recordsTable').innerHTML = 'Loading...';
+            
+            fetch(BACKEND_URL, {
+                method: 'POST',
+                body: JSON.stringify({
+                    action: 'getData',
+                    token: token
+                })
+            })
+            .then(r => r.text())
+            .then(text => {
+                const result = JSON.parse(text);
+                if (result.success && result.data) {
+                    displayRecords(result.data);
+                } else {
+                    document.getElementById('recordsTable').innerHTML = '<div class="no-data">No records found. Add your first record!</div>';
+                }
+            })
+            .catch(() => {
+                document.getElementById('recordsTable').innerHTML = '<div class="no-data">Error loading records. Try refresh.</div>';
+            });
+        }
+
+        function displayRecords(data) {
+            if (data.length === 0) {
+                document.getElementById('recordsTable').innerHTML = '<div class="no-data">No records found. Add first record!</div>';
+                document.getElementById('recordCount').textContent = '0';
+                return;
+            }
+            
+            let html = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            
+            data.forEach((row, index) => {
+                html += `
+                    <tr>
+                        <td>${row[0] || ''}</td>
+                        <td>${row[1] || ''}</td>
+                        <td>${row[2] ? new Date(row[2]).toLocaleDateString('hi-IN') : ''}</td>
+                        <td>
+                            <span class="btn btn-primary" style="padding: 5px 10px; font-size: 12px;">
+                                ${row[3] || 'Pending'}
+                            </span>
+                        </td>
+                        <td>
+                            <button class="btn btn-warning" onclick="editRecord(${index})" style="padding: 5px 10px;">Edit</button>
+                            <button class="btn btn-danger" onclick="deleteRecord('${row[0]}')" style="padding: 5px 10px;">Delete</button>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            html += '</tbody></table>';
+            document.getElementById('recordsTable').innerHTML = html;
+            document.getElementById('recordCount').textContent = data.length;
+        }
+
+        function addRecord() {
+            const id = prompt('ID डालें:');
+            const name = prompt('Name डालें:');
+            const status = prompt('Status डालें (Active/Inactive/Pending):');
+            
+            if (id && name) {
+                const token = localStorage.getItem('token');
+                fetch(BACKEND_URL, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        action: 'addData',
+                        token: token,
+                        id: id,
+                        name: name,
+                        status: status || 'Active'
+                    })
+                })
+                .then(r => r.text())
+                .then(text => {
+                    const result = JSON.parse(text);
+                    if (result.success) {
+                        alert('✅ Record added successfully!');
+                        refreshRecords();
+                    } else {
+                        alert('❌ Error: ' + result.msg);
+                    }
+                });
+            }
+        }
+
+        function editRecord(index) {
+            alert('Edit functionality coming soon!');
+        }
+
+        function deleteRecord(id) {
+            if (confirm('Delete this record?')) {
+                alert('Delete functionality coming soon!');
+            }
+        }
+
+        function logout() {
+            if (confirm('Logout करना चाहते हैं?')) {
+                localStorage.clear();
+                window.location.href = 'admin_login.html';
+            }
+        }
+    </script>
+</body>
+</html>
