@@ -1,75 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Admin Login | Jyotirling Shivmath</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<style>
-body {
-  font-family: Arial, sans-serif;
-  background: linear-gradient(to bottom, #f3e5f5, #e1bee7);
-  margin: 0;
-}
-.box {
-  max-width: 420px;
-  margin: 100px auto;
-  background: #ffffff;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  text-align: center;
-}
-h2 {
-  color: #6a1b9a;
-}
-input {
-  width: 100%;
-  padding: 12px;
-  margin-top: 12px;
-  font-size: 16px;
-}
-button {
-  width: 100%;
-  padding: 14px;
-  margin-top: 18px;
-  font-size: 18px;
-  background: linear-gradient(135deg, #8e24aa, #4a148c);
-  color: #fff;
-  border: none;
-  border-radius: 25px;
-  cursor: pointer;
-}
-button:hover {
-  opacity: 0.9;
-}
-#msg {
-  margin-top: 15px;
-  font-weight: bold;
-}
-</style>
-</head>
-
-<body>
-
-<div class="box">
-  <h2>🔒 Admin Login</h2>
-
-  <input type="email" id="email" placeholder="Email">
-  <input type="password" id="password" placeholder="Password">
-
-  <button onclick="login()">Login</button>
-
-  <p id="msg"></p>
-</div>
-
 <script>
 const SCRIPT_URL =
-"https://script.google.com/macros/s/AKfycbx1r3-VL_dzv_ib_4qUGJOF1kk6hlvOMakwPn2QBwAyJf_ftCi6t0gMsvDirC-HIug/exec";
+"https://script.google.com/macros/s/AKfycbxXANS_OExOSXkpbzhR7Td4jeTSwUXOBmm2erYLOm-JER8F-8VBJbIx7e30Ptjem4sz/exec";
 
 function login() {
   fetch(SCRIPT_URL, {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
     body: JSON.stringify({
       action: "login",
       email: document.getElementById("email").value,
@@ -92,6 +30,3 @@ function login() {
   });
 }
 </script>
-
-</body>
-</html>
