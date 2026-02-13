@@ -1,201 +1,34 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Shivmath Login</title>
-    <style>
-        body { 
-            font-family: Arial; 
-            max-width: 400px; 
-            margin: 100px auto; 
-            padding: 20px; 
-            background: #f0f8ff; 
-        }
-        .login-form { 
-            background: white; 
-            padding: 30px; 
-            border-radius: 10px; 
-            box-shadow: 0 0 10px rgba(0,0,0,0.1); 
-        }
-        input { 
-            width: 100%; 
-            padding: 12px; 
-            margin: 10px 0; 
-            border: 1px solid #ddd; 
-            border-radius: 5px; 
-            box-sizing: border-box; 
-        }
-        button { 
-            width: 100%; 
-            padding: 12px; 
-            background: #4CAF50; 
-            color: white; 
-            border: none; 
-            border-radius: 5px; 
-            cursor: pointer; 
-            font-size: 16px; 
-        }
-        button:hover { background: #45a049; }
-        .error { color: red; margin: 10px 0; display: none; }
-        #dashboard { display: none; }
-    </style>
-</head>
-<body>
-    <!-- LOGIN FORM -->
-    <div id="loginForm" class="login-form">
-        <h2>🌟 Shivmath Login</h2>
-        <div id="errorMsg" class="error"></div>
-        
-        <input type="email" id="email" placeholder="admin@shivmath.in" required>
-        <input type="password" id="password" placeholder="123456" required>
-        
-        <button onclick="handleLogin()">लॉगिन करें</button>
-        
-        <p style="text-align: center; margin-top: 20px; color: #666;">
-            Test: admin@shivmath.in | 123456
-        </p>
-    </div>
+<script>
+const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbxUU5v9eqHDbcfd33u4dLHkcY4LqD3OEELHzVzuJp2gmfUK4aaC2oiu_37_Nj2qBL1w/exec';
 
-    <!-- DASHBOARD (Login ke baad dikhega) -->
-    <div id="dashboard" class="login-form">
-        <h2 id="welcomeMsg">स्वागत है!</h2>
-        <p><strong>Organisation:</strong> <span id="orgName"></span></p>
-        <p><strong>Role:</strong> <span id="userRole"></span></p>
-        
-        <h3>📊 Records:</h3>
-        <div id="records"></div>
-        
-        <button onclick="addRecord()">➕ नया Record जोड़ें</button>
-        <button onclick="refreshRecords()">🔄 Records Refresh</button>
-        <br><br>
-        <button onclick="logout()" style="background: #f44336;">🚪 Logout</button>
-    </div>
-
-    <script>
-        // 🚨 YE URL APPS SCRIPT DEPLOY KE BAAD MILegi
-        const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbxUU5v9eqHDbcfd33u4dLHkcY4LqD3OEELHzVzuJp2gmfUK4aaC2oiu_37_Nj2qBL1w/exec'; 
-        
-        function showError(msg) {
-            document.getElementById('errorMsg').innerText = msg;
-            document.getElementById('errorMsg').style.display = 'block';
-        }
-
-        function hideError() {
-            document.getElementById('errorMsg').style.display = 'none';
-        }
-
-        function handleLogin() {
-            hideError();
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value.trim();
-            
-            if (!email || !password) {
-                showError('Email और Password भरें!');
-                return;
-            }
-
-            fetch(BACKEND_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    action: 'login',
-                    email: email,
-                    password: password
-                })
-            })
-            .then(response => response.json())
-            .then(result => {
-                if (result.success) {
-                    // SUCCESS!
-                    localStorage.setItem('token', result.token);
-                    localStorage.setItem('org', result.org);
-                    localStorage.setItem('role', result.role);
-                    
-                    document.getElementById('loginForm').style.display = 'none';
-                    document.getElementById('dashboard').style.display = 'block';
-                    document.getElementById('welcomeMsg').innerText = 'स्वागत है ' + email;
-                    document.getElementById('orgName').innerText = result.org;
-                    document.getElementById('userRole').innerText = result.role;
-                    
-                    refreshRecords(); // Records load karo
-                } else {
-                    showError(result.msg || 'Login असफल!');
-                }
-            })
-            .catch(error => {
-                showError('Network error: ' + error);
-            });
-        }
-
-        function refreshRecords() {
-            const token = localStorage.getItem('token');
-            if (!token) return;
-
-            fetch(BACKEND_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ action: 'getData', token: token })
-            })
-            .then(r => r.json())
-            .then(result => {
-                if (result.success && result.data) {
-                    let html = '<table border="1" style="width:100%; border-collapse:collapse;">';
-                    html += '<tr><th>ID</th><th>Name</th><th>Date</th><th>Status</th></tr>';
-                    result.data.forEach(row => {
-                        html += `<tr>
-                            <td>${row[0] || ''}</td>
-                            <td>${row[1] || ''}</td>
-                            <td>${row[2] || ''}</td>
-                            <td>${row[3] || ''}</td>
-                        </tr>`;
-                    });
-                    html += '</table>';
-                    document.getElementById('records').innerHTML = html;
-                }
-            });
-        }
-
-        function addRecord() {
-            const token = localStorage.getItem('token');
-            const id = prompt('ID डालें:');
-            const name = prompt('Name डालें:');
-            const status = prompt('Status डालें (Active/Inactive):');
-            
-            if (id && name && status) {
-                fetch(BACKEND_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        action: 'addData',
-                        token: token,
-                        id: id,
-                        name: name,
-                        status: status
-                    })
-                })
-                .then(r => r.json())
-                .then(result => {
-                    if (result.success) {
-                        alert('✅ Record add हो गया!');
-                        refreshRecords();
-                    } else {
-                        alert('❌ Error: ' + result.msg);
-                    }
-                });
-            }
-        }
-
-        function logout() {
-            localStorage.clear();
-            document.getElementById('loginForm').style.display = 'block';
-            document.getElementById('dashboard').style.display = 'none';
-            document.getElementById('email').value = '';
-            document.getElementById('password').value = '';
-        }
-
-        // Enter key press par login
-        document.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') handleLogin();
-        });
-    </script>
-</body>
-</html>
+function handleLogin() {
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  
+  fetch(BACKEND_URL, {
+    method: 'POST',
+    body: JSON.stringify({
+      action: 'login',
+      email: email,
+      password: password
+    })
+  })
+  .then(response => response.text())
+  .then(text => {
+    const result = JSON.parse(text);
+    if (result.success) {
+      localStorage.setItem('token', result.token);
+      localStorage.setItem('org', result.org);
+      localStorage.setItem('role', result.role);
+      alert('✅ Login successful!\nOrg: ' + result.org + '\nRole: ' + result.role);
+      // Dashboard redirect ya show
+      window.location.href = 'dashboard.html';
+    } else {
+      alert('❌ Login failed: ' + result.msg);
+    }
+  })
+  .catch(error => {
+    alert('Network error: ' + error);
+  });
+}
+</script>
