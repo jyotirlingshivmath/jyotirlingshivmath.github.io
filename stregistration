@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admission Form | SHIVMATH VEDIC VIDYALAYA</title>
+<style>
+@page { size:A4; margin:12mm; }
+body{font-family:"Times New Roman";background:#eaeaea;}
+.form{background:#fff;padding:12px;border:2px solid #000;}
+.header{text-align:center;border-bottom:2px solid #000;padding-bottom:6px;margin-bottom:8px;}
+.header h2{margin:2px;font-size:22px;}
+.header h3{margin:2px;font-size:14px;font-weight:normal;}
+table{width:100%;border-collapse:collapse;font-size:14px;}
+td{border:1px solid #000;padding:6px;}
+.label{font-weight:bold;}
+.section{font-weight:bold;background:#f2f2f2;}
+input,select,textarea{width:100%;border:none;outline:none;font-family:inherit;}
+.photo{width:110px;height:140px;border:1px solid #000;font-size:11px;}
+.photo img{width:100%;height:100%;object-fit:cover;}
+.signature{height:45px;}
+.instructions{font-size:13px;line-height:1.5;}
+button{margin:10px;padding:6px 14px;font-size:14px;}
+.shivmath-btn{background:linear-gradient(45deg, #FF6B6B, #4ECDC4);color:white;padding:15px 30px;border:none;border-radius:25px;font-size:18px;width:100%;cursor:pointer;}
+@media print{body{background:none;}button{display:none;}}
+</style>
+</head>
+
+<body>
+<form id="admissionForm">
+
+<div class="form" id="printArea">
+
+<div class="header">
+<h2>SHIVMATH VEDIC VIDYALAYA</h2>
+<h3>ADMISSION / REGISTRATION FORM</h3>
+</div>
+
+<table>
+
+<tr>
+<td class="label">Admission No</td>
+<td><input id="admno" readonly></td>
+<td class="label">Date</td>
+<td><input type="date" id="admdate"></td>
+<td rowspan="4" align="center">
+<div class="photo">
+Photo<br>
+<input type="file" id="photo" accept="image/*">
+<img id="photoPreview">
+</div>
+</td>
+</tr>
+
+<tr>
+<td class="label">Student Name</td>
+<td colspan="3"><input id="name" required></td>
+</tr>
+
+<tr>
+<td class="label">Gender</td>
+<td>
+<select id="gender">
+<option>Male</option><option>Female</option><option>Other</option>
+</select>
+</td>
+<td class="label">Date of Birth</td>
+<td><input type="date" id="dob"></td>
+</tr>
+
+<tr>
+<td class="label">Category</td>
+<td>
+<select id="category">
+<option>GEN</option><option>OBC</option><option>SC</option><option>ST</option><option>Other</option>
+</select>
+</td>
+<td class="label">Blood Group</td>
+<td>
+<select id="blood">
+<option>A+</option><option>A-</option><option>B+</option><option>B-</option>
+<option>O+</option><option>O-</option><option>AB+</option><option>AB-</option>
+</select>
+</td>
+</tr>
+
+<tr><td colspan="5" class="section">PARENT / GUARDIAN DETAILS</td></tr>
+
+<tr>
+<td class="label">Father's Name</td>
+<td><input id="father"></td>
+<td class="label">Occupation</td>
+<td colspan="2"><input id="fatherocc"></td>
+</tr>
+
+<tr>
+<td class="label">Mother's Name</td>
+<td><input id="mother"></td>
+<td class="label">Occupation</td>
+<td colspan="2"><input id="motherocc"></td>
+</tr>
+
+<tr>
+<td class="label">Mobile</td>
+<td><input id="contact"></td>
+<td class="label">Email</td>
+<td colspan="2"><input id="email"></td>
+</tr>
+
+<tr><td colspan="5" class="section">ADDRESS</td></tr>
+<tr><td colspan="5"><textarea id="address" rows="2"></textarea></td></tr>
+
+<tr><td colspan="5" class="section">ACADEMIC DETAILS</td></tr>
+
+<tr>
+<td class="label">Class</td>
+<td><input id="studentClass"></td>
+<td class="label">Previous School</td>
+<td colspan="2"><input id="prevSchool"></td>
+</tr>
+
+<tr><td colspan="5" class="section">DECLARATION</td></tr>
+<tr><td colspan="5" class="instructions">
+I declare that the above information is true and I agree to abide by school rules.
+</td></tr>
+
+<tr>
+<td colspan="2" class="signature">Parent Signature</td>
+<td colspan="3" class="signature">Principal Signature</td>
+</tr>
+
+</table>
+
+</div>
+
+<center>
+<button type="button" class="shivmath-btn" onclick="saveToGoogleSheet()">🛕 Save to SHIVMATH Sheet</button>
+<button type="button" onclick="window.print()">🖨️ Print Form</button>
+</center>
+
+</form>
+
+<script>
+// Admission No & Date
+let lastAdm = parseInt(localStorage.getItem("lastAdm")) || 3000;
+document.getElementById("admno").value = ++lastAdm;
+localStorage.setItem("lastAdm", lastAdm);
+document.getElementById("admdate").value = new Date().toISOString().substr(0,10);
+
+// Photo Preview
+let photoData = "";
+document.getElementById("photo").onchange = function(e) {
+  let reader = new FileReader();
+  reader.onload = () => {
+    document.getElementById("photoPreview").src = reader.result;
+    photoData = reader.result;
+  };
+  reader.readAsDataURL(e.target.files[0]);
+};
+
+// 🔥 SHIVMATH GOOGLE SHEETS INTEGRATION
+function saveToGoogleSheet() {
+  const formData = {
+    timestamp: new Date().toLocaleString('en-IN'),
+    admno: document.getElementById("admno").value,
+    student_name: document.getElementById("name").value,
+    gender: document.getElementById("gender").value,
+    dob: document.getElementById("dob").value,
+    category: document.getElementById("category").value,
+    blood_group: document.getElementById("blood").value,
+    father_name: document.getElementById("father").value,
+    father_occ: document.getElementById("fatherocc").value,
+    mother_name: document.getElementById("mother").value,
+    mother_occ: document.getElementById("motherocc").value,
+    mobile: document.getElementById("contact").value,
+    email: document.getElementById("email").value,
+    address: document.getElementById("address").value,
+    class_name: document.getElementById("studentClass").value,
+    prev_school: document.getElementById("prevSchool").value,
+    photo_filename: document.getElementById("photo").files[0]?.name || "No Photo",
+    registration_date: new Date().toLocaleDateString('dd/MM/yyyy')
+  };
+
+  // Validation
+  if(!formData.student_name || !formData.mobile) {
+    alert("❌ Student Name और Mobile भरें!");
+    return;
+  }
+
+  // Google Sheets API Call
+  fetch('https://script.google.com/macros/s/AKfycbzG4-s3u5kV2ycrmFzgtG3Rqu4pRlnpHhlLTsQOx_RdhdxJ6k6kktVRa_5CV0YEQi0f/exec', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(formData)
+  })
+  .then(response => response.json())
+  .then(result => {
+    if(result.success) {
+      alert('🛕 ' + result.message);
+      document.getElementById("admissionForm").reset();
+      document.getElementById("photoPreview").src = "";
+      // Reset Admission No
+      document.getElementById("admno").value = ++lastAdm;
+    } else {
+      alert('❌ Error: ' + result.message);
+    }
+  })
+  .catch(error => {
+    alert('❌ Network Error! Internet check करें।');
+    console.error('Error:', error);
+  });
+}
+</script>
+
+</body>
+</html>
