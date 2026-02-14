@@ -1,23 +1,93 @@
-<script>
-const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbxUU5v9eqHDbcfd33u4dLHkcY4LqD3OEELHzVzuJp2gmfUK4aaC2oiu_37_Nj2qBL1w/exec';
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shivmath Admin Login</title>
+    <style>
+        body { font-family: Arial; max-width: 400px; margin: 100px auto; padding: 20px; background: #f0f8ff; }
+        .login-form { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
+        button:hover { background: #45a049; }
+        .dashboard { display: none; margin-top: 20px; padding: 20px; background: #e8f5e8; border-radius: 10px; }
+    </style>
+</head>
+<body>
+    <div class="login-form">
+        <h2>🛕 Shivmath Admin Login</h2>
+        <input type="email" id="email" placeholder="admin@shivmath.in" value="admin@shivmath.in">
+        <input type="password" id="password" placeholder="Password" value="123456">
+        <button onclick="handleLogin()">🔐 Login</button>
+    </div>
 
-function handleLogin() {
-  var email = document.getElementById('email').value;
-  var password = document.getElementById('password').value;
-  
-  fetch(BACKEND_URL, {
-    method: 'POST',
-    body: JSON.stringify({
-      action: 'login',
-      email: email,
-      password: password
-    })
-  })
-  .then(r=>r.text())
-  .then(t=> {
-    var result = JSON.parse(t);
-    alert(result.success ? '✅ LOGIN SUCCESS!' : '❌ '+result.msg);
-  })
-  .catch(e=>alert('Network error'));
-}
-</script>
+    <div id="dashboard" class="dashboard">
+        <h3>✅ Welcome <span id="org"></span> (<span id="role"></span>)</h3>
+        <p>Records management ready. Add/Edit/Delete features next!</p>
+        <button onclick="logout()">Logout</button>
+    </div>
+
+    <script>
+        const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbxUU5v9eqHDbcfd33u4dLHkcY4LqD3OEELHzVzuJp2gmfUK4aaC2oiu_37_Nj2qBL1w/exec';
+
+        function handleLogin() {
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+            
+            if (!email || !password) {
+                alert('❌ Email और Password भरें!');
+                return;
+            }
+
+            document.querySelector('button').textContent = 'Logging in...';
+            
+            fetch(BACKEND_URL, {
+                method: 'POST',
+                body: JSON.stringify({
+                    action: 'login',
+                    email: email,
+                    password: password
+                })
+            })
+            .then(r => r.text())
+            .then(t => {
+                try {
+                    const result = JSON.parse(t);
+                    if (result.success) {
+                        document.getElementById('org').textContent = result.org;
+                        document.getElementById('role').textContent = result.role;
+                        document.querySelector('.login-form').style.display = 'none';
+                        document.getElementById('dashboard').style.display = 'block';
+                        localStorage.setItem('token', result.token);
+                    } else {
+                        alert('❌ ' + result.msg);
+                    }
+                } catch(e) {
+                    alert('❌ Response error: ' + t);
+                }
+            })
+            .catch(e => alert('🌐 Network error: ' + e))
+            .finally(() => {
+                document.querySelector('button').textContent = '🔐 Login';
+            });
+        }
+
+        function logout() {
+            localStorage.removeItem('token');
+            document.getElementById('dashboard').style.display = 'none';
+            document.querySelector('.login-form').style.display = 'block';
+            document.getElementById('email').value = '';
+            document.getElementById('password').value = '';
+        }
+
+        // Enter key support
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') handleLogin();
+        });
+
+        // Auto-login check
+        if (localStorage.getItem('token')) {
+            document.querySelector('.login-form').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
