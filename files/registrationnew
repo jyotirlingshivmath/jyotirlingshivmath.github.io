@@ -187,7 +187,7 @@ function saveToGoogleSheet() {
   }
 
   // Google Sheets API Call
-  fetch('https://script.google.com/macros/s/AKfycbzG4-s3u5kV2ycrmFzgtG3Rqu4pRlnpHhlLTsQOx_RdhdxJ6k6kktVRa_5CV0YEQi0f/exec', {
+  fetch('https://script.google.com/macros/s/AKfycbxk2JACxVl1AhcRmvM6DP7yJrtim9qSEx3cGArXNjBtL9UyNBR5FFl17NBXvxeIenVj/exec', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(formData)
