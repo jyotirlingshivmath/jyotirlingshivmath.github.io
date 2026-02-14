@@ -1,91 +1,172 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Shivmath Admin Login</title>
+    <title>🛕 Shivmath Admin Login</title>
     <style>
-        body { font-family: Arial; max-width: 400px; margin: 100px auto; padding: 20px; background: #f0f8ff; }
-        .login-form { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
-        button { width: 100%; padding: 12px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
-        button:hover { background: #45a049; }
-        .dashboard { display: none; margin-top: 20px; padding: 20px; background: #e8f5e8; border-radius: 10px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+        }
+        .login-container { 
+            background: white; 
+            padding: 40px; 
+            border-radius: 20px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            width: 100%; 
+            max-width: 400px;
+        }
+        h2 { 
+            text-align: center; 
+            color: #333; 
+            margin-bottom: 30px; 
+            font-size: 24px;
+        }
+        input { 
+            width: 100%; 
+            padding: 15px; 
+            margin: 10px 0; 
+            border: 2px solid #ddd; 
+            border-radius: 10px; 
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        input:focus { 
+            outline: none; 
+            border-color: #667eea; 
+        }
+        button { 
+            width: 100%; 
+            padding: 15px; 
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white; 
+            border: none; 
+            border-radius: 10px; 
+            font-size: 16px; 
+            font-weight: bold;
+            cursor: pointer; 
+            transition: transform 0.2s;
+        }
+        button:hover { transform: translateY(-2px); }
+        button:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+        .dashboard { 
+            display: none; 
+            text-align: center; 
+            padding: 20px; 
+            background: #e8f5e8; 
+            border-radius: 15px; 
+            margin-top: 20px;
+        }
+        .success { color: #27ae60; font-weight: bold; }
+        .logout-btn { 
+            background: #e74c3c; 
+            margin-top: 20px;
+            padding: 10px 20px;
+        }
     </style>
 </head>
 <body>
-    <div class="login-form">
-        <h2>🛕 Shivmath Admin Login</h2>
+    <div class="login-container">
+        <h2>🛕 Jyotirling Shivmath</h2>
+        <h3>Admin Login</h3>
+        
         <input type="email" id="email" placeholder="admin@shivmath.in" value="admin@shivmath.in">
         <input type="password" id="password" placeholder="Password" value="123456">
         <button onclick="handleLogin()">🔐 Login</button>
-    </div>
-
-    <div id="dashboard" class="dashboard">
-        <h3>✅ Welcome <span id="org"></span> (<span id="role"></span>)</h3>
-        <p>Records management ready. Add/Edit/Delete features next!</p>
-        <button onclick="logout()">Logout</button>
+        
+        <div id="dashboard" class="dashboard">
+            <h3 class="success">✅ Login Successful!</h3>
+            <p><strong>Organisation:</strong> <span id="org"></span></p>
+            <p><strong>Role:</strong> <span id="role"></span></p>
+            <p>Records management ready! 🚀</p>
+            <button class="logout-btn" onclick="logout()">🚪 Logout</button>
+        </div>
     </div>
 
     <script>
+        // 🔥 तुम्हारा नया WORKING URL
         const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbwBxqi6FEb8r5NX29s2AHP1P7e9oND2ZIAVZxB7waOHJshIs0AVpgJPayyP9Tc3GpYu/exec';
 
         function handleLogin() {
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value.trim();
+            const btn = document.querySelector('button');
             
             if (!email || !password) {
                 alert('❌ Email और Password भरें!');
                 return;
             }
 
-            document.querySelector('button').textContent = 'Logging in...';
+            btn.textContent = '🔄 Logging in...';
+            btn.disabled = true;
+
+            // 🔥 XMLHttpRequest - 100% Apps Script compatible
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', BACKEND_URL);
+            xhr.setRequestHeader('Content-Type', 'application/json');
             
-            fetch(BACKEND_URL, {
-                method: 'POST',
-                body: JSON.stringify({
-                    action: 'login',
-                    email: email,
-                    password: password
-                })
-            })
-            .then(r => r.text())
-            .then(t => {
-                try {
-                    const result = JSON.parse(t);
-                    if (result.success) {
-                        document.getElementById('org').textContent = result.org;
-                        document.getElementById('role').textContent = result.role;
-                        document.querySelector('.login-form').style.display = 'none';
-                        document.getElementById('dashboard').style.display = 'block';
-                        localStorage.setItem('token', result.token);
-                    } else {
-                        alert('❌ ' + result.msg);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    btn.textContent = '🔐 Login';
+                    btn.disabled = false;
+                    
+                    console.log('Response:', xhr.responseText); // Debug
+                    
+                    try {
+                        const result = JSON.parse(xhr.responseText);
+                        if (result.success) {
+                            document.getElementById('org').textContent = result.org;
+                            document.getElementById('role').textContent = result.role;
+                            document.querySelector('h3').style.display = 'none';
+                            document.getElementById('dashboard').style.display = 'block';
+                            localStorage.setItem('shivmath_token', result.token || 'logged_in');
+                            alert('🎉 Welcome to Shivmath Admin Panel!');
+                        } else {
+                            alert('❌ ' + (result.msg || 'Login failed'));
+                        }
+                    } catch(e) {
+                        alert('❌ Server Error: ' + xhr.responseText);
+                        console.error('Parse error:', e, xhr.responseText);
                     }
-                } catch(e) {
-                    alert('❌ Response error: ' + t);
                 }
-            })
-            .catch(e => alert('🌐 Network error: ' + e))
-            .finally(() => {
-                document.querySelector('button').textContent = '🔐 Login';
-            });
+            };
+            
+            xhr.onerror = function() {
+                btn.textContent = '🔐 Login';
+                btn.disabled = false;
+                alert('🌐 Network error - Deployment check करें');
+                console.error('XHR Error');
+            };
+            
+            xhr.send(JSON.stringify({
+                action: 'login',
+                email: email,
+                password: password
+            }));
         }
 
         function logout() {
-            localStorage.removeItem('token');
+            localStorage.removeItem('shivmath_token');
             document.getElementById('dashboard').style.display = 'none';
-            document.querySelector('.login-form').style.display = 'block';
-            document.getElementById('email').value = '';
-            document.getElementById('password').value = '';
+            document.querySelector('h3').style.display = 'block';
+            document.getElementById('email').value = 'admin@shivmath.in';
+            document.getElementById('password').value = '123456';
         }
 
         // Enter key support
         document.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') handleLogin();
+            if (e.key === 'Enter' && !document.getElementById('dashboard').style.display.includes('block')) {
+                handleLogin();
+            }
         });
 
-        // Auto-login check
-        if (localStorage.getItem('token')) {
-            document.querySelector('.login-form').style.display = 'none';
+        // Check auto-login
+        if (localStorage.getItem('shivmath_token')) {
+            document.querySelector('h3').style.display = 'none';
             document.getElementById('dashboard').style.display = 'block';
         }
     </script>
