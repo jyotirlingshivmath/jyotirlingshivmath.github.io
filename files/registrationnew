@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Admission Form | SHIVMATH VEDIC VIDYALAYA</title>
+
 <style>
 @page { size:A4; margin:12mm; }
 body{font-family:"Times New Roman";background:#eaeaea;}
@@ -20,12 +21,12 @@ input,select,textarea{width:100%;border:none;outline:none;font-family:inherit;}
 .signature{height:45px;}
 .instructions{font-size:13px;line-height:1.5;}
 button{margin:10px;padding:6px 14px;font-size:14px;}
-.shivmath-btn{background:linear-gradient(45deg, #FF6B6B, #4ECDC4);color:white;padding:15px 30px;border:none;border-radius:25px;font-size:18px;width:100%;cursor:pointer;}
 @media print{body{background:none;}button{display:none;}}
 </style>
 </head>
 
 <body>
+
 <form id="admissionForm">
 
 <div class="form" id="printArea">
@@ -44,7 +45,7 @@ button{margin:10px;padding:6px 14px;font-size:14px;}
 <td><input type="date" id="admdate"></td>
 <td rowspan="4" align="center">
 <div class="photo">
-Photo<br>
+Photo
 <input type="file" id="photo" accept="image/*">
 <img id="photoPreview">
 </div>
@@ -59,9 +60,7 @@ Photo<br>
 <tr>
 <td class="label">Gender</td>
 <td>
-<select id="gender">
-<option>Male</option><option>Female</option><option>Other</option>
-</select>
+<select id="gender"><option>Male</option><option>Female</option><option>Other</option></select>
 </td>
 <td class="label">Date of Birth</td>
 <td><input type="date" id="dob"></td>
@@ -70,9 +69,7 @@ Photo<br>
 <tr>
 <td class="label">Category</td>
 <td>
-<select id="category">
-<option>GEN</option><option>OBC</option><option>SC</option><option>ST</option><option>Other</option>
-</select>
+<select id="category"><option>GEN</option><option>OBC</option><option>SC</option><option>ST</option><option>Other</option></select>
 </td>
 <td class="label">Blood Group</td>
 <td>
@@ -119,9 +116,11 @@ Photo<br>
 </tr>
 
 <tr><td colspan="5" class="section">DECLARATION</td></tr>
-<tr><td colspan="5" class="instructions">
+<tr>
+<td colspan="5" class="instructions">
 I declare that the above information is true and I agree to abide by school rules.
-</td></tr>
+</td>
+</tr>
 
 <tr>
 <td colspan="2" class="signature">Parent Signature</td>
@@ -133,82 +132,87 @@ I declare that the above information is true and I agree to abide by school rule
 </div>
 
 <center>
-<button type="button" class="shivmath-btn" onclick="saveToGoogleSheet()">🛕 Save to SHIVMATH Sheet</button>
-<button type="button" onclick="window.print()">🖨️ Print Form</button>
+<button type="submit">Save Admission</button>
+<button type="button" onclick="window.print()">Print Form</button>
 </center>
 
 </form>
 
 <script>
-// Admission No & Date
+// Admission No
 let lastAdm = parseInt(localStorage.getItem("lastAdm")) || 3000;
-document.getElementById("admno").value = ++lastAdm;
+admno.value = ++lastAdm;
 localStorage.setItem("lastAdm", lastAdm);
-document.getElementById("admdate").value = new Date().toISOString().substr(0,10);
 
-// Photo Preview
-let photoData = "";
-document.getElementById("photo").onchange = function(e) {
-  let reader = new FileReader();
-  reader.onload = () => {
-    document.getElementById("photoPreview").src = reader.result;
-    photoData = reader.result;
-  };
-  reader.readAsDataURL(e.target.files[0]);
+// Date
+admdate.value = new Date().toISOString().substr(0,10);
+
+// Photo to Base64
+let photoData="";
+photo.onchange = e=>{
+ let r=new FileReader();
+ r.onload=()=>{photoPreview.src=r.result;photoData=r.result;}
+ r.readAsDataURL(e.target.files[0]);
 };
 
-// 🔥 SHIVMATH GOOGLE SHEETS INTEGRATION
-function saveToGoogleSheet() {
-  const formData = {
-    timestamp: new Date().toLocaleString('en-IN'),
-    admno: document.getElementById("admno").value,
-    student_name: document.getElementById("name").value,
-    gender: document.getElementById("gender").value,
-    dob: document.getElementById("dob").value,
-    category: document.getElementById("category").value,
-    blood_group: document.getElementById("blood").value,
-    father_name: document.getElementById("father").value,
-    father_occ: document.getElementById("fatherocc").value,
-    mother_name: document.getElementById("mother").value,
-    mother_occ: document.getElementById("motherocc").value,
-    mobile: document.getElementById("contact").value,
-    email: document.getElementById("email").value,
-    address: document.getElementById("address").value,
-    class_name: document.getElementById("studentClass").value,
-    prev_school: document.getElementById("prevSchool").value,
-    photo_filename: document.getElementById("photo").files[0]?.name || "No Photo",
-    registration_date: new Date().toLocaleDateString('dd/MM/yyyy')
+// 🔥 SHIVMATH DATABASE SYSTEM (LocalStorage)
+let shivmathStudents = JSON.parse(localStorage.getItem('shivmathStudents')) || [];
+
+// Enhanced Save Function
+function saveToShivmathDB() {
+  const studentData = {
+    admno: admno.value,
+    student_name: name.value,
+    gender: gender.value,
+    dob: dob.value,
+    category: category.value,
+    blood_group: blood.value,
+    father_name: father.value,
+    father_occ: fatherocc.value,
+    mother_name: mother.value,
+    mother_occ: motherocc.value,
+    mobile: contact.value,
+    email: email.value,
+    address: address.value,
+    class_name: studentClass.value,
+    prev_school: prevSchool.value,
+    timestamp: new Date().toLocaleString('en-IN', {timeZone: 'Asia/Kolkata'})
   };
-
-  // Validation
-  if(!formData.student_name || !formData.mobile) {
-    alert("❌ Student Name और Mobile भरें!");
-    return;
-  }
-
-  // Google Sheets API Call
-  fetch('https://script.google.com/macros/s/AKfycbxk2JACxVl1AhcRmvM6DP7yJrtim9qSEx3cGArXNjBtL9UyNBR5FFl17NBXvxeIenVj/exec', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(formData)
-  })
-  .then(response => response.json())
-  .then(result => {
-    if(result.success) {
-      alert('🛕 ' + result.message);
-      document.getElementById("admissionForm").reset();
-      document.getElementById("photoPreview").src = "";
-      // Reset Admission No
-      document.getElementById("admno").value = ++lastAdm;
-    } else {
-      alert('❌ Error: ' + result.message);
-    }
-  })
-  .catch(error => {
-    alert('❌ Network Error! Internet check करें।');
-    console.error('Error:', error);
-  });
+  
+  shivmathStudents.unshift(studentData); // सबसे ऊपर add
+  localStorage.setItem('shivmathStudents', JSON.stringify(shivmathStudents));
+  console.log('🛕 Shivmath DB Updated:', studentData);
 }
+
+// Save Admission (Enhanced)
+document.getElementById("admissionForm").onsubmit = function(e){
+ e.preventDefault();
+ 
+ // Original save
+ let students = JSON.parse(localStorage.getItem("students")) || [];
+ students.push({
+  admno: admno.value,
+  name: name.value,
+  father: father.value,
+  studentClass: studentClass.value,
+  dob: dob.value,
+  contact: contact.value,
+  address: address.value,
+  photo: photoData
+ });
+ localStorage.setItem("students", JSON.stringify(students));
+ 
+ // Shivmath Database save
+ saveToShivmathDB();
+ 
+ alert("✅ Admission Saved Successfully!\n🛕 Shivmath Database Updated!\n📊 Total Students: " + shivmathStudents.length);
+ this.reset();
+ photoPreview.src="";
+ 
+ // Next Admission No
+ admno.value = ++lastAdm;
+ localStorage.setItem("lastAdm", lastAdm);
+};
 </script>
 
 </body>
