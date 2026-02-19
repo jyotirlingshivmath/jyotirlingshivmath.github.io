@@ -5,7 +5,7 @@
 <title>Jyotirling Shivmath Admission Form</title>
 <style>
 body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f9f9f9; color: #000; }
-.container { width: 850px; margin: 20px auto; background-color: #fff; padding: 25px 30px; border-radius: 10px; box-shadow: 0 0 15px rgba(0,0,0,0.1); }
+.container { width: 900px; margin: 20px auto; background-color: #fff; padding: 25px 30px; border-radius: 10px; box-shadow: 0 0 15px rgba(0,0,0,0.1); }
 h2, h3 { text-align: center; margin: 5px 0; }
 form { width: 100%; }
 
@@ -18,6 +18,9 @@ form { width: 100%; }
 /* Photo box */
 .photo-box { border: 1px solid #ccc; width: 150px; height: 150px; display: inline-block; text-align: center; line-height: 150px; margin-left: 20px; border-radius: 5px; background-color: #f0f0f0; color: #666; font-size: 14px; }
 
+/* Document upload section */
+.doc-section { border: 1px dashed #ccc; padding: 10px; margin: 10px 0; border-radius: 5px; background-color: #fafafa; }
+
 /* Buttons */
 button { margin-top: 20px; padding: 10px 20px; cursor: pointer; border-radius: 5px; border: none; background-color: #007bff; color: #fff; font-weight: bold; }
 button:hover { background-color: #0056b3; }
@@ -27,13 +30,20 @@ button:hover { background-color: #0056b3; }
 .fees-link a { text-decoration: none; color: #007bff; font-weight: bold; }
 .fees-link a:hover { text-decoration: underline; }
 
+/* Signature section */
+.sign-section { margin-top: 20px; display: flex; justify-content: space-between; }
+.sign-box { border-top: 1px solid #000; width: 30%; text-align: center; padding-top: 5px; font-size: 12pt; }
+
+/* Pledge */
+.pledge { border: 1px solid #ccc; padding: 10px; margin-top: 20px; border-radius: 5px; background-color: #fafafa; }
+
 /* Print styles */
 @media print {
   body { margin: 0; background-color: #fff; }
   button, .fees-link { display: none; }
   form { border: none; width: 100%; padding: 0; }
   label, input, select { border: none; width: auto; font-size: 14pt; }
-  .photo-box { border: 1px solid #000; }
+  .photo-box, .doc-section, .pledge, .sign-section { border: 1px solid #000; }
 }
 
 /* Language toggle */
@@ -60,23 +70,22 @@ button:hover { background-color: #0056b3; }
 
   <form id="admissionForm" method="post" action="https://script.google.com/macros/s/AKfycbyGl2LyT33XNh562xGvhTBUYmgEyGYuTUChBsL4HFSzf9PLH3XMrWHOGgh-MpOdZnSV/exec" target="_blank">
 
+    <!-- Admission No & Date -->
     <section class="row">
       <div class="field">
-        <label class="en">Admission No:</label>
-        <label class="hi">प्रवेश संख्या:</label>
+        <label class="en">Admission No:</label><label class="hi">प्रवेश संख्या:</label>
         <input type="text" name="admno" id="admno" readonly>
       </div>
       <div class="field">
-        <label class="en">Date:</label>
-        <label class="hi">तारीख:</label>
+        <label class="en">Date:</label><label class="hi">तारीख:</label>
         <input type="date" name="registration_date" id="admdate" readonly>
       </div>
     </section>
 
+    <!-- Name & Photo -->
     <section class="row">
       <div class="field">
-        <label class="en">Name of Student:</label>
-        <label class="hi">छात्र का नाम:</label>
+        <label class="en">Name of Student:</label><label class="hi">छात्र का नाम:</label>
         <input type="text" name="student_name" required>
       </div>
       <div class="field">
@@ -84,18 +93,26 @@ button:hover { background-color: #0056b3; }
       </div>
     </section>
 
+    <!-- Upload Photo -->
     <section class="row">
       <div class="field">
-        <label class="en">Upload Photo:</label>
-        <label class="hi">फ़ोटो अपलोड करें:</label>
+        <label class="en">Upload Photo:</label><label class="hi">फ़ोटो अपलोड करें:</label>
         <input type="file" id="photo" accept="image/*">
       </div>
     </section>
 
+    <!-- Aadhar -->
     <section class="row">
       <div class="field">
-        <label class="en">Gender:</label>
-        <label class="hi">लिंग:</label>
+        <label class="en">Aadhar No:</label><label class="hi">आधार संख्या:</label>
+        <input type="text" name="aadhar_no">
+      </div>
+    </section>
+
+    <!-- Gender & DOB -->
+    <section class="row">
+      <div class="field">
+        <label class="en">Gender:</label><label class="hi">लिंग:</label>
         <select name="gender" required>
           <option value="">Select / चयन करें</option>
           <option value="Male">Male / पुरुष</option>
@@ -104,96 +121,133 @@ button:hover { background-color: #0056b3; }
         </select>
       </div>
       <div class="field">
-        <label class="en">Date of Birth:</label>
-        <label class="hi">जन्म तिथि:</label>
+        <label class="en">Date of Birth:</label><label class="hi">जन्म तिथि:</label>
         <input type="date" name="dob" required>
       </div>
     </section>
 
+    <!-- Category & Blood Group -->
     <section class="row">
       <div class="field">
-        <label class="en">Category:</label>
-        <label class="hi">श्रेणी:</label>
-        <input type="text" name="category">
+        <label class="en">Category:</label><label class="hi">श्रेणी:</label>
+        <select name="category">
+          <option value="">Select / चयन करें</option>
+          <option value="General">General / सामान्य</option>
+          <option value="OBC">OBC / ओबीसी</option>
+          <option value="SC">SC / एससी</option>
+          <option value="ST">ST / एसटी</option>
+        </select>
       </div>
       <div class="field">
-        <label class="en">Blood Group:</label>
-        <label class="hi">रक्त समूह:</label>
-        <input type="text" name="blood_group">
+        <label class="en">Blood Group:</label><label class="hi">रक्त समूह:</label>
+        <select name="blood_group">
+          <option value="">Select / चयन करें</option>
+          <option value="A+">A+</option>
+          <option value="A-">A-</option>
+          <option value="B+">B+</option>
+          <option value="B-">B-</option>
+          <option value="O+">O+</option>
+          <option value="O-">O-</option>
+          <option value="AB+">AB+</option>
+          <option value="AB-">AB-</option>
+        </select>
       </div>
     </section>
 
+    <!-- Father & Mother -->
     <section class="row">
       <div class="field">
-        <label class="en">Father's Name:</label>
-        <label class="hi">पिता का नाम:</label>
+        <label class="en">Father's Name:</label><label class="hi">पिता का नाम:</label>
         <input type="text" name="father_name">
       </div>
       <div class="field">
-        <label class="en">Occupation:</label>
-        <label class="hi">पेशा:</label>
+        <label class="en">Occupation:</label><label class="hi">पेशा:</label>
         <input type="text" name="father_occ">
       </div>
     </section>
 
     <section class="row">
       <div class="field">
-        <label class="en">Mother's Name:</label>
-        <label class="hi">माता का नाम:</label>
+        <label class="en">Mother's Name:</label><label class="hi">माता का नाम:</label>
         <input type="text" name="mother_name">
       </div>
       <div class="field">
-        <label class="en">Occupation:</label>
-        <label class="hi">पेशा:</label>
+        <label class="en">Occupation:</label><label class="hi">पेशा:</label>
         <input type="text" name="mother_occ">
       </div>
     </section>
 
+    <!-- Mobile & Email -->
     <section class="row">
       <div class="field">
-        <label class="en">Mobile:</label>
-        <label class="hi">मोबाइल:</label>
+        <label class="en">Mobile:</label><label class="hi">मोबाइल:</label>
         <input type="tel" name="mobile">
       </div>
       <div class="field">
-        <label class="en">Email:</label>
-        <label class="hi">ईमेल:</label>
+        <label class="en">Email:</label><label class="hi">ईमेल:</label>
         <input type="email" name="email">
       </div>
     </section>
 
-    <!-- Address split into two lines evenly -->
+    <!-- Address -->
     <section class="row">
       <div class="field">
-        <label class="en">Address Line 1:</label>
-        <label class="hi">पता पंक्ति 1:</label>
+        <label class="en">Address Line 1:</label><label class="hi">पता पंक्ति 1:</label>
         <input type="text" name="address1" style="width:300px;">
       </div>
       <div class="field">
-        <label class="en">Address Line 2:</label>
-        <label class="hi">पता पंक्ति 2:</label>
+        <label class="en">Address Line 2:</label><label class="hi">पता पंक्ति 2:</label>
         <input type="text" name="address2" style="width:300px;">
       </div>
     </section>
 
+    <!-- Class & Previous School -->
     <section class="row">
       <div class="field">
-        <label class="en">Class:</label>
-        <label class="hi">कक्षा:</label>
-        <input type="text" name="class_name">
+        <label class="en">Class:</label><label class="hi">कक्षा:</label>
+        <select name="class_name">
+          <option value="">Select / चयन करें</option>
+          <option value="Mont">Mont</option>
+          <option value="Nursery">Nursery</option>
+          <option value="KG">KG</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+        </select>
       </div>
       <div class="field">
-        <label class="en">Previous School:</label>
-        <label class="hi">पिछला विद्यालय:</label>
+        <label class="en">Previous School:</label><label class="hi">पिछला विद्यालय:</label>
         <input type="text" name="prev_school">
       </div>
     </section>
 
-    <section>
-      <label class="en">Photo Filename (optional):</label>
-      <label class="hi">फ़ोटो फ़ाइल नाम (वैकल्पिक):</label>
-      <input type="text" name="photo_filename" id="photoFilename" placeholder="Optional">
+    <!-- Upload Documents -->
+    <section class="doc-section">
+      <h4>Upload Documents / दस्तावेज़ अपलोड करें</h4>
+      <div class="field"><label class="en">TC from last school:</label><input type="file" name="tc_file" accept=".pdf,.jpg,.png"></div>
+      <div class="field"><label class="en">Marksheet:</label><input type="file" name="marksheet_file" accept=".pdf,.jpg,.png"></div>
+      <div class="field"><label class="en">Other Document 1:</label><input type="file" name="other_doc1" accept=".pdf,.jpg,.png"></div>
+      <div class="field"><label class="en">Other Document 2:</label><input type="file" name="other_doc2" accept=".pdf,.jpg,.png"></div>
+      <div class="field"><label class="en">Other Document 3:</label><input type="file" name="other_doc3" accept=".pdf,.jpg,.png"></div>
     </section>
+
+    <!-- Pledge -->
+    <div class="pledge">
+      <p class="en">I hereby declare that all the information provided by me is true to the best of my knowledge.</p>
+      <p class="hi">मेरे द्वारा दी गई सभी जानकारी मेरी जानकारी में सत्य है।</p>
+    </div>
+
+    <!-- Signatures -->
+    <div class="sign-section">
+      <div class="sign-box">Signature of Clerk / क्लर्क</div>
+      <div class="sign-box">Signature of Class Teacher / कक्षा शिक्षक</div>
+      <div class="sign-box">Signature of Principal / प्राचार्य</div>
+    </div>
 
     <button type="submit" class="en">Submit</button>
     <button type="submit" class="hi">जमा करें</button>
@@ -207,19 +261,15 @@ button:hover { background-color: #0056b3; }
 document.addEventListener("DOMContentLoaded", function() {
   const admno = document.getElementById("admno");
   const admdate = document.getElementById("admdate");
-  const photoInput = document.getElementById("photoFilename");
   const photoPreview = document.getElementById("photoPreview");
   const photoFile = document.getElementById("photo");
 
-  // Auto increment Admission Number
   let lastAdm = parseInt(localStorage.getItem("lastAdm")) || 3000;
   admno.value = ++lastAdm;
   localStorage.setItem("lastAdm", lastAdm);
 
-  // Set current date
   admdate.value = new Date().toISOString().slice(0,10);
 
-  // Show uploaded photo preview
   photoFile.addEventListener("change", function(e){
     const file = e.target.files[0];
     if(file){
@@ -237,11 +287,6 @@ document.addEventListener("DOMContentLoaded", function() {
     } else {
       photoPreview.textContent = "Photo";
     }
-  });
-
-  // Optional: show filename in preview field
-  photoInput.addEventListener("input", function() {
-    photoPreview.textContent = photoInput.value || "Photo";
   });
 });
 
