@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Jyotirling Shivmath Vadic Vidyalaya Admission Form</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 0; background: #f9f9f9; color: #000; }
+h2, h3 { text-align: center; margin: 5px 0; }
+form { width: 850px; margin: 20px auto; background: #fff; padding: 25px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+section { margin-bottom: 15px; display: flex; flex-wrap: wrap; align-items: center; }
+label { width: 180px; margin-right: 10px; margin-bottom: 10px; }
+input, select { flex: 1; min-width: 200px; padding: 5px; margin-bottom: 10px; }
+textarea { flex: 1; padding: 5px; margin-bottom: 10px; resize: none; height: 50px; }
+.photo-box { border: 1px solid #000; width: 150px; height: 150px; display: inline-block; text-align: center; line-height: 150px; margin-left: 20px; background: #eee; }
+button { margin: 10px 5px 0 0; padding: 8px 15px; cursor: pointer; border-radius: 5px; border: none; background: #4CAF50; color: #fff; }
+button.print { background: #2196F3; }
+a { text-decoration: none; color: #2196F3; float: right; margin-top: -20px; }
+
+/* Print styles */
+@media print {
+  body { margin: 0; }
+  button, a { display: none; }
+  form { width: 100%; padding: 0; box-shadow: none; }
+  label, input, select, textarea { border: none; width: auto; font-size: 14pt; }
+  .photo-box { border: 1px solid #000; }
+}
+
+/* Language toggle */
+.lang-toggle { text-align: right; margin-bottom: 10px; }
+.lang-toggle button { margin-left: 5px; padding: 5px 10px; cursor: pointer; }
+.hi { display: none; }
+</style>
+</head>
+<body>
+
+<div class="lang-toggle">
+  <button onclick="setLang('en')">English</button>
+  <button onclick="setLang('hi')">हिंदी</button>
+</div>
+
+<h2>JYOTIRLING SHIVMATH VADIC VIDYALAYA</h2>
+<h3>(Admission Form / प्रवेश प्रपत्र)</h3>
+<a href="fees.html">Go to Fees Form</a>
+
+<form id="admissionForm">
+
+<section>
+  <label>Admission No:</label>
+  <input type="text" name="admno" id="admno" readonly>
+  <label>Date:</label>
+  <input type="date" name="registration_date" id="admdate" readonly>
+</section>
+
+<section>
+  <label>Name of Student:</label>
+  <input type="text" name="student_name" required>
+  <div class="photo-box" id="photoPreview">Photo</div>
+</section>
+
+<section>
+  <label>Gender:</label>
+  <select name="gender" required>
+    <option value="">Select</option>
+    <option value="Male">Male / पुरुष</option>
+    <option value="Female">Female / महिला</option>
+    <option value="Other">Other / अन्य</option>
+  </select>
+  <label>Date of Birth:</label>
+  <input type="date" name="dob" required>
+</section>
+
+<section>
+  <label>Category:</label>
+  <select name="category">
+    <option value="">Select</option>
+    <option value="General">General / सामान्य</option>
+    <option value="OBC">OBC / ओबीसी</option>
+    <option value="SC">SC / अनुसूचित जाति</option>
+    <option value="ST">ST / अनुसूचित जनजाति</option>
+  </select>
+  <label>Blood Group:</label>
+  <select name="blood_group">
+    <option value="">Select</option>
+    <option value="A+">A+</option>
+    <option value="A-">A-</option>
+    <option value="B+">B+</option>
+    <option value="B-">B-</option>
+    <option value="O+">O+</option>
+    <option value="O-">O-</option>
+    <option value="AB+">AB+</option>
+    <option value="AB-">AB-</option>
+  </select>
+</section>
+
+<section>
+  <label>Father's Name:</label>
+  <input type="text" name="father_name">
+  <label>Occupation:</label>
+  <input type="text" name="father_occ">
+</section>
+
+<section>
+  <label>Mother's Name:</label>
+  <input type="text" name="mother_name">
+  <label>Occupation:</label>
+  <input type="text" name="mother_occ">
+</section>
+
+<section>
+  <label>Mobile:</label>
+  <input type="tel" name="mobile">
+  <label>Email:</label>
+  <input type="email" name="email">
+</section>
+
+<section>
+  <label>Aadhar No:</label>
+  <input type="text" name="aadhar_no">
+  <label>Class:</label>
+  <select name="class_name">
+    <option value="">Select</option>
+    <option value="Montessori">Montessori</option>
+    <option value="Nursery">Nursery</option>
+    <option value="KG">KG</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+  </select>
+</section>
+
+<section>
+  <label>Address Line 1:</label>
+  <input type="text" name="address1">
+  <label>Address Line 2:</label>
+  <input type="text" name="address2">
+</section>
+
+<section>
+  <label>Previous School:</label>
+  <input type="text" name="prev_school">
+</section>
+
+<section>
+  <label>Upload Documents:</label>
+  <input type="file" id="photo" accept=".jpg,.png,.jpeg,.pdf">
+  <input type="file" id="tc_file" accept=".pdf">
+  <input type="file" id="marksheet_file" accept=".pdf">
+  <input type="file" id="other1" accept=".pdf,.jpg,.png">
+  <input type="file" id="other2" accept=".pdf,.jpg,.png">
+  <input type="file" id="other3" accept=".pdf,.jpg,.png">
+</section>
+
+<section>
+  <label>Pledge:</label>
+  <textarea readonly>मैं प्रमाणित करता हूँ कि मेरे द्वारा दी गई सभी जानकारी सत्य और सही है। / I hereby declare that all information provided by me is true.</textarea>
+</section>
+
+<section>
+  <label>Signature of Clerk:</label>
+  <input type="text" name="clerk_sign">
+  <label>Signature of Class Teacher:</label>
+  <input type="text" name="teacher_sign">
+  <label>Signature of Principal:</label>
+  <input type="text" name="principal_sign">
+</section>
+
+<button type="submit">Submit</button>
+<button type="button" class="print" onclick="window.print()">Print Form</button>
+
+<script>
+const WEB_APP_URL = "YOUR_DEPLOYED_WEBAPP_URL"; // Replace with your Apps Script URL
+
+document.addEventListener("DOMContentLoaded", function(){
+  const admno = document.getElementById("admno");
+  const admdate = document.getElementById("admdate");
+  const photoPreview = document.getElementById("photoPreview");
+
+  let lastAdm = parseInt(localStorage.getItem("lastAdm")) || 3000;
+  admno.value = ++lastAdm;
+  localStorage.setItem("lastAdm", lastAdm);
+  admdate.value = new Date().toISOString().slice(0,10);
+
+  function readFileAsBase64(fileInput, callback){
+    const file = fileInput.files[0];
+    if(file){
+      const reader = new FileReader();
+      reader.onload = function(evt){ callback(evt.target.result); };
+      reader.readAsDataURL(file);
+    } else callback("");
+  }
+
+  const form = document.getElementById("admissionForm");
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+
+    readFileAsBase64(document.getElementById("photo"), function(photoData){
+      readFileAsBase64(document.getElementById("tc_file"), function(tcData){
+        readFileAsBase64(document.getElementById("marksheet_file"), function(msData){
+          readFileAsBase64(document.getElementById("other1"), function(o1){
+            readFileAsBase64(document.getElementById("other2"), function(o2){
+              readFileAsBase64(document.getElementById("other3"), function(o3){
+                const data = {
+                  admno: admno.value,
+                  registration_date: admdate.value,
+                  student_name: form.student_name.value,
+                  gender: form.gender.value,
+                  dob: form.dob.value,
+                  category: form.category.value,
+                  blood_group: form.blood_group.value,
+                  father_name: form.father_name.value,
+                  father_occ: form.father_occ.value,
+                  mother_name: form.mother_name.value,
+                  mother_occ: form.mother_occ.value,
+                  mobile: form.mobile.value,
+                  email: form.email.value,
+                  aadhar_no: form.aadhar_no.value,
+                  class_name: form.class_name.value,
+                  address1: form.address1.value,
+                  address2: form.address2.value,
+                  prev_school: form.prev_school.value,
+                  photo: photoData,
+                  tc_file: tcData,
+                  marksheet_file: msData,
+                  other_doc1: o1,
+                  other_doc2: o2,
+                  other_doc3: o3,
+                  clerk_sign: form.clerk_sign.value,
+                  teacher_sign: form.teacher_sign.value,
+                  principal_sign: form.principal_sign.value
+                };
+
+                fetch(WEB_APP_URL, {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify(data)
+                }).then(r=>r.json())
+                  .then(res=>{ if(res.success){ alert("✅ Form submitted & files uploaded"); form.reset(); } 
+                               else alert("❌ Error: "+res.error); })
+                  .catch(err=>{ console.error(err); alert("❌ Script Error"); });
+              });
+            });
+          });
+        });
+      });
+    });
+  });
+});
+
+// Language toggle
+function setLang(lang){
+  document.querySelectorAll('.en').forEach(e => e.style.display = (lang==='en')?'inline':'none');
+  document.querySelectorAll('.hi').forEach(e => e.style.display = (lang==='hi')?'inline':'none');
+}
+setLang('en');
+</script>
+
+</body>
+</html>
