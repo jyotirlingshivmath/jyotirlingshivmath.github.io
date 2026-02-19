@@ -15,47 +15,48 @@
 
 <h2>Shivmath Admission Form</h2>
 
-<form id="admissionForm">
-  <label>Admission No: <input type="text" id="admno" readonly></label>
-  <label>Admission Date: <input type="date" id="admdate" readonly></label>
-  <label>Name: <input type="text" id="name" required></label>
-  <label>Gender: 
-    <select id="gender" required>
+<form id="admissionForm" method="post" action="https://script.google.com/macros/s/AKfycbyvpfXNi_HCaNQHSSP72KrEJXkpiZKAkmxw_su1nYm42v4Co2lLW2qyGV-GjA6MVJ9D/exec" target="_blank">
+  
+  <label>Admission No: <input type="text" name="admno" id="admno" readonly></label>
+  <label>Admission Date: <input type="date" name="registration_date" id="admdate" readonly></label>
+  
+  <label>Name: <input type="text" name="student_name" required></label>
+  <label>Gender:
+    <select name="gender" required>
       <option value="">Select</option>
       <option value="Male">Male</option>
       <option value="Female">Female</option>
       <option value="Other">Other</option>
     </select>
   </label>
-  <label>Date of Birth: <input type="date" id="dob" required></label>
-  <label>Category: <input type="text" id="category"></label>
-  <label>Blood Group: <input type="text" id="blood"></label>
-  <label>Father's Name: <input type="text" id="father"></label>
-  <label>Father's Occupation: <input type="text" id="fatherocc"></label>
-  <label>Mother's Name: <input type="text" id="mother"></label>
-  <label>Mother's Occupation: <input type="text" id="motherocc"></label>
-  <label>Mobile: <input type="tel" id="contact"></label>
-  <label>Email: <input type="email" id="email"></label>
-  <label>Address: <input type="text" id="address"></label>
-  <label>Class: <input type="text" id="studentClass"></label>
-  <label>Previous School: <input type="text" id="prevSchool"></label>
-  <label>Photo: <input type="file" id="photo" accept="image/*"></label>
+  
+  <label>Date of Birth: <input type="date" name="dob" required></label>
+  <label>Category: <input type="text" name="category"></label>
+  <label>Blood Group: <input type="text" name="blood_group"></label>
+  <label>Father's Name: <input type="text" name="father_name"></label>
+  <label>Father's Occupation: <input type="text" name="father_occ"></label>
+  <label>Mother's Name: <input type="text" name="mother_name"></label>
+  <label>Mother's Occupation: <input type="text" name="mother_occ"></label>
+  <label>Mobile: <input type="tel" name="mobile"></label>
+  <label>Email: <input type="email" name="email"></label>
+  <label>Address: <input type="text" name="address"></label>
+  <label>Class: <input type="text" name="class_name"></label>
+  <label>Previous School: <input type="text" name="prev_school"></label>
+  
+  <label>Photo: <input type="text" name="photo_filename" id="photoFilename" placeholder="Optional"></label>
   <img id="photoPreview" src="" alt="Photo Preview">
+
   <button type="submit">Submit</button>
 </form>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-
-  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyvpfXNi_HCaNQHSSP72KrEJXkpiZKAkmxw_su1nYm42v4Co2lLW2qyGV-GjA6MVJ9D/exec";
-
-  const form = document.getElementById("admissionForm");
+document.addEventListener("DOMContentLoaded", function() {
   const admno = document.getElementById("admno");
   const admdate = document.getElementById("admdate");
-  const photo = document.getElementById("photo");
+  const photoInput = document.getElementById("photoFilename");
   const photoPreview = document.getElementById("photoPreview");
 
-  // Auto increment admission number
+  // Auto increment Admission Number
   let lastAdm = parseInt(localStorage.getItem("lastAdm")) || 3000;
   admno.value = ++lastAdm;
   localStorage.setItem("lastAdm", lastAdm);
@@ -63,70 +64,14 @@ document.addEventListener("DOMContentLoaded", function () {
   // Set current date
   admdate.value = new Date().toISOString().slice(0,10);
 
-  // Handle photo preview & filename
-  let photoData = "";
-  let photoFilename = "";
-  photo.addEventListener("change", function(e) {
-    if(e.target.files && e.target.files[0]) {
-      const file = e.target.files[0];
-      photoFilename = file.name;
-      const reader = new FileReader();
-      reader.onload = function(event) {
-        photoPreview.src = event.target.result;
-        photoData = event.target.result; // optional base64 if needed
-      }
-      reader.readAsDataURL(file);
+  // Optional: show preview if user types photo filename
+  photoInput.addEventListener("input", function() {
+    if(photoInput.value.trim() !== ""){
+      photoPreview.src = "https://via.placeholder.com/150?text=" + encodeURIComponent(photoInput.value);
+    } else {
+      photoPreview.src = "";
     }
   });
-
-  form.addEventListener("submit", function(e){
-    e.preventDefault();
-
-    const data = {
-      admno: admno.value,
-      student_name: document.getElementById("name").value,
-      gender: document.getElementById("gender").value,
-      dob: document.getElementById("dob").value,
-      category: document.getElementById("category").value,
-      blood_group: document.getElementById("blood").value,
-      father_name: document.getElementById("father").value,
-      father_occ: document.getElementById("fatherocc").value,
-      mother_name: document.getElementById("mother").value,
-      mother_occ: document.getElementById("motherocc").value,
-      mobile: document.getElementById("contact").value,
-      email: document.getElementById("email").value,
-      address: document.getElementById("address").value,
-      class_name: document.getElementById("studentClass").value,
-      prev_school: document.getElementById("prevSchool").value,
-      photo_filename: photoFilename,
-      registration_date: new Date().toISOString().slice(0,10)
-    };
-
-    fetch(WEB_APP_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
-    })
-    .then(res => res.json())
-    .then(res => {
-      if(res.success){
-        alert("✅ Admission Saved & Sheet Updated");
-      } else {
-        alert("❌ Sheet Error. Check Apps Script URL");
-      }
-    })
-    .catch(err => {
-      console.error(err);
-      alert("❌ Script Error. See console for details");
-    });
-
-    // Reset form
-    form.reset();
-    photoPreview.src = "";
-    admno.value = ++lastAdm;
-    localStorage.setItem("lastAdm", lastAdm);
-  });
-
 });
 </script>
 
