@@ -4,23 +4,33 @@
 <meta charset="UTF-8">
 <title>Jyotirling Shivmath Admission Form</title>
 <style>
-body { font-family: Arial, sans-serif; margin: 20px; color: #000; }
+body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f9f9f9; color: #000; }
+.container { width: 850px; margin: 20px auto; background-color: #fff; padding: 25px 30px; border-radius: 10px; box-shadow: 0 0 15px rgba(0,0,0,0.1); }
 h2, h3 { text-align: center; margin: 5px 0; }
-form { width: 800px; margin: 0 auto; border: 1px solid #000; padding: 20px; }
+form { width: 100%; }
 
 /* Flex row for label+input pairs */
 .row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 10px; }
 .row .field { display: flex; align-items: center; margin-bottom: 5px; }
-.row label { width: 150px; margin-right: 10px; }
-.row input, .row select { width: 200px; padding: 5px; }
+.row label { width: 150px; margin-right: 10px; font-weight: 500; }
+.row input, .row select { width: 200px; padding: 5px; border: 1px solid #ccc; border-radius: 4px; }
 
-.photo-box { border: 1px solid #000; width: 150px; height: 150px; display: inline-block; text-align: center; line-height: 150px; margin-left: 20px; }
-button { margin-top: 20px; padding: 10px 20px; cursor: pointer; }
+/* Photo box */
+.photo-box { border: 1px solid #ccc; width: 150px; height: 150px; display: inline-block; text-align: center; line-height: 150px; margin-left: 20px; border-radius: 5px; background-color: #f0f0f0; color: #666; font-size: 14px; }
+
+/* Buttons */
+button { margin-top: 20px; padding: 10px 20px; cursor: pointer; border-radius: 5px; border: none; background-color: #007bff; color: #fff; font-weight: bold; }
+button:hover { background-color: #0056b3; }
+
+/* Fees link */
+.fees-link { text-align: right; margin-bottom: 15px; }
+.fees-link a { text-decoration: none; color: #007bff; font-weight: bold; }
+.fees-link a:hover { text-decoration: underline; }
 
 /* Print styles */
 @media print {
-  body { margin: 0; }
-  button { display: none; }
+  body { margin: 0; background-color: #fff; }
+  button, .fees-link { display: none; }
   form { border: none; width: 100%; padding: 0; }
   label, input, select { border: none; width: auto; font-size: 14pt; }
   .photo-box { border: 1px solid #000; }
@@ -34,148 +44,164 @@ button { margin-top: 20px; padding: 10px 20px; cursor: pointer; }
 </head>
 <body>
 
-<div class="lang-toggle">
-  <button onclick="setLang('en')">English</button>
-  <button onclick="setLang('hi')">हिंदी</button>
+<div class="container">
+
+  <div class="fees-link">
+    <a href="fees.html">Go to Fees Form / फीस फॉर्म पर जाएँ</a>
+  </div>
+
+  <div class="lang-toggle">
+    <button onclick="setLang('en')">English</button>
+    <button onclick="setLang('hi')">हिंदी</button>
+  </div>
+
+  <h2>JYOTIRLING SHIVMATH VADIC VIDYALAYA</h2>
+  <h3>(Admission Form)</h3>
+
+  <form id="admissionForm" method="post" action="https://script.google.com/macros/s/AKfycbyGl2LyT33XNh562xGvhTBUYmgEyGYuTUChBsL4HFSzf9PLH3XMrWHOGgh-MpOdZnSV/exec" target="_blank">
+
+    <section class="row">
+      <div class="field">
+        <label class="en">Admission No:</label>
+        <label class="hi">प्रवेश संख्या:</label>
+        <input type="text" name="admno" id="admno" readonly>
+      </div>
+      <div class="field">
+        <label class="en">Date:</label>
+        <label class="hi">तारीख:</label>
+        <input type="date" name="registration_date" id="admdate" readonly>
+      </div>
+    </section>
+
+    <section class="row">
+      <div class="field">
+        <label class="en">Name of Student:</label>
+        <label class="hi">छात्र का नाम:</label>
+        <input type="text" name="student_name" required>
+      </div>
+      <div class="field">
+        <div class="photo-box" id="photoPreview">Photo</div>
+      </div>
+    </section>
+
+    <section class="row">
+      <div class="field">
+        <label class="en">Upload Photo:</label>
+        <label class="hi">फ़ोटो अपलोड करें:</label>
+        <input type="file" id="photo" accept="image/*">
+      </div>
+    </section>
+
+    <section class="row">
+      <div class="field">
+        <label class="en">Gender:</label>
+        <label class="hi">लिंग:</label>
+        <select name="gender" required>
+          <option value="">Select / चयन करें</option>
+          <option value="Male">Male / पुरुष</option>
+          <option value="Female">Female / महिला</option>
+          <option value="Other">Other / अन्य</option>
+        </select>
+      </div>
+      <div class="field">
+        <label class="en">Date of Birth:</label>
+        <label class="hi">जन्म तिथि:</label>
+        <input type="date" name="dob" required>
+      </div>
+    </section>
+
+    <section class="row">
+      <div class="field">
+        <label class="en">Category:</label>
+        <label class="hi">श्रेणी:</label>
+        <input type="text" name="category">
+      </div>
+      <div class="field">
+        <label class="en">Blood Group:</label>
+        <label class="hi">रक्त समूह:</label>
+        <input type="text" name="blood_group">
+      </div>
+    </section>
+
+    <section class="row">
+      <div class="field">
+        <label class="en">Father's Name:</label>
+        <label class="hi">पिता का नाम:</label>
+        <input type="text" name="father_name">
+      </div>
+      <div class="field">
+        <label class="en">Occupation:</label>
+        <label class="hi">पेशा:</label>
+        <input type="text" name="father_occ">
+      </div>
+    </section>
+
+    <section class="row">
+      <div class="field">
+        <label class="en">Mother's Name:</label>
+        <label class="hi">माता का नाम:</label>
+        <input type="text" name="mother_name">
+      </div>
+      <div class="field">
+        <label class="en">Occupation:</label>
+        <label class="hi">पेशा:</label>
+        <input type="text" name="mother_occ">
+      </div>
+    </section>
+
+    <section class="row">
+      <div class="field">
+        <label class="en">Mobile:</label>
+        <label class="hi">मोबाइल:</label>
+        <input type="tel" name="mobile">
+      </div>
+      <div class="field">
+        <label class="en">Email:</label>
+        <label class="hi">ईमेल:</label>
+        <input type="email" name="email">
+      </div>
+    </section>
+
+    <!-- Address split into two lines evenly -->
+    <section class="row">
+      <div class="field">
+        <label class="en">Address Line 1:</label>
+        <label class="hi">पता पंक्ति 1:</label>
+        <input type="text" name="address1" style="width:300px;">
+      </div>
+      <div class="field">
+        <label class="en">Address Line 2:</label>
+        <label class="hi">पता पंक्ति 2:</label>
+        <input type="text" name="address2" style="width:300px;">
+      </div>
+    </section>
+
+    <section class="row">
+      <div class="field">
+        <label class="en">Class:</label>
+        <label class="hi">कक्षा:</label>
+        <input type="text" name="class_name">
+      </div>
+      <div class="field">
+        <label class="en">Previous School:</label>
+        <label class="hi">पिछला विद्यालय:</label>
+        <input type="text" name="prev_school">
+      </div>
+    </section>
+
+    <section>
+      <label class="en">Photo Filename (optional):</label>
+      <label class="hi">फ़ोटो फ़ाइल नाम (वैकल्पिक):</label>
+      <input type="text" name="photo_filename" id="photoFilename" placeholder="Optional">
+    </section>
+
+    <button type="submit" class="en">Submit</button>
+    <button type="submit" class="hi">जमा करें</button>
+    <button type="button" onclick="window.print()">Print Form / प्रिंट करें</button>
+
+  </form>
+
 </div>
-
-<h2>JYOTIRLING SHIVMATH VADIC VIDYALAYA</h2>
-<h3>(Admission Form)</h3>
-
-<form id="admissionForm" method="post" action="https://script.google.com/macros/s/AKfycbyGl2LyT33XNh562xGvhTBUYmgEyGYuTUChBsL4HFSzf9PLH3XMrWHOGgh-MpOdZnSV/exec" target="_blank">
-
-  <section class="row">
-    <div class="field">
-      <label class="en">Admission No:</label>
-      <label class="hi">प्रवेश संख्या:</label>
-      <input type="text" name="admno" id="admno" readonly>
-    </div>
-    <div class="field">
-      <label class="en">Date:</label>
-      <label class="hi">तारीख:</label>
-      <input type="date" name="registration_date" id="admdate" readonly>
-    </div>
-  </section>
-
-  <section class="row">
-    <div class="field">
-      <label class="en">Name of Student:</label>
-      <label class="hi">छात्र का नाम:</label>
-      <input type="text" name="student_name" required>
-    </div>
-    <div class="field">
-      <div class="photo-box" id="photoPreview">Photo</div>
-    </div>
-  </section>
-
-  <section class="row">
-    <div class="field">
-      <label class="en">Gender:</label>
-      <label class="hi">लिंग:</label>
-      <select name="gender" required>
-        <option value="">Select / चयन करें</option>
-        <option value="Male">Male / पुरुष</option>
-        <option value="Female">Female / महिला</option>
-        <option value="Other">Other / अन्य</option>
-      </select>
-    </div>
-    <div class="field">
-      <label class="en">Date of Birth:</label>
-      <label class="hi">जन्म तिथि:</label>
-      <input type="date" name="dob" required>
-    </div>
-  </section>
-
-  <section class="row">
-    <div class="field">
-      <label class="en">Category:</label>
-      <label class="hi">श्रेणी:</label>
-      <input type="text" name="category">
-    </div>
-    <div class="field">
-      <label class="en">Blood Group:</label>
-      <label class="hi">रक्त समूह:</label>
-      <input type="text" name="blood_group">
-    </div>
-  </section>
-
-  <section class="row">
-    <div class="field">
-      <label class="en">Father's Name:</label>
-      <label class="hi">पिता का नाम:</label>
-      <input type="text" name="father_name">
-    </div>
-    <div class="field">
-      <label class="en">Occupation:</label>
-      <label class="hi">पेशा:</label>
-      <input type="text" name="father_occ">
-    </div>
-  </section>
-
-  <section class="row">
-    <div class="field">
-      <label class="en">Mother's Name:</label>
-      <label class="hi">माता का नाम:</label>
-      <input type="text" name="mother_name">
-    </div>
-    <div class="field">
-      <label class="en">Occupation:</label>
-      <label class="hi">पेशा:</label>
-      <input type="text" name="mother_occ">
-    </div>
-  </section>
-
-  <section class="row">
-    <div class="field">
-      <label class="en">Mobile:</label>
-      <label class="hi">मोबाइल:</label>
-      <input type="tel" name="mobile">
-    </div>
-    <div class="field">
-      <label class="en">Email:</label>
-      <label class="hi">ईमेल:</label>
-      <input type="email" name="email">
-    </div>
-  </section>
-
-  <!-- Address split into two lines evenly -->
-  <section class="row">
-    <div class="field">
-      <label class="en">Address Line 1:</label>
-      <label class="hi">पता पंक्ति 1:</label>
-      <input type="text" name="address1" style="width:300px;">
-    </div>
-    <div class="field">
-      <label class="en">Address Line 2:</label>
-      <label class="hi">पता पंक्ति 2:</label>
-      <input type="text" name="address2" style="width:300px;">
-    </div>
-  </section>
-
-  <section class="row">
-    <div class="field">
-      <label class="en">Class:</label>
-      <label class="hi">कक्षा:</label>
-      <input type="text" name="class_name">
-    </div>
-    <div class="field">
-      <label class="en">Previous School:</label>
-      <label class="hi">पिछला विद्यालय:</label>
-      <input type="text" name="prev_school">
-    </div>
-  </section>
-
-  <section>
-    <label class="en">Photo Filename (optional):</label>
-    <label class="hi">फ़ोटो फ़ाइल नाम (वैकल्पिक):</label>
-    <input type="text" name="photo_filename" id="photoFilename" placeholder="Optional">
-  </section>
-
-  <button type="submit" class="en">Submit</button>
-  <button type="submit" class="hi">जमा करें</button>
-  <button type="button" onclick="window.print()">Print Form / प्रिंट करें</button>
-
-</form>
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
@@ -183,18 +209,43 @@ document.addEventListener("DOMContentLoaded", function() {
   const admdate = document.getElementById("admdate");
   const photoInput = document.getElementById("photoFilename");
   const photoPreview = document.getElementById("photoPreview");
+  const photoFile = document.getElementById("photo");
 
+  // Auto increment Admission Number
   let lastAdm = parseInt(localStorage.getItem("lastAdm")) || 3000;
   admno.value = ++lastAdm;
   localStorage.setItem("lastAdm", lastAdm);
 
+  // Set current date
   admdate.value = new Date().toISOString().slice(0,10);
 
+  // Show uploaded photo preview
+  photoFile.addEventListener("change", function(e){
+    const file = e.target.files[0];
+    if(file){
+      const reader = new FileReader();
+      reader.onload = function(evt){
+        photoPreview.innerHTML = '';
+        const img = document.createElement('img');
+        img.src = evt.target.result;
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.style.objectFit = 'cover';
+        photoPreview.appendChild(img);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      photoPreview.textContent = "Photo";
+    }
+  });
+
+  // Optional: show filename in preview field
   photoInput.addEventListener("input", function() {
     photoPreview.textContent = photoInput.value || "Photo";
   });
 });
 
+// Language toggle
 function setLang(lang){
   document.querySelectorAll('.en').forEach(e => e.style.display = (lang==='en')?'inline':'none');
   document.querySelectorAll('.hi').forEach(e => e.style.display = (lang==='hi')?'inline':'none');
