@@ -1,90 +1,91 @@
 <script>
-/* ===============================
-   BASIC SETUP
-================================ */
+document.addEventListener("DOMContentLoaded", function () {
 
-// 🔗 IMPORTANT: apna NEW Web App URL yahan paste karein
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwZuYa-ubbOiML3TdVIaqbs96ClcKi5VvTeO5jNMTgMrxQVYLk0rMe9J8HHfth0-w4/exec";
+  console.log("✅ Registration script loaded");
 
-// Admission No
-let lastAdm = parseInt(localStorage.getItem("lastAdm")) || 3000;
-admno.value = ++lastAdm;
-localStorage.setItem("lastAdm", lastAdm);
+  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwZuYa-ubbOiML3TdVIaqbs96ClcKi5VvTeO5jNMTgMrxQVYLk0rMe9J8HHfth0-w4/exec";
 
-// Date
-admdate.value = new Date().toISOString().substr(0,10);
+  // Elements
+  const admno = document.getElementById("admno");
+  const admdate = document.getElementById("admdate");
+  const photo = document.getElementById("photo");
+  const photoPreview = document.getElementById("photoPreview");
+  const form = document.getElementById("admissionForm");
 
-// Photo to Base64
-let photoData = "";
-photo.onchange = e => {
-  let r = new FileReader();
-  r.onload = () => {
-    photoPreview.src = r.result;
-    photoData = r.result;
-  };
-  r.readAsDataURL(e.target.files[0]);
-};
-
-/* ===============================
-   FORM SUBMIT (MAIN LOGIC)
-================================ */
-
-document.getElementById("admissionForm").onsubmit = function(e){
-  e.preventDefault();
-
-  const data = {
-    timestamp: new Date().toISOString(),
-    admno: admno.value,
-    student_name: name.value,
-    gender: gender.value,
-    dob: dob.value,
-    category: category.value,
-    blood_group: blood.value,
-    father_name: father.value,
-    father_occ: fatherocc.value,
-    mother_name: mother.value,
-    mother_occ: motherocc.value,
-    mobile: contact.value,
-    email: email.value,
-    address: address.value,
-    class_name: studentClass.value,
-    prev_school: prevSchool.value,
-    photo_filename: photoData,
-    registration_date: admdate.value
-  };
-
-  // 🔹 1️⃣ Save locally (optional – already working)
-  let students = JSON.parse(localStorage.getItem("students")) || [];
-  students.push(data);
-  localStorage.setItem("students", JSON.stringify(students));
-
-  // 🔹 2️⃣ SEND TO GOOGLE SHEET (IMPORTANT PART)
-  fetch(WEB_APP_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(data)
-  })
-  .then(res => res.json())
-  .then(result => {
-    if(result.success){
-      alert("✅ Admission Saved Successfully!\n📄 Data sent to Google Sheet");
-    } else {
-      alert("❌ Error: " + result.error);
-    }
-  })
-  .catch(err => {
-    console.error(err);
-    alert("❌ Network / Script Error");
-  });
-
-  // Reset form
-  this.reset();
-  photoPreview.src = "";
-
-  // Next Admission No
+  // Admission No
+  let lastAdm = parseInt(localStorage.getItem("lastAdm")) || 3000;
   admno.value = ++lastAdm;
   localStorage.setItem("lastAdm", lastAdm);
-};
+
+  // Date
+  admdate.value = new Date().toISOString().substr(0,10);
+
+  // Photo to Base64
+  let photoData = "";
+  photo.addEventListener("change", function (e) {
+    const r = new FileReader();
+    r.onload = () => {
+      photoPreview.src = r.result;
+      photoData = r.result;
+    };
+    r.readAsDataURL(e.target.files[0]);
+  });
+
+  // FORM SUBMIT
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const data = {
+      timestamp: new Date().toISOString(),
+      admno: admno.value,
+      student_name: document.getElementById("name").value,
+      gender: document.getElementById("gender").value,
+      dob: document.getElementById("dob").value,
+      category: document.getElementById("category").value,
+      blood_group: document.getElementById("blood").value,
+      father_name: document.getElementById("father").value,
+      father_occ: document.getElementById("fatherocc").value,
+      mother_name: document.getElementById("mother").value,
+      mother_occ: document.getElementById("motherocc").value,
+      mobile: document.getElementById("contact").value,
+      email: document.getElementById("email").value,
+      address: document.getElementById("address").value,
+      class_name: document.getElementById("studentClass").value,
+      prev_school: document.getElementById("prevSchool").value,
+      photo_filename: photoData,
+      registration_date: admdate.value
+    };
+
+    // Local save
+    let students = JSON.parse(localStorage.getItem("students")) || [];
+    students.push(data);
+    localStorage.setItem("students", JSON.stringify(students));
+
+    // Send to Google Sheet
+    fetch(WEB_APP_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(result => {
+      if (result.success) {
+        alert("✅ Admission Saved Successfully\n📊 Data sent to Google Sheet");
+      } else {
+        alert("❌ Sheet Error");
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      alert("❌ Network / Script Error");
+    });
+
+    // Reset
+    form.reset();
+    photoPreview.src = "";
+    admno.value = ++lastAdm;
+    localStorage.setItem("lastAdm", lastAdm);
+  });
+
+});
 </script>
