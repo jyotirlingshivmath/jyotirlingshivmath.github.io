@@ -4,7 +4,7 @@
 ================================ */
 
 // 🔗 IMPORTANT: apna NEW Web App URL yahan paste karein
-const WEB_APP_URL = "PASTE_YOUR_NEW_WEB_APP_URL_HERE";
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwZuYa-ubbOiML3TdVIaqbs96ClcKi5VvTeO5jNMTgMrxQVYLk0rMe9J8HHfth0-w4/exec";
 
 // Admission No
 let lastAdm = parseInt(localStorage.getItem("lastAdm")) || 3000;
