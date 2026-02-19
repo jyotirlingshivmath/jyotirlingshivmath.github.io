@@ -1,9 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admission Form</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    label { display: block; margin-top: 10px; }
+    input, select { width: 300px; padding: 5px; margin-top: 5px; }
+    #photoPreview { margin-top: 10px; width: 150px; height: 150px; object-fit: cover; border: 1px solid #ccc; }
+    button { margin-top: 20px; padding: 10px 20px; }
+  </style>
+</head>
+<body>
+
+<h2>Admission Form</h2>
+
+<form id="admissionForm">
+  <label>Admission No: <input type="text" id="admno" readonly></label>
+  <label>Admission Date: <input type="date" id="admdate" readonly></label>
+  <label>Name: <input type="text" id="name" required></label>
+  <label>Gender: 
+    <select id="gender" required>
+      <option value="">Select</option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+      <option value="Other">Other</option>
+    </select>
+  </label>
+  <label>Date of Birth: <input type="date" id="dob" required></label>
+  <label>Category: <input type="text" id="category"></label>
+  <label>Blood Group: <input type="text" id="blood"></label>
+  <label>Father's Name: <input type="text" id="father"></label>
+  <label>Father's Occupation: <input type="text" id="fatherocc"></label>
+  <label>Mother's Name: <input type="text" id="mother"></label>
+  <label>Mother's Occupation: <input type="text" id="motherocc"></label>
+  <label>Mobile: <input type="tel" id="contact"></label>
+  <label>Email: <input type="email" id="email"></label>
+  <label>Address: <input type="text" id="address"></label>
+  <label>Class: <input type="text" id="studentClass"></label>
+  <label>Previous School: <input type="text" id="prevSchool"></label>
+  <label>Photo: <input type="file" id="photo" accept="image/*"></label>
+  <img id="photoPreview" src="" alt="Photo Preview">
+  <button type="submit">Submit</button>
+</form>
+
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
   const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyvpfXNi_HCaNQHSSP72KrEJXkpiZKAkmxw_su1nYm42v4Co2lLW2qyGV-GjA6MVJ9D/exec";
 
-  // Form elements
   const form = document.getElementById("admissionForm");
   const admno = document.getElementById("admno");
   const admdate = document.getElementById("admdate");
@@ -35,7 +80,6 @@ document.addEventListener("DOMContentLoaded", function () {
   form.addEventListener("submit", function(e){
     e.preventDefault();
 
-    // Collect form data
     const data = {
       timestamp: new Date().toISOString(),
       admno: admno.value,
@@ -56,26 +100,25 @@ document.addEventListener("DOMContentLoaded", function () {
       photo: photoData
     };
 
-    // Send data to Google Apps Script
     fetch(WEB_APP_URL, {
       method: "POST",
-      headers: {"Content-Type": "application/json"},
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
     })
-    .then(response => response.json())
+    .then(res => res.json())
     .then(res => {
       if(res.success){
         alert("✅ Admission Saved & Sheet Updated");
       } else {
-        alert("❌ Sheet Error. Please check Apps Script URL");
+        alert("❌ Sheet Error. Check Apps Script URL");
       }
     })
     .catch(err => {
       console.error(err);
-      alert("❌ Script Error. Check console for details");
+      alert("❌ Script Error. See console for details");
     });
 
-    // Reset form for next entry
+    // Reset form
     form.reset();
     photoPreview.src = "";
     admno.value = ++lastAdm;
@@ -84,3 +127,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 </script>
+
+</body>
+</html>
