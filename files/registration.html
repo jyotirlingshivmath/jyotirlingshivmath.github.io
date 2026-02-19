@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Shivmath Admission Form</title>
+<title>Jyotirling Shivmath Admission Form</title>
 <style>
 body { font-family: Arial, sans-serif; margin: 20px; color: #000; }
-h2 { text-align: center; margin-bottom: 20px; }
+h2, h3 { text-align: center; margin: 5px 0; }
 form { width: 800px; margin: 0 auto; border: 1px solid #000; padding: 20px; }
 
 /* Flex row for label+input pairs */
@@ -39,8 +39,8 @@ button { margin-top: 20px; padding: 10px 20px; cursor: pointer; }
   <button onclick="setLang('hi')">हिंदी</button>
 </div>
 
-<h2 class="en">Shivmath Admission Form</h2>
-<h2 class="hi">श्री ज्योतिर्लिंग शिवमठ - प्रवेश प्रपत्र</h2>
+<h2>JYOTIRLING SHIVMATH VADIC VIDYALAYA</h2>
+<h3>(Admission Form)</h3>
 
 <form id="admissionForm" method="post" action="https://script.google.com/macros/s/AKfycbyGl2LyT33XNh562xGvhTBUYmgEyGYuTUChBsL4HFSzf9PLH3XMrWHOGgh-MpOdZnSV/exec" target="_blank">
 
@@ -138,10 +138,18 @@ button { margin-top: 20px; padding: 10px 20px; cursor: pointer; }
     </div>
   </section>
 
-  <section>
-    <label class="en">Address:</label>
-    <label class="hi">पता:</label>
-    <input type="text" name="address" style="width:500px;">
+  <!-- Address split into two lines evenly -->
+  <section class="row">
+    <div class="field">
+      <label class="en">Address Line 1:</label>
+      <label class="hi">पता पंक्ति 1:</label>
+      <input type="text" name="address1" style="width:300px;">
+    </div>
+    <div class="field">
+      <label class="en">Address Line 2:</label>
+      <label class="hi">पता पंक्ति 2:</label>
+      <input type="text" name="address2" style="width:300px;">
+    </div>
   </section>
 
   <section class="row">
