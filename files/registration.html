@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Shivmath Admission Form</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 20px; color: #000; }
+h2 { text-align: center; margin-bottom: 20px; }
+form { width: 800px; margin: 0 auto; border: 1px solid #000; padding: 20px; }
+section { margin-bottom: 15px; }
+label { display: inline-block; width: 200px; vertical-align: top; margin-bottom: 10px; }
+input, select { width: 300px; padding: 5px; }
+.photo-box { border: 1px solid #000; width: 150px; height: 150px; display: inline-block; text-align: center; line-height: 150px; margin-left: 20px; }
+button { margin-top: 20px; padding: 10px 20px; cursor: pointer; }
+
+/* Print styles */
+@media print {
+  body { margin: 0; }
+  button { display: none; }
+  form { border: none; width: 100%; padding: 0; }
+  label, input, select { border: none; width: auto; font-size: 14pt; }
+  .photo-box { border: 1px solid #000; }
+}
+
+/* Language toggle */
+.lang-toggle { text-align: right; margin-bottom: 10px; }
+.lang-toggle button { margin-left: 5px; padding: 5px 10px; cursor: pointer; }
+.hi { display: none; }
+</style>
+</head>
+<body>
+
+<div class="lang-toggle">
+  <button onclick="setLang('en')">English</button>
+  <button onclick="setLang('hi')">हिंदी</button>
+</div>
+
+<h2 class="en">Shivmath Admission Form</h2>
+<h2 class="hi">श्री ज्योतिर्लिंग शिवमठ - प्रवेश प्रपत्र</h2>
+
+<form id="admissionForm" method="post" action="YOUR_WEB_APP_URL" target="_blank">
+  
+  <section>
+    <label class="en">Admission No:</label>
+    <label class="hi">प्रवेश संख्या:</label>
+    <input type="text" name="admno" id="admno" readonly>
+    <label style="margin-left:40px;" class="en">Date:</label>
+    <label style="margin-left:40px;" class="hi">तारीख:</label>
+    <input type="date" name="registration_date" id="admdate" readonly>
+  </section>
+
+  <section>
+    <label class="en">Name of Student:</label>
+    <label class="hi">छात्र का नाम:</label>
+    <input type="text" name="student_name" required>
+    <div class="photo-box" id="photoPreview">Photo</div>
+  </section>
+
+  <section>
+    <label class="en">Gender:</label>
+    <label class="hi">लिंग:</label>
+    <select name="gender" required>
+      <option value="">Select / चयन करें</option>
+      <option value="Male">Male / पुरुष</option>
+      <option value="Female">Female / महिला</option>
+      <option value="Other">Other / अन्य</option>
+    </select>
+    <label style="margin-left:40px;" class="en">Date of Birth:</label>
+    <label style="margin-left:40px;" class="hi">जन्म तिथि:</label>
+    <input type="date" name="dob" required>
+  </section>
+
+  <section>
+    <label class="en">Category:</label>
+    <label class="hi">श्रेणी:</label>
+    <input type="text" name="category">
+    <label style="margin-left:40px;" class="en">Blood Group:</label>
+    <label style="margin-left:40px;" class="hi">रक्त समूह:</label>
+    <input type="text" name="blood_group">
+  </section>
+
+  <section>
+    <label class="en">Father's Name:</label>
+    <label class="hi">पिता का नाम:</label>
+    <input type="text" name="father_name">
+    <label style="margin-left:40px;" class="en">Occupation:</label>
+    <label style="margin-left:40px;" class="hi">पेशा:</label>
+    <input type="text" name="father_occ">
+  </section>
+
+  <section>
+    <label class="en">Mother's Name:</label>
+    <label class="hi">माता का नाम:</label>
+    <input type="text" name="mother_name">
+    <label style="margin-left:40px;" class="en">Occupation:</label>
+    <label style="margin-left:40px;" class="hi">पेशा:</label>
+    <input type="text" name="mother_occ">
+  </section>
+
+  <section>
+    <label class="en">Mobile:</label>
+    <label class="hi">मोबाइल:</label>
+    <input type="tel" name="mobile">
+    <label style="margin-left:40px;" class="en">Email:</label>
+    <label style="margin-left:40px;" class="hi">ईमेल:</label>
+    <input type="email" name="email">
+  </section>
+
+  <section>
+    <label class="en">Address:</label>
+    <label class="hi">पता:</label>
+    <input type="text" name="address" style="width:500px;">
+  </section>
+
+  <section>
+    <label class="en">Class:</label>
+    <label class="hi">कक्षा:</label>
+    <input type="text" name="class_name">
+    <label style="margin-left:40px;" class="en">Previous School:</label>
+    <label style="margin-left:40px;" class="hi">पिछला विद्यालय:</label>
+    <input type="text" name="prev_school">
+  </section>
+
+  <section>
+    <label class="en">Photo Filename (optional):</label>
+    <label class="hi">फ़ोटो फ़ाइल नाम (वैकल्पिक):</label>
+    <input type="text" name="photo_filename" id="photoFilename" placeholder="Optional">
+  </section>
+
+  <button type="submit" class="en">Submit</button>
+  <button type="submit" class="hi">जमा करें</button>
+  <button type="button" onclick="window.print()">Print Form / प्रिंट करें</button>
+
+</form>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const admno = document.getElementById("admno");
+  const admdate = document.getElementById("admdate");
+  const photoInput = document.getElementById("photoFilename");
+  const photoPreview = document.getElementById("photoPreview");
+
+  // Auto increment Admission Number
+  let lastAdm = parseInt(localStorage.getItem("lastAdm")) || 3000;
+  admno.value = ++lastAdm;
+  localStorage.setItem("lastAdm", lastAdm);
+
+  // Set current date
+  admdate.value = new Date().toISOString().slice(0,10);
+
+  // Optional: show photo filename in preview
+  photoInput.addEventListener("input", function() {
+    photoPreview.textContent = photoInput.value || "Photo";
+  });
+});
+
+// Language toggle
+function setLang(lang){
+  document.querySelectorAll('.en').forEach(e => e.style.display = (lang==='en')?'inline':'none');
+  document.querySelectorAll('.hi').forEach(e => e.style.display = (lang==='hi')?'inline':'none');
+}
+setLang('en');
+</script>
+
+</body>
+</html>
