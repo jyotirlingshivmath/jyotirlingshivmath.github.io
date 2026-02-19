@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Admission Form</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 20px; }
-    label { display: block; margin-top: 10px; }
-    input, select { width: 300px; padding: 5px; margin-top: 5px; }
-    #photoPreview { margin-top: 10px; width: 150px; height: 150px; object-fit: cover; border: 1px solid #ccc; }
-    button { margin-top: 20px; padding: 10px 20px; }
-  </style>
+<meta charset="UTF-8">
+<title>Shivmath Admission Form</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 20px; }
+  label { display: block; margin-top: 10px; }
+  input, select { width: 300px; padding: 5px; margin-top: 5px; }
+  #photoPreview { margin-top: 10px; width: 150px; height: 150px; object-fit: cover; border: 1px solid #ccc; }
+  button { margin-top: 20px; padding: 10px 20px; }
+</style>
 </head>
 <body>
 
-<h2>Admission Form</h2>
+<h2>Shivmath Admission Form</h2>
 
 <form id="admissionForm">
   <label>Admission No: <input type="text" id="admno" readonly></label>
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const photo = document.getElementById("photo");
   const photoPreview = document.getElementById("photoPreview");
 
-  // Initialize Admission Number
+  // Auto increment admission number
   let lastAdm = parseInt(localStorage.getItem("lastAdm")) || 3000;
   admno.value = ++lastAdm;
   localStorage.setItem("lastAdm", lastAdm);
@@ -63,25 +63,26 @@ document.addEventListener("DOMContentLoaded", function () {
   // Set current date
   admdate.value = new Date().toISOString().slice(0,10);
 
-  // Handle photo preview
+  // Handle photo preview & filename
   let photoData = "";
+  let photoFilename = "";
   photo.addEventListener("change", function(e) {
     if(e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      photoFilename = file.name;
       const reader = new FileReader();
       reader.onload = function(event) {
         photoPreview.src = event.target.result;
-        photoData = event.target.result;
+        photoData = event.target.result; // optional base64 if needed
       }
-      reader.readAsDataURL(e.target.files[0]);
+      reader.readAsDataURL(file);
     }
   });
 
-  // Form submission
   form.addEventListener("submit", function(e){
     e.preventDefault();
 
     const data = {
-      timestamp: new Date().toISOString(),
       admno: admno.value,
       student_name: document.getElementById("name").value,
       gender: document.getElementById("gender").value,
@@ -97,7 +98,8 @@ document.addEventListener("DOMContentLoaded", function () {
       address: document.getElementById("address").value,
       class_name: document.getElementById("studentClass").value,
       prev_school: document.getElementById("prevSchool").value,
-      photo: photoData
+      photo_filename: photoFilename,
+      registration_date: new Date().toISOString().slice(0,10)
     };
 
     fetch(WEB_APP_URL, {
