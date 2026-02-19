@@ -1,34 +1,41 @@
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
-  const WEB_APP_URL =
-  "https://script.google.com/macros/s/AKfycbyvpfXNi_HCaNQHSSP72KrEJXkpiZKAkmxw_su1nYm42v4Co2lLW2qyGV-GjA6MVJ9D/exec";
+  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyvpfXNi_HCaNQHSSP72KrEJXkpiZKAkmxw_su1nYm42v4Co2lLW2qyGV-GjA6MVJ9D/exec";
 
+  // Form elements
   const form = document.getElementById("admissionForm");
   const admno = document.getElementById("admno");
   const admdate = document.getElementById("admdate");
   const photo = document.getElementById("photo");
   const photoPreview = document.getElementById("photoPreview");
 
+  // Initialize Admission Number
   let lastAdm = parseInt(localStorage.getItem("lastAdm")) || 3000;
   admno.value = ++lastAdm;
   localStorage.setItem("lastAdm", lastAdm);
 
+  // Set current date
   admdate.value = new Date().toISOString().slice(0,10);
 
+  // Handle photo preview
   let photoData = "";
-  photo.addEventListener("change", e => {
-    const r = new FileReader();
-    r.onload = () => {
-      photoPreview.src = r.result;
-      photoData = r.result;
-    };
-    r.readAsDataURL(e.target.files[0]);
+  photo.addEventListener("change", function(e) {
+    if(e.target.files && e.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        photoPreview.src = event.target.result;
+        photoData = event.target.result;
+      }
+      reader.readAsDataURL(e.target.files[0]);
+    }
   });
 
+  // Form submission
   form.addEventListener("submit", function(e){
     e.preventDefault();
 
+    // Collect form data
     const data = {
       timestamp: new Date().toISOString(),
       admno: admno.value,
@@ -49,24 +56,26 @@ document.addEventListener("DOMContentLoaded", function () {
       photo: photoData
     };
 
+    // Send data to Google Apps Script
     fetch(WEB_APP_URL, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {"Content-Type": "application/json"},
       body: JSON.stringify(data)
     })
-    .then(r => r.json())
+    .then(response => response.json())
     .then(res => {
       if(res.success){
         alert("✅ Admission Saved & Sheet Updated");
       } else {
-        alert("❌ Sheet Error");
+        alert("❌ Sheet Error. Please check Apps Script URL");
       }
     })
     .catch(err => {
       console.error(err);
-      alert("❌ Script Error");
+      alert("❌ Script Error. Check console for details");
     });
 
+    // Reset form for next entry
     form.reset();
     photoPreview.src = "";
     admno.value = ++lastAdm;
