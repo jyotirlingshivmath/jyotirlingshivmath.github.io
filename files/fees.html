@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Fee Receipt | SHIVMATH VEDIC VIDYALAYA</title>
-
 <style>
 @page{size:A4;margin:15mm;}
 body{font-family:"Times New Roman";background:#eaeaea;}
@@ -11,24 +10,20 @@ body{font-family:"Times New Roman";background:#eaeaea;}
 .header{text-align:center;border-bottom:2px solid #000;padding-bottom:8px;}
 .header h2{margin:0;font-size:24px;}
 .header h3{margin:2px;font-weight:normal;}
-
 table{width:100%;border-collapse:collapse;margin-top:10px;font-size:15px;}
 td{border:1px solid #000;padding:6px;}
 .label{font-weight:bold;}
 .amount{text-align:right;}
 .total{font-weight:bold;background:#f2f2f2;}
 .signature{height:45px;}
-
 input,select{width:98%;font-size:15px;padding:3px;}
 button{margin:10px;padding:6px 14px;font-size:14px;}
-
 @media print{
  body{background:none;}
  button{display:none;}
 }
 </style>
 </head>
-
 <body>
 
 <div class="receipt" id="printArea">
@@ -78,7 +73,8 @@ button{margin:10px;padding:6px 14px;font-size:14px;}
 <option>January</option><option>February</option><option>March</option>
 <option>April</option><option>May</option><option>June</option>
 <option>July</option><option>August</option><option>September</option>
-<option>October</option><option>November</option><option>December</option>
+<option>October</option><option>November</option>
+<option>December</option>
 </select>
 </td>
 </tr>
@@ -119,7 +115,7 @@ button{margin:10px;padding:6px 14px;font-size:14px;}
 </center>
 
 <script>
-// 🔗 Same Web App URL as registration.html
+// 🔗 Use same Web App URL as registration.html
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyzH-A_RqsyDZxF3TjGMH8Au33urmVY2Jy-lNYidK7kaZb7Jj9GaBeKgQTsBLUU7H2l/exec";
 
 // Auto receipt & date
@@ -128,13 +124,10 @@ document.getElementById("rdate").value = new Date().toISOString().slice(0,10);
 
 // 🔍 Search student from Google Sheet
 function searchStudent(){
-  const inputField = document.getElementById("searchName");
-  if(!inputField) return;
+  const name = document.getElementById("searchName").value.trim();
+  if(name.length < 2) return;
 
-  const name = inputField.value.trim();
-  if(name.length < 2) return; // only search if 2+ letters
-
-  fetch(WEB_APP_URL + "?name=" + encodeURIComponent(name))
+  fetch(WEB_APP_URL + "?action=searchStudent&name=" + encodeURIComponent(name))
   .then(r => r.json())
   .then(list => {
     const adm = document.getElementById("admno");
@@ -152,9 +145,9 @@ function searchStudent(){
 
     const s = list[0]; // first matched student
     adm.value = s.admno || "";
-    studentName.value = s.name || "";
-    father.value = s.father || "";
-    cls.value = s.class || "";
+    studentName.value = s.student_name || "";
+    father.value = s.father_name || "";
+    cls.value = s.class_name || "";
   });
 }
 
