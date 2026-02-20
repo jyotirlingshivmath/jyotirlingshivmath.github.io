@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Fee Receipt | SHIVMATH VEDIC VIDYALAYA</title>
+
+<style>
+@page{size:A4;margin:15mm;}
+body{font-family:"Times New Roman";background:#eaeaea;}
+.receipt{background:#fff;border:2px solid #000;padding:15px;width:720px;margin:auto;}
+.header{text-align:center;border-bottom:2px solid #000;padding-bottom:8px;}
+.header h2{margin:0;font-size:24px;}
+.header h3{margin:2px;font-weight:normal;}
+
+table{width:100%;border-collapse:collapse;margin-top:10px;font-size:15px;}
+td{border:1px solid #000;padding:6px;}
+.label{font-weight:bold;}
+.amount{text-align:right;}
+.total{font-weight:bold;background:#f2f2f2;}
+.signature{height:45px;}
+
+input,select{width:98%;font-size:15px;padding:3px;}
+button{margin:10px;padding:6px 14px;font-size:14px;}
+
+@media print{
+ body{background:none;}
+ button{display:none;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="receipt" id="printArea">
+
+<div class="header">
+<h2>SHIVMATH VEDIC VIDYALAYA</h2>
+<h3>FEE RECEIPT (STUDENT COPY)</h3>
+</div>
+
+<table>
+<tr>
+<td class="label">Receipt No</td>
+<td><input id="rno" readonly></td>
+<td class="label">Date</td>
+<td><input type="date" id="rdate"></td>
+</tr>
+
+<tr>
+<td class="label">Search Student Name</td>
+<td colspan="3">
+<input id="searchName" placeholder="Type student name" oninput="searchStudent()">
+</td>
+</tr>
+
+<tr>
+<td class="label">Admission No</td>
+<td><input id="admno" readonly></td>
+<td class="label">Class</td>
+<td><input id="className" readonly></td>
+</tr>
+
+<tr>
+<td class="label">Student Name</td>
+<td colspan="3"><input id="studentName" readonly></td>
+</tr>
+
+<tr>
+<td class="label">Father Name</td>
+<td colspan="3"><input id="fatherName" readonly></td>
+</tr>
+
+<tr>
+<td class="label">Fee Month</td>
+<td colspan="3">
+<select id="feeMonth">
+<option value="">--Select Month--</option>
+<option>January</option><option>February</option><option>March</option>
+<option>April</option><option>May</option><option>June</option>
+<option>July</option><option>August</option><option>September</option>
+<option>October</option><option>November</option><option>December</option>
+</select>
+</td>
+</tr>
+
+<tr><td colspan="4" class="label">FEE DETAILS</td></tr>
+
+<tr>
+<td class="label">Total Fee</td>
+<td colspan="3"><input id="total" oninput="calcFee()"></td>
+</tr>
+
+<tr>
+<td class="label">Paid Fee</td>
+<td colspan="3"><input id="paid" oninput="calcFee()"></td>
+</tr>
+
+<tr id="remainRow">
+<td class="label">Remaining Fee</td>
+<td colspan="3"><input id="remain" readonly></td>
+</tr>
+
+<tr class="total">
+<td class="label">Amount Received</td>
+<td colspan="3" class="amount"><span id="received">0</span> ₹</td>
+</tr>
+
+<tr>
+<td colspan="2" class="signature">Accountant Signature</td>
+<td colspan="2" class="signature">Principal Signature</td>
+</tr>
+</table>
+
+</div>
+
+<center>
+<button onclick="saveFees()">Save Fees</button>
+<button onclick="window.print()">Print Receipt</button>
+</center>
+
+<script>
+// 🔗 SAME WEB APP URL AS registration.html
+const WEB_APP_URL = "PASTE_YOUR_SCRIPT_URL_HERE";
+
+// Auto receipt & date
+document.getElementById("rno").value = "SVV-" + Date.now().toString().slice(-5);
+document.getElementById("rdate").value = new Date().toISOString().slice(0,10);
+
+// 🔍 Search student from Google Sheet
+function searchStudent(){
+  const name = document.getElementById("searchName").value.trim();
+  if(name.length < 2) return;
+
+  fetch(WEB_APP_URL + "?action=searchStudent&name=" + encodeURIComponent(name))
+  .then(r => r.json())
+  .then(d => {
+    if(!d.found){
+      document.getElementById("admno").value="";
+      document.getElementById("studentName").value="";
+      document.getElementById("fatherName").value="";
+      document.getElementById("className").value="";
+      return;
+    }
+    document.getElementById("admno").value = d.admno;
+    document.getElementById("studentName").value = d.name;
+    document.getElementById("fatherName").value = d.father;
+    document.getElementById("className").value = d.class;
+  });
+}
+
+// 💰 Fee calculation
+function calcFee(){
+  const t = Number(document.getElementById("total").value)||0;
+  const p = Number(document.getElementById("paid").value)||0;
+  const r = t-p;
+  document.getElementById("received").innerText = p;
+  document.getElementById("remain").value = r;
+  document.getElementById("remainRow").style.display = r>0?"":"none";
+}
+
+// 💾 Save fees to Google Sheet
+function saveFees(){
+  if(!document.getElementById("admno").value){
+    alert("Please search student first");
+    return;
+  }
+
+  const data = {
+    action:"saveFees",
+    receipt:document.getElementById("rno").value,
+    admno:document.getElementById("admno").value,
+    name:document.getElementById("studentName").value,
+    month:document.getElementById("feeMonth").value,
+    total:document.getElementById("total").value,
+    paid:document.getElementById("paid").value,
+    remain:document.getElementById("remain").value
+  };
+
+  fetch(WEB_APP_URL,{
+    method:"POST",
+    body:JSON.stringify(data)
+  })
+  .then(r=>r.text())
+  .then(()=>alert("Fees saved successfully"));
+}
+</script>
+
+</body>
+</html>
