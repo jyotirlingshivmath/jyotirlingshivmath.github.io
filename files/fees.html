@@ -119,34 +119,42 @@ button{margin:10px;padding:6px 14px;font-size:14px;}
 </center>
 
 <script>
-// 🔗 SAME WEB APP URL AS registration.html
+// 🔗 Same Web App URL as registration.html
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyzH-A_RqsyDZxF3TjGMH8Au33urmVY2Jy-lNYidK7kaZb7Jj9GaBeKgQTsBLUU7H2l/exec";
 
 // Auto receipt & date
 document.getElementById("rno").value = "SVV-" + Date.now().toString().slice(-5);
 document.getElementById("rdate").value = new Date().toISOString().slice(0,10);
 
-// 🔍 Search student from existing Google Sheet (purana Apps Script compatible)
+// 🔍 Search student from Google Sheet
 function searchStudent(){
-  const name = document.getElementById("searchName").value.trim();
-  if(name.length < 2) return;
+  const inputField = document.getElementById("searchName");
+  if(!inputField) return;
+
+  const name = inputField.value.trim();
+  if(name.length < 2) return; // only search if 2+ letters
 
   fetch(WEB_APP_URL + "?name=" + encodeURIComponent(name))
   .then(r => r.json())
   .then(list => {
+    const adm = document.getElementById("admno");
+    const studentName = document.getElementById("studentName");
+    const father = document.getElementById("fatherName");
+    const cls = document.getElementById("className");
+
     if(!list || list.length === 0){
-      document.getElementById("admno").value="";
-      document.getElementById("studentName").value="";
-      document.getElementById("fatherName").value="";
-      document.getElementById("className").value="";
+      adm.value = "";
+      studentName.value = "";
+      father.value = "";
+      cls.value = "";
       return;
     }
 
     const s = list[0]; // first matched student
-    document.getElementById("admno").value = s.admno || "";
-    document.getElementById("studentName").value = s.name || "";
-    document.getElementById("fatherName").value = s.father || "";
-    document.getElementById("className").value = s.class || "";
+    adm.value = s.admno || "";
+    studentName.value = s.name || "";
+    father.value = s.father || "";
+    cls.value = s.class || "";
   });
 }
 
