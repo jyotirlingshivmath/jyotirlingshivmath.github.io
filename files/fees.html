@@ -1,87 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fees Form</title>
+</head>
+<body>
+
+<h2>Fees Entry</h2>
+
+<form>
+  <input type="text" id="receipt" placeholder="Receipt No"><br><br>
+  <input type="text" id="admno" placeholder="Admission No"><br><br>
+  <input type="text" id="name" placeholder="Name"><br><br>
+</form>
+
 <script>
-/*
-=========================================================
-YE INDEPENDENT SCRIPT HAI
-JO KI SIRF fees.html KE LIYE HAI
-Browser / GitHub se kaam karega
-=========================================================
-*/
-
-const WEB_APP_URL =
-"https://script.google.com/macros/s/AKfycbyzH-A_RqsyDZxF3TjGMH8Au33urmVY2Jy-lNYidK7kaZb7Jj9GaBeKgQTsBLUU7H2l/exec";
-
 document.addEventListener("DOMContentLoaded", function () {
-  document.getElementById("rno").value =
-    "SVV-" + Date.now().toString().slice(-5);
-  document.getElementById("rdate").value =
-    new Date().toISOString().slice(0, 10);
+
+  // ye line error nahi degi
+  document.getElementById("admno").value = "";
+
 });
-
-// 🔍 Search student from Sheet1
-function searchStudent() {
-  const name = document.getElementById("searchName").value.trim();
-  if (name.length < 2) return;
-
-  fetch(WEB_APP_URL + "?action=searchStudent&name=" + encodeURIComponent(name))
-    .then(r => r.json())
-    .then(list => {
-      const adm = document.getElementById("admno");
-      const studentName = document.getElementById("studentName");
-      const father = document.getElementById("fatherName");
-      const cls = document.getElementById("className");
-
-      if (!list || list.length === 0) {
-        adm.value = "";
-        studentName.value = "";
-        father.value = "";
-        cls.value = "";
-        return;
-      }
-
-      const s = list[0];
-      adm.value = s.admno || "";
-      studentName.value = s.student_name || "";
-      father.value = s.father_name || "";
-      cls.value = s.class_name || "";
-    });
-}
-
-// 💰 Fee calculation
-function calcFee() {
-  const t = Number(document.getElementById("total").value) || 0;
-  const p = Number(document.getElementById("paid").value) || 0;
-  const r = t - p;
-
-  document.getElementById("received").innerText = p;
-  document.getElementById("remain").value = r;
-  document.getElementById("remainRow").style.display = r > 0 ? "" : "none";
-}
-
-// 💾 Save fees into "fees" sheet
-function saveFees() {
-  if (!document.getElementById("admno").value) {
-    alert("Please search student first");
-    return;
-  }
-
-  const data = {
-    action: "saveFees",
-    receipt: document.getElementById("rno").value,
-    admno: document.getElementById("admno").value,
-    name: document.getElementById("studentName").value,
-    month: document.getElementById("feeMonth").value,
-    total: document.getElementById("total").value,
-    paid: document.getElementById("paid").value,
-    remain: document.getElementById("remain").value,
-    date: document.getElementById("rdate").value
-  };
-
-  fetch(WEB_APP_URL, {
-    method: "POST",
-    body: JSON.stringify(data)
-  })
-    .then(r => r.text())
-    .then(msg => alert(msg))
-    .catch(err => alert(err));
-}
 </script>
+
+</body>
+</html>
