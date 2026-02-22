@@ -95,18 +95,9 @@ button{padding:8px 15px;margin-top:10px;cursor:pointer;}
 </div>
 
 <script>
-// -----------------------------
-// Event Listeners and Functions
-// -----------------------------
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzwm6W71050QAPQj9UTZnPfDi6xlXtFnrpKkxkR2vQW6fEVf1x-Vcd5JGpoHMChJECa/exec";
 
-// Calculate Remaining
-function calcRemain() {
-  const t = +document.getElementById("total").value || 0;
-  const p = +document.getElementById("paid").value || 0;
-  document.getElementById("remain").value = t - p;
-}
-
-// Search Student using Apps Script doGet
+// Global functions
 function searchStudent() {
   const adm = document.getElementById("searchAdm").value.trim();
   const nameVal = document.getElementById("searchName").value.trim();
@@ -116,34 +107,44 @@ function searchStudent() {
     return;
   }
 
-  google.script.run.withSuccessHandler(function(resp){
-    if(!resp.success || resp.data.length===0){
-      alert("Student not found");
-      document.getElementById("admno").value = "";
-      document.getElementById("name").value = "";
-      document.getElementById("class").value = "";
-      document.getElementById("father").value = "";
-      return;
-    }
-    const student = resp.data[0];
-    document.getElementById("admno").value = student.admno || "";
-    document.getElementById("name").value = student.student_name || "";
-    document.getElementById("class").value = student.class_name || "";
-    document.getElementById("father").value = student.father_name || "";
-  }).getStudentData(adm, nameVal); // getStudentData e.g. Apps Script me define
+  fetch(`${WEB_APP_URL}?admno=${encodeURIComponent(adm)}&student_name=${encodeURIComponent(nameVal)}`)
+    .then(res => res.json())
+    .then(d => {
+      if(!d.success || d.data.length===0){
+        alert("Student not found");
+        document.getElementById("admno").value = "";
+        document.getElementById("name").value = "";
+        document.getElementById("class").value = "";
+        document.getElementById("father").value = "";
+        return;
+      }
+      const student = d.data[0];
+      document.getElementById("admno").value = student.admno || "";
+      document.getElementById("name").value = student.student_name || "";
+      document.getElementById("class").value = student.class_name || "";
+      document.getElementById("father").value = student.father_name || "";
+    })
+    .catch(err => {
+      console.error(err);
+      alert("Error fetching student data");
+    });
 }
 
-// Save Fees using Apps Script saveFeesData
-function saveFees() {
-  const admVal = document.getElementById("admno").value;
-  if(!admVal){
+function calcRemain(){
+  const t = +document.getElementById("total").value || 0;
+  const p = +document.getElementById("paid").value || 0;
+  document.getElementById("remain").value = t - p;
+}
+
+function saveFees(){
+  if(!document.getElementById("admno").value){
     alert("Please select a student first");
     return;
   }
 
   const data = {
     receipt: document.getElementById("receipt").value || new Date().getTime(),
-    admno: admVal,
+    admno: document.getElementById("admno").value,
     name: document.getElementById("name").value,
     month: document.getElementById("month").value,
     total: document.getElementById("total").value,
@@ -153,6 +154,7 @@ function saveFees() {
 
   google.script.run.withSuccessHandler(function(msg){
     alert(msg);
+    // clear only fees fields
     document.getElementById("receipt").value = "";
     document.getElementById("month").value = "";
     document.getElementById("total").value = "";
@@ -161,13 +163,16 @@ function saveFees() {
   }).saveFeesData(data);
 }
 
-// -----------------------------
-// Attach Event Listeners
-// -----------------------------
+// Event listeners
+window.searchStudent = searchStudent;
+window.calcRemain = calcRemain;
+window.saveFees = saveFees;
+
 document.getElementById("searchBtn").addEventListener("click", searchStudent);
 document.getElementById("total").addEventListener("input", calcRemain);
 document.getElementById("paid").addEventListener("input", calcRemain);
 document.getElementById("saveBtn").addEventListener("click", saveFees);
+
 </script>
 
 </body>
