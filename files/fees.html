@@ -95,7 +95,7 @@ button{padding:8px 15px;margin-top:10px;}
 </div>
 
 <script>
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyLrZvnVwsEyNXrHdsuu5oDPUtuV15WQ-1oaUHUhPuCnjY6s8-xhxCi2TzgGwUm-u2Y/exec";
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzwm6W71050QAPQj9UTZnPfDi6xlXtFnrpKkxkR2vQW6fEVf1x-Vcd5JGpoHMChJECa/exec";
 
 /* SEARCH STUDENT */
 function searchStudent() {
@@ -112,14 +112,17 @@ function searchStudent() {
     .then(d => {
       if (!d.success || d.data.length === 0) {
         alert("Student not found");
-        admno.value = ""; name.value = ""; class.value = ""; father.value = "";
+        document.getElementById("admno").value = "";
+        document.getElementById("name").value = "";
+        document.getElementById("class").value = "";
+        document.getElementById("father").value = "";
         return;
       }
       const student = d.data[0];
-      admno.value = student.admno || "";
-      name.value = student.student_name || "";
-      class.value = student.class_name || "";
-      father.value = student.father_name || "";
+      document.getElementById("admno").value = student.admno || "";
+      document.getElementById("name").value = student.student_name || "";
+      document.getElementById("class").value = student.class_name || "";
+      document.getElementById("father").value = student.father_name || "";
     })
     .catch(err => {
       console.error(err);
@@ -129,32 +132,37 @@ function searchStudent() {
 
 /* CALCULATE REMAINING */
 function calcRemain() {
-  const t = +total.value || 0;
-  const p = +paid.value || 0;
-  remain.value = t - p;
+  const t = +document.getElementById("total").value || 0;
+  const p = +document.getElementById("paid").value || 0;
+  document.getElementById("remain").value = t - p;
 }
 
 /* SAVE FEES */
 function saveFees() {
-  if (!admno.value) {
+  const admnoEl = document.getElementById("admno");
+  if (!admnoEl.value) {
     alert("Please select a student first");
     return;
   }
 
   const data = {
-    receipt: receipt.value || new Date().getTime(),
-    admno: admno.value,
-    name: name.value,
-    month: month.value,
-    total: total.value,
-    paid: paid.value,
-    remain: remain.value
+    receipt: document.getElementById("receipt").value || new Date().getTime(),
+    admno: admnoEl.value,
+    name: document.getElementById("name").value,
+    month: document.getElementById("month").value,
+    total: document.getElementById("total").value,
+    paid: document.getElementById("paid").value,
+    remain: document.getElementById("remain").value
   };
 
   google.script.run.withSuccessHandler(function(msg) {
     alert(msg);
     // Clear only fees fields, keep student details
-    receipt.value = ""; month.value = ""; total.value = ""; paid.value = ""; remain.value = "";
+    document.getElementById("receipt").value = "";
+    document.getElementById("month").value = "";
+    document.getElementById("total").value = "";
+    document.getElementById("paid").value = "";
+    document.getElementById("remain").value = "";
   }).saveFeesData(data);
 }
 </script>
