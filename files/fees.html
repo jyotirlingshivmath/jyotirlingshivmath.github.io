@@ -95,7 +95,7 @@ button{padding:8px 15px;margin-top:10px;}
 </div>
 
 <script>
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzk-4HXPzHQy1iTMkDga0GYls8rZ1GbUk1nOkOeIzq-xJLq6rfXg8ZPvkF7Gkyd4yJH/exec"; // Replace with your deployed Apps Script URL
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzk-4HXPzHQy1iTMkDga0GYls8rZ1GbUk1nOkOeIzq-xJLq6rfXg8ZPvkF7Gkyd4yJH/exec";
 
 /* SEARCH STUDENT */
 function searchStudent(){
@@ -107,7 +107,7 @@ function searchStudent(){
     return;
   }
 
-  fetch(`${WEB_APP_URL}?admno=${adm}&student_name=${nameVal}`)
+  fetch(`${WEB_APP_URL}?admno=${encodeURIComponent(adm)}&student_name=${encodeURIComponent(nameVal)}`)
     .then(res=>res.json())
     .then(d=>{
       if(!d.success || d.data.length===0){
