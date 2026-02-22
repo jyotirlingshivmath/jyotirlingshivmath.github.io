@@ -1,46 +1,141 @@
-...
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>School Fees Receipt</title>
+
+<style>
+body{font-family:Arial;background:#f5f5f5;}
+.container{width:800px;margin:20px auto;background:#fff;padding:20px;border:1px solid #000;}
+h2,h3{text-align:center;margin:5px;}
+.row{display:flex;justify-content:space-between;margin-bottom:10px;}
+label{width:140px;font-weight:bold;}
+input{width:200px;padding:5px;}
+button{padding:8px 15px;margin-top:10px;}
+@media print{
+  button{display:none;}
+  body{background:#fff;}
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<h2>JYOTIRLING SHIVMATH VADIC VIDYALAYA</h2>
+<h3>FEES RECEIPT</h3>
+
+<!-- SEARCH -->
+<div class="row">
+  <label>Admission No</label>
+  <input type="text" id="searchAdm">
+</div>
+
+<div class="row">
+  <label>Student Name</label>
+  <input type="text" id="searchName">
+</div>
+
+<button onclick="searchStudent()">Search</button>
+
+<hr>
+
+<!-- STUDENT DETAILS -->
+<div class="row">
+  <label>Admission No</label>
+  <input id="admno" readonly>
+</div>
+
+<div class="row">
+  <label>Name</label>
+  <input id="name" readonly>
+</div>
+
+<div class="row">
+  <label>Class</label>
+  <input id="class" readonly>
+</div>
+
+<div class="row">
+  <label>Father Name</label>
+  <input id="father" readonly>
+</div>
+
+<hr>
+
+<!-- FEES DETAILS -->
+<div class="row">
+  <label>Receipt No</label>
+  <input id="receipt">
+</div>
+
+<div class="row">
+  <label>Month</label>
+  <input id="month">
+</div>
+
+<div class="row">
+  <label>Total Fees</label>
+  <input id="total" oninput="calcRemain()">
+</div>
+
+<div class="row">
+  <label>Paid Amount</label>
+  <input id="paid" oninput="calcRemain()">
+</div>
+
+<div class="row">
+  <label>Remaining</label>
+  <input id="remain" readonly>
+</div>
+
 <button onclick="saveFees()">Save Fees</button>
 <button onclick="window.print()">Print Receipt</button>
-</center>
+
+</div>
 
 <script>
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwHhirHUJx7JvutBkpRb3w1sDAUEm1hqdLu6uOIHvd4YPpj3Tbn2R3y2UybApyLII6_/exec";
+const WEB_APP_URL =
+"https://script.google.com/macros/s/AKfycbwHhirHUJx7JvutBkpRb3w1sDAUEm1hqdLu6uOIHvd4YPpj3Tbn2R3y2UybApyLII6_/exec";
 
-/* Auto receipt & date */
-window.onload = function () {
-  document.getElementById("rno").value =
-    "SVV-" + Date.now().toString().slice(-5);
-  document.getElementById("rdate").value =
-    new Date().toISOString().slice(0, 10);
-};
-
-/* Search student */
-function searchStudent() {
-  const name = document.getElementById("searchName").value.trim();
-  if (name.length < 2) return;
-
-  fetch(WEB_APP_URL + "?action=searchStudent&name=" + encodeURIComponent(name))
-    .then(r => r.json())
-    .then(list => {
-      if (!list || list.length === 0) return;
-
-      const s = list[0];
-      document.getElementById("admno").value = s.admno || "";
-      document.getElementById("studentName").value = s.student_name || "";
-      document.getElementById("fatherName").value = s.father_name || "";
-      document.getElementById("className").value = s.class_name || "";
-    });
+/* SEARCH STUDENT */
+function searchStudent(){
+  fetch(WEB_APP_URL + "?action=search&adm=" +
+    document.getElementById("searchAdm").value +
+    "&name=" + document.getElementById("searchName").value)
+  .then(res=>res.json())
+  .then(d=>{
+    if(!d.success){alert("Student not found");return;}
+    admno.value=d.admno;
+    name.value=d.name;
+    document.getElementById("class").value=d.class;
+    father.value=d.father;
+  });
 }
 
-/* Fee calculation */
-function calcFee() {
-  const t = Number(document.getElementById("total").value) || 0;
-  const p = Number(document.getElementById("paid").value) || 0;
-  const r = t - p;
+/* CALCULATE REMAINING */
+function calcRemain(){
+  let t=+total.value||0;
+  let p=+paid.value||0;
+  remain.value=t-p;
+}
 
-  document.getElementById("received").innerText = p;
-  document.getElementById("remain").value = r;
-  document.getElementById("remainRow").style.display = r > 0 ? "" : "none";
+/* SAVE FEES */
+function saveFees(){
+  fetch(WEB_APP_URL,{
+    method:"POST",
+    body:JSON.stringify({
+      receipt:receipt.value,
+      admno:admno.value,
+      name:name.value,
+      month:month.value,
+      total:total.value,
+      paid:paid.value,
+      remain:remain.value
+    })
+  })
+  .then(res=>res.text())
+  .then(msg=>alert(msg));
 }
 </script>
 
