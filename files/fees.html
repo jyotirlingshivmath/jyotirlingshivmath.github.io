@@ -5,28 +5,50 @@
 </head>
 <body>
 
-<h2>Fees Form</h2>
+<h2>Fees Entry</h2>
 
-<form>
-  <input type="text" id="receipt" placeholder="Receipt"><br><br>
-  <input type="text" id="admno" placeholder="Admission No"><br><br>
-  <input type="text" id="name" placeholder="Name"><br><br>
-  <input type="text" id="month" placeholder="Month"><br><br>
-  <input type="number" id="total" placeholder="Total"><br><br>
-  <input type="number" id="paid" placeholder="Paid"><br><br>
-  <input type="number" id="remain" placeholder="Remain"><br><br>
-  <input type="date" id="date"><br><br>
-</form>
+<label>Receipt No</label><br>
+<input type="text" id="receipt"><br><br>
 
+<label>Admission No</label><br>
+<input type="text" id="admno"><br><br>
+
+<label>Name</label><br>
+<input type="text" id="name"><br><br>
+
+<label>Month</label><br>
+<input type="text" id="month"><br><br>
+
+<label>Total</label><br>
+<input type="number" id="total"><br><br>
+
+<label>Paid</label><br>
+<input type="number" id="paid"><br><br>
+
+<label>Remain</label><br>
+<input type="number" id="remain"><br><br>
+
+<label>Date</label><br>
+<input type="date" id="date"><br><br>
+
+<!-- ✅ SCRIPT ALWAYS AT LAST -->
 <script>
 /*
-  ye independent script hai jo ki fees.html ke liye hai
+=================================================
+YE INDEPENDENT SCRIPT HAI
+JO KI SIRF fees.html KE LIYE HAI
+=================================================
 */
+
 document.addEventListener("DOMContentLoaded", function () {
 
-  document.getElementById("receipt").value = "";
-  document.getElementById("admno").value = "";
-  document.getElementById("name").value = "";
+  // Auto receipt
+  document.getElementById("receipt").value =
+    "SVV-" + Date.now().toString().slice(-5);
+
+  // Auto date
+  document.getElementById("date").value =
+    new Date().toISOString().slice(0, 10);
 
 });
 </script>
