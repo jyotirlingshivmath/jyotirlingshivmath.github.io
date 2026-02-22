@@ -1,23 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Fees Form</title>
+  <title>Fees Entry</title>
 </head>
 <body>
 
-<h2>Fees Entry</h2>
+<h2>Fees Form</h2>
 
 <form>
-  <input type="text" id="receipt" placeholder="Receipt No"><br><br>
+  <input type="text" id="receipt" placeholder="Receipt"><br><br>
   <input type="text" id="admno" placeholder="Admission No"><br><br>
   <input type="text" id="name" placeholder="Name"><br><br>
+  <input type="text" id="month" placeholder="Month"><br><br>
+  <input type="number" id="total" placeholder="Total"><br><br>
+  <input type="number" id="paid" placeholder="Paid"><br><br>
+  <input type="number" id="remain" placeholder="Remain"><br><br>
+  <input type="date" id="date"><br><br>
 </form>
 
 <script>
+/*
+  ye independent script hai jo ki fees.html ke liye hai
+*/
 document.addEventListener("DOMContentLoaded", function () {
 
-  // ye line error nahi degi
+  document.getElementById("receipt").value = "";
   document.getElementById("admno").value = "";
+  document.getElementById("name").value = "";
 
 });
 </script>
