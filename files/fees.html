@@ -8,11 +8,17 @@ koi sambandh nahi hai
 =========================================================
 */
 
-// Auto receipt & date
-document.getElementById("rno").value =
-  "SVV-" + Date.now().toString().slice(-5);
-document.getElementById("rdate").value =
-  new Date().toISOString().slice(0, 10);
+// ✅ Page load hone ke baad hi JS chale
+document.addEventListener("DOMContentLoaded", function () {
+
+  // Auto receipt & date
+  document.getElementById("rno").value =
+    "SVV-" + Date.now().toString().slice(-5);
+
+  document.getElementById("rdate").value =
+    new Date().toISOString().slice(0, 10);
+
+});
 
 // 🔍 Search student from Sheet1
 function searchStudent() {
