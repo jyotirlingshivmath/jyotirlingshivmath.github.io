@@ -98,21 +98,21 @@ button{padding:8px 15px;margin-top:10px;}
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzwm6W71050QAPQj9UTZnPfDi6xlXtFnrpKkxkR2vQW6fEVf1x-Vcd5JGpoHMChJECa/exec";
 
 /* SEARCH STUDENT */
-function searchStudent(){
+function searchStudent() {
   const adm = document.getElementById("searchAdm").value.trim();
   const nameVal = document.getElementById("searchName").value.trim();
 
-  if(!adm && !nameVal){
+  if (!adm && !nameVal) {
     alert("Enter Admission No or Student Name to search");
     return;
   }
 
   fetch(`${WEB_APP_URL}?admno=${encodeURIComponent(adm)}&student_name=${encodeURIComponent(nameVal)}`)
-    .then(res=>res.json())
-    .then(d=>{
-      if(!d.success || d.data.length===0){
+    .then(res => res.json())
+    .then(d => {
+      if (!d.success || d.data.length === 0) {
         alert("Student not found");
-        admno.value=""; name.value=""; class.value=""; father.value="";
+        admno.value = ""; name.value = ""; class.value = ""; father.value = "";
         return;
       }
       const student = d.data[0];
@@ -121,22 +121,22 @@ function searchStudent(){
       class.value = student.class_name || "";
       father.value = student.father_name || "";
     })
-    .catch(err=>{
+    .catch(err => {
       console.error(err);
       alert("Error fetching student data");
     });
 }
 
 /* CALCULATE REMAINING */
-function calcRemain(){
-  const t = +total.value||0;
-  const p = +paid.value||0;
+function calcRemain() {
+  const t = +total.value || 0;
+  const p = +paid.value || 0;
   remain.value = t - p;
 }
 
 /* SAVE FEES */
-function saveFees(){
-  if(!admno.value){
+function saveFees() {
+  if (!admno.value) {
     alert("Please select a student first");
     return;
   }
@@ -151,10 +151,10 @@ function saveFees(){
     remain: remain.value
   };
 
-  google.script.run.withSuccessHandler(function(msg){
+  google.script.run.withSuccessHandler(function(msg) {
     alert(msg);
-    // clear only fees fields, keep student details
-    receipt.value=""; month.value=""; total.value=""; paid.value=""; remain.value="";
+    // Clear only fees fields, keep student details
+    receipt.value = ""; month.value = ""; total.value = ""; paid.value = ""; remain.value = "";
   }).saveFeesData(data);
 }
 </script>
