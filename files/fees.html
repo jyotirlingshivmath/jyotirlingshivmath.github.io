@@ -95,47 +95,67 @@ button{padding:8px 15px;margin-top:10px;}
 </div>
 
 <script>
-const WEB_APP_URL =
-"https://script.google.com/macros/s/AKfycby3_nz74R6Wai9BbUW8rVn7idt_x8ZPl65eq6WgPs6GJ9FasH_wOP7ODnwNe7kitDaM/exec";
+const WEB_APP_URL = "YOUR_WEB_APP_URL_HERE"; // replace with your deployed Apps Script URL
 
 /* SEARCH STUDENT */
 function searchStudent(){
-  fetch(WEB_APP_URL + "?action=search&adm=" +
-    document.getElementById("searchAdm").value +
-    "&name=" + document.getElementById("searchName").value)
-  .then(res=>res.json())
-  .then(d=>{
-    if(!d.success){alert("Student not found");return;}
-    admno.value=d.admno;
-    name.value=d.name;
-    document.getElementById("class").value=d.class;
-    father.value=d.father;
-  });
+  const adm = document.getElementById("searchAdm").value.trim();
+  const name = document.getElementById("searchName").value.trim();
+
+  if(!adm && !name){
+    alert("Enter Admission No or Student Name to search");
+    return;
+  }
+
+  fetch(`${WEB_APP_URL}?admno=${adm}&student_name=${name}`)
+    .then(res=>res.json())
+    .then(d=>{
+      if(!d.success || d.data.length===0){
+        alert("Student not found");
+        admno.value=""; name.value=""; class.value=""; father.value="";
+        return;
+      }
+      const student = d.data[0];
+      admno.value = student.admno;
+      name.value = student.student_name;
+      class.value = student.class_name || "";
+      father.value = student.father_name || "";
+    })
+    .catch(err=>{
+      console.error(err);
+      alert("Error fetching student data");
+    });
 }
 
 /* CALCULATE REMAINING */
 function calcRemain(){
-  let t=+total.value||0;
-  let p=+paid.value||0;
-  remain.value=t-p;
+  const t = +total.value||0;
+  const p = +paid.value||0;
+  remain.value = t - p;
 }
 
 /* SAVE FEES */
 function saveFees(){
-  fetch(WEB_APP_URL,{
-    method:"POST",
-    body:JSON.stringify({
-      receipt:receipt.value,
-      admno:admno.value,
-      name:name.value,
-      month:month.value,
-      total:total.value,
-      paid:paid.value,
-      remain:remain.value
-    })
-  })
-  .then(res=>res.text())
-  .then(msg=>alert(msg));
+  if(!admno.value){
+    alert("Please select a student first");
+    return;
+  }
+
+  const data = {
+    receipt: receipt.value || new Date().getTime(),
+    admno: admno.value,
+    name: name.value,
+    month: month.value,
+    total: total.value,
+    paid: paid.value,
+    remain: remain.value
+  };
+
+  google.script.run.withSuccessHandler(function(msg){
+    alert(msg);
+    // clear form except student details
+    receipt.value=""; month.value=""; total.value=""; paid.value=""; remain.value="";
+  }).saveFeesData(data);
 }
 </script>
 
