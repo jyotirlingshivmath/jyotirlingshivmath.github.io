@@ -95,52 +95,48 @@ button{padding:8px 15px;margin-top:10px;cursor:pointer;}
 </div>
 
 <script>
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyZ-su17ZVhA3zdJfY1MkL6F6zOv98Z0_e4pB8UTLlLlerQLrfmgnD7ZmB7lJSZfj14/exec";
+// -----------------------------
+// Event Listeners and Functions
+// -----------------------------
 
-// SEARCH STUDENT
-function searchStudent() {
-  const adm = document.getElementById("searchAdm").value.trim();
-  const nameVal = document.getElementById("searchName").value.trim();
-
-  if (!adm && !nameVal) {
-    alert("Enter Admission No or Student Name to search");
-    return;
-  }
-
-  fetch(`${WEB_APP_URL}?admno=${encodeURIComponent(adm)}&student_name=${encodeURIComponent(nameVal)}`)
-    .then(res => res.json())
-    .then(d => {
-      if (!d.success || d.data.length === 0) {
-        alert("Student not found");
-        document.getElementById("admno").value = "";
-        document.getElementById("name").value = "";
-        document.getElementById("class").value = "";
-        document.getElementById("father").value = "";
-        return;
-      }
-      const student = d.data[0];
-      document.getElementById("admno").value = student.admno || "";
-      document.getElementById("name").value = student.student_name || "";
-      document.getElementById("class").value = student.class_name || "";
-      document.getElementById("father").value = student.father_name || "";
-    })
-    .catch(err => {
-      console.error(err);
-      alert("Error fetching student data");
-    });
-}
-
-// CALCULATE REMAINING
+// Calculate Remaining
 function calcRemain() {
   const t = +document.getElementById("total").value || 0;
   const p = +document.getElementById("paid").value || 0;
   document.getElementById("remain").value = t - p;
 }
 
-// SAVE FEES USING FETCH
+// Search Student using Apps Script doGet
+function searchStudent() {
+  const adm = document.getElementById("searchAdm").value.trim();
+  const nameVal = document.getElementById("searchName").value.trim();
+
+  if(!adm && !nameVal){
+    alert("Enter Admission No or Student Name to search");
+    return;
+  }
+
+  google.script.run.withSuccessHandler(function(resp){
+    if(!resp.success || resp.data.length===0){
+      alert("Student not found");
+      document.getElementById("admno").value = "";
+      document.getElementById("name").value = "";
+      document.getElementById("class").value = "";
+      document.getElementById("father").value = "";
+      return;
+    }
+    const student = resp.data[0];
+    document.getElementById("admno").value = student.admno || "";
+    document.getElementById("name").value = student.student_name || "";
+    document.getElementById("class").value = student.class_name || "";
+    document.getElementById("father").value = student.father_name || "";
+  }).getStudentData(adm, nameVal); // getStudentData e.g. Apps Script me define
+}
+
+// Save Fees using Apps Script saveFeesData
 function saveFees() {
   const admVal = document.getElementById("admno").value;
-  if (!admVal) {
+  if(!admVal){
     alert("Please select a student first");
     return;
   }
@@ -155,31 +151,19 @@ function saveFees() {
     remain: document.getElementById("remain").value
   };
 
-  fetch(WEB_APP_URL, {
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: { "Content-Type": "application/json" }
-  })
-  .then(res => res.json())
-  .then(resp => {
-    if(resp.success){
-      alert("Fees saved successfully");
-      document.getElementById("receipt").value = "";
-      document.getElementById("month").value = "";
-      document.getElementById("total").value = "";
-      document.getElementById("paid").value = "";
-      document.getElementById("remain").value = "";
-    } else {
-      alert("Error saving fees: " + (resp.error || ""));
-    }
-  })
-  .catch(err => {
-    console.error(err);
-    alert("Error saving fees");
-  });
+  google.script.run.withSuccessHandler(function(msg){
+    alert(msg);
+    document.getElementById("receipt").value = "";
+    document.getElementById("month").value = "";
+    document.getElementById("total").value = "";
+    document.getElementById("paid").value = "";
+    document.getElementById("remain").value = "";
+  }).saveFeesData(data);
 }
 
-// Event listeners
+// -----------------------------
+// Attach Event Listeners
+// -----------------------------
 document.getElementById("searchBtn").addEventListener("click", searchStudent);
 document.getElementById("total").addEventListener("input", calcRemain);
 document.getElementById("paid").addEventListener("input", calcRemain);
