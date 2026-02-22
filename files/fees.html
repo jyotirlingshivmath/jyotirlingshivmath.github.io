@@ -1,57 +1,43 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Fees Entry</title>
-</head>
-<body>
-
-<h2>Fees Entry</h2>
-
-<label>Receipt No</label><br>
-<input type="text" id="receipt"><br><br>
-
-<label>Admission No</label><br>
-<input type="text" id="admno"><br><br>
-
-<label>Name</label><br>
-<input type="text" id="name"><br><br>
-
-<label>Month</label><br>
-<input type="text" id="month"><br><br>
-
-<label>Total</label><br>
-<input type="number" id="total"><br><br>
-
-<label>Paid</label><br>
-<input type="number" id="paid"><br><br>
-
-<label>Remain</label><br>
-<input type="number" id="remain"><br><br>
-
-<label>Date</label><br>
-<input type="date" id="date"><br><br>
-
-<!-- ✅ SCRIPT ALWAYS AT LAST -->
 <script>
-/*
-=================================================
-YE INDEPENDENT SCRIPT HAI
-JO KI SIRF fees.html KE LIYE HAI
-=================================================
-*/
+const WEB_APP_URL = "PASTE_YOUR_WEB_APP_URL_HERE";
 
-document.addEventListener("DOMContentLoaded", function () {
-
-  // Auto receipt
-  document.getElementById("receipt").value =
+/* Auto receipt & date */
+window.onload = function () {
+  document.getElementById("rno").value =
     "SVV-" + Date.now().toString().slice(-5);
-
-  // Auto date
-  document.getElementById("date").value =
+  document.getElementById("rdate").value =
     new Date().toISOString().slice(0, 10);
+};
 
-});
+/* Search student */
+function searchStudent() {
+  const name = document.getElementById("searchName").value.trim();
+  if (name.length < 2) return;
+
+  fetch(WEB_APP_URL + "?action=searchStudent&name=" + encodeURIComponent(name))
+    .then(r => r.json())
+    .then(list => {
+      if (!list || list.length === 0) {
+        alert("Student not found");
+        return;
+      }
+
+      const s = list[0];
+      document.getElementById("admno").value = s.admno || "";
+      document.getElementById("studentName").value = s.student_name || "";
+      document.getElementById("fatherName").value = s.father_name || "";
+      document.getElementById("className").value = s.class_name || "";
+    });
+}
+
+/* Fee calculation */
+function calcFee() {
+  const t = Number(document.getElementById("total").value) || 0;
+  const p = Number(document.getElementById("paid").value) || 0;
+  const r = t - p;
+
+  document.getElementById("received").innerText = p;
+  document.getElementById("remain").value = r;
+  document.getElementById("remainRow").style.display = r > 0 ? "" : "none";
+}
 </script>
-
-</body>
-</html>
