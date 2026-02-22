@@ -1,5 +1,10 @@
+...
+<button onclick="saveFees()">Save Fees</button>
+<button onclick="window.print()">Print Receipt</button>
+</center>
+
 <script>
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwHhirHUJx7JvutBkpRb3w1sDAUEm1hqdLu6uOIHvd4YPpj3Tbn2R3y2UybApyLII6_/exec";
+const WEB_APP_URL = "REGISTRATION.HTML_WALI_URL";
 
 /* Auto receipt & date */
 window.onload = function () {
@@ -17,10 +22,7 @@ function searchStudent() {
   fetch(WEB_APP_URL + "?action=searchStudent&name=" + encodeURIComponent(name))
     .then(r => r.json())
     .then(list => {
-      if (!list || list.length === 0) {
-        alert("Student not found");
-        return;
-      }
+      if (!list || list.length === 0) return;
 
       const s = list[0];
       document.getElementById("admno").value = s.admno || "";
@@ -41,3 +43,6 @@ function calcFee() {
   document.getElementById("remainRow").style.display = r > 0 ? "" : "none";
 }
 </script>
+
+</body>
+</html>
