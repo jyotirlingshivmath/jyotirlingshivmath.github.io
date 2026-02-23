@@ -97,15 +97,16 @@ button{padding:8px 15px;margin-top:10px;}
 <script>
 document.addEventListener("DOMContentLoaded", function() {
 
-  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbziP6rSwwZhNMICr13vBe-UstV4rfZZJ_7ISn-fh2uGg-9UTUjvm5WDMx1eKkncfg5P/exec";
+  const WEB_APP_URL =
+  "https://script.google.com/macros/s/AKfycbziP6rSwwZhNMICr13vBe-UstV4rfZZJ_7ISn-fh2uGg-9UTUjvm5WDMx1eKkncfg5P/exec";
 
   /* SEARCH STUDENT */
-  function searchStudent() {
+  window.searchStudent = function () {
     const adm = document.getElementById("searchAdm").value.trim();
     const nameVal = document.getElementById("searchName").value.trim();
 
     if (!adm && !nameVal) {
-      alert("Enter Admission No or Student Name to search");
+      alert("Enter Admission No or Student Name");
       return;
     }
 
@@ -114,54 +115,58 @@ document.addEventListener("DOMContentLoaded", function() {
       .then(d => {
         if (!d.success || d.data.length === 0) {
           alert("Student not found");
-          document.getElementById("admno").value = "";
-          document.getElementById("name").value = "";
-          document.getElementById("class").value = "";
-          document.getElementById("father").value = "";
           return;
         }
-        const student = d.data[0];
-        document.getElementById("admno").value = student.admno || "";
-        document.getElementById("name").value = student.student_name || "";
-        document.getElementById("class").value = student.class_name || "";
-        document.getElementById("father").value = student.father_name || "";
+        const s = d.data[0];
+        admno.value = s.admno || "";
+        name.value = s.student_name || "";
+        class.value = s.class_name || "";
+        father.value = s.father_name || "";
       })
-      .catch(err => {
-        console.error(err);
-        alert("Error fetching student data");
-      });
-  }
-  window.searchStudent = searchStudent;
+      .catch(() => alert("Error fetching student data"));
+  };
 
-  /* CALCULATE REMAINING */
-  function calcRemain() {
-    const t = +document.getElementById("total").value || 0;
-    const p = +document.getElementById("paid").value || 0;
-    document.getElementById("remain").value = t - p;
-  }
-  window.calcRemain = calcRemain;
+  /* CALCULATE REMAIN */
+  window.calcRemain = function () {
+    remain.value = (+total.value || 0) - (+paid.value || 0);
+  };
 
-  /* SAVE FEES */
-  function saveFees() {
-    const admnoEl = document.getElementById("admno");
-    if (!admnoEl.value) {
-      alert("Please select a student first");
+  /* SAVE FEES (✅ FIXED) */
+  window.saveFees = function () {
+
+    if (!admno.value) {
+      alert("Select student first");
       return;
     }
 
-    const data = {
-      receipt: document.getElementById("receipt").value || new Date().getTime(),
-      admno: admnoEl.value,
-      name: document.getElementById("name").value,
-      month: document.getElementById("month").value,
-      total: document.getElementById("total").value,
-      paid: document.getElementById("paid").value,
-      remain: document.getElementById("remain").value
+    const payload = {
+      action: "saveFees",
+      data: {
+        receipt: receipt.value || Date.now(),
+        admno: admno.value,
+        name: name.value,
+        month: month.value,
+        total: total.value,
+        paid: paid.value,
+        remain: remain.value
+      }
     };
 
-
-  }
-  window.saveFees = saveFees;
+    fetch(WEB_APP_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    })
+    .then(res => res.json())
+    .then(r => {
+      if (r.success) {
+        alert("Fees saved successfully");
+      } else {
+        alert("Fees not saved");
+      }
+    })
+    .catch(() => alert("Server error while saving fees"));
+  };
 
 });
 </script>
