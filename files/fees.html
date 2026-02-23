@@ -159,15 +159,7 @@ document.addEventListener("DOMContentLoaded", function() {
       remain: document.getElementById("remain").value
     };
 
-    google.script.run.withSuccessHandler(function(msg) {
-      alert(msg);
-      // Clear fees fields
-      document.getElementById("receipt").value = "";
-      document.getElementById("month").value = "";
-      document.getElementById("total").value = "";
-      document.getElementById("paid").value = "";
-      document.getElementById("remain").value = "";
-    }).saveFeesData(data);
+
   }
   window.saveFees = saveFees;
 
