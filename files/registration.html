@@ -8,54 +8,32 @@ body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: 
 .container { width: 900px; margin: 20px auto; background-color: #fff; padding: 25px 30px; border-radius: 10px; box-shadow: 0 0 15px rgba(0,0,0,0.1); }
 h2, h3 { text-align: center; margin: 5px 0; }
 form { width: 100%; }
-
-/* Flex row for label+input pairs */
 .row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 10px; }
 .row .field { display: flex; align-items: center; margin-bottom: 5px; }
 .row label { width: 150px; margin-right: 10px; font-weight: 500; }
 .row input, .row select { width: 200px; padding: 5px; border: 1px solid #ccc; border-radius: 4px; }
-
-/* Photo box */
 .photo-box { border: 1px solid #ccc; width: 150px; height: 150px; display: inline-block; text-align: center; line-height: 150px; margin-left: 20px; border-radius: 5px; background-color: #f0f0f0; color: #666; font-size: 14px; }
-
-/* Document upload section */
 .doc-section { border: 1px dashed #ccc; padding: 10px; margin: 10px 0; border-radius: 5px; background-color: #fafafa; }
-
-/* Buttons */
-button { margin-top: 20px; padding: 10px 20px; cursor: pointer; border-radius: 5px; border: none; background-color: #007bff; color: #fff; font-weight: bold; }
+button { margin-top: 20px; padding: 10px 20px; cursor: pointer; border-radius: 5px; border: none; background-color: #007bff; color: #fff; font-weight: bold; margin-right: 10px; }
 button:hover { background-color: #0056b3; }
-
-/* Fees link */
 .fees-link { text-align: right; margin-bottom: 15px; }
 .fees-link a { text-decoration: none; color: #007bff; font-weight: bold; }
 .fees-link a:hover { text-decoration: underline; }
-
-/* Signature section */
 .sign-section { margin-top: 20px; display: flex; justify-content: space-between; }
 .sign-box { border-top: 1px solid #000; width: 30%; text-align: center; padding-top: 5px; font-size: 12pt; }
-
-/* Pledge */
 .pledge { border: 1px solid #ccc; padding: 10px; margin-top: 20px; border-radius: 5px; background-color: #fafafa; }
-
-/* Print styles */
-@media print {
-  body { margin: 0; background-color: #fff; }
-  button, .fees-link { display: none; }
-  form { border: none; width: 100%; padding: 0; }
-  label, input, select { border: none; width: auto; font-size: 14pt; }
-  .photo-box, .doc-section, .pledge, .sign-section { border: 1px solid #000; }
-}
-
-/* Language toggle */
 .lang-toggle { text-align: right; margin-bottom: 10px; }
-.lang-toggle button { margin-left: 5px; padding: 5px 10px; cursor: pointer; }
+.lang-toggle button { margin-left: 5px; padding: 5px 10px; cursor: pointer; background: #28a745; }
+.lang-toggle button:hover { background: #218838; }
 .hi { display: none; }
+#status { margin-top: 10px; padding: 10px; border-radius: 5px; display: none; }
+.success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+.error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+@media print { body { margin: 0; background-color: #fff; } button, .fees-link, .lang-toggle, #status { display: none; } form { border: none; width: 100%; padding: 0; } label, input, select { border: none; width: auto; font-size: 14pt; } .photo-box, .doc-section, .pledge, .sign-section { border: 1px solid #000; } }
 </style>
 </head>
 <body>
-
 <div class="container">
-
   <div class="fees-link">
     <a href="fees.html">Go to Fees Form / फीस फॉर्म पर जाएँ</a>
   </div>
@@ -68,9 +46,15 @@ button:hover { background-color: #0056b3; }
   <h2>JYOTIRLING SHIVMATH VADIC VIDYALAYA</h2>
   <h3>(Admission Form)</h3>
 
-  <form id="admissionForm" method="post" action="https://script.google.com/macros/s/AKfycbx5i4lmkBN18KFPkKlXlsEP9xz91QFMQFxBSO42Xo_6Ov4Q5kuGg1f9LtUyKVJgrX08/exec" target="_blank">
+  <form id="admissionForm">
+    <!-- Hidden fields for base64 files -->
+    <input type="hidden" name="photo_base64" id="photo_base64">
+    <input type="hidden" name="tc_base64" id="tc_base64">
+    <input type="hidden" name="marksheet_base64" id="marksheet_base64">
+    <input type="hidden" name="other_doc1_base64" id="other_doc1_base64">
+    <input type="hidden" name="other_doc2_base64" id="other_doc2_base64">
+    <input type="hidden" name="other_doc3_base64" id="other_doc3_base64">
 
-    <!-- Admission No & Date -->
     <section class="row">
       <div class="field">
         <label class="en">Admission No:</label><label class="hi">प्रवेश संख्या:</label>
@@ -82,7 +66,6 @@ button:hover { background-color: #0056b3; }
       </div>
     </section>
 
-    <!-- Name & Photo -->
     <section class="row">
       <div class="field">
         <label class="en">Name of Student:</label><label class="hi">छात्र का नाम:</label>
@@ -93,15 +76,13 @@ button:hover { background-color: #0056b3; }
       </div>
     </section>
 
-    <!-- Upload Photo -->
     <section class="row">
       <div class="field">
         <label class="en">Upload Photo:</label><label class="hi">फ़ोटो अपलोड करें:</label>
-        <input type="file" id="photo" accept="image/*">
+        <input type="file" id="photo" name="photo_file" accept="image/*">
       </div>
     </section>
 
-    <!-- Aadhar -->
     <section class="row">
       <div class="field">
         <label class="en">Aadhar No:</label><label class="hi">आधार संख्या:</label>
@@ -109,7 +90,6 @@ button:hover { background-color: #0056b3; }
       </div>
     </section>
 
-    <!-- Gender & DOB -->
     <section class="row">
       <div class="field">
         <label class="en">Gender:</label><label class="hi">लिंग:</label>
@@ -126,7 +106,6 @@ button:hover { background-color: #0056b3; }
       </div>
     </section>
 
-    <!-- Category & Blood Group -->
     <section class="row">
       <div class="field">
         <label class="en">Category:</label><label class="hi">श्रेणी:</label>
@@ -142,19 +121,13 @@ button:hover { background-color: #0056b3; }
         <label class="en">Blood Group:</label><label class="hi">रक्त समूह:</label>
         <select name="blood_group">
           <option value="">Select / चयन करें</option>
-          <option value="A+">A+</option>
-          <option value="A-">A-</option>
-          <option value="B+">B+</option>
-          <option value="B-">B-</option>
-          <option value="O+">O+</option>
-          <option value="O-">O-</option>
-          <option value="AB+">AB+</option>
-          <option value="AB-">AB-</option>
+          <option value="A+">A+</option><option value="A-">A-</option><option value="B+">B+</option>
+          <option value="B-">B-</option><option value="O+">O+</option><option value="O-">O-</option>
+          <option value="AB+">AB+</option><option value="AB-">AB-</option>
         </select>
       </div>
     </section>
 
-    <!-- Father & Mother -->
     <section class="row">
       <div class="field">
         <label class="en">Father's Name:</label><label class="hi">पिता का नाम:</label>
@@ -177,7 +150,6 @@ button:hover { background-color: #0056b3; }
       </div>
     </section>
 
-    <!-- Mobile & Email -->
     <section class="row">
       <div class="field">
         <label class="en">Mobile:</label><label class="hi">मोबाइल:</label>
@@ -189,7 +161,6 @@ button:hover { background-color: #0056b3; }
       </div>
     </section>
 
-    <!-- Address -->
     <section class="row">
       <div class="field">
         <label class="en">Address Line 1:</label><label class="hi">पता पंक्ति 1:</label>
@@ -201,23 +172,15 @@ button:hover { background-color: #0056b3; }
       </div>
     </section>
 
-    <!-- Class & Previous School -->
     <section class="row">
       <div class="field">
         <label class="en">Class:</label><label class="hi">कक्षा:</label>
         <select name="class_name">
           <option value="">Select / चयन करें</option>
-          <option value="Mont">Mont</option>
-          <option value="Nursery">Nursery</option>
-          <option value="KG">KG</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
+          <option value="Mont">Mont</option><option value="Nursery">Nursery</option>
+          <option value="KG">KG</option><option value="1">1</option><option value="2">2</option>
+          <option value="3">3</option><option value="4">4</option><option value="5">5</option>
+          <option value="6">6</option><option value="7">7</option><option value="8">8</option>
         </select>
       </div>
       <div class="field">
@@ -226,35 +189,31 @@ button:hover { background-color: #0056b3; }
       </div>
     </section>
 
-    <!-- Upload Documents -->
     <section class="doc-section">
       <h4>Upload Documents / दस्तावेज़ अपलोड करें</h4>
-      <div class="field"><label class="en">TC from last school:</label><input type="file" name="tc_file" accept=".pdf,.jpg,.png"></div>
-      <div class="field"><label class="en">Marksheet:</label><input type="file" name="marksheet_file" accept=".pdf,.jpg,.png"></div>
-      <div class="field"><label class="en">Other Document 1:</label><input type="file" name="other_doc1" accept=".pdf,.jpg,.png"></div>
-      <div class="field"><label class="en">Other Document 2:</label><input type="file" name="other_doc2" accept=".pdf,.jpg,.png"></div>
-      <div class="field"><label class="en">Other Document 3:</label><input type="file" name="other_doc3" accept=".pdf,.jpg,.png"></div>
+      <div class="field" style="margin-bottom:5px;"><label class="en">TC from last school:</label><input type="file" id="tc_file" name="tc_file" accept=".pdf,.jpg,.png"></div>
+      <div class="field" style="margin-bottom:5px;"><label class="en">Marksheet:</label><input type="file" id="marksheet_file" name="marksheet_file" accept=".pdf,.jpg,.png"></div>
+      <div class="field" style="margin-bottom:5px;"><label class="en">Other Document 1:</label><input type="file" id="other_doc1" name="other_doc1" accept=".pdf,.jpg,.png"></div>
+      <div class="field" style="margin-bottom:5px;"><label class="en">Other Document 2:</label><input type="file" id="other_doc2" name="other_doc2" accept=".pdf,.jpg,.png"></div>
+      <div class="field"><label class="en">Other Document 3:</label><input type="file" id="other_doc3" name="other_doc3" accept=".pdf,.jpg,.png"></div>
     </section>
 
-    <!-- Pledge -->
     <div class="pledge">
       <p class="en">I hereby declare that all the information provided by me is true to the best of my knowledge.</p>
       <p class="hi">मेरे द्वारा दी गई सभी जानकारी मेरी जानकारी में सत्य है।</p>
     </div>
 
-    <!-- Signatures -->
     <div class="sign-section">
       <div class="sign-box">Signature of Clerk / क्लर्क</div>
       <div class="sign-box">Signature of Class Teacher / कक्षा शिक्षक</div>
       <div class="sign-box">Signature of Principal / प्राचार्य</div>
     </div>
 
-    <button type="submit" class="en">Submit</button>
-    <button type="submit" class="hi">जमा करें</button>
+    <button type="button" onclick="submitForm()">Submit / जमा करें</button>
     <button type="button" onclick="window.print()">Print Form / प्रिंट करें</button>
-
+    
+    <div id="status"></div>
   </form>
-
 </div>
 
 <script>
@@ -262,41 +221,80 @@ document.addEventListener("DOMContentLoaded", function() {
   const admno = document.getElementById("admno");
   const admdate = document.getElementById("admdate");
   const photoPreview = document.getElementById("photoPreview");
-  const photoFile = document.getElementById("photo");
 
   let lastAdm = parseInt(localStorage.getItem("lastAdm")) || 3000;
   admno.value = ++lastAdm;
   localStorage.setItem("lastAdm", lastAdm);
-
   admdate.value = new Date().toISOString().slice(0,10);
+});
 
-  photoFile.addEventListener("change", function(e){
+// File to Base64 converter
+function fileToBase64(file, callback) {
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = () => callback(reader.result.split(',')[1]);
+}
+
+// Photo preview + base64
+document.getElementById("photo").addEventListener("change", function(e){
+  const file = e.target.files[0];
+  if(file){
+    fileToBase64(file, base64 => document.getElementById('photo_base64').value = base64);
+    const reader = new FileReader();
+    reader.onload = evt => {
+      photoPreview.innerHTML = '';
+      const img = document.createElement('img');
+      img.src = evt.target.result; img.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:5px;';
+      photoPreview.appendChild(img);
+    };
+    reader.readAsDataURL(file);
+  }
+});
+
+// Document file handlers
+['tc_file','marksheet_file','other_doc1','other_doc2','other_doc3'].forEach((id,i) => {
+  document.getElementById(id).addEventListener("change", function(e){
     const file = e.target.files[0];
-    if(file){
-      const reader = new FileReader();
-      reader.onload = function(evt){
-        photoPreview.innerHTML = '';
-        const img = document.createElement('img');
-        img.src = evt.target.result;
-        img.style.width = '100%';
-        img.style.height = '100%';
-        img.style.objectFit = 'cover';
-        photoPreview.appendChild(img);
-      };
-      reader.readAsDataURL(file);
-    } else {
-      photoPreview.textContent = "Photo";
-    }
+    if(file) fileToBase64(file, base64 => {
+      document.getElementById(['tc_base64','marksheet_base64','other_doc1_base64','other_doc2_base64','other_doc3_base64'][i]).value = base64;
+    });
   });
 });
 
+// SUBMIT FUNCTION - YOUR DEPLOYED URL यहाँ डालें
+function submitForm() {
+  const form = document.getElementById('admissionForm');
+  const formData = new FormData(form);
+  const status = document.getElementById('status');
+  
+  // 🚨 IMPORTANT: यहाँ अपना Google Apps Script Web App URL डालें
+  const SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_WEB_APP_URL_HERE/exec';
+  
+  status.className = ''; status.style.display = 'block'; status.innerHTML = '⏳ Submitting...';
+  
+  fetch(SCRIPT_URL, {method: 'POST', body: formData})
+  .then(r=>r.json())
+  .then(data=>{
+    if(data.result==='success'){
+      status.className = 'success'; 
+      status.innerHTML = '✅ ' + data.message;
+      setTimeout(()=>{form.reset(); location.reload();}, 2000);
+    } else {
+      status.className = 'error'; 
+      status.innerHTML = '❌ ' + data.message;
+    }
+  }).catch(err=>{
+    status.className = 'error'; 
+    status.innerHTML = '❌ Network Error. Please check your internet.';
+  });
+}
+
 // Language toggle
 function setLang(lang){
-  document.querySelectorAll('.en').forEach(e => e.style.display = (lang==='en')?'inline':'none');
-  document.querySelectorAll('.hi').forEach(e => e.style.display = (lang==='hi')?'inline':'none');
+  document.querySelectorAll('.en').forEach(e => e.style.display = lang==='en' ? 'inline' : 'none');
+  document.querySelectorAll('.hi').forEach(e => e.style.display = lang==='hi' ? 'inline' : 'none');
 }
 setLang('en');
 </script>
-
 </body>
 </html>
