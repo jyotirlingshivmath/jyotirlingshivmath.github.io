@@ -20,6 +20,7 @@
       box-shadow: 0 15px 35px rgba(0,0,0,0.1); 
       text-align: center; 
       min-width: 300px;
+      position: relative;
     }
     h1 { color: #2c3e50; margin-bottom: 20px; }
     .spinner { 
@@ -33,10 +34,34 @@
     }
     @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     .countdown { font-size: 24px; font-weight: bold; color: #3498db; }
+    
+    /* BACK BUTTON */
+    .back-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: linear-gradient(45deg, #ff6b6b, #feca57);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 25px;
+      font-weight: bold;
+      font-size: 12px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+      cursor: pointer;
+      z-index: 10;
+    }
+    .back-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
   </style>
 </head>
 <body>
   <div class="container">
+    <!-- BACK BUTTON - TOP RIGHT CORNER -->
+    <button class="back-btn" onclick="goBackToDashboard()">← Back</button>
+    
     <h1>🚀 Redirecting to Registration...</h1>
     <div class="spinner"></div>
     <div class="countdown" id="countdown">5</div>
@@ -57,6 +82,11 @@
         window.location.href = targetUrl;
       }
     }, 1000);
+    
+    // BACK TO DASHBOARD FUNCTION
+    function goBackToDashboard() {
+      window.location.href = 'https://jyotirlingshivmath.in/office-dashboard.html';
+    }
     
     // Backup: 6 seconds बाद direct redirect
     setTimeout(() => {
