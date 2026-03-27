@@ -4,103 +4,192 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shiv Math Vaidik Vidyalaya | Office Login</title>
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+:root {
+  --bg1: #0f172a;
+  --bg2: #1e293b;
+  --card: rgba(255,255,255,0.12);
+  --border: rgba(255,255,255,0.18);
+  --text: #f8fafc;
+  --muted: rgba(248,250,252,0.72);
+  --accent1: #8b5cf6;
+  --accent2: #ec4899;
+  --danger: #ff6b6b;
+}
+* { box-sizing: border-box; }
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(to bottom, #ede7f6, #f3e5f5);
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(139,92,246,0.34), transparent 32%),
+    radial-gradient(circle at top right, rgba(236,72,153,0.24), transparent 28%),
+    linear-gradient(135deg, var(--bg1), var(--bg2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  color: var(--text);
 }
-
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+  pointer-events: none;
+}
 .login-box {
-  max-width: 420px;
-  margin: 80px auto;
-  background: #ffffff;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  width: min(100%, 460px);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 26px;
+  padding: 28px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
 }
-
-.login-box h2 {
+.header {
   text-align: center;
-  color: #4a148c;
-  margin-bottom: 20px;
+  margin-bottom: 22px;
 }
-
-.login-box label {
+.badge {
+  display: inline-block;
+  padding: 7px 13px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.14);
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.4px;
+}
+.login-box h2 {
+  margin: 14px 0 8px;
+  font-size: clamp(24px, 4vw, 32px);
+  line-height: 1.25;
+}
+.subtitle {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+form {
+  display: grid;
+  gap: 14px;
+}
+label {
   display: block;
-  margin-top: 12px;
-  font-weight: bold;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 7px;
+  color: rgba(255,255,255,0.9);
 }
-
-.login-box input {
-  width: 100%;
-  padding: 10px;
-  margin-top: 6px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+.field {
+  position: relative;
 }
-
-.login-box button {
+input {
   width: 100%;
-  margin-top: 20px;
-  padding: 12px;
-  background: linear-gradient(135deg, #6a1b9a, #4a148c);
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.16);
+  outline: none;
+  background: rgba(255,255,255,0.10);
+  color: #fff;
+  font-size: 15px;
+  transition: 0.2s ease;
+}
+input::placeholder { color: rgba(255,255,255,0.45); }
+input:focus {
+  border-color: rgba(139,92,246,0.9);
+  box-shadow: 0 0 0 4px rgba(139,92,246,0.18);
+  background: rgba(255,255,255,0.14);
+}
+button {
+  width: 100%;
+  margin-top: 4px;
+  padding: 14px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--accent1), var(--accent2));
   color: #fff;
   font-size: 16px;
-  border: none;
-  border-radius: 25px;
+  font-weight: 600;
   cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 12px 24px rgba(139,92,246,0.22);
 }
-
-.login-box button:hover {
-  opacity: 0.9;
-}
-
+button:hover { transform: translateY(-1px); }
+button:active { transform: translateY(0); }
 .error {
-  color: red;
-  margin-top: 10px;
-  text-align: center;
   display: none;
+  margin-top: 4px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255,107,107,0.14);
+  border: 1px solid rgba(255,107,107,0.25);
+  color: #ffd6d6;
+  text-align: center;
+  font-size: 14px;
+}
+.footer-note {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+@media (max-width: 480px) {
+  .login-box { padding: 22px; border-radius: 22px; }
+  input, button { padding: 13px 14px; }
 }
 </style>
 </head>
-
 <body>
+  <div class="login-box">
+    <div class="header">
+      <div class="badge">🔒 Secure Office Login</div>
+      <h2>Shiv Math Vaidik Vidyalaya<br>Office Login</h2>
+      <p class="subtitle">कृपया अपना username और password दर्ज करें।</p>
+    </div>
 
-<div class="login-box">
-  <h2>🔒 Shiv Math Vaidik Vidyalaya<br>Office Login</h2>
+    <form onsubmit="return checkLogin();">
+      <div class="field">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="Enter username" autocomplete="username" required>
+      </div>
 
-  <form onsubmit="return checkLogin();">
-    <label>Username</label>
-    <input type="text" id="username" required>
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter password" autocomplete="current-password" required>
+      </div>
 
-    <label>Password</label>
-    <input type="password" id="password" required>
+      <button type="submit">Login</button>
+      <div class="error" id="error">❌ Username या Password गलत है</div>
+    </form>
 
-    <button type="submit">Login</button>
-    <div class="error" id="error">❌ Username या Password गलत है</div>
-  </form>
-</div>
+    <div class="footer-note">Mobile friendly design • Fast loading • Easy to use</div>
+  </div>
 
 <script>
 function checkLogin() {
-  // 👉 यहाँ आप अपना username / password बदल सकते हैं
   var correctUser = "office";
   var correctPass = "shivmath@123";
-
-  var user = document.getElementById("username").value;
+  var user = document.getElementById("username").value.trim();
   var pass = document.getElementById("password").value;
+  var errorBox = document.getElementById("error");
 
   if (user === correctUser && pass === correctPass) {
     window.location.href = "office-dashboard.html";
     return false;
   } else {
-    document.getElementById("error").style.display = "block";
+    errorBox.style.display = "block";
     return false;
   }
 }
 </script>
-
 </body>
 </html>
