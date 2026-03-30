@@ -27,6 +27,10 @@
       background-color: #e0e0e0;
       cursor: pointer;
     }
+    /* 🔴 Naya: Sirf Fixed Serial dikhega, purana Serial chhupa raha hai */
+    .hide-serial {
+      display: none !important;
+    }
     a {
       text-decoration: none;
       color: #0066cc;
@@ -41,10 +45,10 @@
   <table id="sheetTable">
     <thead>
       <tr>
-        <!-- Abhi wala Serial (hide) -->
-        <th style="display: none;" onclick="sortTable(0)">Serial</th>
+        <!-- 1️⃣ Purana Serial HEADER chhupa -->
+        <th class="hide-serial" onclick="sortTable(0)">Serial</th>
 
-        <!-- Naya “Fixed Serial” column jo table me dikhega -->
+        <!-- 2️⃣ Naya Fixed Serial dikhega -->
         <th onclick="sortTable(1)">Fixed Serial</th>
 
         <th onclick="sortTable(2)">Description</th>
@@ -76,9 +80,9 @@
 
           const tr = document.createElement("tr");
 
-          // 1️⃣ Abhi wala Serial (chhupaya hua, sheet row ke hisaab se)
+          // 1️⃣ Purana Serial cell — CSS class se chhupa
           const tdSn = document.createElement("td");
-          tdSn.style.display = "none";
+          tdSn.classList.add("hide-serial");
           tdSn.textContent = idx + 1;
           tr.appendChild(tdSn);
 
@@ -92,7 +96,7 @@
           tdDesc.textContent = desc;
           tr.appendChild(tdDesc);
 
-          // 4️⃣ Period (Date)
+          // 4️⃣ Period
           const tdDate = document.createElement("td");
           tdDate.textContent = new Date(period).toLocaleDateString("en-GB");
           tdDate.dataset.sort = period;
@@ -110,7 +114,7 @@
           tbody.appendChild(tr);
         });
 
-        // Period column (ab 3rd column = index 3) ke hisaab se sort
+        // Period column ab index 3 ke hisaab se sort hoga
         sortTable(3);
       } catch (err) {
         console.error("Error loading data:", err);
@@ -124,8 +128,7 @@
       const tbody = table.tBodies[0];
       const rows = Array.from(tbody.querySelectorAll("tr"));
 
-      // Date sorting ab 3rd visible column (index 3) par
-      const isDateCol = colIndex === 3;
+      const isDateCol = colIndex === 3;  // Period column
 
       rows.sort((a, b) => {
         const aCell = a.cells[colIndex];
@@ -136,16 +139,13 @@
           const bDate = new Date(bCell.dataset.sort || bCell.textContent);
           return aDate - bDate;
         } else {
-          const aText = aCell.textContent || "";
-          const bText = bCell.textContent || "";
+          const aText = (aCell.textContent || "").trim();
+          const bText = (bCell.textContent || "").trim();
           return aText.localeCompare(bText);
         }
       });
 
-      // Purani rows delete karo
       while (tbody.firstChild) tbody.removeChild(tbody.firstChild);
-
-      // Sort ki hui rows wapas append karo
       rows.forEach(r => tbody.appendChild(r));
     }
 
