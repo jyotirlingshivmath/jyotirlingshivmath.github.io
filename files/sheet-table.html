@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sheet Data – View Only</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #f9f9f9;
+    }
+    h2 {
+      color: #333;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #e0e0e0;
+      cursor: pointer;
+    }
+    a {
+      text-decoration: none;
+      color: #0066cc;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h2>Sheet Data – View Only Table</h2>
+  <table id="sheetTable">
+    <thead>
+      <tr>
+        <th onclick="sortTable(0)">Serial</th>
+        <th onclick="sortTable(1)">Description</th>
+        <th onclick="sortTable(2)">Period</th>
+        <th onclick="sortTable(3)">Drive Link</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+  </table>
+
+  <script>
+    const API_URL = "https://script.google.com/macros/s/AKfycbx2I2cm7tmVFoGU4zUaYyXHunt2Z8LrBF84mkOK2vqkRtCw_yxeFrEnMa1Wk1rAk2pT/exec";
+
+    async function loadSheetData() {
+      try {
+        const response = await fetch(API_URL);
+        const data = await response.json();
+
+        const tbody = document.getElementById("tableBody");
+        tbody.innerHTML = "";
+
+        if (!data || !data.length) {
+          tbody.innerHTML = "<tr><td colspan='4'>No data in sheet.</td></tr>";
+          return;
+        }
+
+        data.forEach((row, idx) => {
+          const [desc, period, shareLink, directLink] = row;
+
+          const tr = document.createElement("tr");
+
+          const tdSn = document.createElement("td");
+          tdSn.textContent = idx + 1;
+          tr.appendChild(tdSn);
+
+          const tdDesc = document.createElement("td");
+          tdDesc.textContent = desc;
+          tr.appendChild(tdDesc);
+
+          const tdDate = document.createElement("td");
+          tdDate.textContent = new Date(period).toLocaleDateString("en-GB");
+          tdDate.dataset.sort = period;
+          tr.appendChild(tdDate);
+
+          const tdLink = document.createElement("td");
+          const a = document.createElement("a");
+          a.href = directLink || shareLink;
+          a.target = "_blank";
+          a.textContent = "Open PDF";
+          tdLink.appendChild(a);
+          tr.appendChild(tdLink);
+
+          tbody.appendChild(tr);
+        });
+
+        sortTable(2);
+      } catch (err) {
+        console.error("Error loading data:", err);
+        const tbody = document.getElementById("tableBody");
+        tbody.innerHTML = "<tr><td colspan='4'>Error loading data</td></tr>";
+      }
+    }
+
+    function sortTable(colIndex) {
+      const table = document.getElementById("sheetTable");
+      const tbody = table.tBodies[0];
+      const rows = Array.from(tbody.querySelectorAll("tr"));
+
+      const isDateCol = colIndex === 2;
+
+      rows.sort((a, b) => {
+        const aCell = a.cells[colIndex];
+        const bCell = b.cells[colIndex];
+
+        if (isDateCol) {
+          const aDate = new Date(aCell.dataset.sort || aCell.textContent);
+          const bDate = new Date(bCell.dataset.sort || bCell.textContent);
+          return aDate - bDate;
+        } else {
+          const aText = aCell.textContent || "";
+          const bText = bCell.textContent || "";
+          return aText.localeCompare(bText);
+        }
+      });
+
+      while (tbody.firstChild) tbody.removeChild(tbody.firstChild);
+      rows.forEach(r => tbody.appendChild(r));
+    }
+
+    window.onload = loadSheetData;
+  </script>
+</body>
+</html>
