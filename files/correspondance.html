@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Document Manager</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f0f0f0;
+      cursor: pointer;
+    }
+    input, button {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+  <h2>Document Upload & Management</h2>
+
+  <div>
+    <label>Document Title / Description: </label>
+    <input type="text" id="descInput" placeholder="Description likhें" />
+  </div>
+
+  <div>
+    <label>Period (YYYY-MM-DD, jaise: 2000-01-03): </label>
+    <input type="date" id="dateInput" />
+  </div>
+
+  <div>
+    <label>Google Drive PDF Link (share link): </label>
+    <input type="text" id="linkInput" placeholder="https://drive.google.com/file/d/..." />
+  </div>
+
+  <button onclick="addRow()">Upload & Add to List</button>
+
+  <table id="docTable">
+    <thead>
+      <tr>
+        <th onclick="sortTable(0)">Serial</th>
+        <th onclick="sortTable(1)">Description</th>
+        <th onclick="sortTable(2)">Period</th>
+        <th onclick="sortTable(3)">Google Drive Link</th>
+      </tr>
+    </thead>
+    <tbody id="docBody">
+      <!-- Rows will be added here -->
+    </tbody>
+  </table>
+
+  <script>
+    let rowCount = 0;
+
+    function addRow() {
+      const desc = document.getElementById("descInput").value.trim();
+      const period = document.getElementById("dateInput").value;
+      const driveLink = document.getElementById("linkInput").value.trim();
+
+      if (!desc || !period || !driveLink) {
+        alert("Kripya Description, Period aur Drive Link sab bharein.");
+        return;
+      }
+
+      rowCount++;
+      const tbody = document.getElementById("docBody");
+
+      const tr = document.createElement("tr");
+
+      // Serial
+      const tdSn = document.createElement("td");
+      tdSn.textContent = rowCount;
+      tr.appendChild(tdSn);
+
+      // Description
+      const tdDesc = document.createElement("td");
+      tdDesc.textContent = desc;
+      tr.appendChild(tdDesc);
+
+      // Period (date)
+      const tdDate = document.createElement("td");
+      tdDate.textContent = formatDate(period);
+      tdDate.dataset.sort = period; // hidden sort value
+      tr.appendChild(tdDate);
+
+      // Google Drive Link (with clickable hyperlink)
+      const tdLink = document.createElement("td");
+      const a = document.createElement("a");
+      a.href = driveLink;
+      a.target = "_blank";
+      a.textContent = "Open PDF";
+      tdLink.appendChild(a);
+      tr.appendChild(tdLink);
+
+      tbody.appendChild(tr);
+
+      // Clear inputs
+      document.getElementById("descInput").value = "";
+      document.getElementById("dateInput").value = "";
+      document.getElementById("linkInput").value = "";
+    }
+
+    // Nicely format date (MM/DD/YYYY or whatever you prefer)
+    function formatDate(isoStr) {
+      const d = new Date(isoStr);
+      return d.toLocaleDateString("en-GB"); // DD/MM/YYYY
+    }
+
+    // Sort table by column (using date column as actual date)
+    function sortTable(colIndex) {
+      const table = document.getElementById("docTable");
+      const tbody = table.tBodies[0];
+      const rows = Array.from(tbody.querySelectorAll("tr"));
+
+      const isDateCol = colIndex === 2; // "Period" column
+
+      rows.sort((a, b) => {
+        const aCell = a.cells[colIndex];
+        const bCell = b.cells[colIndex];
+
+        if (isDateCol) {
+          const aDate = new Date(aCell.dataset.sort || aCell.textContent);
+          const bDate = new Date(bCell.dataset.sort || bCell.textContent);
+          return aDate - bDate;
+        } else {
+          const aText = aCell.textContent || "";
+          const bText = bCell.textContent || "";
+          return aText.localeCompare(bText);
+        }
+      });
+
+      // Re-append rows in sorted order
+      while (tbody.firstChild) tbody.removeChild(tbody.firstChild);
+      rows.forEach(r => tbody.appendChild(r));
+    }
+  </script>
+</body>
+</html>
