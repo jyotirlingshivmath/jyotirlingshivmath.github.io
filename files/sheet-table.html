@@ -45,7 +45,7 @@
   <table id="sheetTable">
     <thead>
       <tr>
-        <!-- 1️⃣ Purana Serial HEADER chhupa -->
+        <!-- 1️⃣ Purana Serial header chhupa -->
         <th class="hide-serial" onclick="sortTable(0)">Serial</th>
 
         <!-- 2️⃣ Naya Fixed Serial dikhega -->
@@ -76,19 +76,31 @@
         }
 
         data.forEach((row, idx) => {
-          const [desc, period, shareLink, directLink] = row;
+          // A=0, B=1, C=2, D=3, E=4, F=5, G=6, H=7, I=8, J=9 (Serial)
+          const [
+            desc,       // 0
+            period,     // 1
+            shareLink,  // 2
+            directLink, // 3
+            ,           // 4
+            ,           // 5
+            ,           // 6
+            ,           // 7
+            ,           // 8
+            helperSerial // 9 = Sheet me Column J (Serial)
+          ] = row;
 
           const tr = document.createElement("tr");
 
-          // 1️⃣ Purana Serial cell — CSS class se chhupa
+          // 1️⃣ Purana SERIAL (chhupa)
           const tdSn = document.createElement("td");
           tdSn.classList.add("hide-serial");
-          tdSn.textContent = idx + 1;
+          tdSn.textContent = helperSerial;  // J cell ka value
           tr.appendChild(tdSn);
 
-          // 2️⃣ Naya Fixed Serial (table me dikhega)
+          // 2️⃣ Naya FIXED SERIAL (table me dikhega)
           const tdFixSn = document.createElement("td");
-          tdFixSn.textContent = idx + 1;
+          tdFixSn.textContent = helperSerial;  // J cell se hi
           tr.appendChild(tdFixSn);
 
           // 3️⃣ Description
@@ -114,7 +126,7 @@
           tbody.appendChild(tr);
         });
 
-        // Period column ab index 3 ke hisaab se sort hoga
+        // Period column ab index 3 ke hisaab se sort karein
         sortTable(3);
       } catch (err) {
         console.error("Error loading data:", err);
@@ -128,7 +140,8 @@
       const tbody = table.tBodies[0];
       const rows = Array.from(tbody.querySelectorAll("tr"));
 
-      const isDateCol = colIndex === 3;  // Period column
+      // Date sorting ab 3rd visible column (index 3) par
+      const isDateCol = colIndex === 3;
 
       rows.sort((a, b) => {
         const aCell = a.cells[colIndex];
