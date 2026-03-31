@@ -51,17 +51,24 @@
   </table>
 
   <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbx2I2cm7tmVFoGU4zUaYyXHunt2Z8LrBF84mkOK2vqkRtCw_yxeFrEnMa1Wk1rAk2pT/exec";
+    const API_URL = "https://script.google.com/macros/s/AKfycbx2I2cm7tmVFoGU4zUaYyXHunt2Z8LrBF84mkOK2vqkRtCw_yxeFrEnMa1Wk1rAk2pT/exec?path=data";
 
     async function loadSheetData() {
       try {
-        const response = await fetch(API_URL);
-        const data = await response.json();
+        const response = await fetch(API_URL, { cache: "no-store" });
+        const raw = await response.text();
+
+        let data;
+        try {
+          data = JSON.parse(raw);
+        } catch (e) {
+          throw new Error("Non-JSON response: " + raw.slice(0, 300));
+        }
 
         const tbody = document.getElementById("tableBody");
         tbody.innerHTML = "";
 
-        if (!data || !data.length) {
+        if (!Array.isArray(data) || !data.length) {
           tbody.innerHTML = "<tr><td colspan='4'>No data in sheet.</td></tr>";
           return;
         }
@@ -76,17 +83,18 @@
           tr.appendChild(tdSn);
 
           const tdDesc = document.createElement("td");
-          tdDesc.textContent = desc;
+          tdDesc.textContent = desc || "";
           tr.appendChild(tdDesc);
 
           const tdDate = document.createElement("td");
-          tdDate.textContent = new Date(period).toLocaleDateString("en-GB");
-          tdDate.dataset.sort = period;
+          tdDate.dataset.sort = period || "";
+          const d = new Date(period);
+          tdDate.textContent = isNaN(d.getTime()) ? "" : d.toLocaleDateString("en-GB");
           tr.appendChild(tdDate);
 
           const tdLink = document.createElement("td");
           const a = document.createElement("a");
-          a.href = directLink || shareLink;
+          a.href = directLink || shareLink || "#";
           a.target = "_blank";
           a.textContent = "Open PDF";
           tdLink.appendChild(a);
@@ -98,8 +106,8 @@
         sortTable(2);
       } catch (err) {
         console.error("Error loading data:", err);
-        const tbody = document.getElementById("tableBody");
-        tbody.innerHTML = "<tr><td colspan='4'>Error loading data</td></tr>";
+        document.getElementById("tableBody").innerHTML =
+          "<tr><td colspan='4'>Error loading data</td></tr>";
       }
     }
 
@@ -107,7 +115,6 @@
       const table = document.getElementById("sheetTable");
       const tbody = table.tBodies[0];
       const rows = Array.from(tbody.querySelectorAll("tr"));
-
       const isDateCol = colIndex === 2;
 
       rows.sort((a, b) => {
@@ -118,15 +125,20 @@
           const aDate = new Date(aCell.dataset.sort || aCell.textContent);
           const bDate = new Date(bCell.dataset.sort || bCell.textContent);
           return aDate - bDate;
-        } else {
-          const aText = aCell.textContent || "";
-          const bText = bCell.textContent || "";
-          return aText.localeCompare(bText);
         }
+
+        return (aCell.textContent || "").localeCompare(bCell.textContent || "");
       });
 
-      while (tbody.firstChild) tbody.removeChild(tbody.firstChild);
+      tbody.innerHTML = "";
       rows.forEach(r => tbody.appendChild(r));
+      renumberSerials();
+    }
+
+    function renumberSerials() {
+      document.querySelectorAll("#tableBody tr").forEach((row, index) => {
+        row.cells[0].textContent = index + 1;
+      });
     }
 
     window.onload = loadSheetData;
