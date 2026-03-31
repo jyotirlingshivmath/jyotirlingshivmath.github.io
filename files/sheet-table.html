@@ -41,15 +41,10 @@
   <table id="sheetTable">
     <thead>
       <tr>
-        <!-- Abhi wala Serial (hide) -->
-        <th style="display: none;" onclick="sortTable(0)">Serial</th>
-
-        <!-- Naya “Fixed Serial” column jo table me dikhega -->
-        <th onclick="sortTable(1)">Fixed Serial</th>
-
-        <th onclick="sortTable(2)">Description</th>
-        <th onclick="sortTable(3)">Period</th>
-        <th onclick="sortTable(4)">Drive Link</th>
+        <th onclick="sortTable(0)">Serial</th>
+        <th onclick="sortTable(1)">Description</th>
+        <th onclick="sortTable(2)">Period</th>
+        <th onclick="sortTable(3)">Drive Link</th>
       </tr>
     </thead>
     <tbody id="tableBody"></tbody>
@@ -67,7 +62,7 @@
         tbody.innerHTML = "";
 
         if (!data || !data.length) {
-          tbody.innerHTML = "<tr><td colspan='5'>No data in sheet.</td></tr>";
+          tbody.innerHTML = "<tr><td colspan='4'>No data in sheet.</td></tr>";
           return;
         }
 
@@ -76,29 +71,19 @@
 
           const tr = document.createElement("tr");
 
-          // 1️⃣ Abhi wala Serial (chhupaya hua, sheet row ke hisaab se)
           const tdSn = document.createElement("td");
-          tdSn.style.display = "none";
           tdSn.textContent = idx + 1;
           tr.appendChild(tdSn);
 
-          // 2️⃣ Naya Fixed Serial (table me dikhega)
-          const tdFixSn = document.createElement("td");
-          tdFixSn.textContent = idx + 1;
-          tr.appendChild(tdFixSn);
-
-          // 3️⃣ Description
           const tdDesc = document.createElement("td");
           tdDesc.textContent = desc;
           tr.appendChild(tdDesc);
 
-          // 4️⃣ Period (Date)
           const tdDate = document.createElement("td");
           tdDate.textContent = new Date(period).toLocaleDateString("en-GB");
           tdDate.dataset.sort = period;
           tr.appendChild(tdDate);
 
-          // 5️⃣ Drive Link
           const tdLink = document.createElement("td");
           const a = document.createElement("a");
           a.href = directLink || shareLink;
@@ -110,12 +95,11 @@
           tbody.appendChild(tr);
         });
 
-        // Period column (ab 3rd column = index 3) ke hisaab se sort
-        sortTable(3);
+        sortTable(2);
       } catch (err) {
         console.error("Error loading data:", err);
         const tbody = document.getElementById("tableBody");
-        tbody.innerHTML = "<tr><td colspan='5'>Error loading data</td></tr>";
+        tbody.innerHTML = "<tr><td colspan='4'>Error loading data</td></tr>";
       }
     }
 
@@ -124,8 +108,7 @@
       const tbody = table.tBodies[0];
       const rows = Array.from(tbody.querySelectorAll("tr"));
 
-      // Date sorting ab 3rd visible column (index 3) par
-      const isDateCol = colIndex === 3;
+      const isDateCol = colIndex === 2;
 
       rows.sort((a, b) => {
         const aCell = a.cells[colIndex];
@@ -142,10 +125,7 @@
         }
       });
 
-      // Purani rows delete karo
       while (tbody.firstChild) tbody.removeChild(tbody.firstChild);
-
-      // Sort ki hui rows wapas append karo
       rows.forEach(r => tbody.appendChild(r));
     }
 
