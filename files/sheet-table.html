@@ -27,10 +27,6 @@
       background-color: #e0e0e0;
       cursor: pointer;
     }
-    /* 🔴 Naya: Sirf Fixed Serial dikhega, purana Serial chhupa raha hai */
-    .hide-serial {
-      display: none !important;
-    }
     a {
       text-decoration: none;
       color: #0066cc;
@@ -45,10 +41,10 @@
   <table id="sheetTable">
     <thead>
       <tr>
-        <!-- 1️⃣ Purana Serial header chhupa -->
-        <th class="hide-serial" onclick="sortTable(0)">Serial</th>
+        <!-- Abhi wala Serial (hide) -->
+        <th style="display: none;" onclick="sortTable(0)">Serial</th>
 
-        <!-- 2️⃣ Naya Fixed Serial dikhega -->
+        <!-- Naya “Fixed Serial” column jo table me dikhega -->
         <th onclick="sortTable(1)">Fixed Serial</th>
 
         <th onclick="sortTable(2)">Description</th>
@@ -76,31 +72,19 @@
         }
 
         data.forEach((row, idx) => {
-          // A=0, B=1, C=2, D=3, E=4, F=5, G=6, H=7, I=8, J=9 (Serial)
-          const [
-            desc,       // 0
-            period,     // 1
-            shareLink,  // 2
-            directLink, // 3
-            ,           // 4
-            ,           // 5
-            ,           // 6
-            ,           // 7
-            ,           // 8
-            helperSerial // 9 = Sheet me Column J (Serial)
-          ] = row;
+          const [desc, period, shareLink, directLink] = row;
 
           const tr = document.createElement("tr");
 
-          // 1️⃣ Purana SERIAL (chhupa)
+          // 1️⃣ Abhi wala Serial (chhupaya hua, sheet row ke hisaab se)
           const tdSn = document.createElement("td");
-          tdSn.classList.add("hide-serial");
-          tdSn.textContent = helperSerial;  // J cell ka value
+          tdSn.style.display = "none";
+          tdSn.textContent = idx + 1;
           tr.appendChild(tdSn);
 
-          // 2️⃣ Naya FIXED SERIAL (table me dikhega)
+          // 2️⃣ Naya Fixed Serial (table me dikhega)
           const tdFixSn = document.createElement("td");
-          tdFixSn.textContent = helperSerial;  // J cell se hi
+          tdFixSn.textContent = idx + 1;
           tr.appendChild(tdFixSn);
 
           // 3️⃣ Description
@@ -108,7 +92,7 @@
           tdDesc.textContent = desc;
           tr.appendChild(tdDesc);
 
-          // 4️⃣ Period
+          // 4️⃣ Period (Date)
           const tdDate = document.createElement("td");
           tdDate.textContent = new Date(period).toLocaleDateString("en-GB");
           tdDate.dataset.sort = period;
@@ -126,7 +110,7 @@
           tbody.appendChild(tr);
         });
 
-        // Period column ab index 3 ke hisaab se sort karein
+        // Period column (ab 3rd column = index 3) ke hisaab se sort
         sortTable(3);
       } catch (err) {
         console.error("Error loading data:", err);
@@ -152,13 +136,16 @@
           const bDate = new Date(bCell.dataset.sort || bCell.textContent);
           return aDate - bDate;
         } else {
-          const aText = (aCell.textContent || "").trim();
-          const bText = (bCell.textContent || "").trim();
+          const aText = aCell.textContent || "";
+          const bText = bCell.textContent || "";
           return aText.localeCompare(bText);
         }
       });
 
+      // Purani rows delete karo
       while (tbody.firstChild) tbody.removeChild(tbody.firstChild);
+
+      // Sort ki hui rows wapas append karo
       rows.forEach(r => tbody.appendChild(r));
     }
 
