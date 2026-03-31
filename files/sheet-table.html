@@ -2,53 +2,230 @@
 <html lang="hi">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sheet Data – View Only</title>
   <style>
+    :root {
+      --bg1: #f6f9ff;
+      --bg2: #eef5ff;
+      --card: rgba(255,255,255,0.92);
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --accent: #f97316;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #dbe4f0;
+      --head: #e8f0ff;
+      --row-hover: #f8fbff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
+      margin: 0;
       font-family: Arial, sans-serif;
-      margin: 20px;
-      background: #f9f9f9;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, #dbeafe 0%, transparent 32%),
+        radial-gradient(circle at top right, #fde68a 0%, transparent 22%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      min-height: 100vh;
+      padding: 24px;
     }
-    h2 {
-      color: #333;
+
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
     }
+
+    .hero {
+      background: linear-gradient(135deg, var(--primary), #7c3aed);
+      color: #fff;
+      border-radius: 18px;
+      padding: 24px 22px;
+      box-shadow: 0 12px 30px rgba(37, 99, 235, 0.22);
+      margin-bottom: 18px;
+    }
+
+    .hero h2 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      letter-spacing: 0.2px;
+    }
+
+    .hero p {
+      margin: 0;
+      opacity: 0.95;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(219, 228, 240, 0.9);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+      backdrop-filter: blur(6px);
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: 14px;
+    }
+
     table {
       border-collapse: collapse;
       width: 100%;
-      margin-top: 20px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      min-width: 760px;
+      background: #fff;
+      overflow: hidden;
+      border-radius: 14px;
     }
-    th, td {
-      border: 1px solid #ccc;
-      padding: 8px;
+
+    thead th {
+      position: sticky;
+      top: 0;
+      background: linear-gradient(180deg, #eff6ff, #dbeafe);
+      color: #0f172a;
+      border-bottom: 2px solid var(--border);
+      padding: 12px 10px;
+      font-size: 14px;
       text-align: left;
-    }
-    th {
-      background-color: #e0e0e0;
       cursor: pointer;
+      user-select: none;
+      white-space: nowrap;
     }
-    a {
+
+    thead th:hover {
+      background: linear-gradient(180deg, #dbeafe, #bfdbfe);
+    }
+
+    tbody td {
+      border-bottom: 1px solid var(--border);
+      padding: 12px 10px;
+      font-size: 14px;
+      vertical-align: top;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #fbfdff;
+    }
+
+    tbody tr:hover {
+      background: var(--row-hover);
+    }
+
+    .serial {
+      width: 90px;
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+
+    .desc {
+      max-width: 500px;
+      line-height: 1.5;
+    }
+
+    .period {
+      white-space: nowrap;
+      color: #0f172a;
+      font-weight: 600;
+    }
+
+    .linkbtn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--primary), #4f46e5);
+      color: #fff;
       text-decoration: none;
-      color: #0066cc;
+      font-weight: 700;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.24);
     }
-    a:hover {
-      text-decoration: underline;
+
+    .linkbtn:hover {
+      transform: translateY(-1px);
+      background: linear-gradient(135deg, var(--primary-dark), #4338ca);
+      text-decoration: none;
+    }
+
+    .note {
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-block;
+      margin-left: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #fff7ed;
+      color: #c2410c;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .empty {
+      text-align: center;
+      color: var(--muted);
+      padding: 24px 10px;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 14px;
+      }
+
+      .hero h2 {
+        font-size: 22px;
+      }
+
+      .hero p {
+        font-size: 14px;
+      }
+
+      .card {
+        padding: 12px;
+      }
+
+      table {
+        min-width: 700px;
+      }
     }
   </style>
 </head>
 <body>
-  <h2>Sheet Data – View Only Table</h2>
-  <table id="sheetTable">
-    <thead>
-      <tr>
-        <th onclick="sortTable(0)">Serial</th>
-        <th onclick="sortTable(1)">Description</th>
-        <th onclick="sortTable(2)">Period</th>
-        <th onclick="sortTable(3)">Drive Link</th>
-      </tr>
-    </thead>
-    <tbody id="tableBody"></tbody>
-  </table>
+  <div class="wrap">
+    <div class="hero">
+      <h2>Sheet Data – View Only <span class="badge">Public View</span></h2>
+      <p>यहाँ sheet data साफ़, आसान और read-only रूप में दिखाया जा रहा है। PDF link पर क्लिक करके file preview में खोलें।</p>
+    </div>
+
+    <div class="card">
+      <div class="table-wrap">
+        <table id="sheetTable">
+          <thead>
+            <tr>
+              <th onclick="sortTable(0)">Serial</th>
+              <th onclick="sortTable(1)">Description</th>
+              <th onclick="sortTable(2)">Period</th>
+              <th onclick="sortTable(3)">Drive Link</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+      <div class="note">Click column headings to sort. PDF links open in preview mode.</div>
+    </div>
+  </div>
 
   <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbx2I2cm7tmVFoGU4zUaYyXHunt2Z8LrBF84mkOK2vqkRtCw_yxeFrEnMa1Wk1rAk2pT/exec?path=data";
@@ -83,7 +260,7 @@
         tbody.innerHTML = '';
 
         if (!Array.isArray(data) || !data.length) {
-          tbody.innerHTML = "<tr><td colspan='4'>No data in sheet.</td></tr>";
+          tbody.innerHTML = "<tr><td colspan='4' class='empty'>No data in sheet.</td></tr>";
           return;
         }
 
@@ -92,14 +269,17 @@
           const tr = document.createElement('tr');
 
           const tdSn = document.createElement('td');
+          tdSn.className = 'serial';
           tdSn.textContent = idx + 1;
           tr.appendChild(tdSn);
 
           const tdDesc = document.createElement('td');
+          tdDesc.className = 'desc';
           tdDesc.textContent = desc || '';
           tr.appendChild(tdDesc);
 
           const tdDate = document.createElement('td');
+          tdDate.className = 'period';
           tdDate.dataset.sort = period || '';
           const d = new Date(period);
           tdDate.textContent = isNaN(d.getTime()) ? '' : d.toLocaleDateString('en-GB');
@@ -110,6 +290,7 @@
           a.href = getPdfUrl(shareLink, directLink);
           a.target = '_blank';
           a.rel = 'noopener noreferrer';
+          a.className = 'linkbtn';
           a.textContent = 'Open PDF';
           tdLink.appendChild(a);
           tr.appendChild(tdLink);
@@ -121,7 +302,7 @@
       } catch (err) {
         console.error('Error loading data:', err);
         document.getElementById('tableBody').innerHTML =
-          "<tr><td colspan='4'>Error loading data</td></tr>";
+          "<tr><td colspan='4' class='empty'>Error loading data</td></tr>";
       }
     }
 
