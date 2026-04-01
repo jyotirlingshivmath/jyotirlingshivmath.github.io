@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ज्योतिर्लिंग शिवमठ</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+body {
+  font-family: 'Mangal', sans-serif;
+  background-color: #fffbea;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ---------- Intro Section Styles ---------- */
+.intro-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 40px 20px;
+  gap: 20px;
+  background: linear-gradient(to bottom, #fff, #e8eaf6);
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.shivling-wrapper {
+  flex: 0 1 320px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.shivling-circle {
+  width: min(280px, 80vw);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.shivling-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.om-mantra-decorated {
+  text-align: center;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: bold;
+  color: darkred;
+  text-shadow: 2px 2px 6px #888;
+  margin-top: 10px;
+  word-break: break-word;
+}
+
+.info-box {
+  flex: 1 1 300px;
+  min-width: 0;
+  padding: 35px;
+  border-radius: 14px;
+  background: linear-gradient(to right, #f3e5f5, #e8def8);
+  border: 4px double #4a148c;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  font-size: clamp(1rem, 2.4vw, 1.35rem);
+  color: #880e4f;
+  max-width: 480px;
+  width: 100%;
+  text-align: justify;
+}
+
+.info-box h2 {
+  text-align: center;
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+  margin-bottom: 18px;
+  word-break: break-word;
+}
+
+.info-box ul {
+  list-style-type: '🕉️ ';
+  padding-left: 20px;
+  margin: 0;
+}
+
+.info-box li {
+  margin-bottom: 10px;
+  overflow-wrap: break-word;
+}
+
+.red { color: #b71c1c; }
+.blue { color: #0d47a1; }
+
+.full-width-photo {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ---------- Tablet ---------- */
+@media (max-width: 992px) {
+  .intro-section {
+    justify-content: center;
+  }
+
+  .info-box {
+    max-width: 100%;
+  }
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 768px) {
+  .intro-section {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 10px;
+    gap: 16px;
+  }
+
+  .info-box {
+    max-width: 100%;
+    width: 100%;
+    font-size: 1rem;
+    padding: 20px;
+  }
+
+  .shivling-wrapper {
+    flex: 0 1 auto;
+    width: 100%;
+  }
+
+  .shivling-circle {
+    width: min(200px, 70vw);
+  }
+
+  .om-mantra-decorated {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .info-box {
+    padding: 16px;
+  }
+
+  .info-box ul {
+    padding-left: 16px;
+  }
+
+  .om-mantra-decorated {
+    font-size: 1.35rem;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="header"></div>
+
+<script>
+fetch("header.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("header").innerHTML = data;
+
+    const text = document.getElementById("scrollingText");
+    if (!text) return;
+
+    let pos = window.innerWidth;
+    function scrollText() {
+      pos -= 1;
+      if (pos < -text.offsetWidth) {
+        pos = window.innerWidth;
+      }
+      text.style.transform = `translateX(${pos}px)`;
+      requestAnimationFrame(scrollText);
+    }
+    scrollText();
+  });
+</script>
+
+<div class="intro-section">
+
+  <div class="info-box">
+    <h2>🔱 <span class="blue">ज्योतिर्लिंग शिवमठ के नाम अनूठी उपलब्धियां</span> 🔱</h2>
+    <ul>
+      <li><span class="red">प्रति वर्ष 400 से अधिक रुद्राभिषेक पूजन।</span></li>
+      <li><span class="red">कोई मूल्य निर्धारित नहीं एवं कोई मांग/जांच नहीं।</span></li>
+      <li><span class="red">अन्यत्र पूजन पर भी कोई शुल्क निर्धारित नहीं।</span></li>
+      <li><span class="red">शिवलिंग पर उभरा हुआ ॐ आज भी प्रत्यक्ष है।</span></li>
+    </ul>
+  </div>
+
+  <div class="shivling-wrapper">
+    <div class="shivling-circle">
+      <img src="shivling_transparent.png" alt="Shivling">
+    </div>
+    <h1 class="om-mantra-decorated">ॐ नमः शिवाय</h1>
+  </div>
+
+  <div class="info-box">
+    <h2>🎯 <span class="blue">ज्योतिर्लिंग शिवमठ के उद्देश्य</span></h2>
+    <ul>
+      <li><span class="red">शिव उपासना की विशुद्ध एवं निष्कलंक परंपरा को जन-जन तक पहुँचाना।</span></li>
+      <li><span class="red">धार्मिक, आध्यात्मिक एवं सांस्कृतिक चेतना का प्रचार-प्रसार।</span></li>
+      <li><span class="red">गौ सेवा, निर्धनों की सेवा, पर्यावरण संरक्षण जैसे लोकहितकारी कार्यों में संलग्नता।</span></li>
+    </ul>
+  </div>
+
+</div>
+
+<img src="photo2.jpg" alt="Photo" class="full-width-photo">
+
+</body>
+</html>
