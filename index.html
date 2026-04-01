@@ -6,6 +6,8 @@
 <title>ज्योतिर्लिंग शिवमठ</title>
 
 <style>
+/* ======== FINAL FIXED PAGE – LEFT RIGHT BOXES EQUAL, CENTER SHIVLING UNCHANGED ======== */
+
 * {
   box-sizing: border-box;
 }
@@ -13,8 +15,9 @@
 html, body {
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
+  width: 100%;
   max-width: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -31,18 +34,23 @@ img {
 /* ---------- Intro Section Styles ---------- */
 .intro-section {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
-  padding: 40px 20px;
-  gap: 20px;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  padding: 30px 12px;
+  gap: 10px;
   background: linear-gradient(to bottom, #fff, #e8eaf6);
   width: 100%;
-  overflow-x: hidden;
 }
 
-.shivling-wrapper {
-  flex: 0 1 320px;
+.intro-section > .info-box {
+  flex: 1 1 0;
+  width: 0;
+  min-width: 0;
+}
+
+.intro-section > div:nth-child(2) {
+  flex: 0 0 28%;
   min-width: 0;
   display: flex;
   flex-direction: column;
@@ -50,7 +58,8 @@ img {
 }
 
 .shivling-circle {
-  width: min(280px, 80vw);
+  width: min(240px, 100%);
+  height: auto;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.9);
@@ -59,118 +68,101 @@ img {
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  margin: 0 auto;
 }
 
 .shivling-circle img {
-  width: 100%;
-  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
 }
 
 .om-mantra-decorated {
   text-align: center;
-  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-size: clamp(1rem, 2.2vw, 2.4rem);
   font-weight: bold;
   color: darkred;
   text-shadow: 2px 2px 6px #888;
   margin-top: 10px;
-  word-break: break-word;
+  line-height: 1.2;
 }
 
 .info-box {
-  flex: 1 1 300px;
-  min-width: 0;
-  padding: 35px;
+  padding: clamp(10px, 2vw, 35px);
   border-radius: 14px;
   background: linear-gradient(to right, #f3e5f5, #e8def8);
   border: 4px double #4a148c;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
-  font-size: clamp(1rem, 2.4vw, 1.35rem);
+  font-size: clamp(0.72rem, 1.25vw, 1.35rem);
   color: #880e4f;
-  max-width: 480px;
-  width: 100%;
   text-align: justify;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .info-box h2 {
   text-align: center;
-  font-size: clamp(1.2rem, 3vw, 1.6rem);
-  margin-bottom: 18px;
-  word-break: break-word;
+  font-size: clamp(0.82rem, 1.5vw, 1.6rem);
+  margin-bottom: 12px;
+  margin-top: 0;
+  line-height: 1.3;
 }
 
 .info-box ul {
   list-style-type: '🕉️ ';
-  padding-left: 20px;
+  padding-left: 18px;
   margin: 0;
 }
 
 .info-box li {
-  margin-bottom: 10px;
-  overflow-wrap: break-word;
+  margin-bottom: 8px;
+  line-height: 1.4;
 }
 
 .red { color: #b71c1c; }
 .blue { color: #0d47a1; }
 
-.full-width-photo {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* ---------- Tablet ---------- */
-@media (max-width: 992px) {
-  .intro-section {
-    justify-content: center;
-  }
-
-  .info-box {
-    max-width: 100%;
-  }
-}
-
-/* ---------- Mobile ---------- */
 @media (max-width: 768px) {
   .intro-section {
-    flex-direction: column;
-    align-items: center;
-    padding: 20px 10px;
-    gap: 16px;
+    padding: 14px 6px;
+    gap: 6px;
   }
 
-  .info-box {
-    max-width: 100%;
-    width: 100%;
-    font-size: 1rem;
-    padding: 20px;
+  .intro-section > .info-box {
+    flex: 1 1 0;
+    width: 0;
   }
 
-  .shivling-wrapper {
-    flex: 0 1 auto;
-    width: 100%;
+  .intro-section > div:nth-child(2) {
+    flex: 0 0 28%;
   }
 
   .shivling-circle {
-    width: min(200px, 70vw);
+    width: min(150px, 100%);
   }
 
-  .om-mantra-decorated {
-    font-size: 1.6rem;
-  }
-}
-
-@media (max-width: 480px) {
   .info-box {
-    padding: 16px;
+    padding: 8px;
+    font-size: clamp(0.62rem, 2.2vw, 0.9rem);
+  }
+
+  .info-box h2 {
+    font-size: clamp(0.72rem, 2.5vw, 1rem);
+    margin-bottom: 8px;
   }
 
   .info-box ul {
-    padding-left: 16px;
+    padding-left: 14px;
+  }
+
+  .info-box li {
+    margin-bottom: 5px;
+    line-height: 1.25;
   }
 
   .om-mantra-decorated {
-    font-size: 1.35rem;
+    font-size: clamp(0.8rem, 3vw, 1.2rem);
+    margin-top: 8px;
   }
 }
 </style>
@@ -178,6 +170,7 @@ img {
 
 <body>
 
+<!-- 🔱 HEADER FETCH -->
 <div id="header"></div>
 
 <script>
@@ -214,7 +207,7 @@ fetch("header.html")
     </ul>
   </div>
 
-  <div class="shivling-wrapper">
+  <div>
     <div class="shivling-circle">
       <img src="shivling_transparent.png" alt="Shivling">
     </div>
@@ -232,7 +225,7 @@ fetch("header.html")
 
 </div>
 
-<img src="photo2.jpg" alt="Photo" class="full-width-photo">
+<img src="photo2.jpg" alt="Photo" style="width:100%;height:auto;display:block;">
 
 </body>
 </html>
