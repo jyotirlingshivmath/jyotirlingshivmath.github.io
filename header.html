@@ -27,18 +27,21 @@
 
 /* ================= SIDE IMAGES (Left + Right Shiv) ================= */
 .nav-side-image {
-  flex: 0 0 120px;
+  flex: 0 0 140px;            /* desktop पर थोड़ा ज़्यादा जगह */
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 0;
+  min-width: 90px;           /* mobile पर कम से कम यही साइज़ */
+  max-width: 160px;          /* बहुत बड़ा न हो */
 }
 
 .nav-side-image img {
-  max-width: 100%;
-  max-height: 100px;
-  height: auto;
-  object-fit: contain;
+  width: 100%;               /* container के हिसाब से बढ़े‑घटे */
+  height: auto;              /* अनुपात बरकरार */
+  max-height: 120px;         /* desktop पर ऊपर से limit */
+  object-fit: contain;       /* तस्वीर काटे नहीं */
+  border-radius: 4px;        /* optional: थोड़ी शान */
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
 
 /* ================= CENTER (टाइटल + नेविगेशन बटन) ================= */
@@ -110,15 +113,15 @@
 /* ================= MOBILE RESPONSIVE ================= */
 
 /* बहुत छोटी स्क्रीन (मोबाइल) */
-@media (max-width: 576px) {
+@media (max-width: 991px) {
   .nav-side-image {
-    flex: 0 0 90px;
+    flex: 0 0 110px;         /* mobile और tablet पर अच्छा बैलेंस */
   }
 
-  .nav-side-image img {
-    max-height: 70px;
+ .nav-side-image img {
+    max-height: 90px;        /* बहुत छोटी न हो */
   }
-
+}
   .nav-title {
     font-size: 1.6rem;
   }
