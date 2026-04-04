@@ -83,10 +83,15 @@ h2 {
     border-radius: 6px;
     cursor: pointer;
     min-width: 80px;
+    transition: all 0.3s;
 }
 
 .play-btn:hover {
     background: #6a1b9a;
+}
+
+.play-btn.error {
+    background: #d32f2f;
 }
 
 .time {
@@ -108,6 +113,7 @@ h2 {
     width: 0%;
     height: 100%;
     background: linear-gradient(45deg, #4a148c, #7b1fa2);
+    transition: width 0.1s;
 }
 
 button.pdf-btn {
@@ -134,12 +140,10 @@ button.pdf-btn:hover {
     .bhajan-grid {
         grid-template-columns: 1fr;
     }
-
     .player-container {
         flex-direction: column;
         align-items: stretch;
     }
-
     button.pdf-btn {
         width: 100%;
     }
@@ -148,98 +152,85 @@ button.pdf-btn:hover {
 </head>
 
 <body>
-
 <div id="header-placeholder"></div>
 
 <div class="container">
     <h2>🔱 शिव भजन 🔱</h2>
 
     <div class="bhajan-grid">
-
+        <!-- ✅ WORKING FILES - GitHub RAW URLs -->
         <div class="bhajan-card">
-            <div class="bhajan-title">शिव तांडवक (रचनाकार- महंत राजेश तिवारी)</div>
+            <div class="bhajan-title">शिव तांडवक</div>
             <div class="player-container">
                 <div class="universal-player">
-                    <button class="play-btn" onclick="togglePlay(this, '../bhajan_audio/shiv_bhajan_2.mp3')">Play</button>
-                    <div class="progress" onclick="seekAudio(this, event)">
-                        <div class="progress-bar"></div>
-                    </div>
+                    <button class="play-btn" onclick="togglePlay(this, 'https://raw.githubusercontent.com/jyotirlingshivmath/jyotirlingshivmath.github.io/main/bhajan_audio/shiv_bhajan_1.mp3')">Play</button>
+                    <div class="progress" onclick="seekAudio(this, event)"><div class="progress-bar"></div></div>
                     <div class="time">00:00</div>
                 </div>
-                <button class="pdf-btn" onclick="window.open('bhajan1.pdf','_blank')">Download PDF</button>
+                <button class="pdf-btn" onclick="window.open('bhajan1.pdf','_blank')">PDF</button>
             </div>
         </div>
 
         <div class="bhajan-card">
-            <div class="bhajan-title">MATA DURGA KE BHAJAN</div>
+            <div class="bhajan-title">शिव भजन 3</div>
             <div class="player-container">
                 <div class="universal-player">
-                    <button class="play-btn" onclick="togglePlay(this, '../bhajan_audio/shiv_bhajan_1.mp3')">Play</button>
-                    <div class="progress" onclick="seekAudio(this, event)">
-                        <div class="progress-bar"></div>
-                    </div>
+                    <button class="play-btn" onclick="togglePlay(this, 'https://raw.githubusercontent.com/jyotirlingshivmath/jyotirlingshivmath.github.io/main/bhajan_audio/shiv_bhajan_3.mp3')">Play</button>
+                    <div class="progress" onclick="seekAudio(this, event)"><div class="progress-bar"></div></div>
                     <div class="time">00:00</div>
                 </div>
-                <button class="pdf-btn" onclick="window.open('bhajan1.pdf','_blank')">Download PDF</button>
+                <button class="pdf-btn" onclick="window.open('bhajan3.pdf','_blank')">PDF</button>
             </div>
         </div>
 
         <div class="bhajan-card">
-            <div class="bhajan-title">shiv_bhajan_3.mp3</div>
+            <div class="bhajan-title">शिव भजन 9</div>
             <div class="player-container">
                 <div class="universal-player">
-                    <button class="play-btn" onclick="togglePlay(this, '../bhajan_audio/shiv_bhajan_3.mp3')">Play</button>
-                    <div class="progress" onclick="seekAudio(this, event)">
-                        <div class="progress-bar"></div>
-                    </div>
+                    <button class="play-btn" onclick="togglePlay(this, 'https://raw.githubusercontent.com/jyotirlingshivmath/jyotirlingshivmath.github.io/main/bhajan_audio/shiv_bhajan_9.mp3')">Play</button>
+                    <div class="progress" onclick="seekAudio(this, event)"><div class="progress-bar"></div></div>
                     <div class="time">00:00</div>
                 </div>
-                <button class="pdf-btn" onclick="window.open('bhajan3.pdf','_blank')">Download PDF</button>
+                <button class="pdf-btn" onclick="window.open('bhajan9.pdf','_blank')">PDF</button>
             </div>
         </div>
 
         <div class="bhajan-card">
-            <div class="bhajan-title">shiv_bhajan_4.mp3</div>
+            <div class="bhajan-title">शिव भजन 22</div>
             <div class="player-container">
                 <div class="universal-player">
-                    <button class="play-btn" onclick="togglePlay(this, '../bhajan_audio/shiv_bhajan_4.mp3')">Play</button>
-                    <div class="progress" onclick="seekAudio(this, event)">
-                        <div class="progress-bar"></div>
-                    </div>
+                    <button class="play-btn" onclick="togglePlay(this, 'https://raw.githubusercontent.com/jyotirlingshivmath/jyotirlingshivmath.github.io/main/bhajan_audio/shiv_bhajan_22.mp3')">Play</button>
+                    <div class="progress" onclick="seekAudio(this, event)"><div class="progress-bar"></div></div>
                     <div class="time">00:00</div>
                 </div>
-                <button class="pdf-btn" onclick="window.open('bhajan4.pdf','_blank')">Download PDF</button>
+                <button class="pdf-btn" onclick="window.open('bhajan22.pdf','_blank')">PDF</button>
+            </div>
+        </div>
+
+        <!-- ❌ MISSING FILES - Error handling dikhega -->
+        <div class="bhajan-card">
+            <div class="bhajan-title">शिव भजन 11</div>
+            <div class="player-container">
+                <div class="universal-player">
+                    <button class="play-btn" onclick="togglePlay(this, 'https://raw.githubusercontent.com/jyotirlingshivmath/jyotirlingshivmath.github.io/main/bhajan_audio/shiv_bhajan_11.mp3')">Play</button>
+                    <div class="progress" onclick="seekAudio(this, event)"><div class="progress-bar"></div></div>
+                    <div class="time">00:00</div>
+                </div>
+                <button class="pdf-btn" onclick="window.open('bhajan11.pdf','_blank')">PDF</button>
             </div>
         </div>
 
         <div class="bhajan-card">
-            <div class="bhajan-title">shiv_bhajan_5.mp3</div>
+            <div class="bhajan-title">शिव भजन 222</div>
             <div class="player-container">
                 <div class="universal-player">
-                    <button class="play-btn" onclick="togglePlay(this, '../bhajan_audio/shiv_bhajan_5.mp3')">Play</button>
-                    <div class="progress" onclick="seekAudio(this, event)">
-                        <div class="progress-bar"></div>
-                    </div>
+                    <button class="play-btn" onclick="togglePlay(this, 'https://raw.githubusercontent.com/jyotirlingshivmath/jyotirlingshivmath.github.io/main/bhajan_audio/shiv_bhajan_222.mp3')">Play</button>
+                    <div class="progress" onclick="seekAudio(this, event)"><div class="progress-bar"></div></div>
                     <div class="time">00:00</div>
                 </div>
-                <button class="pdf-btn" onclick="window.open('bhajan5.pdf','_blank')">Download PDF</button>
+                <button class="pdf-btn" onclick="window.open('bhajan222.pdf','_blank')">PDF</button>
             </div>
         </div>
-
-        <div class="bhajan-card">
-            <div class="bhajan-title">shiv_bhajan_6.mp3</div>
-            <div class="player-container">
-                <div class="universal-player">
-                    <button class="play-btn" onclick="togglePlay(this, '../bhajan_audio/shiv_bhajan_6.mp3')">Play</button>
-                    <div class="progress" onclick="seekAudio(this, event)">
-                        <div class="progress-bar"></div>
-                    </div>
-                    <div class="time">00:00</div>
-                </div>
-                <button class="pdf-btn" onclick="window.open('bhajan6.pdf','_blank')">Download PDF</button>
-            </div>
-        </div>
-
     </div>
 </div>
 
@@ -251,6 +242,7 @@ let currentCard = null;
 function togglePlay(btn, src) {
     const card = btn.closest('.bhajan-card');
 
+    // Same track toggle
     if (currentSound && currentBtn === btn) {
         if (currentSound.playing()) {
             currentSound.pause();
@@ -263,14 +255,21 @@ function togglePlay(btn, src) {
         }
     }
 
+    // Stop previous
     if (currentSound) {
         currentSound.stop();
+        currentSound.unload();
         if (currentBtn) currentBtn.textContent = 'Play';
     }
 
+    btn.textContent = 'Loading...';
+    
     currentSound = new Howl({
         src: [src],
         html5: true,
+        onload: function() {
+            currentSound.play();
+        },
         onplay: function() {
             btn.textContent = 'Pause';
             currentBtn = btn;
@@ -287,10 +286,18 @@ function togglePlay(btn, src) {
         onend: function() {
             btn.textContent = 'Play';
             resetProgress(card);
+        },
+        onloaderror: function(id, err) {
+            btn.textContent = '❌ File Missing';
+            btn.classList.add('error');
+            console.error('Audio load failed:', src);
+        },
+        onplayerror: function(id, err) {
+            btn.textContent = '❌ Play Error';
+            btn.classList.add('error');
+            console.error('Audio play failed:', src);
         }
     });
-
-    currentSound.play();
 }
 
 function updateProgress() {
@@ -339,7 +346,6 @@ fetch('header.html')
 .then(html => {
     const placeholder = document.getElementById('header-placeholder');
     placeholder.innerHTML = html;
-
     const scripts = placeholder.querySelectorAll("script");
     scripts.forEach(oldScript => {
         const newScript = document.createElement("script");
