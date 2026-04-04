@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>शिव भजन</title>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js"></script>
+
 <style>
 body {
     font-family: 'Mukta', sans-serif;
@@ -27,9 +29,6 @@ h2 {
     color: #b71c1c;
 }
 
-/* =========================
-   Bhajan Grid (CENTER FIX)
-   ========================= */
 .bhajan-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -61,48 +60,54 @@ h2 {
     display: flex;
     align-items: center;
     gap: 10px;
+    flex-wrap: wrap;
 }
 
-/* 🎵 UNIVERSAL AUDIO PLAYER - KISI BHI MP3 KO CHALEGA 🎵 */
 .universal-player {
     flex: 1;
     min-width: 150px;
-    height: 50px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
 }
 
-.universal-player audio {
-    width: 100%;
-    height: 100%;
-    outline: none;
+.play-btn {
+    padding: 8px 14px;
+    background: #4a148c;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    min-width: 80px;
 }
 
-.universal-player audio::-webkit-media-controls-panel {
-    background: linear-gradient(45deg, #4a148c, #7b1fa2);
-    border-radius: 8px;
-    padding: 5px;
+.play-btn:hover {
+    background: #6a1b9a;
 }
 
-.universal-player audio::-webkit-media-controls-play-button,
-.universal-player audio::-webkit-media-controls-mute-button {
-    background: #fff;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
+.time {
+    font-size: 14px;
+    color: #444;
+    min-width: 60px;
 }
 
-.universal-player audio::-webkit-media-controls-play-button:hover {
-    background: #ffeb3b !important;
-    transform: scale(1.1);
-}
-
-.universal-player audio::-webkit-media-controls-timeline {
-    background: rgba(255,255,255,0.8);
-    border-radius: 5px;
+.progress {
+    flex: 1;
     height: 6px;
+    background: #e0e0e0;
+    border-radius: 999px;
+    overflow: hidden;
+    cursor: pointer;
 }
 
-.universal-player audio::-webkit-media-controls-volume-slider {
-    background: rgba(255,255,255,0.8);
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(45deg, #4a148c, #7b1fa2);
 }
 
 button.pdf-btn {
@@ -118,9 +123,6 @@ button.pdf-btn:hover {
     background: #6a1b9a;
 }
 
-/* =========================
-   Responsive
-   ========================= */
 @media (max-width: 900px) {
     .bhajan-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -147,7 +149,6 @@ button.pdf-btn:hover {
 
 <body>
 
-<!-- Header Include -->
 <div id="header-placeholder"></div>
 
 <div class="container">
@@ -159,11 +160,11 @@ button.pdf-btn:hover {
             <div class="bhajan-title">शिव तांडवक (रचनाकार- महंत राजेश तिवारी)</div>
             <div class="player-container">
                 <div class="universal-player">
-                    <audio controls preload="metadata">
-                        <source src="../bhajan_audio/shiv_bhajan_2.mp3" type="audio/mpeg">
-                        <source src="../bhajan_audio/shiv_bhajan_2.mp3" type="audio/mp3">
-                        Your browser does not support the audio element.
-                    </audio>
+                    <button class="play-btn" onclick="togglePlay(this, '../bhajan_audio/shiv_bhajan_2.mp3')">Play</button>
+                    <div class="progress" onclick="seekAudio(this, event)">
+                        <div class="progress-bar"></div>
+                    </div>
+                    <div class="time">00:00</div>
                 </div>
                 <button class="pdf-btn" onclick="window.open('bhajan1.pdf','_blank')">Download PDF</button>
             </div>
@@ -173,11 +174,11 @@ button.pdf-btn:hover {
             <div class="bhajan-title">MATA DURGA KE BHAJAN</div>
             <div class="player-container">
                 <div class="universal-player">
-                    <audio controls preload="metadata">
-                        <source src="../bhajan_audio/shiv_bhajan_1.mp3" type="audio/mpeg">
-                        <source src="../bhajan_audio/shiv_bhajan_1.mp3" type="audio/mp3">
-                        Your browser does not support the audio element.
-                    </audio>
+                    <button class="play-btn" onclick="togglePlay(this, '../bhajan_audio/shiv_bhajan_1.mp3')">Play</button>
+                    <div class="progress" onclick="seekAudio(this, event)">
+                        <div class="progress-bar"></div>
+                    </div>
+                    <div class="time">00:00</div>
                 </div>
                 <button class="pdf-btn" onclick="window.open('bhajan1.pdf','_blank')">Download PDF</button>
             </div>
@@ -187,11 +188,11 @@ button.pdf-btn:hover {
             <div class="bhajan-title">shiv_bhajan_3.mp3</div>
             <div class="player-container">
                 <div class="universal-player">
-                    <audio controls preload="metadata">
-                        <source src="../bhajan_audio/shiv_bhajan_3.mp3" type="audio/mpeg">
-                        <source src="../bhajan_audio/shiv_bhajan_3.mp3" type="audio/mp3">
-                        Your browser does not support the audio element.
-                    </audio>
+                    <button class="play-btn" onclick="togglePlay(this, '../bhajan_audio/shiv_bhajan_3.mp3')">Play</button>
+                    <div class="progress" onclick="seekAudio(this, event)">
+                        <div class="progress-bar"></div>
+                    </div>
+                    <div class="time">00:00</div>
                 </div>
                 <button class="pdf-btn" onclick="window.open('bhajan3.pdf','_blank')">Download PDF</button>
             </div>
@@ -201,11 +202,11 @@ button.pdf-btn:hover {
             <div class="bhajan-title">shiv_bhajan_4.mp3</div>
             <div class="player-container">
                 <div class="universal-player">
-                    <audio controls preload="metadata">
-                        <source src="../bhajan_audio/shiv_bhajan_4.mp3" type="audio/mpeg">
-                        <source src="../bhajan_audio/shiv_bhajan_4.mp3" type="audio/mp3">
-                        Your browser does not support the audio element.
-                    </audio>
+                    <button class="play-btn" onclick="togglePlay(this, '../bhajan_audio/shiv_bhajan_4.mp3')">Play</button>
+                    <div class="progress" onclick="seekAudio(this, event)">
+                        <div class="progress-bar"></div>
+                    </div>
+                    <div class="time">00:00</div>
                 </div>
                 <button class="pdf-btn" onclick="window.open('bhajan4.pdf','_blank')">Download PDF</button>
             </div>
@@ -215,11 +216,11 @@ button.pdf-btn:hover {
             <div class="bhajan-title">shiv_bhajan_5.mp3</div>
             <div class="player-container">
                 <div class="universal-player">
-                    <audio controls preload="metadata">
-                        <source src="../bhajan_audio/shiv_bhajan_5.mp3" type="audio/mpeg">
-                        <source src="../bhajan_audio/shiv_bhajan_5.mp3" type="audio/mp3">
-                        Your browser does not support the audio element.
-                    </audio>
+                    <button class="play-btn" onclick="togglePlay(this, '../bhajan_audio/shiv_bhajan_5.mp3')">Play</button>
+                    <div class="progress" onclick="seekAudio(this, event)">
+                        <div class="progress-bar"></div>
+                    </div>
+                    <div class="time">00:00</div>
                 </div>
                 <button class="pdf-btn" onclick="window.open('bhajan5.pdf','_blank')">Download PDF</button>
             </div>
@@ -229,11 +230,11 @@ button.pdf-btn:hover {
             <div class="bhajan-title">shiv_bhajan_6.mp3</div>
             <div class="player-container">
                 <div class="universal-player">
-                    <audio controls preload="metadata">
-                        <source src="../bhajan_audio/shiv_bhajan_6.mp3" type="audio/mpeg">
-                        <source src="../bhajan_audio/shiv_bhajan_6.mp3" type="audio/mp3">
-                        Your browser does not support the audio element.
-                    </audio>
+                    <button class="play-btn" onclick="togglePlay(this, '../bhajan_audio/shiv_bhajan_6.mp3')">Play</button>
+                    <div class="progress" onclick="seekAudio(this, event)">
+                        <div class="progress-bar"></div>
+                    </div>
+                    <div class="time">00:00</div>
                 </div>
                 <button class="pdf-btn" onclick="window.open('bhajan6.pdf','_blank')">Download PDF</button>
             </div>
@@ -243,6 +244,96 @@ button.pdf-btn:hover {
 </div>
 
 <script>
+let currentSound = null;
+let currentBtn = null;
+let currentCard = null;
+
+function togglePlay(btn, src) {
+    const card = btn.closest('.bhajan-card');
+
+    if (currentSound && currentBtn === btn) {
+        if (currentSound.playing()) {
+            currentSound.pause();
+            btn.textContent = 'Play';
+            return;
+        } else {
+            currentSound.play();
+            btn.textContent = 'Pause';
+            return;
+        }
+    }
+
+    if (currentSound) {
+        currentSound.stop();
+        if (currentBtn) currentBtn.textContent = 'Play';
+    }
+
+    currentSound = new Howl({
+        src: [src],
+        html5: true,
+        onplay: function() {
+            btn.textContent = 'Pause';
+            currentBtn = btn;
+            currentCard = card;
+            updateProgress();
+        },
+        onpause: function() {
+            btn.textContent = 'Play';
+        },
+        onstop: function() {
+            btn.textContent = 'Play';
+            resetProgress(card);
+        },
+        onend: function() {
+            btn.textContent = 'Play';
+            resetProgress(card);
+        }
+    });
+
+    currentSound.play();
+}
+
+function updateProgress() {
+    if (!currentSound || !currentCard) return;
+
+    const duration = currentSound.duration() || 0;
+    const seek = currentSound.seek() || 0;
+    const percent = duration ? (seek / duration) * 100 : 0;
+
+    const bar = currentCard.querySelector('.progress-bar');
+    const timeEl = currentCard.querySelector('.time');
+
+    if (bar) bar.style.width = percent + '%';
+    if (timeEl) timeEl.textContent = formatTime(seek);
+
+    if (currentSound.playing()) {
+        requestAnimationFrame(updateProgress);
+    }
+}
+
+function seekAudio(progressEl, event) {
+    if (!currentSound) return;
+    const rect = progressEl.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const percent = x / rect.width;
+    const duration = currentSound.duration();
+    currentSound.seek(duration * percent);
+}
+
+function resetProgress(card) {
+    const bar = card.querySelector('.progress-bar');
+    const timeEl = card.querySelector('.time');
+    if (bar) bar.style.width = '0%';
+    if (timeEl) timeEl.textContent = '00:00';
+}
+
+function formatTime(sec) {
+    sec = Math.floor(sec || 0);
+    const m = Math.floor(sec / 60);
+    const s = sec % 60;
+    return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+}
+
 fetch('header.html')
 .then(response => response.text())
 .then(html => {
