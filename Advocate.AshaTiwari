@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advocate Asha | Lawyer in Lucknow</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Poppins',sans-serif;background:#f5f5f5;color:#222}
+header{background:#0b1a2f;color:#fff;padding:20px;text-align:center}
+nav{display:flex;justify-content:center;background:#142b4d;padding:10px}
+nav a{color:#fff;margin:0 15px;text-decoration:none;font-weight:500}
+nav a:hover{color:#ffd700}
+.hero{background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f');background-size:cover;color:#fff;text-align:center;padding:100px 20px}
+.hero h1{font-size:40px;margin-bottom:10px}
+.hero p{font-size:18px}
+.btn{background:#ffd700;color:#000;padding:10px 20px;text-decoration:none;border-radius:5px}
+.section{padding:50px 20px;text-align:center}
+.cards{display:flex;flex-wrap:wrap;justify-content:center;gap:20px}
+.card{background:#fff;padding:20px;border-radius:10px;width:280px;box-shadow:0 5px 15px rgba(0,0,0,0.1)}
+footer{background:#0b1a2f;color:#fff;text-align:center;padding:20px}
+@media(max-width:768px){.cards{flex-direction:column;align-items:center}}
+</style>
+</head>
+<body>
+<header>
+<h1>Advocate Asha</h1>
+<p>Legal Services | Lucknow</p>
+</header>
+<nav>
+<a href="#">Home</a>
+<a href="#about">About</a>
+<a href="#services">Services</a>
+<a href="#contact">Contact</a>
+</nav>
+<section class="hero">
+<h1>Professional Legal Assistance</h1>
+<p>Dedicated to justice, integrity & client service</p>
+<a href="#contact" class="btn">Consult Now</a>
+</section>
+<section id="about" class="section">
+<h2>About</h2>
+<p>Advocate Asha is a practicing lawyer in Lucknow with expertise in civil, criminal and family law matters.</p>
+</section>
+<section id="services" class="section">
+<h2>Practice Areas</h2>
+<div class="cards">
+<div class="card"><h3>Civil Law</h3><p>Property disputes, contracts</p></div>
+<div class="card"><h3>Criminal Law</h3><p>Bail, defense cases</p></div>
+<div class="card"><h3>Family Law</h3><p>Divorce, custody matters</p></div>
+</div>
+</section>
+<section id="contact" class="section">
+<h2>Contact</h2>
+<p>📞 +91-XXXXXXXXXX</p>
+<p>📍 Lucknow, Uttar Pradesh</p>
+<p>📧 email@example.com</p>
+</section>
+<footer>
+<p>© 2026 Advocate Asha | All Rights Reserved</p>
+</footer>
+</body>
+</html>
