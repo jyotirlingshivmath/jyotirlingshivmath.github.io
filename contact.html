@@ -2,7 +2,7 @@
 <html lang="hi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=1024"> <!-- Force desktop width -->
+  <meta name="viewport" content="width=1024">
   <title>संपर्क करें - श्री ज्योतिर्लिंग शिवमठ</title>
   <style>
     body {
@@ -11,7 +11,11 @@
       padding: 0;
       background-color: #fffbea;
     }
-    #header-container { width: 100%; }
+
+    #header-container {
+      width: 100%;
+    }
+
     .contact-section {
       max-width: 800px;
       margin: 20px auto;
@@ -20,7 +24,12 @@
       border-radius: 10px;
       box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
     }
-    h2 { text-align: center; color: #8B0000; }
+
+    h2 {
+      text-align: center;
+      color: #8B0000;
+    }
+
     .address {
       background-color: #ffe4c4;
       padding: 15px;
@@ -29,8 +38,17 @@
       font-size: 18px;
       line-height: 1.6;
     }
-    form { display: flex; flex-direction: column; gap: 15px; }
-    label { font-weight: bold; }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
     input, textarea, select {
       padding: 10px;
       border: 1px solid #ccc;
@@ -38,6 +56,7 @@
       font-family: 'Mangal', sans-serif;
       font-size: 16px;
     }
+
     button {
       background-color: #8B0000;
       color: white;
@@ -47,15 +66,23 @@
       border-radius: 5px;
       cursor: pointer;
     }
-    button:hover { background-color: #a52a2a; }
 
-    /* 🔹 Ensure images keep same layout but shrink proportionally */
+    button:hover {
+      background-color: #a52a2a;
+    }
+
     img {
       max-width: 100%;
       height: auto;
     }
 
-    /* 🔹 On smaller devices, just reduce font-size proportionally */
+    #result {
+      margin-top: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+    }
+
     @media (max-width: 768px) {
       body {
         font-size: 14px;
@@ -68,7 +95,6 @@
 </head>
 <body>
 
-  <!-- Header fetch container -->
   <div id="header-container"></div>
 
   <div class="contact-section">
@@ -76,13 +102,18 @@
     <div class="address">
       महंत ज्योतिर्लिंग शिवमठ<br>
       शिवमठ मार्ग, रेलवे स्टेशन के पास, उतराठिया, बराोली, लखनऊ - 226014<br>
-      Mobile Number:  9794810005
+      Mobile Number: 9794810005
     </div>
 
     <h2>📩 संपर्क करें / पूजा बुकिंग</h2>
-    <h2>📩 ज्योतिर्लिंग शिवमठ पर किसी भी पूजन के लिए कोई शुल्क निर्धारित नहीं है सभी श्रद्धालु भक्तों से अनुरोध है कि वो पूजन की पवित्रता बनाये रखे</h2>
-    
+    <h2>📩 ज्योतिर्लिंग शिवमठ पर किसी भी पूजन के लिए कोई शुल्क निर्धारित नहीं है। सभी श्रद्धालु भक्तों से अनुरोध है कि वे पूजन की पवित्रता बनाए रखें।</h2>
+
     <form id="contactForm">
+      <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+      <input type="hidden" name="subject" value="नई पूजा बुकिंग - ज्योतिर्लिंग शिवमठ">
+      <input type="hidden" name="from_name" value="ज्योतिर्लिंग शिवमठ वेबसाइट">
+      <input type="checkbox" name="botcheck" style="display: none;">
+
       <label for="name">नाम:</label>
       <input type="text" id="name" name="name" placeholder="अपना नाम लिखें" required>
 
@@ -95,12 +126,12 @@
       <label for="pooja">आप कौन सी पूजा कराना चाहते हैं?</label>
       <select id="pooja" name="pooja" required>
         <option value="">-- पूजा का चयन करें --</option>
-        <option value="abhishek">शिव अभिषेक</option>
-        <option value="rudrabhishek">रुद्राभिषेक</option>
-        <option value="mahamrityunjay">महामृत्युंजय जाप</option>
-        <option value="laghu-rudra">लघु रुद्र</option>
-        <option value="havan">विशेष हवन</option>
-        <option value="other">अन्य</option>
+        <option value="शिव अभिषेक">शिव अभिषेक</option>
+        <option value="रुद्राभिषेक">रुद्राभिषेक</option>
+        <option value="महामृत्युंजय जाप">महामृत्युंजय जाप</option>
+        <option value="लघु रुद्र">लघु रुद्र</option>
+        <option value="विशेष हवन">विशेष हवन</option>
+        <option value="अन्य">अन्य</option>
       </select>
 
       <label for="date">पूजा की तिथि:</label>
@@ -110,18 +141,17 @@
       <textarea id="message" name="message" rows="5" placeholder="गुरु जी से मिलने के लिए अपना प्रयोजन लिखें"></textarea>
 
       <button type="submit">भेजें</button>
+      <div id="result"></div>
     </form>
   </div>
 
   <script>
-    // 🔹 Header fetch code with script execution
     fetch('header.html')
       .then(response => response.text())
       .then(data => {
         const container = document.getElementById('header-container');
         container.innerHTML = data;
 
-        // InnerHTML से आए हुए सभी script टैग execute करें
         const scripts = container.querySelectorAll('script');
         scripts.forEach(oldScript => {
           const newScript = document.createElement('script');
@@ -135,26 +165,44 @@
       })
       .catch(err => console.error('Header load error:', err));
 
-    // 🔹 Form submit code
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
+    const form = document.getElementById("contactForm");
+    const result = document.getElementById("result");
+
+    form.addEventListener("submit", function (e) {
       e.preventDefault();
 
-      const form = e.target;
-      const formData = new FormData(form);
+      result.innerHTML = "कृपया प्रतीक्षा करें...";
+      result.style.color = "#8B0000";
 
-      fetch("https://script.google.com/macros/s/AKfycbzBHHI_YA5ztL6WHiYjw82dLU9syXnYfsFbGMllzHaNo7J5SAsn7SYrHSbIz6OkxkHuSA/exec", {
+      const formData = new FormData(form);
+      const object = Object.fromEntries(formData);
+      const json = JSON.stringify(object);
+
+      fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        body: formData,
-        mode: "no-cors"
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: json
       })
-      .then(() => {
-        alert("✅ आपका संदेश सफलतापूर्वक भेज दिया गया है!");
-        form.reset();
+      .then(async (response) => {
+        let data = await response.json();
+        if (response.status == 200) {
+          result.innerHTML = "✅ आपका संदेश सफलतापूर्वक भेज दिया गया है।";
+          result.style.color = "green";
+          form.reset();
+        } else {
+          result.innerHTML = "❌ " + data.message;
+          result.style.color = "red";
+        }
       })
-      .catch(err => {
-        alert("❌ त्रुटि: " + err);
+      .catch(() => {
+        result.innerHTML = "❌ कुछ त्रुटि हो गई। कृपया पुनः प्रयास करें।";
+        result.style.color = "red";
       });
     });
   </script>
+
 </body>
 </html>
