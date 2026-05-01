@@ -1,126 +1,145 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>वीडियो गैलरी | श्री ज्योतिर्लिंग शिवमठ</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #fff8f0;
-}
+  <!-- SEO: Title -->
+  <title>वीडियो गैलरी – श्री ज्योतिर्लिंग शिवमठ लखनऊ | भक्तिमय वीडियो</title>
 
-/* Header placeholder */
-#header-placeholder {
-    width: 100%;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
+  <!-- SEO: Meta Description -->
+  <meta name="description" content="श्री ज्योतिर्लिंग शिवमठ लखनऊ की भक्तिमय वीडियो गैलरी। रुद्राभिषेक, शिव अभिषेक, शिव तांडवक और अन्य पूजा वीडियो। ज्योतिर्लिंग शिवमठ, लखनऊ।">
 
-/* Loading message */
-.loading-msg {
-    text-align: center;
-    padding: 30px 20px;
-    font-size: 1.2rem;
-    color: #5a0000;
-}
+  <!-- Canonical -->
+  <link rel="canonical" href="https://jyotirlingshivmath.in/vedios.html">
 
-/* Video gallery grid */
-.video-gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    padding: 20px;
-}
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:title" content="वीडियो गैलरी – श्री ज्योतिर्लिंग शिवमठ लखनऊ">
+  <meta property="og:description" content="भक्तिमय वीडियो गैलरी – रुद्राभिषेक, शिव अभिषेक, शिव तांडवक और अन्य पूजा वीडियो। श्री ज्योतिर्लिंग शिवमठ लखनऊ, लखनऊ।">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://jyotirlingshivmath.in/vedios.html">
+  <meta property="og:image" content="https://jyotirlingshivmath.in/shivling_thumbnail.jpg">
 
-/* Each video frame */
-.video-frame {
-    position: relative;
-    width: 100%;
-    padding-top: 56.25%; /* 16:9 Aspect Ratio */
-}
+  <!-- Google SEO settings -->
+  <meta name="robots" content="index, follow">
 
-.video-frame iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-}
-</style>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fff8f0;
+    }
+
+    /* Header placeholder */
+    #header-placeholder {
+      width: 100%;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    /* Loading message */
+    .loading-msg {
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 1.2rem;
+      color: #5a0000;
+    }
+
+    /* Video gallery grid */
+    .video-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    /* Each video frame */
+    .video-frame {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    }
+
+    .video-frame iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      /* এখানে YouTube 썸네일 로딩 + SEO에 안전 ↓ */
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- 🔱 Header Include -->
-<div id="header-placeholder"></div>
+  <!-- 🔱 Header Include -->
+  <div id="header-placeholder"></div>
 
-<script>
-fetch('header.html')
-.then(res => res.text())
-.then(data => {
-    const placeholder = document.getElementById('header-placeholder');
-    placeholder.innerHTML = data;
+  <script>
+    fetch('header.html')
+    .then(res => res.text())
+    .then(data => {
+        const placeholder = document.getElementById('header-placeholder');
+        placeholder.innerHTML = data;
 
-    // ✅ Fix: header ke scripts execute karna (scrolling strip kaam kare)
-    const scripts = placeholder.querySelectorAll("script");
-    scripts.forEach(oldScript => {
-        const newScript = document.createElement("script");
-        if(oldScript.src){
-            newScript.src = oldScript.src;
-        } else {
-            newScript.textContent = oldScript.textContent;
-        }
-        document.body.appendChild(newScript);
-        oldScript.remove();
-    });
-})
-.catch(err => console.log('Header load error:', err));
-</script>
+        // ✅ Fix: header ke scripts execute karna
+        const scripts = placeholder.querySelectorAll("script");
+        scripts.forEach(oldScript => {
+            const newScript = document.createElement("script");
+            if(oldScript.src){
+                newScript.src = oldScript.src;
+            } else {
+                newScript.textContent = oldScript.textContent;
+            }
+            document.body.appendChild(newScript);
+            oldScript.remove();
+        });
+    })
+    .catch(err => console.log('Header load error:', err));
+  </script>
 
-<!-- 🔽 Loading Message -->
-<div class="loading-msg" id="loadingMsg">
+  <!-- 🔽 Loading Message -->
+  <div class="loading-msg" id="loadingMsg">
     🔱 कृपया प्रतीक्षा करें… वीडियो लोड हो रहे हैं
-</div>
+  </div>
 
-<!-- 🔽 Video Gallery -->
-<div class="video-gallery" id="videoGallery">
+  <!-- 🔽 Video Gallery -->
+  <div class="video-gallery" id="videoGallery">
     <div class="video-frame">
-        <iframe src="https://www.youtube.com/embed/mv2DBwLYRHw" allowfullscreen onload="document.getElementById('loadingMsg').style.display='none';"></iframe>
+      <iframe src="https://www.youtube.com/embed/mv2DBwLYRHw" allowfullscreen onload="document.getElementById('loadingMsg').style.display='none';"></iframe>
     </div>
     
     <div class="video-frame">
-        <iframe src="https://www.youtube.com/embed/lJv0-rhzVE4" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/lJv0-rhzVE4" allowfullscreen></iframe>
     </div>
    
     <div class="video-frame">
-        <iframe src="https://www.youtube.com/embed/ifhfKMxR_2M" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/ifhfKMxR_2M" allowfullscreen></iframe>
     </div>
 
     <div class="video-frame">
-        <iframe src="https://www.youtube.com/embed/xzo4tToo-8U" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/xzo4tToo-8U" allowfullscreen></iframe>
     </div>
 
     <div class="video-frame">
-        <iframe src="https://www.youtube.com/embed/2tV2750E_70" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/2tV2750E_70" allowfullscreen></iframe>
     </div>
 
     <div class="video-frame">
-        <iframe src="https://www.youtube.com/embed/extDCiM7v_w" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/extDCiM7v_w" allowfullscreen></iframe>
     </div>
 
     <div class="video-frame">
-        <iframe src="https://www.youtube.com/embed/o1M1pyIONC8" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/o1M1pyIONC8" allowfullscreen></iframe>
     </div>
 
     <div class="video-frame">
-        <iframe src="https://www.youtube.com/embed/N1eAi-HXlDM" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/N1eAi-HXlDM" allowfullscreen></iframe>
     </div>
-</div>
+  </div>
 
 </body>
 </html>
