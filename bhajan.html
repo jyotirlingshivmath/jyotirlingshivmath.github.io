@@ -1,161 +1,181 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>शिव भजन</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js"></script>
+  <!-- SEO: Title -->
+  <title>शिव भजन – ज्योतिर्लिंग शिवमठ लखनऊ | ऑनलाइन ऑडियो भजन गैलरी</title>
 
-<style>
-body {
-    font-family: 'Mukta', sans-serif;
-    background: #fff8e1;
-    color: #4a148c;
-    margin: 0;
-    padding: 0;
-}
+  <!-- SEO: Meta Description -->
+  <meta name="description" content="श्री ज्योतिर्लिंग शिवमठ लखनऊ की शिव भजन और शिव तांडवक ऑडियो गैलरी। रचनाकार- भगवान शिव। भक्तिमय भजन ऑनलाइन सुनें।">
 
-.container {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 10px;
-}
+  <!-- Canonical -->
+  <link rel="canonical" href="https://jyotirlingshivmath.in/bhajan.html">
 
-h2 {
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 2.5rem;
-    color: #b71c1c;
-}
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:title" content="शिव भजन – ज्योतिर्लिंग शिवमठ लखनऊ">
+  <meta property="og:description" content="शिव भजन, शिव तांडवक और रचनाकार भगवान शिव के भक्तिमय ऑडियो भजन। ज्योतिर्लिंग शिवमठ लखनऊ, लखनऊ, उत्तर प्रदेश।">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://jyotirlingshivmath.in/bhajan.html">
+  <meta property="og:image" content="https://jyotirlingshivmath.in/shivbhajan_thumbnail.jpg">
 
-.bhajan-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    justify-content: center;
-    max-width: 1100px;
-    margin: 0 auto;
-}
+  <!-- Robots -->
+  <meta name="robots" content="index, follow">
 
-.bhajan-card {
-    background: #fff3e0;
-    border: 2px solid #ffe0b2;
-    border-radius: 12px;
-    padding: 15px;
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js"></script>
 
-.bhajan-title {
-    font-size: 1.3rem;
-    margin-bottom: 10px;
-    color: #4a148c;
-    text-align: center;
-}
+  <style>
+    body {
+      font-family: 'Mukta', sans-serif;
+      background: #fff8e1;
+      color: #4a148c;
+      margin: 0;
+      padding: 0;
+    }
 
-.player-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-}
+    .container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 10px;
+    }
 
-.universal-player {
-    flex: 1;
-    min-width: 150px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 10px;
-}
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2.5rem;
+      color: #b71c1c;
+    }
 
-.play-btn {
-    padding: 8px 14px;
-    background: #4a148c;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    min-width: 80px;
-    transition: all 0.3s;
-}
-
-.play-btn:hover {
-    background: #6a1b9a;
-}
-
-.play-btn.error {
-    background: #d32f2f;
-}
-
-.time {
-    font-size: 14px;
-    color: #444;
-    min-width: 60px;
-}
-
-.progress {
-    flex: 1;
-    height: 6px;
-    background: #e0e0e0;
-    border-radius: 999px;
-    overflow: hidden;
-    cursor: pointer;
-}
-
-.progress-bar {
-    width: 0%;
-    height: 100%;
-    background: linear-gradient(45deg, #4a148c, #7b1fa2);
-    transition: width 0.1s;
-}
-
-button.pdf-btn {
-    padding: 8px 12px;
-    background: #4a148c;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-button.pdf-btn:hover {
-    background: #6a1b9a;
-}
-
-@media (max-width: 900px) {
     .bhajan-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      justify-content: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .bhajan-card {
+      background: #fff3e0;
+      border: 2px solid #ffe0b2;
+      border-radius: 12px;
+      padding: 15px;
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .bhajan-title {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      color: #4a148c;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .player-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .universal-player {
+      flex: 1;
+      min-width: 150px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #ffffff;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 10px;
+    }
+
+    .play-btn {
+      padding: 8px 14px;
+      background: #4a148c;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      min-width: 80px;
+      transition: all 0.3s;
+    }
+
+    .play-btn:hover {
+      background: #6a1b9a;
+    }
+
+    .play-btn.error {
+      background: #d32f2f;
+    }
+
+    .time {
+      font-size: 14px;
+      color: #444;
+      min-width: 60px;
+    }
+
+    .progress {
+      flex: 1;
+      height: 6px;
+      background: #e0e0e0;
+      border-radius: 999px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(45deg, #4a148c, #7b1fa2);
+      transition: width 0.1s;
+    }
+
+    button.pdf-btn {
+      padding: 8px 12px;
+      background: #4a148c;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button.pdf-btn:hover {
+      background: #6a1b9a;
+    }
+
+    @media (max-width: 900px) {
+      .bhajan-grid {
         grid-template-columns: repeat(2, 1fr);
         max-width: 100%;
+      }
     }
-}
 
-@media (max-width: 600px) {
-    .bhajan-grid {
+    @media (max-width: 600px) {
+      .bhajan-grid {
         grid-template-columns: 1fr;
-    }
-    .player-container {
+      }
+      .player-container {
         flex-direction: column;
         align-items: stretch;
-    }
-    button.pdf-btn {
+      }
+      button.pdf-btn {
         width: 100%;
+      }
     }
-}
-</style>
+  </style>
 </head>
 
 <body>
-<div id="header-placeholder"></div>
+  <div id="header-placeholder"></div>
 
-<div class="container">
+  <div class="container">
     <h2>🔱 शिव भजन (रचनाकार- भगवान शिव)🔱</h2>
+
 
     <div class="bhajan-grid">
         <!-- ✅ WORKING FILES - GitHub RAW URLs -->
