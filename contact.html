@@ -1,8 +1,11 @@
+# Corrected `contact.html` (SEO + Mobile Responsive)
+
+```html
 <!DOCTYPE html>
 <html lang="hi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=1024">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- SEO: Title -->
   <title>संपर्क करें / पूजा बुकिंग - ज्योतिर्लिंग शिवमठ लखनऊ | ज्योतिर्लिंग शिवमठ लखनऊ</title>
@@ -10,7 +13,7 @@
   <!-- SEO: Meta Description -->
   <meta name="description" content="ज्योतिर्लिंग शिवमठ लखनऊ से संपर्क करें, रुद्राभिषेक, शिव अभिषेक और अन्य पूजा बुकिंग के लिए फॉर्म भरें। महंत ज्योतिर्लिंग शिवमठ, उतराठिया, लखनऊ।">
 
-  <!-- Canonical (optional, लेकिन अच्छा) -->
+  <!-- Canonical -->
   <link rel="canonical" href="https://jyotirlingshivmath.in/contact.html">
 
   <!-- Open Graph / Social Sharing -->
@@ -42,6 +45,13 @@
       line-height: 1.6;
       font-size: 16px;
       color: #4a148c;
+    }
+
+    h1 {
+      text-align: center;
+      color: #8B0000;
+      margin-bottom: 20px;
+      font-size: 32px;
     }
 
     h2 {
@@ -99,12 +109,35 @@
       text-align: center;
     }
 
+    /* Mobile Responsive */
     @media (max-width: 768px) {
+
       body {
         font-size: 14px;
-        transform: scale(0.85);
-        transform-origin: top left;
-        width: 118%;
+      }
+
+      .contact-section {
+        margin: 10px;
+        padding: 15px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+
+      .address {
+        font-size: 16px;
+      }
+
+      input,
+      textarea,
+      select,
+      button {
+        font-size: 15px;
       }
     }
   </style>
@@ -115,21 +148,29 @@
   <div id="header-container"></div>
 
   <div class="contact-section">
+
+    <!-- H1 Tag Added -->
+    <h1>🔱 संपर्क करें / पूजा बुकिंग – ज्योतिर्लिंग शिवमठ लखनऊ 🔱</h1>
+
     <h2>📍 हमारा पता – ज्योतिर्लिंग शिवमठ लखनऊ</h2>
+
     <div class="address">
       महंत ज्योतिर्लिंग शिवमठ<br>
       श्री ज्योतिर्लिंग शिवमठ, शिव मठ मार्ग, वृंदावन योजना सेक्टर 12 बी, बरौली, लखनऊ यूपी, भारत 226025. (फ़ोन 9794810005)<br>
     </div>
 
     <h2>📩 संपर्क करें / पूजा बुकिंग</h2>
+
     <p>
       ज्योतिर्लिंग शिवमठ पर रुद्राभिषेक, शिव अभिषेक, महामृत्युंजय जाप, लघु रुद्र और अन्य पूजाओं के लिए आप नीचे दिए हुए फॉर्म के माध्यम से आसानी से बुकिंग कर सकते हैं।
     </p>
+
     <p>
       🙏 ज्योतिर्लिंग शिवमठ पर किसी भी पूजन के लिए कोई शुल्क निर्धारित नहीं है। सभी श्रद्धालु भक्तों से अनुरोध है कि वे पूजन की पवित्रता बनाए रखें और आस्था के साथ भोले शंकर के दर्शन करें।
     </p>
 
     <form id="contactForm">
+
       <input type="hidden" name="access_key" value="34bb186e-1035-40dd-9504-04d1d38c0c95">
       <input type="hidden" name="subject" value="नई पूजा बुकिंग - ज्योतिर्लिंग शिवमठ">
       <input type="hidden" name="from_name" value="ज्योतिर्लिंग शिवमठ वेबसाइट">
@@ -145,6 +186,7 @@
       <input type="email" id="email" name="email" placeholder="आपका ईमेल" required>
 
       <label for="pooja">आप कौन सी पूजा कराना चाहते हैं?</label>
+
       <select id="pooja" name="pooja" required>
         <option value="">-- पूजा का चयन करें --</option>
         <option value="शिव अभिषेक">शिव अभिषेक</option>
@@ -159,10 +201,13 @@
       <input type="date" id="date" name="date" required>
 
       <label for="message">अतिरिक्त विवरण:</label>
+
       <textarea id="message" name="message" rows="5" placeholder="गुरु जी से मिलने के लिए अपना प्रयोजन लिखें"></textarea>
 
       <button type="submit">भेजें</button>
+
       <div id="result"></div>
+
     </form>
   </div>
 
@@ -176,11 +221,13 @@
         const scripts = container.querySelectorAll('script');
         scripts.forEach(oldScript => {
           const newScript = document.createElement('script');
+
           if (oldScript.src) {
             newScript.src = oldScript.src;
           } else {
             newScript.textContent = oldScript.textContent;
           }
+
           document.body.appendChild(newScript);
         });
       })
@@ -209,6 +256,7 @@
       })
       .then(async (response) => {
         let data = await response.json();
+
         if (response.status == 200) {
           result.innerHTML = "✅ आपका संदेश सफलतापूर्वक भेज दिया गया है।";
           result.style.color = "green";
@@ -224,33 +272,25 @@
       });
     });
   </script>
-<footer style="
-  text-align:center;
-  padding:15px;
-  margin-top:30px;
-  background:#111;
-  color:white;
-  font-size:14px;
-">
-  <p>Follow Jyotirling Shivmath</p>
 
-  <a href="https://jyotirlingshivmath.in"
-     target="_blank"
-     style="color:#ffd700;">
-     Website
-  </a> |
+  <footer style="text-align:center; padding:15px; margin-top:30px; background:#111; color:white; font-size:14px;">
 
-  <a href="https://www.youtube.com/@MAHANTRAJESHTIWARI"
-     target="_blank"
-     style="color:#ffd700;">
-     YouTube
-  </a> |
+    <p>Follow Jyotirling Shivmath</p>
 
-  <a href="https://www.facebook.com/rajeshkumar.tiwari"
-     target="_blank"
-     style="color:#ffd700;">
-     Facebook
-  </a>
-</footer>
+    <a href="https://jyotirlingshivmath.in" target="_blank" style="color:#ffd700;">
+      Website
+    </a> |
+
+    <a href="https://www.youtube.com/@MAHANTRAJESHTIWARI" target="_blank" style="color:#ffd700;">
+      YouTube
+    </a> |
+
+    <a href="https://www.facebook.com/rajeshkumar.tiwari" target="_blank" style="color:#ffd700;">
+      Facebook
+    </a>
+
+  </footer>
+
 </body>
 </html>
+```
