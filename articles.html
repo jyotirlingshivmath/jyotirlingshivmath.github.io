@@ -1,0 +1,251 @@
+# articles.html
+
+```html
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>आध्यात्मिक लेख | श्री ज्योतिर्लिंग शिवमठ</title>
+
+  <meta name="description" content="शिव भक्ति, रुद्राभिषेक, ज्योतिर्लिंग, संस्कृत, योग और सनातन धर्म से संबंधित आध्यात्मिक लेख पढ़ें।">
+
+  <meta name="keywords" content="शिव लेख, रुद्राभिषेक, शिव पूजा, ज्योतिर्लिंग, आध्यात्मिक लेख, सनातन धर्म, महंत राजेश कुमार तिवारी रंजन">
+
+  <link rel="canonical" href="https://jyotirlingshivmath.in/articles.html">
+
+  <style>
+
+    body{
+      margin:0;
+      padding:0;
+      background:#050505;
+      color:#f5f5dc;
+      font-family:Mangal,sans-serif;
+      line-height:1.8;
+    }
+
+    .container{
+      width:90%;
+      max-width:1200px;
+      margin:auto;
+      padding:20px 0 40px;
+    }
+
+    .hero{
+      text-align:center;
+      padding:40px 20px;
+      background:rgba(255,255,255,0.05);
+      border-radius:25px;
+      margin-top:20px;
+      box-shadow:0 0 20px rgba(255,215,0,0.15);
+    }
+
+    .hero h1{
+      color:#ffd700;
+      font-size:42px;
+      margin-bottom:10px;
+    }
+
+    .hero p{
+      font-size:22px;
+      color:#00ffff;
+    }
+
+    .article-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:25px;
+      margin-top:40px;
+    }
+
+    .article-card{
+      background:rgba(255,255,255,0.05);
+      border-radius:20px;
+      overflow:hidden;
+      padding:0;
+      transition:0.3s;
+      border:1px solid #222;
+    }
+
+    .article-card:hover{
+      transform:translateY(-5px);
+      box-shadow:0 0 20px rgba(0,255,255,0.2);
+    }
+
+    .article-card img{
+      width:100%;
+      height:200px;
+      object-fit:cover;
+    }
+
+    .article-content{
+      padding:20px;
+    }
+
+    .article-card h2{
+      color:#ffd700;
+      font-size:26px;
+      margin:0 0 10px 0;
+    }
+
+    .article-card p{
+      font-size:18px;
+      color:#f5f5dc;
+    }
+
+    .read-btn{
+      display:inline-block;
+      margin-top:15px;
+      padding:10px 20px;
+      background:#00ffff;
+      color:black;
+      text-decoration:none;
+      border-radius:10px;
+      font-weight:bold;
+    }
+
+    .read-btn:hover{
+      background:#ffd700;
+    }
+
+    .quote{
+      text-align:center;
+      margin-top:60px;
+      font-size:28px;
+      color:#ffff99;
+      font-style:italic;
+    }
+
+    footer{
+      text-align:center;
+      padding:20px;
+      background:#111;
+      color:white;
+      margin-top:50px;
+      font-size:15px;
+    }
+
+    footer a{
+      color:#ffd700;
+      text-decoration:none;
+    }
+
+    @media(max-width:768px){
+
+      .hero h1{
+        font-size:32px;
+      }
+
+      .hero p{
+        font-size:18px;
+      }
+
+      .article-card h2{
+        font-size:22px;
+      }
+
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- HEADER PLACEHOLDER -->
+<div id="header-placeholder"></div>
+
+<script>
+fetch("header.html")
+.then(response => response.text())
+.then(data => {
+  document.getElementById("header-placeholder").innerHTML = data;
+
+  const scripts = document.querySelectorAll('#header-placeholder script');
+  scripts.forEach(oldScript => {
+    const newScript = document.createElement('script');
+    if (oldScript.src) newScript.src = oldScript.src;
+    else newScript.textContent = oldScript.textContent;
+    document.body.appendChild(newScript);
+  });
+});
+</script>
+
+<div class="container">
+
+  <div class="hero">
+    <h1>📖 आध्यात्मिक लेख</h1>
+    <p>शिव भक्ति, ज्योतिर्लिंग, संस्कृत, योग और सनातन धर्म से संबंधित लेख</p>
+  </div>
+
+  <div class="article-grid">
+
+    <div class="article-card">
+      <img src="rudrabhishek.jpg" alt="रुद्राभिषेक">
+      <div class="article-content">
+        <h2>रुद्राभिषेक का महत्व</h2>
+        <p>रुद्राभिषेक क्यों किया जाता है, इसके आध्यात्मिक लाभ और शास्त्रीय महत्व।</p>
+        <a href="rudrabhishek-mahatva.html" class="read-btn">पूरा लेख पढ़ें</a>
+      </div>
+    </div>
+
+    <div class="article-card">
+      <img src="jyotirlinga.jpg" alt="ज्योतिर्लिंग">
+      <div class="article-content">
+        <h2>बारह ज्योतिर्लिंग</h2>
+        <p>भारत के 12 ज्योतिर्लिंगों का संक्षिप्त इतिहास और धार्मिक महत्व।</p>
+        <a href="12-jyotirlinga.html" class="read-btn">पूरा लेख पढ़ें</a>
+      </div>
+    </div>
+
+    <div class="article-card">
+      <img src="mahamrityunjaya.jpg" alt="महामृत्युंजय मंत्र">
+      <div class="article-content">
+        <h2>महामृत्युंजय मंत्र</h2>
+        <p>मंत्र का अर्थ, जप विधि और आध्यात्मिक प्रभाव।</p>
+        <a href="mahamrityunjaya-mantra.html" class="read-btn">पूरा लेख पढ़ें</a>
+      </div>
+    </div>
+
+    <div class="article-card">
+      <img src="shivtandavak.jpg" alt="शिवताण्डवक">
+      <div class="article-content">
+        <h2>शिवताण्डवक की रचना</h2>
+        <p>महंत राजेश कुमार तिवारी “रंजन” द्वारा रचित शिवताण्डवक की पृष्ठभूमि।</p>
+        <a href="shivtandavak-rachna.html" class="read-btn">पूरा लेख पढ़ें</a>
+      </div>
+    </div>
+
+    <div class="article-card">
+      <img src="mahashivratri.jpg" alt="महाशिवरात्रि">
+      <div class="article-content">
+        <h2>महाशिवरात्रि का महत्व</h2>
+        <p>पर्व की कथा, पूजा विधि और धार्मिक महत्व।</p>
+        <a href="mahashivratri.html" class="read-btn">पूरा लेख पढ़ें</a>
+      </div>
+    </div>
+
+    <div class="article-card">
+      <img src="om-namah-shivaya.jpg" alt="ॐ नमः शिवाय">
+      <div class="article-content">
+        <h2>पंचाक्षरी मंत्र</h2>
+        <p>ॐ नमः शिवाय मंत्र का आध्यात्मिक रहस्य।</p>
+        <a href="om-namah-shivaya.html" class="read-btn">पूरा लेख पढ़ें</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="quote">“हर हर महादेव”</div>
+
+</div>
+
+<footer>
+  <p>© श्री ज्योतिर्लिंग शिवमठ | आध्यात्मिक लेख संग्रह</p>
+  <p><a href="https://jyotirlingshivmath.in">🌐 Official Website</a></p>
+</footer>
+
+</body>
+</html>
+```
