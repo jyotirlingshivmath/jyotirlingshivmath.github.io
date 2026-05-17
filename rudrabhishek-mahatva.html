@@ -770,10 +770,10 @@ footer a:hover{
 
   border-radius:28px;
 
-  padding:40px;
+  padding:45px;
 
   background:
-    linear-gradient(#111,#111) padding-box,
+    linear-gradient(#121212,#121212) padding-box,
 
     linear-gradient(
       135deg,
@@ -785,14 +785,14 @@ footer a:hover{
     ) border-box;
 
   box-shadow:
-    0 0 25px rgba(255,215,0,0.18),
-    inset 0 0 20px rgba(255,215,0,0.08);
+    0 0 28px rgba(255,215,0,0.18),
+    inset 0 0 18px rgba(255,215,0,0.08);
 
   overflow:hidden;
 
 }
 
-/* ================= INNER GLOW ================= */
+/* ================= INNER GLOW BORDER ================= */
 
 .page-frame::before{
 
@@ -800,68 +800,67 @@ footer a:hover{
 
   position:absolute;
 
-  inset:12px;
+  inset:10px;
 
-  border-radius:18px;
+  border-radius:22px;
 
   border:1px solid rgba(255,215,0,0.35);
 
   pointer-events:none;
 
+  box-shadow:0 0 12px rgba(255,215,0,0.12);
+
 }
 
-/* ================= SHIVMATH TEXT BORDER ================= */
+/* ================= FIXED BORDER TEXT (ALL SIDES LOOK) ================= */
 
 .page-frame::after{
 
-  content:
-  "॥ ज्योतिर्लिंग शिवमठ ॥  ॥ ज्योतिर्लिंग शिवमठ ॥  ॥ ज्योतिर्लिंग शिवमठ ॥  ॥ ज्योतिर्लिंग शिवमठ ॥";
+  content:"॥ ज्योतिर्लिंग शिवमठ ॥   ॥ ज्योतिर्लिंग शिवमठ ॥   ॥ ज्योतिर्लिंग शिवमठ ॥   ॥ ज्योतिर्लिंग शिवमठ ॥   ॥ ज्योतिर्लिंग शिवमठ ॥";
 
   position:absolute;
 
-  top:8px;
-  left:0;
-
-  width:100%;
+  top:12px;
+  left:12px;
+  right:12px;
 
   text-align:center;
 
-  color:rgba(255,215,0,0.45);
+  color:rgba(255,215,0,0.28);
 
-  font-size:15px;
+  font-size:14px;
 
-  letter-spacing:3px;
+  letter-spacing:2px;
 
   font-weight:bold;
 
-  white-space:nowrap;
+  text-shadow:0 0 8px rgba(255,215,0,0.35);
 
   pointer-events:none;
 
-  text-shadow:
-    0 0 8px rgba(255,215,0,0.4);
+  white-space:nowrap;
 
 }
 
-/* ================= OPTIONAL CORNER DESIGN ================= */
+/* ================= CORNERS ================= */
 
 .page-frame .corner{
 
   position:absolute;
 
-  width:45px;
-  height:45px;
+  width:50px;
+  height:50px;
+
+  opacity:0.85;
 
   border-color:#ffd700;
-
-  opacity:0.75;
 
 }
 
 .page-frame .corner.top-left{
 
-  top:10px;
-  left:10px;
+  top:12px;
+  left:12px;
 
   border-top:3px solid;
   border-left:3px solid;
@@ -872,8 +871,8 @@ footer a:hover{
 
 .page-frame .corner.top-right{
 
-  top:10px;
-  right:10px;
+  top:12px;
+  right:12px;
 
   border-top:3px solid;
   border-right:3px solid;
@@ -884,8 +883,8 @@ footer a:hover{
 
 .page-frame .corner.bottom-left{
 
-  bottom:10px;
-  left:10px;
+  bottom:12px;
+  left:12px;
 
   border-bottom:3px solid;
   border-left:3px solid;
@@ -896,8 +895,8 @@ footer a:hover{
 
 .page-frame .corner.bottom-right{
 
-  bottom:10px;
-  right:10px;
+  bottom:12px;
+  right:12px;
 
   border-bottom:3px solid;
   border-right:3px solid;
@@ -905,7 +904,16 @@ footer a:hover{
   border-radius:0 0 12px 0;
 
 }
-</style>
+
+/* ================= MOBILE ================= */
+
+@media(max-width:768px){
+
+  .page-frame{
+    padding:25px;
+  }
+
+}
 </head>
 <body>
 
