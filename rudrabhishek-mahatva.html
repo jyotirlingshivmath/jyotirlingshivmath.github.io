@@ -14,183 +14,414 @@
   <link rel="canonical" href="https://jyotirlingshivmath.in/rudrabhishek-mahatva.html">
 
 <style>
+  :root{
 
-body{
+  --gold:#ffd700;
+  --gold-soft:#ffcc66;
+  --cyan:#00ffff;
+
+  --dark:#0d0d0d;
+  --dark-soft:#1a1a1a;
+  --dark-card:rgba(255,255,255,0.06);
+
+  --text:#f5f5dc;
+  --text-dark:#222;
+
+  --border:#2a2a2a;
+
+  --shadow:0 4px 15px rgba(0,0,0,0.25);
+  --shadow-gold:0 0 25px rgba(255,215,0,0.10);
+
+  --radius:20px;
+
+}
+
+/* ================= GLOBAL ================= */
+
+*{
   margin:0;
   padding:0;
-  background:#050505;
-  color:#f5f5dc;
-  font-family:Mangal,sans-serif;
-  line-height:1.9;
+  box-sizing:border-box;
 }
 
 html{
   scroll-behavior:smooth;
+  scroll-padding-top:80px;
 }
+
+body{
+
+  background:
+  linear-gradient(
+    180deg,
+    #1b1b1b 0%,
+    #121212 40%,
+    #0f0f0f 100%
+  );
+
+  color:var(--text);
+
+  font-family:
+  "Noto Sans Devanagari",
+  "Mangal",
+  sans-serif;
+
+  line-height:1.9;
+
+  overflow-x:hidden;
+
+}
+
+/* ================= SELECTION ================= */
+
+::selection{
+  background:var(--gold);
+  color:#000;
+}
+
+/* ================= CONTAINER ================= */
 
 .container{
   width:92%;
   max-width:1300px;
   margin:auto;
-  padding:20px 0 50px;
+  padding:20px 0 60px;
+}
+
+/* ================= TRANSITIONS ================= */
+
+a,
+.section,
+.step-box,
+.hero,
+.image-box img,
+.toc a{
+  transition:all .3s ease;
 }
 
 /* ================= HERO ================= */
 
 .hero{
+
   text-align:center;
-  padding:40px 20px;
-  background:rgba(255,255,255,0.05);
+
+  padding:45px 25px;
+
+  background:var(--dark-card);
+
   border-radius:25px;
+
   margin-top:20px;
-  box-shadow:0 0 20px rgba(255,215,0,0.15);
+
+  box-shadow:var(--shadow);
+
+  border:1px solid rgba(255,255,255,0.08);
+
+  backdrop-filter:blur(8px);
+
+}
+
+.hero:hover{
+  box-shadow:var(--shadow-gold);
 }
 
 .hero h1{
-  color:#ffd700;
+
+  color:var(--gold);
+
   font-size:46px;
-  margin-bottom:10px;
+
+  margin-bottom:15px;
+
+  line-height:1.3;
+
 }
 
 .hero p{
-  color:#00ffff;
+
+  color:var(--cyan);
+
   font-size:22px;
+
+  line-height:1.8;
+
 }
 
 .hero img{
+
   width:100%;
   max-width:900px;
+
   height:auto;
-  border-radius:15px;
+
+  border-radius:18px;
+
   display:block;
-  margin:auto;
+
+  margin:30px auto 0;
+
+  object-fit:cover;
+
+  box-shadow:var(--shadow);
+
 }
 
 /* ================= TOC ================= */
 
 .toc{
+
   margin-top:40px;
-  background:rgba(255,255,255,0.05);
-  padding:25px;
+
+  background:var(--dark-card);
+
+  padding:28px;
+
   border-radius:20px;
-  border:1px solid #222;
+
+  border:1px solid var(--border);
+
+  box-shadow:var(--shadow);
+
 }
 
 .toc h2{
-  color:#ffd700;
-  margin-top:0;
+
+  color:var(--gold);
+
+  margin-bottom:15px;
+
+  font-size:32px;
+
 }
 
 .toc a{
+
   display:block;
-  padding:8px 0;
-  color:#00ffff;
+
+  padding:10px 0;
+
+  color:var(--cyan);
+
   text-decoration:none;
+
   font-size:18px;
+
+  border-bottom:1px dashed rgba(255,255,255,0.08);
+
+}
+
+.toc a:hover{
+
+  color:var(--gold);
+
+  padding-left:10px;
+
 }
 
 /* ================= SECTION ================= */
 
 .section{
+
   margin-top:50px;
+
   background:rgba(255,255,255,0.04);
-  padding:35px;
+
+  padding:38px;
+
   border-radius:25px;
-  border:1px solid #222;
+
+  border:1px solid var(--border);
+
+  box-shadow:var(--shadow);
+
+  backdrop-filter:blur(6px);
+
+}
+
+.section:hover{
+
+  transform:translateY(-3px);
+
+  box-shadow:var(--shadow-gold);
+
 }
 
 .section h2{
-  color:#ffd700;
+
+  color:var(--gold);
+
   font-size:34px;
-  margin-bottom:20px;
-  border-left:5px solid #ffd700;
+
+  margin-bottom:25px;
+
+  border-left:5px solid var(--gold);
+
   padding-left:15px;
+
+  line-height:1.5;
+
 }
 
 .section h3{
-  color:#00ffff;
-  margin-top:30px;
+
+  color:var(--cyan);
+
+  margin-top:35px;
+
+  margin-bottom:15px;
+
   font-size:26px;
+
 }
 
 .section h4{
-  color:#ffcc66;
+
+  color:var(--gold-soft);
+
   margin-top:25px;
+
+  margin-bottom:12px;
+
   font-size:22px;
+
 }
 
 .section p{
+
   font-size:20px;
+
   text-align:justify;
-  margin-bottom:20px;
+
+  margin-bottom:22px;
+
+  max-width:950px;
+
 }
 
 /* ================= STEP BOX ================= */
 
 .step-box{
+
   background:#fffdf5;
+
   border:1px solid #e0d3a8;
-  padding:25px;
-  margin:30px 0;
+
+  padding:28px;
+
+  margin:35px 0;
+
   border-radius:18px;
+
   box-shadow:0 2px 12px rgba(0,0,0,0.12);
+
+  color:var(--text-dark);
+
+}
+
+.step-box:hover{
+  transform:translateY(-2px);
 }
 
 .step-box h2{
+
   color:#8b0000;
+
   text-align:center;
+
   font-size:2rem;
-  margin-bottom:12px;
+
+  margin-bottom:15px;
+
 }
 
 .step-box h3{
+
   color:#b8860b;
+
   text-align:center;
+
   font-size:1.4rem;
+
   margin-bottom:20px;
+
 }
 
 /* ================= SANSKRIT ================= */
 
 .sanskrit{
+
   background:#f8f1d9;
-  padding:18px;
+
+  padding:22px;
+
   border-left:5px solid #c59b08;
-  margin:18px 0;
-  border-radius:10px;
-  font-size:1.15rem;
-  line-height:2;
+
+  margin:22px 0;
+
+  border-radius:12px;
+
+  font-size:1.18rem;
+
+  line-height:2.35;
+
   text-align:center;
+
   color:#6b3e00;
+
   font-weight:bold;
-  font-family:"Noto Serif Devanagari", serif;
+
+  font-family:
+  "Noto Serif Devanagari",
+  serif;
+
+  box-shadow:0 2px 10px rgba(0,0,0,0.08);
+
 }
 
 .sanskrit p{
+
   margin-bottom:25px;
+
   text-align:center;
+
 }
 
 /* ================= HINDI ================= */
 
 .hindi{
+
   background:#fafafa;
-  padding:15px;
+
+  padding:18px;
+
   border-left:4px solid #ff9800;
-  border-radius:8px;
-  line-height:1.9;
-  margin-top:10px;
+
+  border-radius:10px;
+
+  line-height:2;
+
+  margin-top:15px;
+
   color:#222;
+
+  box-shadow:0 2px 8px rgba(0,0,0,0.06);
+
 }
 
 /* ================= HARI OM ================= */
 
 .hariom{
+
   text-align:center;
+
   color:#d35400;
+
   font-size:1.5rem;
+
   font-weight:bold;
+
   margin-bottom:25px;
+
 }
 
 /* ================= CHAPTER END ================= */
@@ -198,102 +429,240 @@ html{
 .iti,
 .chapter-end,
 .adhyaya-end{
+
   text-align:center;
+
   font-weight:bold;
+
   color:#8b0000;
+
   font-size:1.3rem;
-  margin-top:25px;
+
+  margin-top:30px;
+
+  line-height:2;
+
 }
 
 /* ================= SAMARPAN ================= */
 
 .samarpan{
+
   text-align:center;
+
   font-size:1.25rem;
-  color:#ffd700;
-  margin-top:40px;
-  line-height:2;
+
+  color:var(--gold);
+
+  margin-top:45px;
+
+  line-height:2.1;
+
   font-weight:600;
+
 }
 
 .completion{
+
   text-align:center;
+
   font-size:1.45rem;
-  color:#ffcc66;
-  margin-top:30px;
+
+  color:var(--gold-soft);
+
+  margin-top:35px;
+
   line-height:2.2;
+
   font-weight:bold;
+
 }
 
 /* ================= MANTRA BOX ================= */
 
 .mantra-box{
+
   background:#fff8e1;
+
   border-left:5px solid #c62828;
-  padding:15px;
-  margin:20px 0;
-  line-height:1.8;
+
+  padding:18px;
+
+  margin:25px 0;
+
+  line-height:2;
+
   font-size:1.1rem;
-  border-radius:10px;
+
+  border-radius:12px;
+
   color:#5a0000;
+
+  box-shadow:0 2px 10px rgba(0,0,0,0.08);
+
 }
 
 /* ================= IMAGE ================= */
 
 .image-box{
+
   text-align:center;
-  margin:30px 0;
+
+  margin:35px 0;
+
 }
 
 .image-box img{
+
   width:100%;
+
   max-width:900px;
+
   border-radius:20px;
-  box-shadow:0 0 20px rgba(255,215,0,0.2);
+
+  box-shadow:var(--shadow);
+
+  object-fit:cover;
+
+}
+
+.image-box img:hover{
+
+  transform:scale(1.01);
+
+  box-shadow:var(--shadow-gold);
+
 }
 
 /* ================= FAQ ================= */
 
 .faq-box{
-  margin-top:20px;
-  background:#111;
-  border-radius:15px;
-  padding:20px;
+
+  margin-top:25px;
+
+  background:#161616;
+
+  border-radius:18px;
+
+  padding:25px;
+
+  border:1px solid rgba(255,255,255,0.08);
+
+  box-shadow:var(--shadow);
+
 }
 
 .faq-box h3{
-  color:#ffd700;
+
+  color:var(--gold);
+
+  margin-bottom:12px;
+
 }
 
 /* ================= INTERNAL LINKS ================= */
 
 .internal-links a{
+
   display:block;
-  margin:10px 0;
-  color:#00ffff;
+
+  margin:12px 0;
+
+  color:var(--cyan);
+
   font-size:19px;
+
   text-decoration:none;
+
+}
+
+.internal-links a:hover{
+
+  color:var(--gold);
+
+  padding-left:8px;
+
+}
+
+/* ================= LINKS ================= */
+
+a{
+  color:inherit;
+}
+
+a:focus{
+
+  outline:2px solid var(--gold);
+
+  outline-offset:3px;
+
 }
 
 /* ================= FOOTER ================= */
 
 footer{
+
   text-align:center;
-  padding:30px;
-  background:#111;
-  margin-top:60px;
-  color:white;
+
+  padding:35px 20px;
+
+  background:var(--dark-soft);
+
+  margin-top:70px;
+
+  color:#fff;
+
   font-size:16px;
+
+  border-top:1px solid #333;
+
 }
 
 footer a{
-  color:#ffd700;
+
+  color:var(--gold);
+
   text-decoration:none;
+
+}
+
+footer a:hover{
+  color:#fff;
+}
+
+/* ================= SCROLLBAR ================= */
+
+::-webkit-scrollbar{
+  width:10px;
+}
+
+::-webkit-scrollbar-track{
+  background:#161616;
+}
+
+::-webkit-scrollbar-thumb{
+
+  background:var(--gold);
+
+  border-radius:10px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+  background:#ffcc00;
 }
 
 /* ================= MOBILE ================= */
 
 @media(max-width:768px){
+
+  .container{
+    width:94%;
+  }
+
+  .hero{
+    padding:35px 18px;
+  }
 
   .hero h1{
     font-size:34px;
@@ -304,19 +673,39 @@ footer a{
   }
 
   .section{
-    padding:22px;
+    padding:24px;
   }
 
   .section h2{
     font-size:28px;
   }
 
+  .section h3{
+    font-size:23px;
+  }
+
+  .section h4{
+    font-size:20px;
+  }
+
   .section p{
-    font-size:18px;
+
+    font-size:17px;
+
+    line-height:1.95;
+
+  }
+
+  .toc h2{
+    font-size:28px;
+  }
+
+  .toc a{
+    font-size:17px;
   }
 
   .step-box{
-    padding:18px;
+    padding:20px;
   }
 
   .step-box h2{
@@ -328,12 +717,17 @@ footer a{
   }
 
   .sanskrit{
+
     font-size:1rem;
-    line-height:1.9;
+
+    line-height:2.2;
+
+    padding:18px;
+
   }
 
   .mantra-box{
-    font-size:18px;
+    font-size:17px;
   }
 
   .completion{
@@ -342,7 +736,31 @@ footer a{
 
 }
 
-</style>
+/* ================= SMALL MOBILE ================= */
+
+@media(max-width:480px){
+
+  .hero h1{
+    font-size:28px;
+  }
+
+  .hero p{
+    font-size:16px;
+  }
+
+  .section h2{
+    font-size:24px;
+  }
+
+  .section p{
+    font-size:16px;
+  }
+
+  .toc{
+    padding:20px;
+  }
+
+}</style>
 </head>
 <body>
 
