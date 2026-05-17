@@ -760,7 +760,152 @@ footer a:hover{
     padding:20px;
   }
 
-}</style>
+/* ================= PAGE FRAME ================= */
+
+.page-frame{
+
+  position:relative;
+
+  border:0.5cm solid transparent;
+
+  border-radius:28px;
+
+  padding:40px;
+
+  background:
+    linear-gradient(#111,#111) padding-box,
+
+    linear-gradient(
+      135deg,
+      #ffd700 0%,
+      #ffcc33 20%,
+      #b22222 45%,
+      #ffd700 70%,
+      #8b0000 100%
+    ) border-box;
+
+  box-shadow:
+    0 0 25px rgba(255,215,0,0.18),
+    inset 0 0 20px rgba(255,215,0,0.08);
+
+  overflow:hidden;
+
+}
+
+/* ================= INNER GLOW ================= */
+
+.page-frame::before{
+
+  content:"";
+
+  position:absolute;
+
+  inset:12px;
+
+  border-radius:18px;
+
+  border:1px solid rgba(255,215,0,0.35);
+
+  pointer-events:none;
+
+}
+
+/* ================= SHIVMATH TEXT BORDER ================= */
+
+.page-frame::after{
+
+  content:
+  "॥ ज्योतिर्लिंग शिवमठ ॥  ॥ ज्योतिर्लिंग शिवमठ ॥  ॥ ज्योतिर्लिंग शिवमठ ॥  ॥ ज्योतिर्लिंग शिवमठ ॥";
+
+  position:absolute;
+
+  top:8px;
+  left:0;
+
+  width:100%;
+
+  text-align:center;
+
+  color:rgba(255,215,0,0.45);
+
+  font-size:15px;
+
+  letter-spacing:3px;
+
+  font-weight:bold;
+
+  white-space:nowrap;
+
+  pointer-events:none;
+
+  text-shadow:
+    0 0 8px rgba(255,215,0,0.4);
+
+}
+
+/* ================= OPTIONAL CORNER DESIGN ================= */
+
+.page-frame .corner{
+
+  position:absolute;
+
+  width:45px;
+  height:45px;
+
+  border-color:#ffd700;
+
+  opacity:0.75;
+
+}
+
+.page-frame .corner.top-left{
+
+  top:10px;
+  left:10px;
+
+  border-top:3px solid;
+  border-left:3px solid;
+
+  border-radius:12px 0 0 0;
+
+}
+
+.page-frame .corner.top-right{
+
+  top:10px;
+  right:10px;
+
+  border-top:3px solid;
+  border-right:3px solid;
+
+  border-radius:0 12px 0 0;
+
+}
+
+.page-frame .corner.bottom-left{
+
+  bottom:10px;
+  left:10px;
+
+  border-bottom:3px solid;
+  border-left:3px solid;
+
+  border-radius:0 0 0 12px;
+
+}
+
+.page-frame .corner.bottom-right{
+
+  bottom:10px;
+  right:10px;
+
+  border-bottom:3px solid;
+  border-right:3px solid;
+
+  border-radius:0 0 12px 0;
+
+}
+</style>
 </head>
 <body>
 
@@ -1468,46 +1613,78 @@ fetch("header.html")
     ॐ त्र्यम्बकं यजामहे सुगन्धिं पुष्टिवर्धनम्।
   </div>
 
-  <div class="step-box">
+ <div class="page-frame">
 
-    <h2>॥ श्रीरुद्राष्टाध्यायी - प्रथमोध्यायः ॥</h2>
+  <div class="corner top-left"></div>
+  <div class="corner top-right"></div>
+  <div class="corner bottom-left"></div>
+  <div class="corner bottom-right"></div>
 
-    <h3>(शिवसंकल्पसूक्त)</h3>
+  <div class="step-box rudra-box">
+
+    <div class="hariom">
+      ॥ ॐ नमः शिवाय ॥
+    </div>
+
+    <h2 class="adhyaya-title">
+      ॥ श्रीरुद्राष्टाध्यायी - प्रथमोध्यायः ॥
+    </h2>
+
+    <h3 class="adhyaya-subtitle">
+      (शिवसंकल्पसूक्त)
+    </h3>
 
     <div class="sanskrit">
 
+      <p>
       ॐ गणानां त्वा गणपतिं हवामहे प्रियाणां त्वा प्रियपतिं हवामहे।<br>
       निधीनां त्वा निधिपतिं हवामहे व्वसो मम।<br>
-      आहमजानि गर्भधमा त्वमजासि गर्भधम्॥<br><br>
+      आहमजानि गर्भधमा त्वमजासि गर्भधम्॥
+      </p>
 
-      ॐ शिवसंकल्पमस्तु॥<br><br>
+      <p>
+      ॐ शिवसंकल्पमस्तु॥
+      </p>
 
+      <p>
       ॐ यज्जाग्रतो दूरमुदैति दैवं तदु सुप्तस्य तथैवैति।<br>
-      दूरङ्गमं ज्योतिषां ज्योतिरेकं तन्मे मनः शिवसंकल्पमस्तु॥ १ ॥<br><br>
+      दूरङ्गमं ज्योतिषां ज्योतिरेकं तन्मे मनः शिवसंकल्पमस्तु॥ १ ॥
+      </p>
 
+      <p>
       ॐ येन कर्माण्यपसो मनीषिणो यज्ञे कृण्वन्ति विदथेषु धीराः।<br>
-      यदपूर्वं यक्षमन्तः प्रजानां तन्मे मनः शिवसंकल्पमस्तु॥ २ ॥<br><br>
+      यदपूर्वं यक्षमन्तः प्रजानां तन्मे मनः शिवसंकल्पमस्तु॥ २ ॥
+      </p>
 
+      <p>
       ॐ यत्प्रज्ञानमुत चेतो धृतिश्च यज्ज्योतिरन्तरमृतं प्रजासु।<br>
-      यस्मान्न ऋते किञ्चन कर्म क्रियते तन्मे मनः शिवसंकल्पमस्तु॥ ३ ॥<br><br>
+      यस्मान्न ऋते किञ्चन कर्म क्रियते तन्मे मनः शिवसंकल्पमस्तु॥ ३ ॥
+      </p>
 
+      <p>
       ॐ येनेदं भूतं भुवनं भविष्यत्परिगृहीतममृतेन सर्वम्।<br>
-      येन यज्ञस्तन्वते सप्तहोता तन्मे मनः शिवसंकल्पमस्तु॥ ४ ॥<br><br>
+      येन यज्ञस्तन्वते सप्तहोता तन्मे मनः शिवसंकल्पमस्तु॥ ४ ॥
+      </p>
 
+      <p>
       ॐ यस्मिन्नृचः साम यजूंषि यस्मिन्प्रतिष्ठिता रथनाभाविवाराः।<br>
-      यस्मिंश्चित्तं सर्वमोतं प्रजानां तन्मे मनः शिवसंकल्पमस्तु॥ ५ ॥<br><br>
+      यस्मिंश्चित्तं सर्वमोतं प्रजानां तन्मे मनः शिवसंकल्पमस्तु॥ ५ ॥
+      </p>
 
+      <p>
       ॐ सुसारथिरश्वानिव यन्मनुष्यान्नेनीयतेऽभीशुभिर्वाजिन इव।<br>
-      हृत्प्रतिष्ठं यदजिरं जविष्ठं तन्मे मनः शिवसंकल्पमस्तु॥ ६ ॥<br><br>
+      hृत्प्रतिष्ठं यदजिरं जविष्ठं तन्मे मनः शिवसंकल्पमस्तु॥ ६ ॥
+      </p>
 
-      ॥ इति प्रथमोध्यायः ॥
+    </div>
 
+    <div class="adhyaya-end">
+      ॥ इति श्रीरुद्राष्टाध्यायी प्रथमोध्यायः समाप्तः ॥
     </div>
 
   </div>
 
-  <div class="step-box">
-
+</div>
     <h2>॥ श्रीरुद्राष्टाध्यायी - द्वितीयाध्यायः ॥</h2>
 
     <h3>(पुरुषसूक्त)</h3>
