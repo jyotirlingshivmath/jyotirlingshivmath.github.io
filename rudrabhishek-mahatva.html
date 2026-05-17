@@ -766,11 +766,13 @@ footer a:hover{
 
   position:relative;
 
+  margin-top:40px;
+
   border:0.5cm solid transparent;
 
   border-radius:28px;
 
-  padding:55px 35px;
+  padding:60px 35px 40px;
 
   background:
     linear-gradient(#121212,#121212) padding-box,
@@ -792,7 +794,7 @@ footer a:hover{
 
 }
 
-/* INNER GLOW */
+/* ================= INNER GLOW ================= */
 
 .page-frame::before{
 
@@ -814,62 +816,43 @@ footer a:hover{
 
 }
 
-/* TOP BORDER TEXT */
+/* ================= TOP TITLE ================= */
 
 .page-frame::after{
 
-  content:"॥ ज्योतिर्लिंग शिवमठ ॥  ॥ ज्योतिर्लिंग शिवमठ ॥  ॥ ज्योतिर्लिंग शिवमठ ॥  ॥ ज्योतिर्लिंग शिवमठ ॥";
-
-  position:absolute;
-}
-
-/* ================= INNER GLOW BORDER ================= */
-
-.page-frame::before{
-
-  content:"";
+  content:"॥ ज्योतिर्लिंग शिवमठ ॥";
 
   position:absolute;
 
-  inset:10px;
+  top:-18px;
 
-  border-radius:22px;
+  left:50%;
 
-  border:1px solid rgba(255,215,0,0.35);
+  transform:translateX(-50%);
 
-  pointer-events:none;
+  background:#121212;
 
-  box-shadow:0 0 12px rgba(255,215,0,0.12);
+  color:#ffd700;
 
-}
+  padding:6px 22px;
 
-/* ================= FIXED BORDER TEXT (ALL SIDES LOOK) ================= */
+  border-radius:30px;
 
-.page-frame::after{
+  border:2px solid #ffd700;
 
-  content:"॥ ज्योतिर्लिंग शिवमठ ॥   ॥ ज्योतिर्लिंग शिवमठ ॥   ॥ ज्योतिर्लिंग शिवमठ ॥   ॥ ज्योतिर्लिंग शिवमठ ॥   ॥ ज्योतिर्लिंग शिवमठ ॥";
-
-  position:absolute;
-
-  top:12px;
-  left:12px;
-  right:12px;
-
-  text-align:center;
-
-  color:rgba(255,215,0,0.28);
-
-  font-size:14px;
-
-  letter-spacing:2px;
+  font-size:16px;
 
   font-weight:bold;
 
-  text-shadow:0 0 8px rgba(255,215,0,0.35);
-
-  pointer-events:none;
+  letter-spacing:2px;
 
   white-space:nowrap;
+
+  text-shadow:0 0 10px rgba(255,215,0,0.45);
+
+  box-shadow:0 0 12px rgba(255,215,0,0.25);
+
+  z-index:999;
 
 }
 
