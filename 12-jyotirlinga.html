@@ -13,50 +13,228 @@
 
   <link rel="canonical" href="https://jyotirlingshivmath.github.io/12-jyotirling.html">
 
-  <style>
+<style>
 
-/* ===== JYOTIRLING CARD ===== */
+/* =========================
+   JYOTIRLING GRID
+========================= */
+
+.jyotirling-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:40px;
+    margin-top:40px;
+}
+
+
+/* =========================
+   JYOTIRLING CARD
+========================= */
 
 .jyotirling-card{
-    background:rgba(255,255,255,0.04);
-    border-radius:22px;
-    overflow:hidden;
-    border:1px solid rgba(255,255,255,0.08);
-    transition:0.3s;
-    box-shadow:0 4px 12px rgba(0,0,0,0.25);
+
+    display:flex;
+    align-items:center;
+    gap:30px;
 
     width:100%;
+
+    background:rgba(255,255,255,0.05);
+
+    border-radius:24px;
+
+    overflow:hidden;
+
+    border:1px solid rgba(255,215,0,0.15);
+
+    padding:25px;
+
+    box-shadow:0 6px 18px rgba(0,0,0,0.25);
+
+    transition:0.35s;
 }
 
-/* Hover Effect */
+
+/* =========================
+   HOVER EFFECT
+========================= */
 
 .jyotirling-card:hover{
+
     transform:translateY(-6px);
-    box-shadow:0 6px 18px rgba(255,215,0,0.18);
+
+    box-shadow:0 10px 24px rgba(255,215,0,0.20);
 }
 
-/* ===== FIXED IMAGE SIZE FOR ALL 12 ===== */
+
+/* =========================
+   IMAGE STYLE
+========================= */
 
 .jyotirling-card img{
-    width:100%;
-    height:420px;              /* सभी photos की same height */
-    object-fit:contain;        /* पूरी photo दिखे */
+
+    width:420px;
+
+    height:320px;
+
+    object-fit:cover;
+
     object-position:center;
+
     display:block;
-    background:#fff;          /* खाली जगह black दिखे */
-    padding:10px;
+
+    border-radius:18px;
+
+    flex-shrink:0;
+
+    border:3px solid rgba(255,215,0,0.25);
 }
 
-/* ===== ONLY SPECIAL LONG IMAGE ===== */
+
+/* =========================
+   SPECIAL IMAGE
+========================= */
 
 .special-img{
-    object-fit:contain !important;
-    object-position:center top;
-    padding-top:0;
+
+    object-fit:cover !important;
+
+    object-position:center;
 }
 
-  </style>
-</head>
+
+/* =========================
+   CARD CONTENT
+========================= */
+
+.card-content{
+
+    flex:1;
+}
+
+
+/* =========================
+   HEADING
+========================= */
+
+.card-content h2{
+
+    font-size:32px;
+
+    color:#ffd700;
+
+    margin-bottom:18px;
+
+    line-height:1.4;
+}
+
+
+/* =========================
+   PARAGRAPH
+========================= */
+
+.card-content p{
+
+    font-size:19px;
+
+    line-height:1.9;
+
+    text-align:justify;
+
+    color:#f5f5f5;
+}
+
+
+/* =========================
+   READ MORE BUTTON
+========================= */
+
+.read-more{
+
+    display:inline-block;
+
+    margin-top:20px;
+
+    padding:12px 24px;
+
+    background:linear-gradient(135deg,#b8860b,#daa520);
+
+    color:#fff;
+
+    text-decoration:none;
+
+    border-radius:12px;
+
+    font-size:17px;
+
+    transition:0.3s;
+}
+
+
+/* =========================
+   BUTTON HOVER
+========================= */
+
+.read-more:hover{
+
+    transform:scale(1.05);
+
+    background:linear-gradient(135deg,#daa520,#ffd700);
+}
+
+
+/* =========================
+   ALTERNATE LAYOUT
+========================= */
+
+.jyotirling-card:nth-child(even){
+
+    flex-direction:row-reverse;
+}
+
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+
+@media(max-width:900px){
+
+    .jyotirling-card{
+
+        flex-direction:column !important;
+
+        text-align:center;
+
+        padding:20px;
+    }
+
+    .jyotirling-card img{
+
+        width:100%;
+
+        height:260px;
+    }
+
+    .card-content h2{
+
+        font-size:26px;
+    }
+
+    .card-content p{
+
+        font-size:17px;
+
+        text-align:justify;
+    }
+
+    .read-more{
+
+        font-size:16px;
+    }
+
+}
+
+</style></head>
 <body>
 
 <header class="site-header">
