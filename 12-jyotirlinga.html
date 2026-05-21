@@ -189,7 +189,67 @@
 
     box-shadow:0 4px 10px rgba(0,0,0,0.25);
 }
+/* =========================
+   CARD ANIMATION
+========================= */
 
+.jyotirling-card{
+
+    animation:fadeUp 0.8s ease;
+}
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(40px);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+    }
+}
+
+
+/* =========================
+   BUTTON SHINE EFFECT
+========================= */
+
+.read-more{
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.read-more::before{
+
+    content:'';
+
+    position:absolute;
+
+    top:0;
+
+    left:-100%;
+
+    width:100%;
+
+    height:100%;
+
+    background:rgba(255,255,255,0.25);
+
+    transition:0.5s;
+}
+
+.read-more:hover::before{
+
+    left:100%;
+}
 
 /* =========================
    BUTTON HOVER
