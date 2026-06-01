@@ -44,8 +44,13 @@
   flex: 1 1 auto;
   text-align: center;
 }
+@keyframes blink {
+  0%   { background:#ffeb3b; }
+  50%  { background:#fff176; }
+  100% { background:#ffeb3b; }
+}
 
-.nav-title {
+  .nav-title {
   font-size: 3rem;
   color: #4a148c;
   font-family: 'Mukta', sans-serif;
@@ -139,7 +144,33 @@
 </head>
 
 <body>
+<body>
 
+<!-- आज की शिवपुराण कथा -->
+<div style="
+background:#ffeb3b;
+text-align:center;
+padding:12px;
+font-weight:bold;
+font-size:24px;
+border-top:3px solid #b71c1c;
+border-bottom:3px solid #b71c1c;
+animation: blink 1.2s infinite;
+">
+
+<a href="today-katha.html"
+style="
+color:#b71c1c;
+text-decoration:none;
+">
+
+📿 आज की शिवपुराण कथा सुनें 📿
+
+</a>
+
+</div>
+
+<div class="navbar-wrapper">
 <div class="navbar-wrapper">
   <div class="navbar-flex-container">
 
