@@ -24,5 +24,7 @@
   <sitemap>
     <loc>https://jyotirlingshivmath.in/sitemap-mahant.xml</loc>
   </sitemap>
-
+<sitemap>
+    <loc>https://jyotirlingshivmath.in/sitemap-blog.xml</loc>
+  </sitemap>
 </sitemapindex>
