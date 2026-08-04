@@ -1,1 +1,90 @@
 
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>{{TITLE}}</title>
+
+<meta name="description" content="{{META_DESCRIPTION}}">
+<meta name="keywords" content="{{KEYWORDS}}">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="{{CANONICAL}}">
+
+<meta property="og:title" content="{{TITLE}}">
+<meta property="og:description" content="{{META_DESCRIPTION}}">
+<meta property="og:type" content="article">
+<meta property="og:url" content="{{CANONICAL}}">
+<meta property="og:image" content="{{FEATURED_IMAGE}}">
+
+<style>
+
+body{
+font-family:Arial,Helvetica,sans-serif;
+background:#f7f7f7;
+margin:0;
+padding:0;
+line-height:1.8;
+}
+
+.container{
+width:90%;
+max-width:1000px;
+margin:auto;
+background:#fff;
+padding:40px;
+box-shadow:0 3px 15px rgba(0,0,0,.08);
+margin-top:30px;
+margin-bottom:30px;
+}
+
+h1{
+color:#b22222;
+}
+
+.meta{
+color:#666;
+margin-bottom:20px;
+}
+
+img{
+max-width:100%;
+height:auto;
+border-radius:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="header"></div>
+
+<div class="container">
+
+<h1>{{ARTICLE_TITLE}}</h1>
+
+<div class="meta">
+
+Published :
+{{PUBLISHED_DATE}}
+
+</div>
+
+<img src="{{FEATURED_IMAGE}}" alt="{{ARTICLE_TITLE}}">
+
+{{ARTICLE_CONTENT}}
+
+</div>
+
+<div id="footer"></div>
+
+<script src="/js/include.js"></script>
+
+</body>
+</html>
