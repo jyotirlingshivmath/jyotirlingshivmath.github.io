@@ -136,6 +136,9 @@
 
     .gallery img {
       width: 100%;
+      height: 320px;            /* सभी फोटो की ऊँचाई एक बराबर होगी */
+      object-fit: cover;         /* फोटो स्ट्रेच (खिंची हुई) नहीं दिखेगी और बॉक्स में सही फिट होगी */
+      object-position: top center;
       border-radius: 15px;
       box-shadow: 0 0 15px rgba(255,255,255,0.2);
     }
