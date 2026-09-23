@@ -146,10 +146,11 @@
     }
 
     /* गैलरी इमेज सेटिंग */
-    .gallery img {
+   .gallery img {
       width: 100%;
-      height: 475px;
-      object-fit: cover;
+      height: 400px;
+      object-fit: contain; /* Yeh photo ko bina kate shrink karke fit karega */
+      background-color: #fcfbf7; /* Khali jagah par background match karega */
       object-position: center;
       border-radius: 15px;
       border: 1px solid #ddd;
