@@ -440,7 +440,669 @@
     विविध अभिव्यक्तियाँ।
   </p>
 
-  <!-- ================================
+ <!-- =========================================
+     BOOKS & LITERARY WORKS WITH BOOK COVERS
+     ========================================= -->
+
+<div class="section" id="books">
+
+<style>
+.books-intro{
+  text-align:center;
+  max-width:800px;
+  margin:0 auto 30px;
+  color:#e6d8b5;
+  font-size:16px;
+  line-height:1.8;
+}
+
+.books-title{
+  text-align:center;
+  color:#f1c75b;
+  font-size:25px;
+  margin:25px 0 22px;
+}
+
+.books-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
+  gap:24px;
+  max-width:1150px;
+  margin:0 auto;
+}
+
+.book-card{
+  background:linear-gradient(145deg,#19140d,#302415);
+  border:1px solid #987528;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 8px 25px rgba(0,0,0,.38);
+  transition:transform .25s ease, box-shadow .25s ease;
+  text-align:center;
+}
+
+.book-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 14px 32px rgba(0,0,0,.55);
+}
+
+.book-cover{
+  width:100%;
+  height:360px;
+  object-fit:contain;
+  display:block;
+  background:#100d08;
+  padding:10px;
+  box-sizing:border-box;
+}
+
+.book-content{
+  padding:18px 18px 22px;
+}
+
+.book-name{
+  color:#f1c75b;
+  font-size:21px;
+  line-height:1.4;
+  margin:0 0 8px;
+}
+
+.book-desc{
+  color:#dfd0a8;
+  font-size:14px;
+  line-height:1.6;
+  margin:0 0 13px;
+}
+
+.book-meta{
+  border-top:1px solid #6f5728;
+  border-bottom:1px solid #6f5728;
+  padding:9px 4px;
+  margin:12px 0 15px;
+  color:#cdbd94;
+  font-size:12.5px;
+  line-height:1.75;
+}
+
+.book-buttons{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:8px;
+}
+
+.book-btn{
+  display:inline-block;
+  color:#fff;
+  text-decoration:none;
+  padding:9px 13px;
+  border-radius:8px;
+  font-size:12.5px;
+  font-weight:bold;
+}
+
+.amazon-btn{
+  background:#b8860b;
+}
+
+.pothi-btn{
+  background:#70531b;
+}
+
+.print-btn{
+  background:#8a6420;
+}
+
+.upcoming-box{
+  max-width:1050px;
+  margin:45px auto 10px;
+  padding:28px 20px;
+  border:1px solid #806a38;
+  border-radius:18px;
+  background:linear-gradient(145deg,#19150e,#292116);
+  text-align:center;
+}
+
+.upcoming-list{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:12px;
+}
+
+.upcoming-item{
+  padding:10px 18px;
+  border:1px solid #806a38;
+  border-radius:22px;
+  color:#ead7a7;
+  font-size:14px;
+}
+
+@media(max-width:600px){
+  .book-cover{
+    height:330px;
+  }
+
+  .books-title{
+    font-size:22px;
+  }
+}
+</style>
+
+
+<!-- INTRO -->
+
+<h2 class="books-title">📚 मेरी साहित्य-साधना</h2>
+
+<p class="books-intro">
+  <strong>महंत राजेश कुमार तिवारी ‘रंजन’</strong> की साहित्यिक यात्रा
+  विभिन्न काव्य, भक्ति, चिंतन और जीवनानुभवों से होकर निरंतर आगे बढ़ रही है।
+  यहाँ उनकी प्रकाशित पुस्तकों के साथ उनके उपलब्ध डिजिटल एवं प्रिंट संस्करणों
+  की जानकारी दी गई है।
+</p>
+
+
+<!-- =========================================
+     PUBLISHED BOOKS
+     ========================================= -->
+
+<h3 class="books-title">✦ प्रकाशित पुस्तकें ✦</h3>
+
+<div class="books-grid">
+
+
+<!-- =========================================
+     1. BHAKTI SAGAR - DWITIYA
+     ========================================= -->
+
+<div class="book-card">
+
+  <img
+    class="book-cover"
+    src="https://m.media-amazon.com/images/P/B0HLVPTP31.01.LZZZZZZZ.jpg"
+    alt="भक्ति सागर द्वितीय - पुस्तक कवर"
+    loading="lazy"
+  >
+
+  <div class="book-content">
+
+    <h4 class="book-name">भक्ति सागर – द्वितीय</h4>
+
+    <p class="book-desc">
+      भक्ति, आध्यात्मिक अनुभूति और काव्य-संवेदना से ओत-प्रोत
+      साहित्यिक कृति।
+    </p>
+
+    <div class="book-meta">
+      <strong>ISBN:</strong> 978-93-345-4077-2<br>
+      <strong>ASIN:</strong> B0HLVPTP31<br>
+      <strong>Format:</strong> Kindle eBook
+    </div>
+
+    <div class="book-buttons">
+
+      <a class="book-btn amazon-btn"
+         href="https://www.amazon.in/dp/B0HLVPTP31"
+         target="_blank"
+         rel="noopener noreferrer">
+        🛒 Amazon Kindle
+      </a>
+
+    </div>
+
+  </div>
+</div>
+
+
+<!-- =========================================
+     2. BHAKTI SAGAR - PRATHAM
+     ========================================= -->
+
+<div class="book-card">
+
+  <!-- Cover URL अभी उपलब्ध नहीं मिला -->
+  <div style="
+    height:360px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(145deg,#241b0d,#3a2a13);
+    padding:20px;
+    box-sizing:border-box;
+  ">
+    <div>
+      <div style="font-size:65px;">📖</div>
+      <div style="
+        color:#f1c75b;
+        font-size:22px;
+        font-weight:bold;
+        margin-top:12px;
+      ">
+        भक्ति सागर – प्रथम
+      </div>
+    </div>
+  </div>
+
+  <div class="book-content">
+
+    <h4 class="book-name">भक्ति सागर – प्रथम</h4>
+
+    <p class="book-desc">
+      भक्ति-भावना और आध्यात्मिक अनुभूति का काव्य-संग्रह।
+    </p>
+
+    <div class="book-meta">
+      <strong>ISBN:</strong> 978-93-345-3308-8
+    </div>
+
+  </div>
+</div>
+
+
+<!-- =========================================
+     3. PAAVAS TARANG
+     ========================================= -->
+
+<div class="book-card">
+
+  <img
+    class="book-cover"
+    src="https://simg.pothi.com/yqOpVFVqAgilcFTk66aigufVBUJj43CkKAiC9frKO-U/rs%3Afit/w%3A371/h%3A477/el%3A1/g%3Asm/cb%3Arev-1/bG9jYWw6Ly8vaW1h/Z2VzL3Byb2R1Y3Rz/LzIwMjYvMDkvZWJv/b2syMjU5Mi9JbWFn/ZV8wLmpwZw.jpg"
+    alt="पावस तरंग प्रबंध काव्य - पुस्तक कवर"
+    loading="lazy"
+  >
+
+  <div class="book-content">
+
+    <h4 class="book-name">पावस तरंग</h4>
+
+    <p class="book-desc">
+      प्रबंध काव्य — प्रकृति, भारतीय संस्कृति, अध्यात्म और
+      जीवनानुभूतियों की काव्यमयी अभिव्यक्ति।
+    </p>
+
+    <div class="book-meta">
+      <strong>ISBN:</strong> 978-93-345-1737-8<br>
+      <strong>Amazon ASIN:</strong> B0HLF4PKFP<br>
+      <strong>Pothi eBook:</strong> ebook22592<br>
+      <strong>Pothi Print:</strong> SKU47983
+    </div>
+
+    <div class="book-buttons">
+
+      <a class="book-btn amazon-btn"
+         href="https://www.amazon.in/dp/B0HLF4PKFP"
+         target="_blank"
+         rel="noopener noreferrer">
+        🛒 Amazon
+      </a>
+
+      <a class="book-btn pothi-btn"
+         href="https://store.pothi.com/book/ebook-rajesh-kumar-tiwari-%E0%A4%AA%E0%A4%B5%E0%A4%B8-%E0%A4%A4%E0%A4%B0%E0%A4%97-%E0%A4%AA%E0%A4%B0%E0%A4%AC%E0%A4%A7-%E0%A4%95%E0%A4%B5%E0%A4%AF/"
+         target="_blank"
+         rel="noopener noreferrer">
+        📖 Pothi eBook
+      </a>
+
+      <a class="book-btn print-btn"
+         href="https://publish-new.pothi.com/projects/bc2f4dda-30eb-4dc0-b906-56c994794b25"
+         target="_blank"
+         rel="noopener noreferrer">
+        📕 Pothi Print
+      </a>
+
+    </div>
+
+  </div>
+</div>
+
+
+<!-- =========================================
+     4. VANDANA
+     ========================================= -->
+
+<div class="book-card">
+
+  <img
+    class="book-cover"
+    src="https://jyotirlingshivmath.in/vandana%20cover%20jpg.jpg"
+    alt="वंदना खंड काव्य - पुस्तक कवर"
+    loading="lazy"
+  >
+
+  <div class="book-content">
+
+    <h4 class="book-name">वंदना – खंड काव्य</h4>
+
+    <p class="book-desc">
+      श्रद्धा, अनुभूति और काव्यात्मक संवेदना से सुसज्जित खंड काव्य।
+    </p>
+
+    <div class="book-meta">
+      <strong>ISBN:</strong> 978-93-344-9818-9<br>
+      <strong>ASIN:</strong> B0HHN8WT5D<br>
+      <strong>Format:</strong> Kindle eBook
+    </div>
+
+    <div class="book-buttons">
+
+      <a class="book-btn amazon-btn"
+         href="https://www.amazon.in/dp/B0HHN8WT5D"
+         target="_blank"
+         rel="noopener noreferrer">
+        🛒 Amazon Kindle
+      </a>
+
+    </div>
+
+  </div>
+</div>
+
+
+<!-- =========================================
+     5. GOONJE DHWAJA MAM BHARTI
+     ========================================= -->
+
+<div class="book-card">
+
+  <img
+    class="book-cover"
+    src="https://jyotirlingshivmath.in/gdmb.jpeg"
+    alt="गूँजे ध्वजा मम भारती - पुस्तक कवर"
+    loading="lazy"
+  >
+
+  <div class="book-content">
+
+    <h4 class="book-name">गूँजे ध्वजा मम भारती</h4>
+
+    <p class="book-desc">
+      राष्ट्रभावना, संस्कृति और काव्य-संवेदना से जुड़ी साहित्यिक कृति।
+    </p>
+
+    <div class="book-meta">
+      <strong>ISBN:</strong> 978-93-344-9161-6<br>
+      <strong>ASIN:</strong> B0HHLTXCPM<br>
+      <strong>Format:</strong> Kindle eBook
+    </div>
+
+    <div class="book-buttons">
+
+      <a class="book-btn amazon-btn"
+         href="https://www.amazon.in/dp/B0HHLTXCPM"
+         target="_blank"
+         rel="noopener noreferrer">
+        🛒 Amazon Kindle
+      </a>
+
+    </div>
+
+  </div>
+</div>
+
+
+<!-- =========================================
+     6. JADAVARAN
+     ========================================= -->
+
+<div class="book-card">
+
+  <img
+    class="book-cover"
+    src="https://jyotirlingshivmath.in/coverpage%20jadavaran.jpg"
+    alt="जड़ावरण - पुस्तक कवर"
+    loading="lazy"
+  >
+
+  <div class="book-content">
+
+    <h4 class="book-name">जड़ावरण</h4>
+
+    <p class="book-desc">
+      17 वर्षीय रचनाकार की आरंभिक काव्य-यात्रा,
+      प्रकृति, प्रेम, विरह और संवेदना की अभिव्यक्ति।
+    </p>
+
+    <div class="book-meta">
+      <strong>ISBN:</strong> 978-93-344-6264-7<br>
+      <strong>ASIN:</strong> B0HF8FQWFP<br>
+      <strong>Pothi SKU:</strong> ebook21582
+    </div>
+
+    <div class="book-buttons">
+
+      <a class="book-btn amazon-btn"
+         href="https://www.amazon.in/dp/B0HF8FQWFP"
+         target="_blank"
+         rel="noopener noreferrer">
+        🛒 Amazon
+      </a>
+
+      <a class="book-btn pothi-btn"
+         href="https://store.pothi.com/book/ebook-rajesh-kumar-tiwari-ranjan-%E0%A4%9C%E0%A4%A1%E0%A4%BE%E0%A4%B5%E0%A4%B0%E0%A4%A3/"
+         target="_blank"
+         rel="noopener noreferrer">
+        📖 Pothi eBook
+      </a>
+
+    </div>
+
+  </div>
+</div>
+
+
+<!-- =========================================
+     7. GAZAL-E-RANJAN
+     ========================================= -->
+
+<div class="book-card">
+
+  <img
+    class="book-cover"
+    src="https://m.media-amazon.com/images/P/B0HJ5T26XH.01.LZZZZZZZ.jpg"
+    alt="ग़ज़ल-ए-रंजन - पुस्तक कवर"
+    loading="lazy"
+  >
+
+  <div class="book-content">
+
+    <h4 class="book-name">ग़ज़ल-ए-रंजन</h4>
+
+    <p class="book-desc">
+      भावनाओं, अनुभूतियों और ग़ज़ल की काव्यात्मक शैली का संग्रह।
+    </p>
+
+    <div class="book-meta">
+      <strong>ASIN:</strong> B0HJ5T26XH<br>
+      <strong>Format:</strong> Kindle eBook
+    </div>
+
+    <div class="book-buttons">
+
+      <a class="book-btn amazon-btn"
+         href="https://www.amazon.in/dp/B0HJ5T26XH"
+         target="_blank"
+         rel="noopener noreferrer">
+        🛒 Amazon Kindle
+      </a>
+
+    </div>
+
+  </div>
+</div>
+
+
+<!-- =========================================
+     8. RAM JANM BHOOMI
+     ========================================= -->
+
+<div class="book-card">
+
+  <img
+    class="book-cover"
+    src="https://m.media-amazon.com/images/P/B0HFNFGBH7.01.LZZZZZZZ.jpg"
+    alt="राम जन्मभूमि - पुस्तक कवर"
+    loading="lazy"
+  >
+
+  <div class="book-content">
+
+    <h4 class="book-name">राम जन्मभूमि</h4>
+
+    <p class="book-desc">
+      राम जन्मभूमि के इतिहास और उससे जुड़े साहित्यिक
+      एवं सांस्कृतिक प्रसंगों पर आधारित कृति।
+    </p>
+
+    <div class="book-meta">
+      <strong>ASIN:</strong> B0HFNFGBH7<br>
+      <strong>Format:</strong> Kindle eBook
+    </div>
+
+    <div class="book-buttons">
+
+      <a class="book-btn amazon-btn"
+         href="https://www.amazon.in/dp/B0HFNFGBH7"
+         target="_blank"
+         rel="noopener noreferrer">
+        🛒 Amazon Kindle
+      </a>
+
+    </div>
+
+  </div>
+</div>
+
+
+<!-- =========================================
+     9. INDRADHANUSH
+     ========================================= -->
+
+<div class="book-card">
+
+  <div style="
+    height:360px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(145deg,#241b0d,#3a2a13);
+    padding:20px;
+    box-sizing:border-box;
+  ">
+    <div>
+      <div style="font-size:65px;">🌈</div>
+
+      <div style="
+        color:#f1c75b;
+        font-size:27px;
+        font-weight:bold;
+        margin-top:12px;
+      ">
+        इंद्रधनुष
+      </div>
+
+      <div style="
+        color:#d9c99e;
+        margin-top:8px;
+        font-size:14px;
+      ">
+        प्रकाशित — 1990
+      </div>
+    </div>
+  </div>
+
+  <div class="book-content">
+
+    <h4 class="book-name">इंद्रधनुष</h4>
+
+    <p class="book-desc">
+      वर्ष 1990 में प्रकाशित प्रारंभिक साहित्यिक कृति।
+    </p>
+
+    <div class="book-meta">
+      <strong>प्रकाशन वर्ष:</strong> 1990<br>
+      <strong>ISBN:</strong> शीघ्र अद्यतन
+    </div>
+
+  </div>
+</div>
+
+
+</div>
+
+
+<!-- =========================================
+     UPCOMING WORKS
+     ========================================= -->
+
+<div class="upcoming-box">
+
+  <h3 style="
+    color:#f1c75b;
+    margin:0 0 10px;
+    font-size:23px;
+  ">
+    ✦ आगामी साहित्यिक कृतियाँ ✦
+  </h3>
+
+  <p style="
+    color:#d9c99e;
+    font-size:14px;
+    line-height:1.7;
+    max-width:750px;
+    margin:0 auto 20px;
+  ">
+    ये कृतियाँ अभी प्रकाशन की प्रक्रिया में हैं।
+    इनके प्रकाशित होने पर यहाँ इनके cover, ISBN और उपलब्धता के links
+    भी जोड़े जाएँगे।
+  </p>
+
+  <div class="upcoming-list">
+
+    <span class="upcoming-item">अवहेलना</span>
+
+    <span class="upcoming-item">कुण्डली शतक</span>
+
+    <span class="upcoming-item">मेरी पूर्णागिरि यात्रा</span>
+
+    <span class="upcoming-item">मेरे संस्मरण</span>
+
+  </div>
+
+</div>
+
+
+<!-- AUTHOR NOTE -->
+
+<div style="
+  max-width:850px;
+  margin:28px auto 5px;
+  text-align:center;
+  padding:12px 18px;
+">
+
+  <p style="
+    color:#cbbd9a;
+    font-size:13px;
+    line-height:1.8;
+    font-style:italic;
+    margin:0;
+  ">
+    “साहित्य केवल शब्दों का संकलन नहीं,
+    बल्कि अंतश्चेतना, अनुभूति और जीवन-दर्शन की अभिव्यक्ति है।”
+  </p>
+
+  <div style="
+    color:#d9aa3d;
+    margin-top:8px;
+    font-size:13px;
+  ">
+    — महंत राजेश कुमार तिवारी ‘रंजन’
+  </div>
+
+</div>
+
+</div> <!-- ================================
        PUBLISHED BOOKS
        ================================= -->
 
