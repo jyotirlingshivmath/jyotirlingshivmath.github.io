@@ -1,0 +1,128 @@
+
+name: Create Video Page
+
+on:
+  workflow_dispatch:
+    inputs:
+      title:
+        description: "वीडियो का पूरा शीर्षक"
+        required: true
+        type: string
+      video_id:
+        description: "YouTube वीडियो ID (11 अक्षर)"
+        required: true
+        type: string
+      description:
+        description: "वीडियो का विवरण"
+        required: true
+        type: string
+      upload_datetime:
+        description: "प्रकाशन का वास्तविक समय, जैसे 2026-10-10T18:30:00+05:30"
+        required: true
+        type: string
+      slug:
+        description: "URL नाम, अंग्रेजी के छोटे अक्षरों में; जैसे mata-parvati-katha"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  create-page:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate HTML page
+        env:
+          VIDEO_TITLE: ${{ inputs.title }}
+          VIDEO_ID: ${{ inputs.video_id }}
+          VIDEO_DESCRIPTION: ${{ inputs.description }}
+          UPLOAD_DATETIME: ${{ inputs.upload_datetime }}
+          PAGE_SLUG: ${{ inputs.slug }}
+        run: |
+          python3 <<'PY'
+          import html
+          import re
+          import urllib.request
+          from pathlib import Path
+          from datetime import datetime
+
+          source_url = (
+              "https://jyotirlingshivmath.in/shivpuran/2026/10/"
+              "mata-parvati-ki-vidai-kailash-gaman-BQ5kT78Ajlc.html"
+          )
+
+          title = html.escape(__import__("os").environ["VIDEO_TITLE"], quote=False)
+          video_id = __import__("os").environ["VIDEO_ID"].strip()
+          description = html.escape(
+              __import__("os").environ["VIDEO_DESCRIPTION"], quote=False
+          )
+          upload_datetime = __import__("os").environ["UPLOAD_DATETIME"].strip()
+          slug = __import__("os").environ["PAGE_SLUG"].strip().lower()
+
+          if not re.fullmatch(r"[A-Za-z0-9_-]{11}", video_id):
+              raise SystemExit("गलती: YouTube वीडियो ID 11 अक्षरों की होनी चाहिए।")
+
+          if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", slug):
+              raise SystemExit("गलती: slug में केवल छोटे अंग्रेजी अक्षर, अंक और hyphen रखें।")
+
+          try:
+              dt = datetime.fromisoformat(upload_datetime)
+              if dt.tzinfo is None or dt.utcoffset() is None:
+                  raise ValueError()
+          except ValueError:
+              raise SystemExit(
+                  "गलती: वास्तविक प्रकाशन समय timezone सहित दें, "
+                  "जैसे 2026-10-10T18:30:00+05:30"
+              )
+
+          with urllib.request.urlopen(source_url, timeout=30) as response:
+              page = response.read().decode("utf-8")
+
+          old_filename = "mata-parvati-ki-vidai-kailash-gaman-BQ5kT78Ajlc.html"
+          new_filename = f"{slug}-{video_id}.html"
+          old_title = "माता पार्वती की विदाई और कैलाश गमन | शिवपुराण कथा | श्री ज्योतिर्लिंग शिवमठ"
+          old_description = "श्री ज्योतिर्लिंग शिवमठ, लखनऊ से प्रस्तुत माता पार्वती की विदाई और कैलाश गमन का पावन प्रसंग। कथा व्यास महंत राजेश कुमार तिवारी 'रंजन'।"
+
+          if old_filename not in page or "BQ5kT78Ajlc" not in page:
+              raise SystemExit("नमूना पेज का अपेक्षित HTML नहीं मिला; कोई फाइल नहीं बनाई गई।")
+
+          page = page.replace(old_filename, new_filename)
+          page = page.replace("shivpuran/2026/10/", "shivpuran/2026/10/")
+          page = page.replace("BQ5kT78Ajlc", video_id)
+          page = page.replace(old_title, title)
+          page = page.replace(old_description, description)
+          page, count = re.subn(
+              r'("uploadDate"\s*:\s*")[^"]+(")',
+              lambda m: m.group(1) + upload_datetime + m.group(2),
+              page,
+              count=1
+          )
+          if count != 1:
+              raise SystemExit("uploadDate नहीं मिला; कोई फाइल प्रकाशित नहीं की गई।")
+
+          output = Path("shivpuran/2026/10") / new_filename
+          output.parent.mkdir(parents=True, exist_ok=True)
+
+          if output.exists():
+              raise SystemExit(f"यह पेज पहले से मौजूद है: {output}")
+
+          output.write_text(page, encoding="utf-8")
+          print(f"नया पेज तैयार: {output}")
+          PY
+
+      - name: Commit and push new page
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- shivpuran/2026/10/
+          git diff --cached --quiet && {
+            echo "कोई नई फाइल commit नहीं हुई।"
+            exit 1
+          }
+          git commit -m "Create new video page"
+          git push
