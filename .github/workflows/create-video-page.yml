@@ -3,18 +3,8 @@ name: Create Video Page
 on:
   workflow_dispatch:
     inputs:
-      title:
-        description: "वीडियो का पूरा शीर्षक"
-        required: true
-        type: string
-
       video_id:
-        description: "YouTube वीडियो ID"
-        required: true
-        type: string
-
-      description:
-        description: "वीडियो का विवरण"
+        description: "YouTube वीडियो ID (जैसे b9mDWu9OaAc)"
         required: true
         type: string
 
@@ -41,9 +31,7 @@ jobs:
 
       - name: Generate HTML page
         env:
-          VIDEO_TITLE: ${{ inputs.title }}
           VIDEO_ID: ${{ inputs.video_id }}
-          VIDEO_DESCRIPTION: ${{ inputs.description }}
           UPLOAD_DATETIME: ${{ inputs.upload_datetime }}
           PAGE_SLUG: ${{ inputs.slug }}
         run: |
@@ -51,7 +39,6 @@ jobs:
           import os
           import re
           import html
-          import json
           import urllib.request
           from pathlib import Path
           from datetime import datetime
@@ -61,9 +48,7 @@ jobs:
               "mata-parvati-ki-vidai-kailash-gaman-BQ5kT78Ajlc.html"
           )
 
-          title = os.environ["VIDEO_TITLE"].strip()
           video_id = os.environ["VIDEO_ID"].strip()
-          description = os.environ["VIDEO_DESCRIPTION"].strip()
           upload_datetime = os.environ["UPLOAD_DATETIME"].strip()
           slug = os.environ["PAGE_SLUG"].strip().lower()
 
@@ -87,6 +72,36 @@ jobs:
                   "जैसे 2026-10-10T18:30:00+05:30"
               )
 
+          # YouTube से सीधे वीडियो की जानकारी (शीर्षक और विवरण) प्राप्त करना
+          yt_url = f"https://www.youtube.com/watch?v={video_id}"
+          req = urllib.request.Request(yt_url, headers={"User-Agent": "Mozilla/5.0"})
+          
+          title = ""
+          description = ""
+          try:
+              with urllib.request.urlopen(req, timeout=30) as resp:
+                  yt_page = resp.read().decode("utf-8")
+              
+              # YouTube पेज के meta tags से title ढूँढना
+              m_title = re.search(r'<meta name="title" content="([^"]+)">', yt_page)
+              if m_title:
+                  title = html.unescape(m_title.group(1))
+                  # YouTube के टाइटल के पीछे से चैनल का नाम आदि हटाना चाहें तो रख सकते हैं
+              
+              # YouTube पेज के meta tags से description ढूँढना
+              m_desc = re.search(r'<meta name="description" content="([^"]+)">', yt_page)
+              if m_desc:
+                  description = html.unescape(m_desc.group(1))
+          except Exception as e:
+              print(f"चेतावनी: YouTube से डेटा फेच करने में समस्या: {e}")
+
+          # यदि YouTube से डेटा न मिले तो डिफ़ॉल्ट मान सेट करना
+          if not title:
+              title = f"शिवपुराण कथा - {video_id}"
+          if not description:
+              description = "श्री ज्योतिर्लिंग शिवमठ, लखनऊ से प्रस्तुत पावन प्रसंग।"
+
+          # नमूना (Template) पेज डाउनलोड करना
           request = urllib.request.Request(
               source_url,
               headers={"User-Agent": "Mozilla/5.0"}
@@ -118,16 +133,14 @@ jobs:
 
           new_filename = f"{slug}-{video_id}.html"
 
-          # Update links and video-specific content.
+          # पेज में बदलाव करना
           page = page.replace(old_filename, new_filename)
           page = page.replace("BQ5kT78Ajlc", video_id)
           page = page.replace(old_title, html.escape(title, quote=False))
-          page = page.replace(
-              old_description,
-              html.escape(description, quote=False)
-          )
+          page = page.replace(old_description, html.escape(description, quote=False))
+          page = page.replace("माता पार्वती की विदाई और कैलाश गमन", html.escape(title, quote=False))
 
-          # Replace the first VideoObject uploadDate.
+          # VideoObject uploadDate बदलना
           page, count = re.subn(
               r'("uploadDate"\s*:\s*")[^"]+(")',
               lambda m: m.group(1) + upload_datetime + m.group(2),
@@ -159,6 +172,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "कोई नई फाइल commit करने के लिए नहीं मिली।"
           else
-            git commit -m "Create new video page"
+            git commit -m "Create new video page automatically from YouTube"
             git push
           fi
