@@ -13,6 +13,11 @@ on:
         required: true
         type: string
 
+      title:
+        description: "वीडियो का पूरा शीर्षक (हाथ से लिखें)"
+        required: true
+        type: string
+
 permissions:
   contents: write
 
@@ -28,12 +33,12 @@ jobs:
         env:
           VIDEO_ID: ${{ inputs.video_id }}
           PAGE_SLUG: ${{ inputs.slug }}
+          VIDEO_TITLE: ${{ inputs.title }}
         run: |
           python3 <<'PY'
           import os
           import re
           import html
-          import json
           import urllib.request
           from pathlib import Path
           from datetime import datetime
@@ -45,6 +50,7 @@ jobs:
 
           video_id = os.environ["VIDEO_ID"].strip()
           slug = os.environ["PAGE_SLUG"].strip().lower()
+          title = os.environ["VIDEO_TITLE"].strip()
 
           if not re.fullmatch(r"[A-Za-z0-9_-]{11}", video_id):
               raise SystemExit(
@@ -56,25 +62,16 @@ jobs:
                   "गलती: URL slug में छोटे अंग्रेजी अक्षर, अंक और hyphen ही रखें।"
               )
 
-          # YouTube से सीधे वीडियो की जानकारी, शीर्षक, विवरण और पब्लिश समय फेच करना
+          # YouTube से पब्लिश होने का समय (uploadDate) केवल ऑटोमैटिक फेच करना
           yt_url = f"https://www.youtube.com/watch?v={video_id}"
           req = urllib.request.Request(yt_url, headers={"User-Agent": "Mozilla/5.0"})
           
-          title = ""
-          description = ""
           upload_datetime = ""
+          description = "श्री ज्योतिर्लिंग शिवमठ, लखनऊ से प्रस्तुत पावन प्रसंग।"
 
           try:
               with urllib.request.urlopen(req, timeout=30) as resp:
                   yt_page = resp.read().decode("utf-8")
-              
-              # शीर्षक निकालना
-              m_title = re.search(r'<meta name="title" content="([^"]+)">', yt_page)
-              if m_title:
-                  raw_title = html.unescape(m_title.group(1))
-                  # यदि शीर्षक में '|' या '-' के बाद चैनल का नाम है, तो उसे हटाकर केवल मुख्य हिंदी हिस्सा रखें
-                  clean_title = re.split(r'\s*\|\s*|\s*-\s*YouTube\s*', raw_title)[0].strip()
-                  title = clean_title if clean_title else raw_title
               
               # विवरण निकालना
               m_desc = re.search(r'<meta name="description" content="([^"]+)">', yt_page)
@@ -86,16 +83,11 @@ jobs:
               if m_date:
                   upload_datetime = m_date.group(1)
           except Exception as e:
-              print(f"चेतावनी: YouTube से डेटा फेच करने में समस्या: {e}")
+              print(f"चेतावनी: YouTube से समय फेच करने में समस्या: {e}")
 
-          # यदि समय न मिले तो वर्तमान समय या डिफ़ॉल्ट सेट करें
+          # यदि समय न मिले तो वर्तमान समय सेट करें
           if not upload_datetime:
               upload_datetime = datetime.now().isoformat()
-
-          if not title:
-              title = f"शिवपुराण कथा - {video_id}"
-          if not description:
-              description = "श्री ज्योतिर्लिंग शिवमठ, लखनऊ से प्रस्तुत पावन प्रसंग।"
 
           # नमूना (Template) पेज डाउनलोड करना
           request = urllib.request.Request(
@@ -129,7 +121,7 @@ jobs:
 
           new_filename = f"{slug}-{video_id}.html"
 
-          # पेज में सभी पुरानी जानकारियों को नए और सही डेटा से बदलना
+          # पेज में सभी जानकारियों को नए और सही डेटा से बदलना
           page = page.replace(old_filename, new_filename)
           page = page.replace("BQ5kT78Ajlc", video_id)
           page = page.replace(old_title, html.escape(title, quote=False))
@@ -163,6 +155,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "कोई नई फाइल commit करने के लिए नहीं मिली।"
           else
-            git commit -m "Create new video page with automatic YouTube title and time"
+            git commit -m "Create new video page with manual title and automatic YouTube time"
             git push
           fi
