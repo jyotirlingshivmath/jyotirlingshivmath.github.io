@@ -2,7 +2,7 @@ import os
 import urllib.request
 import xml.etree.ElementTree as ET
 import subprocess
-
+from datetime import datetime
 
 # 1. आपके चैनल का RSS फीड लिंक
 rss_url = "https://www.youtube.com/feeds/videos.xml?channel_id=UC2sBCYCH6Kb9dgqQN3vVgFw"
@@ -10,6 +10,10 @@ rss_url = "https://www.youtube.com/feeds/videos.xml?channel_id=UC2sBCYCH6Kb9dgqQ
 # 2. फोल्डर जहाँ नई HTML फाइलें सेव होंगी
 target_folder = "shivpuran/2026/10"
 os.makedirs(target_folder, exist_ok=True)
+
+# आपकी वेबसाइट का बेस डोमेन (साइटमैप के लिए)
+base_url = "https://jyotirlingshivmath.in"
+sitemap_path = "sitemap-today.xml"
 
 # 3. HTML टेम्पलेट
 html_template = """<!DOCTYPE html>
@@ -51,6 +55,39 @@ html_template = """<!DOCTYPE html>
 </html>
 """
 
+def update_sitemap():
+    """सारे फोल्डर स्कैन करके sitemap.xml को अपडेट करता है"""
+    urls = []
+    # रिपॉजिटरी में सभी html फाइलों को ढूंढें
+    for root_dir, dirs, files in os.walk("."):
+        if ".git" in root_dir:
+            continue
+        for file in files:
+            if file.endswith(".html"):
+                rel_path = os.path.join(root_dir, file).replace("\\", "/")
+                if rel_path.startswith("./"):
+                    rel_path = rel_path[2:]
+                urls.Item = rel_path
+                # यूआरएल एन्कोडिंग या स्पेस सुधार
+                url = f"{base_url}/{rel_path}"
+                urls.append(url)
+
+    # sitemap.xml जनरेट करें
+    sitemap_content = '<?xml version="1.0" encoding="UTF-8"?>\n'
+    sitemap_content += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    
+    # मुख्य होमपेज जोड़ें
+    sitemap_content += f'  <url>\n    <loc>{base_url}/</loc>\n    <changefreq>daily</changefreq>\n  </url>\n'
+    
+    for u in sorted(urls):
+        sitemap_content += f'  <url>\n    <loc>{u}</loc>\n    <changefreq>weekly</changefreq>\n  </url>\n'
+    
+    sitemap_content += '</urlset>'
+
+    with open(sitemap_path, "w", encoding="utf-8") as f:
+        f.write(sitemap_content)
+    print("sitemap.xml सफलतापूर्वक अपडेट हो गया है!")
+
 try:
     # RSS फीड डेटा पढ़ें
     req = urllib.request.urlopen(rss_url)
@@ -80,14 +117,16 @@ try:
             file_created = True
             break # केवल सबसे नए वीडियो के लिए
 
-    # अगर नई फाइल बनी है, तो उसे गिटहब पर ऑटो-कमिट कर दें
+    # अगर नई फाइल बनी है, तो sitemap अपडेट करें और गिटहब पर कमिट कर दें
     if file_created:
+        update_sitemap()
+        
         subprocess.run(["git", "config", "--global", "user.name", "github-actions[bot]"])
         subprocess.run(["git", "config", "--global", "user.email", "github-actions[bot]@users.noreply.github.com"])
-        subprocess.run(["git", "add", target_folder])
-        subprocess.run(["git", "commit", "-m", "Auto-generate new YouTube video HTML page"])
+        subprocess.run(["git", "add", target_folder, sitemap_path])
+        subprocess.run(["git", "commit", "-m", "Auto-generate new YouTube video HTML page and update sitemap"])
         subprocess.run(["git", "push"])
-        print("फाइल सफलतापूर्वक गिटहब पर सेव हो गई है!")
+        print("फाइल और sitemap सफलतापूर्वक गिटहब पर सेव हो गए हैं!")
     else:
         print("कोई नई फाइल नहीं बनी, क्योंकि वह पहले से मौजूद है।")
 
