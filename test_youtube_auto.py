@@ -1,15 +1,16 @@
 import os
 import urllib.request
 import xml.etree.ElementTree as ET
+import subprocess
 
 # 1. आपके चैनल का RSS फीड लिंक
 rss_url = "https://www.youtube.com/feeds/videos.xml?channel_id=UC2sBCYCH6Kb9dgqQN3vVgFw"
 
-# 2. फोल्डर जहाँ नई HTML फाइलें सेव होंगी (जैसे आपका shivpuran/2026/10 फोल्डर)
+# 2. फोल्डर जहाँ नई HTML फाइलें सेव होंगी
 target_folder = "shivpuran/2026/10"
 os.makedirs(target_folder, exist_ok=True)
 
-# 3. HTML टेम्पलेट (आपके मौजूदा लाइव पेज जैसा ही डिजाइन)
+# 3. HTML टेम्पलेट
 html_template = """<!DOCTYPE html>
 <html lang="hi">
 <head>
@@ -58,6 +59,8 @@ try:
     root = ET.fromstring(xml_data)
     ns = {'atom': 'http://www.w3.org/2005/Atom', 'yt': 'http://www.youtube.com/xml/schemas/2015'}
 
+    file_created = False
+
     # वीडियो की सूची पढ़ें
     for entry in root.findall('atom:entry', ns):
         video_id = entry.find('yt:videoId', ns).text
@@ -73,6 +76,19 @@ try:
             with open(file_path, 'w', encoding='utf-8') as f:
                 f.write(page_content)
             print(f"नया पेज जनरेट हुआ: {safe_filename}")
+            file_created = True
+            break # केवल सबसे नए वीडियो के लिए
+
+    # अगर नई फाइल बनी है, तो उसे गिटहब पर ऑटो-कमिट कर दें
+    if file_created:
+        subprocess.run(["git", "config", "--global", "user.name", "github-actions[bot]"])
+        subprocess.run(["git", "config", "--global", "user.email", "github-actions[bot]@users.noreply.github.com"])
+        subprocess.run(["git", "add", target_folder])
+        subprocess.run(["git", "commit", "-m", "Auto-generate new YouTube video HTML page"])
+        subprocess.run(["git", "push"])
+        print("फाइल सफलतापूर्वक गिटहब पर सेव हो गई है!")
+    else:
+            print("कोई नई फाइल नहीं बनी, क्योंकि वह पहले से मौजूद है।")
 
 except Exception as e:
     print(f"त्रुटि आई: {e}")
