@@ -1,0 +1,23 @@
+name: Run YouTube RSS Auto Script
+
+on:
+  workflow_dispatch: # इससे आपको Actions टैब में "Run workflow" का बटन मिल जाएगा!
+  schedule:
+    - cron: '0 */6 * * *' # यह हर 6 घंटे में अपने आप चलेगा
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # गिटहब को फोल्डर में फाइल सेव करने की अनुमति देता है
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Run Python Script
+        run: python test_youtube_auto.py
