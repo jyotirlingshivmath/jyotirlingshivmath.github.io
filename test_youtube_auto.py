@@ -56,19 +56,19 @@ html_template = """<!DOCTYPE html>
 """
 
 def update_sitemap():
-    """सारे फोल्डर स्कैन करके sitemap.xml को अपडेट करता है"""
+    """सारे फोल्डर स्कैन करके sitemap-today.xml को अपडेट करता है"""
     urls = []
     # रिपॉजिटरी में सभी html फाइलों को ढूंढें
     for root_dir, dirs, files in os.walk("."):
-        if ".git" in root_dir:
+        if ".git" in root_dir or "venv" in root_dir:
             continue
         for file in files:
             if file.endswith(".html"):
                 rel_path = os.path.join(root_dir, file).replace("\\", "/")
                 if rel_path.startswith("./"):
                     rel_path = rel_path[2:]
-                urls.Item = rel_path
-                # यूआरएल एन्कोडिंग या स्पेस सुधार
+                
+                # यूआरएल बनाएं
                 url = f"{base_url}/{rel_path}"
                 urls.append(url)
 
@@ -86,7 +86,7 @@ def update_sitemap():
 
     with open(sitemap_path, "w", encoding="utf-8") as f:
         f.write(sitemap_content)
-    print("sitemap.xml सफलतापूर्वक अपडेट हो गया है!")
+    print("sitemap-today.xml सफलतापूर्वक अपडेट हो गया है!")
 
 try:
     # RSS फीड डेटा पढ़ें
