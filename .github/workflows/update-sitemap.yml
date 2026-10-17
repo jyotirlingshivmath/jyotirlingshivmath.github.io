@@ -4,9 +4,13 @@ on:
   push:
     branches:
       - main
-  # अगर आप चाहें तो इसे रोज़ाना तय समय पर चलाने के लिए schedule भी जोड़ सकते हैं:
-  # schedule:
-  #   - cron: '0 0 * * *'
+  
+  # 1. इससे GitHub Actions टैब में "Run workflow" का बटन आ जाएगा (मैन्युअल चलाने के लिए)
+  workflow_dispatch:
+
+  # 2. इससे यह रोज़ाना भारतीय समयानुसार रात या सुबह तय समय पर अपने आप चल जाएगी (UTC समय के हिसाब से सेट करें)
+  schedule:
+    - cron: '0 0 * * *'
 
 jobs:
   update-sitemap:
