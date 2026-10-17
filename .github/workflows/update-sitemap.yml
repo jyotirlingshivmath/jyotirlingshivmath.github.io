@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+  # अगर आप चाहें तो इसे रोज़ाना तय समय पर चलाने के लिए schedule भी जोड़ सकते हैं:
+  # schedule:
+  #   - cron: '0 0 * * *'
 
 jobs:
   update-sitemap:
@@ -14,6 +17,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: true
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -29,4 +34,9 @@ jobs:
           git config --global user.email "actions@github.com"
           git add sitemap-today.xml
           git status
-          git diff --staged --quiet || (git commit -m "Auto-update sitemap-today.xml via GitHub Actions" && git push)
+          if git diff --cached --quiet; then
+            echo "No changes to sitemap-today.xml"
+          else
+            git commit -m "Auto-update sitemap-today.xml via GitHub Actions"
+            git push
+          fi
