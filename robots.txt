@@ -1,4 +1,26 @@
 User-agent: *
 Allow: /
 
+# लॉगिन, एडमिन, डैशबोर्ड और ऑफिस से जुड़े पेज
+Disallow: /admin_login.html
+Disallow: /login.html
+Disallow: /dashboard.html
+Disallow: /login-bhavani-school.html
+Disallow: /login-shivmath-school.html
+Disallow: /office-dashboard.html
+Disallow: /office-select.html
+
+# व्यक्तिगत और अन्य विशिष्ट पेज जिन्हें सर्च में नहीं दिखाना है
+Disallow: /Advocate.AshaTiwari.html
+Disallow: /SHIVMATH-BLOG/
+
+# पुराने, टेस्ट और डुप्लिकेट पेज
+Disallow: /index1.html
+Disallow: /index11.html
+Disallow: /bhajan2.html
+Disallow: /today-katha11.html
+Disallow: /itihas1.html
+Disallow: /headerorig.html
+Disallow: /blog/
+
 Sitemap: https://jyotirlingshivmath.in/sitemaps/sitemap.xml
