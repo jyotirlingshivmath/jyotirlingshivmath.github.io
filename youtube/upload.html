@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jyotirling Shivmath — YouTube Shorts Upload Planner</title>
+<style>
+:root{color-scheme:light}*{box-sizing:border-box}body{font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;max-width:980px;margin:24px auto;padding:0 14px;color:#222;background:#f7f6f1}h1{font-size:25px;margin:8px 0 14px}.note{background:#fff4d6;border:1px solid #ead9a5;padding:13px;border-radius:10px}.panel,.short{background:#fff;border:1px solid #ddd;border-radius:10px;padding:14px;margin:12px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}label{display:block}input,select,button{font:inherit;padding:10px;border:1px solid #bbb;border-radius:7px;max-width:100%}input[type=password],select,input[type=datetime-local]{width:100%;margin-top:5px}input[type=checkbox]{width:18px;height:18px;vertical-align:middle}button{background:#174d3d;color:#fff;border:0;cursor:pointer;margin:5px 5px 5px 0}button.secondary{background:#555}button:disabled{opacity:.55;cursor:wait}.muted{color:#666;font-size:13px}.short{display:grid;grid-template-columns:45px minmax(100px,.7fr) minmax(220px,1.2fr) minmax(160px,.8fr);gap:10px;align-items:center}.short input[type=checkbox]{width:20px;height:20px}.short .filename{overflow-wrap:anywhere}.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.status{white-space:pre-wrap;overflow-wrap:anywhere;background:#eef3f0;border-radius:8px;padding:12px;min-height:44px}.status.error{background:#fff0ee;color:#8b2118}.status.ok{background:#eaf6ed;color:#185b2a}.hidden{display:none}.count{font-weight:600}.small{font-size:12px}@media(max-width:700px){.grid{grid-template-columns:1fr}.short{grid-template-columns:32px 1fr}.short .date,.short .filename{grid-column:2}.short .filename{font-size:13px}}
+</style>
+</head>
+<body>
+<h1>Jyotirling Shivmath — YouTube Shorts Upload Planner</h1>
+<p class="note"><b>यह Desktop Upload Planner है।</b> यह Shorts Creator से अलग है और वीडियो नहीं बनाता। यह GitHub Release में मौजूद individual Short ZIP packages की सूची दिखाता है। चुने हुए Shorts की तारीख/समय Queue में सेव होंगे। GitHub Actions Scheduler उन्हें YouTube पर upload करेगा; भविष्य का समय होने पर YouTube उन्हें उसी समय Public करेगा।</p>
+
+<section class="panel">
+<h3>1. GitHub कनेक्शन</h3>
+<div class="grid">
+<label>GitHub Personal Access Token
+<input id="token" type="password" autocomplete="off" placeholder="github_pat_… / ghp_…">
+</label>
+<label>Release Tag
+<select id="release"><option value="">पहले Load Releases दबाएँ</option></select>
+</label>
+</div>
+<label class="muted" style="margin-top:10px"><input type="checkbox" id="rememberToken"> इस निजी Desktop browser में Token याद रखें (browser storage encrypted नहीं है)</label>
+<p class="muted">Token को इस repository <b>lettermanagementorthosgpgi-coder/jyotirlingshivmathlive</b> के लिए कम-से-कम Contents: Read and write तथा Metadata: Read अनुमति चाहिए। Token केवल इसी browser से GitHub API को भेजा जाता है; किसी अन्य server को नहीं।</p>
+<div class="toolbar"><button id="load">Load Releases</button><button id="assets" disabled>Load Short Packages</button></div>
+</section>
+
+<section class="panel">
+<h3>2. Individual Short Packages</h3>
+<div class="toolbar"><span id="assetCount" class="count">अभी कोई Release लोड नहीं हुई।</span><button id="selectAll" class="secondary" disabled>सभी चुनें</button><button id="clearAll" class="secondary" disabled>चयन हटाएँ</button></div>
+<div id="shorts"><p class="muted">पहले Release लोड करें, फिर Load Short Packages दबाएँ।</p></div>
+</section>
+
+<section class="panel">
+<h3>3. YouTube Upload Queue</h3>
+<p class="muted">हर चुने हुए Short के लिए तारीख और समय भरें। समय आपके Desktop के local time zone के अनुसार लिया जाएगा। Scheduler Queue में आने के बाद upload शुरू करेगा; इसलिए भविष्य की तारीख चुनने पर भी वीडियो पहले YouTube पर Private upload होगा और निर्धारित समय पर Public होगा।</p>
+<label><input type="checkbox" id="confirm"> मैंने चुने हुए Shorts और उनके समय जाँच लिए हैं तथा इन्हें YouTube Queue में जोड़ने की अनुमति देता/देती हूँ।</label>
+<p><button id="save">SAVE SELECTED SHORTS TO YOUTUBE QUEUE</button></p>
+<div id="status" class="status" role="status" aria-live="polite">तैयार।</div>
+</section>
+
+<script>
+"use strict";
+const OWNER="lettermanagementorthosgpgi-coder", REPO="jyotirlingshivmathlive", BRANCH="main";
+const API="https://api.github.com";
+let assets=[], releaseInfo=null, busy=false;
+const $=id=>document.getElementById(id);
+function status(message,type=""){const el=$("status");el.textContent=message;el.className="status"+(type?" "+type:"");}
+function setBusy(value){busy=value;["load","assets","save","selectAll","clearAll"].forEach(id=>$(id).disabled=value || (id==="assets"&&!$("release").value) || ((id==="selectAll"||id==="clearAll")&&!assets.length));}
+function tokenValue(){return $("token").value.trim();}
+function headers(extra={}){if(!tokenValue())throw Error("पहले GitHub Personal Access Token भरें।");return {Authorization:"Bearer "+tokenValue(),Accept:"application/vnd.github+json","X-GitHub-Api-Version":"2022-11-28",...extra};}
+async function api(path,opts={}){
+  const response=await fetch(API+path,{...opts,headers:headers(opts.headers||{})});
+  const raw=await response.text();
+  if(!response.ok){let detail=raw;try{detail=JSON.parse(raw).message||raw;}catch{}throw Error("GitHub API "+response.status+": "+detail.slice(0,700));}
+  if(!raw)return null;
+  try{return JSON.parse(raw);}catch{throw Error("GitHub से मान्य JSON response नहीं मिला।");}
+}
+function escapeHtml(value){return String(value).replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));}
+function shortNumber(name){const m=String(name).match(/^short_(\d+)_package\.zip$/i);return m?Number(m[1]):999999;}
+function humanSize(bytes){return (Number(bytes||0)/1024/1024).toFixed(2)+" MB";}
+function refreshControls(){const has=assets.length>0;$("assets").disabled=busy||!$("release").value;$("selectAll").disabled=busy||!has;$("clearAll").disabled=busy||!has;}
+
+// Token storage is optional and is not encrypted by the browser.
+try{const saved=localStorage.getItem("jyotirling_upload_planner_token");if(saved){$("token").value=saved;$("rememberToken").checked=true;}}catch{}
+$("rememberToken").addEventListener("change",()=>{try{if($("rememberToken").checked){if(tokenValue())localStorage.setItem("jyotirling_upload_planner_token",tokenValue());status("Token इस browser में याद रखा जाएगा। यह encrypted storage नहीं है।");}else{localStorage.removeItem("jyotirling_upload_planner_token");status("इस browser से saved Token हटा दिया गया।");}}catch(e){status("Browser storage उपलब्ध नहीं है: "+e.message,"error");}});
+$("token").addEventListener("input",()=>{if($("rememberToken").checked&&tokenValue()){try{localStorage.setItem("jyotirling_upload_planner_token",tokenValue());}catch{}}});
+
+$("load").onclick=async()=>{
+ if(busy)return;setBusy(true);releaseInfo=null;assets=[];$("shorts").innerHTML="";$("assetCount").textContent="Releases लोड हो रही हैं…";$("assets").disabled=true;
+ try{
+  status("GitHub Releases लोड हो रही हैं…");
+  const data=await api(`/repos/${OWNER}/${REPO}/releases?per_page=100`);
+  if(!Array.isArray(data))throw Error("GitHub Releases की सूची सही format में नहीं मिली।");
+  $("release").innerHTML='<option value="">Release चुनें</option>'+data.map(r=>`<option value="${escapeHtml(r.tag_name)}">${escapeHtml(r.tag_name)}${r.name&&r.name!==r.tag_name?" — "+escapeHtml(r.name):""}</option>`).join("");
+  status(data.length+" Releases मिल गईं। अब Friday (या इच्छित Release) चुनें।","ok");$("assetCount").textContent=data.length+" Releases उपलब्ध हैं।";
+ }catch(e){status(e.message,"error");$("assetCount").textContent="Release लोड नहीं हुई।";}
+ finally{setBusy(false);refreshControls();}
+};
+
+$("release").addEventListener("change",()=>{releaseInfo=null;assets=[];$("shorts").innerHTML="";$("assetCount").textContent="अब Load Short Packages दबाएँ।";refreshControls();});
+$("assets").onclick=async()=>{
+ if(busy)return;const tag=$("release").value;if(!tag){status("पहले Release Tag चुनें।","error");return;}
+ setBusy(true);releaseInfo=null;assets=[];$("shorts").innerHTML="";$("assetCount").textContent="Individual ZIP packages खोजे जा रहे हैं…";
+ try{
+  status(tag+" Release के individual ZIP packages पढ़े जा रहे हैं…");
+  releaseInfo=await api(`/repos/${OWNER}/${REPO}/releases/tags/${encodeURIComponent(tag)}`);
+  if(!releaseInfo||!Array.isArray(releaseInfo.assets))throw Error("Release या उसकी assets सूची नहीं मिली।");
+  assets=releaseInfo.assets.filter(a=>/^short_\d+_package\.zip$/i.test(a.name)).map(a=>({id:Number(a.id),name:a.name,size:Number(a.size||0),source:"release"})).sort((a,b)=>shortNumber(a.name)-shortNumber(b.name));
+  if(!assets.length){releaseInfo=null;throw Error("इस Release में short_01_package.zip जैसी individual ZIP फाइलें नहीं मिलीं। Outer ZIP को खोलने की जरूरत नहीं है—Shorts Creator से individual ZIP assets वाली Release चुनें।");}
+  renderAssets();status(assets.length+" individual Short ZIP packages मिल गईं। अब checkbox चुनें और हर चुने हुए Short का समय भरें।","ok");
+ }catch(e){assets=[];releaseInfo=null;$("shorts").innerHTML="";status(e.message,"error");$("assetCount").textContent="कोई individual Short ZIP नहीं मिली।";}
+ finally{setBusy(false);refreshControls();}
+};
+
+function renderAssets(){
+ $("assetCount").textContent=assets.length+" individual ZIP packages मिलीं — सभी सूची में दिखाई दे रही हैं।";
+ $("shorts").innerHTML=assets.map((a,i)=>`<div class="short" data-index="${i}">
+  <div><input type="checkbox" class="pick" aria-label="${escapeHtml(a.name)} चुनें" data-index="${i}"></div>
+  <div><b>Short ${String(shortNumber(a.name)).padStart(2,"0")}</b></div>
+  <div class="date"><label>Upload / Publish तारीख और समय<input type="datetime-local" class="when" data-index="${i}"></label></div>
+  <div class="filename muted">${escapeHtml(a.name)}<br>${humanSize(a.size)} · GitHub Release asset</div>
+ </div>`).join("");
+}
+$("selectAll").onclick=()=>document.querySelectorAll(".pick").forEach(x=>x.checked=true);
+$("clearAll").onclick=()=>document.querySelectorAll(".pick").forEach(x=>x.checked=false);
+
+function decodeBase64Utf8(content){const binary=atob(String(content).replace(/\s/g,""));const bytes=Uint8Array.from(binary,c=>c.charCodeAt(0));return new TextDecoder("utf-8").decode(bytes);}
+function encodeBase64Utf8(value){const bytes=new TextEncoder().encode(value);let binary="";for(let i=0;i<bytes.length;i+=0x8000)binary+=String.fromCharCode(...bytes.subarray(i,i+0x8000));return btoa(binary);}
+async function readQueue(path){
+ const file=await api(path+"?ref="+encodeURIComponent(BRANCH));
+ if(!file||!file.content)throw Error("upload_queue/queue.json GitHub पर मौजूद नहीं है या खाली है।");
+ let parsed;try{parsed=JSON.parse(decodeBase64Utf8(file.content));}catch(e){throw Error("मौजूदा queue.json पढ़ी नहीं जा सकी: "+e.message);}
+ if(!parsed||!Array.isArray(parsed.queue))throw Error("queue.json का format { queue: [...] } होना चाहिए। सुरक्षा के लिए इसे बदला नहीं गया।");
+ return {sha:file.sha,queue:parsed.queue};
+}
+async function appendQueue(entries){
+ const path=`/repos/${OWNER}/${REPO}/contents/upload_queue/queue.json`;
+ for(let attempt=1;attempt<=4;attempt++){
+  const current=await readQueue(path);
+  const keys=new Set(current.queue.map(q=>[q.release_tag,String(q.asset_id),q.scheduled_at].join("|")));
+  const additions=entries.filter(q=>!keys.has([q.release_tag,String(q.asset_id),q.scheduled_at].join("|")));
+  if(!additions.length)return {added:0,total:current.queue.length,already:true};
+  const body={message:"Add selected Shorts to YouTube upload queue",content:encodeBase64Utf8(JSON.stringify({queue:[...current.queue,...additions]},null,2)),branch:BRANCH,sha:current.sha};
+  try{await api(path,{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});return {added:additions.length,total:current.queue.length+additions.length,already:false};}
+  catch(e){if(!e.message.includes("GitHub API 409")||attempt===4)throw e;status("Queue में उसी समय दूसरा update हुआ है। मौजूदा Queue सुरक्षित रखते हुए फिर प्रयास कर रहे हैं ("+(attempt+1)+"/4)…");}
+ }
+ throw Error("Queue update पूरा नहीं हो सका।");
+}
+
+$("save").onclick=async()=>{
+ if(busy)return;setBusy(true);
+ try{
+  if(!$("confirm").checked)throw Error("पहले पुष्टि वाला checkbox चुनें।");
+  const tag=$("release").value;if(!tag||!releaseInfo)throw Error("पहले Release चुनकर Load Short Packages दबाएँ।");
+  const checked=[...document.querySelectorAll(".pick:checked")];if(!checked.length)throw Error("कम-से-कम एक Short का checkbox चुनें।");
+  const now=Date.now(),prepared=[];
+  for(const box of checked){
+   const index=Number(box.dataset.index),item=assets[index];
+   const field=document.querySelector(`.when[data-index="${index}"]`);
+   if(!field||!field.value)throw Error(item.name+" के लिए तारीख और समय चुनें।");
+   const date=new Date(field.value);if(Number.isNaN(date.getTime()))throw Error(item.name+" की तारीख/समय सही नहीं है।");
+   if(date.getTime()<now+15*60*1000)throw Error(item.name+" का समय कम-से-कम 15 मिनट भविष्य में रखें।");
+   prepared.push({item,scheduled_at:date.toISOString()});
+  }
+  const entries=prepared.map(p=>({id:crypto.randomUUID?crypto.randomUUID():("short-"+Date.now()+"-"+p.item.id),release_tag:tag,asset_id:p.item.id,asset_name:p.item.name,scheduled_at:p.scheduled_at,status:"pending"}));
+  status("GitHub Queue सुरक्षित रूप से update हो रही है…");
+  const result=await appendQueue(entries);
+  if(result.already)status("ये सभी चुने हुए Shorts इसी Release, asset और समय के साथ Queue में पहले से मौजूद हैं। कोई duplicate नहीं जोड़ा गया।","ok");
+  else status(result.added+" Short(s) सफलतापूर्वक YouTube Queue में जोड़ दिए गए। कुल Queue entries: "+result.total+". GitHub Actions Scheduler अगली run में इन्हें YouTube पर upload/schedule करेगा।","ok");
+ }catch(e){status(e.message,"error");}
+ finally{setBusy(false);refreshControls();}
+};
+</script>
+</body>
+</html>
